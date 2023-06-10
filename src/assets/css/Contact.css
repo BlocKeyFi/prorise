@@ -1,0 +1,10 @@
+form {
+    width: 100%;
+}
+
+table th:first-child{
+    border: "1px solid red";
+  }
+  table th:last-child{
+    border-radius:0 10px 10px 0;
+  }

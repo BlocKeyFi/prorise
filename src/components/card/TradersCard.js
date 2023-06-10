@@ -1,0 +1,164 @@
+import React from "react";
+// ProRIse imports
+import {
+  Avatar,
+  Button,
+  Flex,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+// Custom components
+import Card from "components/card/Card.js";
+
+import star from "../../assets/img/dashboards/svgIcon/star.svg";
+import copy from "../../assets/img/dashboards/svgIcon/copy fill.svg";
+import user from "../../assets/img/dashboards/Profile.png";
+import present from "../../assets/img/dashboards/svgIcon/presentation-chart.svg";
+import check from "../../assets/img/dashboards/svgIcon/checkmark-light.svg";
+
+export default function TradersCard(props) {
+  const { ...rest } = props;
+
+  // ProRIse Color Mode
+
+  const textColor = useColorModeValue("white", "white");
+  const textColorSecondary = useColorModeValue("gray.200", "gray.200");
+  const textColorCount = useColorModeValue("green.300", "green.300");
+  const textColorCountNegative = "#F00090";
+
+  return (
+    <Card
+      justifyContent="center"
+      align="center"
+      direction="column"
+      w="100%"
+      mb="0px"
+      {...rest}
+      p="10"
+    >
+      <Flex justify="space-between" direction={"column"} textAlign={"left"}>
+        <Flex align="center">
+          <Flex justifyContent="center" alignItems="center" gap={5}>
+            <Avatar
+              h={{ base: "48px", xl: "36px", "2xl": "48px" }}
+              w={{ base: "48px", xl: "36px", "2xl": "48px" }}
+              src={user}
+            />
+            <Flex direction="column" align="start">
+              <Text
+                color={textColor}
+                fontSize={{ base: "md", xl: "sm", "3xl": "md" }}
+                fontWeight="700"
+              >
+                {props?.heading}
+              </Text>
+              <Text
+                color="secondaryGray.600"
+                textAlign="left"
+                fontSize={{ base: "sm", xl: "xs", "3xl": "sm" }}
+                fontWeight="400"
+              >
+                {props?.paragraph}
+              </Text>
+            </Flex>
+            {props?.icon && <img src={star} />}
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex w="100%" flexDirection={{ base: "column", lg: "row" }} pb={"30"}>
+        <Flex direction={"row"} w="100%" mt="28px" justify="space-between">
+          <Flex direction={"column"} w="100%" gap={1}>
+            <Flex direction={"row"} w="100%" gap={1}>
+              <img src={present} />
+              <Text
+                color={textColorSecondary}
+                fontSize="14px"
+                textAlign="start"
+                lineHeight="100%"
+                fontWeight="600"
+              >
+                {props?.text1}
+              </Text>
+            </Flex>
+            <Text
+              color={
+                props?.textvalue1.includes("-")
+                  ? textColorCountNegative
+                  : textColorCount
+              }
+              fontSize="26px"
+              textAlign="start"
+              lineHeight="100%"
+              fontWeight="600"
+              pt={"2"}
+            >
+              {props?.textvalue1}
+            </Text>
+          </Flex>
+
+          <Flex direction={"column"} w="100%" gap={1}>
+            <Flex direction={"row"} w="100%" gap={1} justifyContent={"end"}>
+              <img src={present} />
+              <Text
+                color={textColorSecondary}
+                fontSize="14px"
+                textAlign="end"
+                lineHeight="100%"
+                fontWeight="600"
+              >
+                {props?.text2}
+              </Text>
+            </Flex>
+            <Text
+              color={textColorCount}
+              fontSize="26px"
+              textAlign="end"
+              lineHeight="100%"
+              fontWeight="600"
+              pt={"2"}
+            >
+              {props?.textvalue2}
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex direction={"row"} justify="space-between">
+        <Flex direction={"column"} w="100%" gap={1}>
+          <Text
+            color={textColor}
+            fontSize="16px"
+            textAlign="start"
+            lineHeight="100%"
+            fontWeight="600"
+          >
+            {props?.copyCount + " " + "personnes"}
+          </Text>
+          <Text
+            color={textColorSecondary}
+            fontSize="12px"
+            textAlign="start"
+            lineHeight="100%"
+            fontWeight="400"
+          >
+            {"ont copié ce trade"}
+          </Text>
+        </Flex>
+        <Button
+          fontSize="16px"
+          variant="brand"
+          fontWeight="500"
+          w={"120px"}
+          h="35px"
+          bg={props?.isCopy ? "none" : "#0075FF"}
+          borderRadius="10px"
+          _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
+          textAlign={"left"}
+          gap={2}
+        >
+          <img src={props?.isCopy ? check : copy} width={15} height={15} />
+          {props?.isCopy ? "Copié" : props?.btnText}
+        </Button>
+      </Flex>
+    </Card>
+  );
+}
