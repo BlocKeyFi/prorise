@@ -25,6 +25,7 @@ import user from "../../../assets/img/dashboards/Profile.png";
 import InputFeild from "components/fields/InputField";
 import { MdEdit } from "react-icons/md";
 import PriceCard from "views/auth/onboarding/components/priceCard";
+import { RiVisaLine } from "react-icons/ri";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -265,7 +266,8 @@ export default function Settings() {
                     "Profitez de la liste des top traders à un prix avantageux."
                   }
                   price={"€59/mois"}
-                  btnText={"Essai gratuit de 7 jours"}
+                  btnText={"Sélectionner"}
+                  setting={true}
                 />
               </GridItem>
               <GridItem colSpan={2}>
@@ -275,7 +277,7 @@ export default function Settings() {
                   heading={"Avancé"}
                   paragraph={"Profitez de toutes les fonctionnalités."}
                   price={"€89/mois"}
-                  btnText={"Sélectionner"}
+                  setting={true}
                 />
               </GridItem>
             </Grid>
@@ -287,13 +289,22 @@ export default function Settings() {
               gap={10}
             >
               <GridItem colSpan={1}>
-                <InputFeild label="Numéro de carte de crédit" type="password" />
+                <InputFeild
+                  label="Numéro de carte de crédit"
+                  type="password"
+                  icon={RiVisaLine}
+                  placeholder={"**** **** **** 9010"}
+                />
               </GridItem>
               <GridItem colSpan={1}>
-                <InputFeild label="Date d’expiration" type="date" />
+                <InputFeild
+                  label="Date d’expiration"
+                  type="number"
+                  placeholder={"11/2023"}
+                />
               </GridItem>
               <GridItem colSpan={1}>
-                <InputFeild label="CVV" type="password" />
+                <InputFeild label="CVV" type="password" placeholder={"***"} />
               </GridItem>
             </Grid>
           </BasicCard>

@@ -17,7 +17,7 @@ export default function Dashboard() {
     <Box>
       <Flex color="white" gap={5}>
         <Box w="75%">
-          <TotalSpent heading="Portefeuille" />
+          <TotalSpent heading="Portefeuille" design={1} />
         </Box>
         <Box w="24%">
           <TableCard />

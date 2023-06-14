@@ -15,6 +15,7 @@ import copy from "../../assets/img/dashboards/svgIcon/copy fill.svg";
 import user from "../../assets/img/dashboards/Profile.png";
 import present from "../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import check from "../../assets/img/dashboards/svgIcon/checkmark-light.svg";
+import { Link } from "react-router-dom";
 
 export default function TradersCard(props) {
   const { ...rest } = props;
@@ -143,21 +144,23 @@ export default function TradersCard(props) {
             {"ont copié ce trade"}
           </Text>
         </Flex>
-        <Button
-          fontSize="16px"
-          variant="brand"
-          fontWeight="500"
-          w={"120px"}
-          h="35px"
-          bg={props?.isCopy ? "none" : "#0075FF"}
-          borderRadius="10px"
-          _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
-          textAlign={"left"}
-          gap={2}
-        >
-          <img src={props?.isCopy ? check : copy} width={15} height={15} />
-          {props?.isCopy ? "Copié" : props?.btnText}
-        </Button>
+        <Link to={`/admin/trader-detail/${props?.heading}`}>
+          <Button
+            fontSize="16px"
+            variant="brand"
+            fontWeight="500"
+            w={"120px"}
+            h="35px"
+            bg={props?.isCopy ? "none" : "#0075FF"}
+            borderRadius="10px"
+            _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
+            textAlign={"left"}
+            gap={2}
+          >
+            <img src={props?.isCopy ? check : copy} width={15} height={15} />
+            {props?.isCopy ? "Copié" : props?.btnText}
+          </Button>
+        </Link>
       </Flex>
     </Card>
   );

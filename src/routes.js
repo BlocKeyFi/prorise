@@ -18,6 +18,7 @@ import shear from "./assets/img/dashboards/svgIcon/share.svg";
 import setting from "./assets/img/dashboards/svgIcon/Settings.svg";
 import support from "./assets/img/dashboards/svgIcon/World.svg";
 import Settings from "views/admin/settings";
+import TraderDetails from "views/admin/TopTraders/traderDetail";
 
 const routes = [
   {
@@ -81,6 +82,12 @@ const routes = [
     layout: "/auth",
     path: "/onboarding",
     component: OnboardingCentered,
+  },
+  {
+    name: "Top traders",
+    layout: "/admin",
+    path: "/trader-detail/:id",
+    component: TraderDetails,
   },
 ];
 

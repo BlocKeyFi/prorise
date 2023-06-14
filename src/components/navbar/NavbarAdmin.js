@@ -1,9 +1,18 @@
 // ProRIse Imports
 import React from "react";
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Select,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { SidebarResponsive } from "components/sidebar/Sidebar";
 import routes from "routes";
+import { IoShareSharp } from "react-icons/io5";
 
 export default function AdminNavbar(props) {
   const { secondary, message, brandText } = props;
@@ -52,9 +61,10 @@ export default function AdminNavbar(props) {
         w="100%"
         flexDirection={{
           md: "row",
+          lg: "row",
         }}
         alignItems={{ xl: "center" }}
-        justifyContent={"center"}
+        justifyContent={{ xl: "space-between" }}
         mb={gap}
       >
         <Box mb={{ sm: "8px", md: "0px" }}>
@@ -76,14 +86,43 @@ export default function AdminNavbar(props) {
               boxShadow: "none",
             }}
           >
-            {brandText === "Tableau de bord" ? "Bonjour Cole! 👋" : brandText}
+            {brandText === "Tableau de bord" ? "Bonjour Cole! 👋" :  brandText === "Default Brand Text" ? "Top Traders" : brandText }
           </Text>
         </Box>
         <Box ms="auto" w={{ sm: "10%", md: "unset" }}>
           <SidebarResponsive routes={routes} />
         </Box>
       </Flex>
-      {secondary ? <Text color="white">{message}</Text> : null}
+      {secondary ? (
+        <Text color="white">{message}</Text>
+      ) : (
+        brandText === "Analytiques" && (
+          <Flex w="30%" gap={3}>
+            <Select
+              bg="rgba(255, 255, 255, 0.08)"
+              border="none"
+              color="white"
+              placeholder="Trier par : ROI 7 jours"
+            />
+            <Button
+              fontSize="14px"
+              variant="brand"
+              fontWeight="600"
+              w={"auto"}
+              h="36px"
+              px={10}
+              display="flex"
+              bg={"#0075FF"}
+              borderRadius="10px"
+              textAlign={"left"}
+              gap={2}
+            >
+              <Icon as={IoShareSharp} />
+              {"Partager"}
+            </Button>
+          </Flex>
+        )
+      )}
     </Box>
   );
 }

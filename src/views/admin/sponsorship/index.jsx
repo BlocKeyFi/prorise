@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // ProRIse imports
 import { Box, Grid, GridItem } from "@chakra-ui/react";
@@ -6,7 +6,9 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 // Custom components
 import BasicCard from "components/card/BasicCard";
 
-export default function sponsorShip() {
+export default function SponsorShip() {
+  const [tabIndex, setTabIndex] = useState(false);
+
   return (
     <Box>
       <Grid
@@ -21,6 +23,7 @@ export default function sponsorShip() {
             price="Solde : €70"
             btnText="Réclamer"
             button={true}
+            tabIndex={tabIndex}
           />
         </GridItem>
         <GridItem colSpan={2}>
@@ -31,7 +34,12 @@ export default function sponsorShip() {
           />
         </GridItem>
         <GridItem colSpan={4}>
-          <BasicCard heading="Historique" tabs={true} table={true} />
+          <BasicCard
+            heading="Historique"
+            tabs={true}
+            table={true}
+            getTabIndex={(e) => setTabIndex(e)}
+          />
         </GridItem>
       </Grid>
     </Box>

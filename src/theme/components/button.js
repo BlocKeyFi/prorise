@@ -19,34 +19,34 @@ export const buttonStyles = {
           borderRadius: "16px",
         }),
         brand: (props) => ({
-          bg: mode("brand.500", "brand.400")(props),
+          bg: mode("#0075FF", "#0075FF")(props),
           color: "white",
           _focus: {
-            bg: mode("brand.500", "brand.400")(props),
+            bg: mode("#0075FF", "#0075FF")(props),
           },
           _active: {
-            bg: mode("brand.500", "brand.400")(props),
+            bg: mode("#0075FF", "#0075FF")(props),
           },
           _hover: {
-            bg: mode("brand.600", "brand.400")(props),
+            bg: mode("brand.600", "#0075FF")(props),
           },
         }),
         darkBrand: (props) => ({
-          bg: mode("brand.900", "brand.400")(props),
+          bg: mode("brand.900", "#0075FF")(props),
           color: "white",
           _focus: {
-            bg: mode("brand.900", "brand.400")(props),
+            bg: mode("brand.900", "#0075FF")(props),
           },
           _active: {
-            bg: mode("brand.900", "brand.400")(props),
+            bg: mode("brand.900", "#0075FF")(props),
           },
           _hover: {
-            bg: mode("brand.800", "brand.400")(props),
+            bg: mode("brand.800", "#0075FF")(props),
           },
         }),
         lightBrand: (props) => ({
           bg: mode("#F2EFFF", "whiteAlpha.100")(props),
-          color: mode("brand.500", "white")(props),
+          color: mode("#0075FF", "white")(props),
           _focus: {
             bg: mode("#F2EFFF", "whiteAlpha.100")(props),
           },
@@ -73,29 +73,29 @@ export const buttonStyles = {
         action: (props) => ({
           fontWeight: "500",
           borderRadius: "50px",
-          bg: mode("secondaryGray.300", "brand.400")(props),
-          color: mode("brand.500", "white")(props),
+          bg: mode("secondaryGray.300", "#0075FF")(props),
+          color: mode("#0075FF", "white")(props),
           _focus: {
-            bg: mode("secondaryGray.300", "brand.400")(props),
+            bg: mode("secondaryGray.300", "#0075FF")(props),
           },
-          _active: { bg: mode("secondaryGray.300", "brand.400")(props) },
+          _active: { bg: mode("secondaryGray.300", "#0075FF")(props) },
           _hover: {
-            bg: mode("secondaryGray.200", "brand.400")(props),
+            bg: mode("secondaryGray.200", "#0075FF")(props),
           },
         }),
         setup: (props) => ({
           fontWeight: "500",
           borderRadius: "50px",
-          bg: mode("transparent", "brand.400")(props),
+          bg: mode("transparent", "#0075FF")(props),
           border: mode("1px solid", "0px solid")(props),
           borderColor: mode("secondaryGray.400", "transparent")(props),
           color: mode("secondaryGray.900", "white")(props),
           _focus: {
-            bg: mode("transparent", "brand.400")(props),
+            bg: mode("transparent", "#0075FF")(props),
           },
-          _active: { bg: mode("transparent", "brand.400")(props) },
+          _active: { bg: mode("transparent", "#0075FF")(props) },
           _hover: {
-            bg: mode("secondaryGray.100", "brand.400")(props),
+            bg: mode("secondaryGray.100", "#0075FF")(props),
           },
         }),
       },

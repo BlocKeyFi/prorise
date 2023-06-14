@@ -15,6 +15,7 @@ import {
   Tabs,
   TabList,
   Tab,
+  Avatar,
 } from "@chakra-ui/react";
 // Custom components
 import Card from "components/card/Card.js";
@@ -30,6 +31,7 @@ import { columnsDataActiveTrades } from "views/admin/copyTrading/variables/colum
 import tableDataDevelopment from "views/admin/copyTrading/variables/tableDataDevelopment.json";
 import GlobalTable from "components/Table/table";
 import { MdEdit } from "react-icons/md";
+import { useEffect } from "react";
 
 export default function BasicCard(props) {
   const {
@@ -44,10 +46,20 @@ export default function BasicCard(props) {
     buttonHeader,
     table,
     slice,
+    getTabIndex,
+    buttonArray,
+    tabIndex,
+    tabsArray,
+    userImage,
     ...rest
   } = props;
 
   const [value, setValue] = useState(slice ? slice : false);
+
+  const handleClick = (e) => {
+    setValue(!value);
+    getTabIndex(e);
+  };
 
   // ProRIse Color Mode
   return (
@@ -64,9 +76,89 @@ export default function BasicCard(props) {
     >
       <Flex direction="column" color="white" h="100%" w="100%">
         <Flex justify="space-between" align="center" mb="30px">
-          <Text fontSize="32px" fontWeight="bold">
+          <Text fontSize="32px" fontWeight="bold" display={"flex"} gap={3}>
+            {tabsArray && <Avatar src={userImage} />}
             {heading}
           </Text>
+          {tabsArray && (
+            <Tabs variant="unstyled">
+              <TabList>
+                {tabsArray?.map((item) => (
+                  <Tab
+                    _selected={{
+                      color: "white",
+                      bg: "rgba(255, 255, 255, 0.08)",
+                    }}
+                    _focus={{ border: "none" }}
+                    color={"gray.200"}
+                    borderRadius={8}
+                    value={item.id}
+                    onClick={(e) => handleClick(e.target.value)}
+                  >
+                    {item.title}
+                  </Tab>
+                ))}
+              </TabList>
+            </Tabs>
+          )}
+          {tabs && (
+            <Tabs variant="unstyled">
+              <TabList>
+                <Tab
+                  _selected={{
+                    color: "white",
+                    bg: "rgba(255, 255, 255, 0.08)",
+                  }}
+                  _focus={{ border: "none" }}
+                  color={"gray.200"}
+                  borderRadius={8}
+                  value={0}
+                  onClick={handleClick}
+                >
+                  Personnes parrainées
+                </Tab>
+                <Tab
+                  _selected={{
+                    color: "white",
+                    bg: "rgba(255, 255, 255, 0.08)",
+                  }}
+                  _focus={{ border: "none" }}
+                  borderRadius={8}
+                  color={"gray.200"}
+                  value={1}
+                  onClick={handleClick}
+                  gap={3}
+                >
+                  Récompenses réclamées
+                </Tab>
+              </TabList>
+            </Tabs>
+          )}
+          {buttonArray && (
+            <Box display={"flex"} gap={5}>
+              {buttonArray?.map((item) => {
+                return (
+                  <Button
+                    fontSize="14px"
+                    variant="brand"
+                    fontWeight="600"
+                    w={"auto"}
+                    h="36px"
+                    display="flex"
+                    bg={"#0075FF"}
+                    borderRadius="10px"
+                    // _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
+                    // _focus={{ bg: props?.isCopy ? "none" : "#0075FF" }}
+                    textAlign={"left"}
+                    gap={2}
+                  >
+                    <Icon as={item.icon} />
+                    {item.title}
+                  </Button>
+                );
+              })}
+            </Box>
+          )}
           {buttonHeader && (
             <Button
               fontSize="14px"
@@ -85,39 +177,6 @@ export default function BasicCard(props) {
               {btnText}
             </Button>
           )}
-          {tabs && (
-            <Tabs variant="unstyled">
-              <TabList>
-                <Tab
-                  _selected={{
-                    color: "white",
-                    bg: "rgba(255, 255, 255, 0.08)",
-                  }}
-                  _focus={{ border: "none" }}
-                  color={"gray.200"}
-                  borderRadius={8}
-                  value={0}
-                  onClick={() => setValue(!value)}
-                >
-                  Personnes parrainées
-                </Tab>
-                <Tab
-                  _selected={{
-                    color: "white",
-                    bg: "rgba(255, 255, 255, 0.08)",
-                  }}
-                  _focus={{ border: "none" }}
-                  borderRadius={8}
-                  color={"gray.200"}
-                  value={1}
-                  onClick={() => setValue(!value)}
-                  gap={3}
-                >
-                  Récompenses réclamées
-                </Tab>
-              </TabList>
-            </Tabs>
-          )}
         </Flex>
         {children}
         {paragraph && (
@@ -133,7 +192,9 @@ export default function BasicCard(props) {
             <Flex mt="14px" mb={share ? 4 : 10}>
               <Flex direction="column" me="34px">
                 <Text fontSize="xl" fontWeight="500">
-                  {price}
+                  {!tabIndex && button
+                    ? "Réclamez votre récompense dès maintenant!"
+                    : price}
                 </Text>
               </Flex>
             </Flex>

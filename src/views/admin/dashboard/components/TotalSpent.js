@@ -23,7 +23,6 @@ import wallet from "../../../../assets/img/dashboards/svgIcon/wallet.svg";
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import { TradersCardData } from "constants/constants";
 
-
 export default function TotalSpent(props) {
   const { ...rest } = props;
 
@@ -48,6 +47,7 @@ export default function TotalSpent(props) {
       w="100%"
       mb="0px"
       {...rest}
+      bg={props?.heading ? null : "none"}
     >
       <Box ps="0px" pe="20px" pt="5px">
         <Flex
@@ -65,54 +65,56 @@ export default function TotalSpent(props) {
           >
             {props?.heading}
           </Text>
-
-          <Flex dir="row" justifyContent={"start"} w="25%" gap={2}>
-            <Button
-              ms="auto"
-              align="center"
-              justifyContent="center"
-              bg={bgButton}
-              _hover={bgHover}
-              w="70px"
-              h="60px"
-              lineHeight="100%"
-              borderRadius="10px"
-              {...rest}
-            >
-              <Image src={wallet} />
-            </Button>
-            <Flex
-              align="start"
-              justifyContent={"center"}
-              direction={"column"}
-              w="100%"
-            >
-              <Text
-                color={textColor}
-                fontSize="14px"
-                textAlign="start"
-                fontWeight="400"
+          {props?.design === 1 && (
+            <Flex dir="row" justifyContent={"start"} w="25%" gap={2}>
+              <Button
+                ms="auto"
+                align="center"
+                justifyContent="center"
+                bg={bgButton}
+                _hover={bgHover}
+                w="70px"
+                h="60px"
                 lineHeight="100%"
-                mb={2}
+                borderRadius="10px"
+                {...rest}
               >
-                Valeur du portefeuille
-              </Text>
-              <Text
-                color={textColor}
-                fontSize="24px"
-                textAlign="start"
-                fontWeight="700"
-                lineHeight="100%"
+                <Image src={wallet} />
+              </Button>
+              <Flex
+                align="start"
+                justifyContent={"center"}
+                direction={"column"}
+                w="100%"
               >
-                €28,342
-              </Text>
+                <Text
+                  color={textColor}
+                  fontSize="14px"
+                  textAlign="start"
+                  fontWeight="400"
+                  lineHeight="100%"
+                  mb={2}
+                >
+                  Valeur du portefeuille
+                </Text>
+                <Text
+                  color={textColor}
+                  fontSize="24px"
+                  textAlign="start"
+                  fontWeight="700"
+                  lineHeight="100%"
+                >
+                  €28,342
+                </Text>
+              </Flex>
             </Flex>
-          </Flex>
+          )}
         </Flex>
         {props?.design === 2 && (
           <SimpleGrid
             columns={{ base: 2, md: 2, lg: 3, xl: 5, sm: 1 }}
             gap="20px"
+            marginTop={props?.heading ? 10 : 0}
           >
             {TradersCardData?.slice(0, 5).map((item) => {
               return (

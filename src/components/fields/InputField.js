@@ -1,4 +1,5 @@
 // ProRIse imports
+import { CheckIcon, PhoneIcon } from "@chakra-ui/icons";
 import {
   Flex,
   FormLabel,
@@ -7,18 +8,17 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 // Custom components
 import React from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { RiEyeCloseLine } from "react-icons/ri";
-
-import copyIcon from "../../assets/img/dashboards/svgIcon/copy.svg";
+import { RiEyeCloseLine, RiVisaLine } from "react-icons/ri";
 
 export default function Default(props) {
-  const { id, label, extra, placeholder, type, mb, onChange, copy, ...rest } =
+  const { id, label, extra, placeholder, type, mb, onChange, icon, ...rest } =
     props;
   // ProRIse Color Mode
   const textColorPrimary = useColorModeValue("white", "white");
@@ -42,14 +42,10 @@ export default function Default(props) {
           {extra}
         </Text>
       </FormLabel>
-      <InputGroup size="md">
-        {copy === "copy" && (
-          <InputLeftElement display="flex" alignItems="center" mt="8px">
-            <img
-              color={textColorSecondary}
-              _hover={{ cursor: "pointer" }}
-              src={copyIcon}
-            />
+      <InputGroup>
+        {icon && (
+          <InputLeftElement pointerEvents="none" mt={2}>
+            <Icon as={icon} w={8} height={8} />
           </InputLeftElement>
         )}
         <Input
@@ -57,7 +53,6 @@ export default function Default(props) {
           type={show && type}
           id={id}
           fontWeight="500"
-          variant="main"
           color={textColorSecondary}
           placeholder={placeholder}
           _placeholder={{ fontWeight: "400", color: "white" }}

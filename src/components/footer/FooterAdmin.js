@@ -10,8 +10,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
+import binn from "../../assets/img/dashboards/svgIcon/binn.svg";
+
 export default function Footer() {
-  const textColor = useColorModeValue("gray.400", "white");
+  const textColor = useColorModeValue("gray.200", "gray.200");
   const { toggleColorMode } = useColorMode();
   return (
     <Flex
@@ -25,8 +27,8 @@ export default function Footer() {
         xl: "start",
       }}
       justifyContent="space-between"
-      px={{ base: "30px", md: "50px" }}
-      pb="30px"
+      px={{ base: "30px", md: "10px" }}
+      pt="30px"
     >
       <Text
         color={textColor}
@@ -36,10 +38,9 @@ export default function Footer() {
         }}
         mb={{ base: "20px", xl: "0px" }}
       >
-        {" "}
-        &copy; {1900 + new Date().getYear()}
-        <Text as="span" fontWeight="500" ms="4px">
-          Données importées à partir de
+        <Text as="span" fontWeight="500" ms="4px" display={'flex'} gap={3}>
+
+          Données importées à partir de <img src={binn}/>
         </Text>
       </Text>
       <List display="flex">
