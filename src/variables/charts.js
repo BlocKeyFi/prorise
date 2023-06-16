@@ -3,7 +3,7 @@ import { formattedData } from "utils/utils";
 
 export const pieChartOptions = {
   labels: ["ARBUSDT", "ALICEUSDT", "IDUSDT", "XRPUSDT", "CRVUSDT", "JOEUSDT"],
-  colors: ["#A0AEC0"],
+  colors: ["#2CD9FF"],
   chart: {
     width: 380,
     type: "donut",
@@ -17,16 +17,32 @@ export const pieChartOptions = {
     },
   },
   stroke: {
-    width: 0,
+    width: 4,
+    colors:'#1a202c',
   },
   plotOptions: {
     pie: {
+      expandOnClick:false,
       donut: {
+        expandOnClick:false,
+        size: '85%',
         labels: {
           show: true,
+          name:{
+            show:true,
+            color:"#FFFFFF",
+          },
+          value: {
+            showAlways: true,
+            show: true,
+            fontSize:'24px',
+            color:"#FFFFFF",
+          },
           total: {
             showAlways: true,
             show: true,
+            fontSize:'24px',
+            color:"#FFFFFF",
           },
         },
       },

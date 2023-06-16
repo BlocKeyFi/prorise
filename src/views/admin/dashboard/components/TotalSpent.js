@@ -12,6 +12,7 @@ import {
 // Custom components
 import Card from "components/card/Card.js";
 import LineChart from "components/charts/LineChart";
+import LineAreaChart from "components/charts/LineAreaChart";
 import React from "react";
 
 import {
@@ -165,7 +166,7 @@ export default function TotalSpent(props) {
               {"Valeur 30 jours"}
             </Text>
           </Flex>
-          <LineChart
+          <LineAreaChart
             chartData={lineChartDataTotalSpent}
             chartOptions={lineChartOptionsTotalSpent}
           />
