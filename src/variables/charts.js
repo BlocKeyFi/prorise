@@ -17,8 +17,11 @@ export const pieChartOptions = {
     },
   },
   stroke: {
-    width: 4,
-    colors:'#1a202c',
+    show:true,
+    curve:('smooth')[100],
+    width: 6,
+    colors:'#ffffff',
+    lineCap:'round',
   },
   plotOptions: {
     pie: {

@@ -10,6 +10,8 @@ import Card from "components/card/Card.js";
 
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import PieChart from "components/charts/PieChart";
+import DonutChart from "components/charts/DonutChart";
+
 import { pieChartData, pieChartOptions } from "variables/charts";
 
 export default function DailyTraffic(props) {
@@ -55,7 +57,8 @@ export default function DailyTraffic(props) {
           </Text>
         </Flex>
         {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
-        <PieChart chartData={pieChartData} chartOptions={pieChartOptions} />
+        {/* <PieChart chartData={pieChartData} chartOptions={pieChartOptions} /> */}
+        <DonutChart/>
       </Box>
     </Card>
   );
