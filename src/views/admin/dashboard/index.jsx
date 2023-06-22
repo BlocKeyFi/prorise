@@ -15,11 +15,11 @@ import { TradersCardData } from "constants/constants";
 export default function Dashboard() {
   return (
     <Box>
-      <Flex color="white" gap={5}>
-        <Box w="75%">
+      <Flex color="white" gap={5} direction={{base:'column',md:"row"}}>
+        <Box w={{base:'auto',md:"75%"}}>
           <TotalSpent heading="Portefeuille" design={1} />
         </Box>
-        <Box w="24%">
+        <Box className="w-auto">
           <TableCard />
         </Box>
       </Flex>

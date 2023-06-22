@@ -15,10 +15,10 @@ export default function Analytics() {
         templateColumns="repeat(3, 1fr)"
         gap={8}
       >
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{base:4,md:2}}>
           <TotalSpent heading="Portefeuille" design={1} />
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{base:4,md:2}}>
           <DailyTraffic />
         </GridItem>
         <GridItem colSpan={4}>

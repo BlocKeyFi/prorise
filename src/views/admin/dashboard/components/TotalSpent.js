@@ -52,7 +52,7 @@ export default function TotalSpent(props) {
     >
       <Box ps="0px" pe="20px" pt="5px">
         <Flex
-          direction={"row"}
+          direction={{base:'column',sm:"row"}}
           align="center"
           justifyContent={"space-between"}
           w="100%"
@@ -67,7 +67,7 @@ export default function TotalSpent(props) {
             {props?.heading}
           </Text>
           {props?.design === 1 && (
-            <Flex dir="row" justifyContent={"start"} w="25%" gap={2}>
+            <Flex  justifyContent={"start"} w={{base:'',md:"25%"}} gap={2} direction={{base:'column',smp:'row'}}>
               <Button
                 ms="auto"
                 align="center"
@@ -113,7 +113,7 @@ export default function TotalSpent(props) {
         </Flex>
         {props?.design === 2 && (
           <SimpleGrid
-            columns={{ base: 2, md: 2, lg: 3, xl: 5, sm: 1 }}
+            columns={{ base: 2, md: 2, lg: 3, xl: 5, }}
             gap="20px"
             marginTop={props?.heading ? 10 : 0}
           >
