@@ -5,10 +5,13 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import TotalSpent from "../dashboard/components/TotalSpent";
 import DailyTraffic from "../dashboard/components/ActiveTraders";
+import { Flex, Select, Icon, Button } from "@chakra-ui/react";
+import { IoShareSharp } from "react-icons/io5";
 
 export default function Analytics() {
   return (
-    <Box>
+    <Box display={'flex'} flexDirection="column" alignItems={'stretch'}
+    >
       {/* Main Fields */}
       <Grid
         templateRows="repeat(1, 1fr)"

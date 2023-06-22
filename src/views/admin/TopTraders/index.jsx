@@ -19,11 +19,11 @@ export default function Marketplace() {
           border="none"
           color="white"
           placeholder="Trier par : ROI 7 jours"
-          w={"15%"}
+          w={{base:'150px',sm:'250px',md:"25%",lg:'20%',xl:'15%'}}
         />
       </Flex>
       <SimpleGrid
-        columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1 }}
+        columns={{ base: 1, md: 2, lg: 3, xl: 4, }}
         gap="20px"
         mb="20px"
       >

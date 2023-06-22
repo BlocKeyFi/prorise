@@ -30,7 +30,7 @@ export default function Settings() {
   // ProRIse Color Mode
   return (
     <Box>
-      <Flex w="100%" p={4} color="white" justifyContent={"space-between"}>
+      <Flex w="100%" p={4} color="white" justifyContent={"space-between"} direction={{base:'column',sm2:'row'}}>
         <Tabs variant="unstyled">
           <TabList>
             <Tab
@@ -70,12 +70,13 @@ export default function Settings() {
           border="none"
           color="white"
           placeholder="Trier par : ROI 7 jours"
-          w={"15%"}
+          w={{base:'150px',sm:'250px',md:"25%",lg:'20%',xl:'15%'}}
+          pt={{base:'10px',md:0}}
         />
       </Flex>
       {tabIndex === 0 ? (
         <SimpleGrid
-          columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1 }}
+          columns={{ base: 1, md: 2, lg: 3, xl: 4, }}
           gap="20px"
           mb="20px"
         >

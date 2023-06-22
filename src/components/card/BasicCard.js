@@ -68,14 +68,14 @@ export default function BasicCard(props) {
       backgroundRepeat="no-repeat"
       bgSize="cover"
       alignSelf="center"
-      w={{ base: "100%", md: "60%", xl: "99%" }}
+      w={{ base: "100%" }}
       bgPosition="10%"
       mx="auto"
       p="30px"
       {...rest}
     >
       <Flex direction="column" color="white" h="100%" w="100%">
-        <Flex justify="space-between" align="center" mb="30px">
+        <Flex justify="space-between" align="center" mb="30px" flexDirection={{base:'column',md:"row"}}>
           <Text fontSize="32px" fontWeight="bold" display={"flex"} gap={3}>
             {tabsArray && <Avatar src={userImage} />}
             {heading}
@@ -102,7 +102,7 @@ export default function BasicCard(props) {
             </Tabs>
           )}
           {tabs && (
-            <Tabs variant="unstyled">
+            <Tabs variant="unstyled" >
               <TabList>
                 <Tab
                   _selected={{
@@ -219,7 +219,7 @@ export default function BasicCard(props) {
           </Button>
         )}
         {share && (
-          <Flex direction={"row"} gap={10} color={"gray.200"} fontSize={14}>
+          <Flex direction={{base:'column', '3xl':'row'}} gap={10} color={"gray.200"} alignItems={"center"} fontSize={14}>
             <Flex gap={10}>
               <Flex direction={"column"} alignItems={"center"} gap={3}>
                 <Center
@@ -270,6 +270,7 @@ export default function BasicCard(props) {
                 </Center>
                 Whatsapp
               </Flex>
+              
             </Flex>
             <Center>ou</Center>
             <Flex direction={"column"} alignItems={"center"} gap={3}>
@@ -284,7 +285,7 @@ export default function BasicCard(props) {
                     _placeholder={{ fontWeight: "400", color: "white" }}
                     h="53px"
                     borderRadius="8"
-                    width={350}
+                    width={{base:200,sm2:350}}
                     value={"https://www.prorise.io/ref/123456789ABC"}
                     color={"gray.200"}
                     disabled

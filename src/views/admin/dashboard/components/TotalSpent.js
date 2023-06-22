@@ -67,7 +67,7 @@ export default function TotalSpent(props) {
             {props?.heading}
           </Text>
           {props?.design === 1 && (
-            <Flex  justifyContent={"start"} w={{base:'',md:"25%"}} gap={2} direction={{base:'column',smp:'row'}}>
+            <Flex  justifyContent={"start"} w={{base:'',md:"25%"}} gap={2} direction={{base:'column',sm2:'row'}} pl={'24px'}>
               <Button
                 ms="auto"
                 align="center"

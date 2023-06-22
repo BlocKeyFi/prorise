@@ -51,7 +51,7 @@ export default function Dashboard() {
       </Flex>
 
       <SimpleGrid
-        columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1 }}
+        columns={{ base: 1, md: 2, lg: 3, xl: 4, }}
         gap="20px"
         mb="20px"
       >

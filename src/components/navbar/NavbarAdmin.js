@@ -38,8 +38,9 @@ export default function AdminNavbar(props) {
       transitionDuration=" 0.25s, 0.25s, 0.25s, 0s"
       transition-property="box-shadow, background-color, filter, border"
       transitionTimingFunction="linear, linear, linear, linear"
-      alignItems={{ xl: "center" }}
+      alignItems={{base:'flex-end', xl: "center" }}
       display={secondary ? "block" : "flex"}
+      flexDirection={{base:'column',xl:'row'}}
       minH="75px"
       justifyContent={{ xl: "center" }}
       // lineHeight="25.6px"
@@ -96,19 +97,22 @@ export default function AdminNavbar(props) {
       {secondary ? (
         <Text color="white">{message}</Text>
       ) : (
-        brandText === "Analytiques" && (
-          <Flex w="30%" gap={3}>
+        brandText === "Analytiques" 
+        && 
+        (
+          <Flex  gap={3} pb={'20px'}>
             <Select
               bg="rgba(255, 255, 255, 0.08)"
               border="none"
               color="white"
               placeholder="Trier par : ROI 7 jours"
+              w={{base:'100px',sm:'150px',md:"200px",lg:'300px'}}
             />
             <Button
               fontSize="14px"
               variant="brand"
               fontWeight="600"
-              w={"auto"}
+              w={{base:'50px',sm:'75px',md:"100px",lg:'150px'}}
               h="36px"
               px={10}
               display="flex"

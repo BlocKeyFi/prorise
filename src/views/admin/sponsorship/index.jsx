@@ -16,7 +16,7 @@ export default function SponsorShip() {
         templateColumns="repeat(4, 1fr)"
         gap={4}
       >
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{base:4,md:2}}>
           <BasicCard
             heading="Félicitations! 🎉"
             paragraph="Vous avez parrainé 14 nouvelles personnes depuis le 3 janvier 2023."
@@ -26,7 +26,7 @@ export default function SponsorShip() {
             tabIndex={tabIndex}
           />
         </GridItem>
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{base:4,md:2}}>
           <BasicCard
             heading="Partagez votre lien"
             paragraph="Utilisez l’une des méthodes suivantes :"
