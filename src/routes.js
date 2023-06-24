@@ -19,6 +19,7 @@ import setting from "./assets/img/dashboards/svgIcon/Settings.svg";
 import support from "./assets/img/dashboards/svgIcon/World.svg";
 import Settings from "views/admin/settings";
 import TraderDetails from "views/admin/TopTraders/traderDetail";
+import Login from "views/auth/login";
 
 const routes = [
   {
@@ -82,6 +83,11 @@ const routes = [
     layout: "/auth",
     path: "/onboarding",
     component: OnboardingCentered,
+  },
+  {
+    layout: "/auth",
+    path: "/login",
+    component: Login,
   },
   {
     name: "Top traders",

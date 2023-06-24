@@ -8,6 +8,10 @@ import Sidebar from "components/sidebar/Sidebar.js";
 import { SidebarContext } from "contexts/SidebarContext";
 import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { getLeaderboardsData } from "store/actions";
+import { useEffect } from "react";
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -15,12 +19,31 @@ export default function Dashboard(props) {
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
+  const { auth } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  if (!auth) {
+    history.push("/");
+  }
+
+  useEffect(() => {
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          period: "WEEKLY",
+          currentPage: 1,
+        },
+      })
+    );
+  }, []);
+
   // functions for changing the states from components
   const getRoute = () => {
     return window.location.pathname !== "/admin/full-screen-maps";
   };
   const getActiveRoute = (routes) => {
     let activeRoute = "Default Brand Text";
+
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
         let collapseActiveRoute = getActiveRoute(routes[i].items);
@@ -149,7 +172,7 @@ export default function Dashboard(props) {
               </Portal>
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="/" to="/admin/dashboard" />
+                <Redirect from="/admin" to="/admin/dashboard" />
               </Switch>
             </>
           ) : null}

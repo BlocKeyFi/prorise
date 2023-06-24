@@ -20,16 +20,60 @@ import playIcon from "../../../assets/img/onboarding/Vector.png";
 
 import PriceCard from "./components/priceCard";
 import InputFeild from "components/fields/InputField";
+import { useDispatch } from "react-redux";
 
-function SignIn() {
+import { userRegister } from "store/actions";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { subscribeToPackage } from "store/actions";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
+function Register() {
   // ProRIse color mode
   const textColor = useColorModeValue("white", "white");
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("#A0AEC0", "gray.200");
 
-  const [onbordOne, setOnbordOne] = React.useState(true);
-  const [onbordTwo, setOnbordTwo] = React.useState(false);
-  const [onbordThree, setOnbordThree] = React.useState(false);
+  const [onbordOne, setOnbordOne] = useState(true);
+  const [onbordTwo, setOnbordTwo] = useState(false);
+  const [onbordThree, setOnbordThree] = useState(false);
+
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+    fisrtName: "",
+    lastName: "",
+  });
+
+  const { email, password, fisrtName, lastName } = userData;
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onCreateUser = (e) => {
+    if (e) {
+      let userFinalobj = {
+        email: email,
+        password: password,
+        phoneNumber: "",
+        username: fisrtName + "-" + lastName,
+      };
+
+      dispatch(userRegister(userFinalobj));
+      dispatch(subscribeToPackage(e));
+      history.push("/");
+    }
+  };
+
+  const checkUser = () => {
+    if (email && password && fisrtName && lastName) {
+      setOnbordThree(true);
+      setOnbordTwo(false);
+      setOnbordOne(false);
+    } else {
+      toast.error("Fill all the feilds");
+    }
+  };
 
   const changeScreens = () => {
     if (onbordOne) {
@@ -41,8 +85,9 @@ function SignIn() {
       setOnbordTwo(false);
     }
   };
+
   return (
-    <OnboardingAuth >
+    <OnboardingAuth>
       <Flex
         maxW={{ base: "100%", md: "max-content" }}
         w="100%"
@@ -97,6 +142,7 @@ function SignIn() {
               zIndex="2"
               position="fixed"
               top={450}
+              loading="lazy"
             />
             <Flex align="center" mb="25px">
               <Image src={dashboard} alt="dashboard" borderRadius="16px" />
@@ -130,17 +176,39 @@ function SignIn() {
             mb={{ base: "20px", md: "auto" }}
             textAlign={"center"}
           >
-            <FormControl mb={"30"}>
+            <FormControl mb={"30"} isRequired>
               <Flex direction={"row"} justifyContent={"space-between"}>
-                <InputFeild label="Prénom" w="250px" />
-                <InputFeild label="Nom de famille" w="250px" />
+                <InputFeild
+                  label="Prénom"
+                  w="250px"
+                  onChange={(e) =>
+                    setUserData({ ...userData, fisrtName: e.target.value })
+                  }
+                  required
+                />
+                <InputFeild
+                  label="Nom de famille"
+                  w="250px"
+                  onChange={(e) =>
+                    setUserData({ ...userData, lastName: e.target.value })
+                  }
+                />
               </Flex>
               <InputFeild
                 label="Adresse courriel"
                 placeholder="cole.caufield@gmail.com"
                 type="email"
+                onChange={(e) =>
+                  setUserData({ ...userData, email: e.target.value })
+                }
               />
-              <InputFeild label="Mot de passe" type="password" />
+              <InputFeild
+                label="Mot de passe"
+                type="password"
+                onChange={(e) =>
+                  setUserData({ ...userData, password: e.target.value })
+                }
+              />
             </FormControl>
             <Button
               fontSize="24px"
@@ -152,7 +220,7 @@ function SignIn() {
               bg="#0075FF"
               borderRadius="16px"
               _hover={{ bg: "#0075FF" }}
-              onClick={changeScreens}
+              onClick={checkUser}
             >
               Créer mon compte
             </Button>
@@ -165,7 +233,7 @@ function SignIn() {
             >
               <Text color={textColorDetails} fontWeight="400" fontSize="16px">
                 Vous avez déjà un compte?
-                <NavLink to="/auth/sign-up">
+                <NavLink to="/auth/login">
                   <Text
                     color={textColor}
                     as="span"
@@ -201,6 +269,8 @@ function SignIn() {
               }
               price={"€59/mois"}
               btnText={"Essai gratuit de 7 jours"}
+              getSubscriptionData={(e) => onCreateUser(e)}
+              authScreen={true}
             />
             <PriceCard
               id={2}
@@ -209,6 +279,8 @@ function SignIn() {
               paragraph={"Profitez de toutes les fonctionnalités."}
               price={"€89/mois"}
               btnText={"Sélectionner"}
+              getSubscriptionData={(e) => onCreateUser(e)}
+              authScreen={true}
             />
           </Flex>
         )}
@@ -217,4 +289,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Register;

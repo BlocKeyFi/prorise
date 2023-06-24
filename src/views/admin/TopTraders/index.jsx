@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // ProRIse imports
 import { Box, SimpleGrid, Select, Flex } from "@chakra-ui/react";
 
 // Custom components
 
-
 import TradersCard from "components/card/TradersCard";
-import { TradersCardData } from "constants/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { getLeaderboardsData } from "store/actions";
 
 export default function Marketplace() {
+  const { data } = useSelector((state) => state?.leaderBoard);
   // ProRIse Color Mode
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          period: "WEEKLY",
+          currentPage: 1,
+        },
+      })
+    );
+  }, []);
   return (
     <Box>
       <Flex w="100%" p={4} color="white" justifyContent={"end"}>
@@ -27,18 +40,20 @@ export default function Marketplace() {
         gap="20px"
         mb="20px"
       >
-        {TradersCardData?.map((item) => {
+        {data?.map((item) => {
           return (
             <TradersCard
-              heading={item?.name}
-              paragraph={item?.subheading}
-              text1={item?.text1}
-              text2={item?.text2}
-              textvalue1={item?.textvalue1}
-              textvalue2={item?.textvalue2}
+              id={item?.encryptedUid}
+              heading={item?.nickName}
+              paragraph={item?.updated_at}
+              image={item?.userPhotoUrl}
+              text1={"ROI 7 jours"}
+              text2={"Win rate 7 jours"}
+              textvalue1={item?.roi}
+              textvalue2={item?.winrate}
               btnText="Copier"
               isCopy={item?.isCopy}
-              copyCount={item.copyCount}
+              copyCount={item.followerCount}
               icon={item.isStar}
             />
           );

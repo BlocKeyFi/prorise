@@ -22,7 +22,7 @@ import { MdCheck, MdStar } from "react-icons/md";
 import cartIcon from "../../../../assets/img/dashboards/svgIcon/cart.svg";
 
 export default function PriceCard(props) {
-  const { setting, ...rest } = props;
+  const { setting, authScreen, getSubscriptionData, ...rest } = props;
 
   // ProRIse Color Mode
 
@@ -156,6 +156,14 @@ export default function PriceCard(props) {
           borderRadius="16px"
           _hover={{ bg: "#0075FF" }}
           textAlign={"left"}
+          disabled={props?.id === 1 ? true : false}
+          onClick={() => {
+            authScreen &&
+              getSubscriptionData({
+                packageType: "GOLD",
+                purchasedTime: new Date(),
+              });
+          }}
         >
           <Icon
             width="10"

@@ -11,22 +11,37 @@ import user from "../../../../assets/img/dashboards/Profile.png";
 import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 import DailyTraffic from "views/admin/dashboard/components/ActiveTraders";
 import Footer from "components/footer/FooterAdmin";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getTraderPositions } from "store/actions";
 
 // Custom components
 
 export default function TraderDetails() {
-  // ProRIse Color Mode
+
+  const dispatch = useDispatch();
+  const { data, traderPositions } = useSelector((state) => state?.leaderBoard);
 
   const [tabIndex, setTabIndex] = useState(false);
 
   const { id } = useParams();
 
+  useEffect(() => {
+    dispatch(
+      getTraderPositions({
+        encryptedUid: id,
+      })
+    );
+  }, [id]);
+
+  const filterData = data.filter((item) => item.encryptedUid === id);
+
   return (
     <Box>
       <BasicCard
-        heading={id}
+        heading={filterData[0]?.nickName}
         userImage={user}
-        table={tabIndex === "2" ? false : true}
+        table={tabIndex === "2" ? false : traderPositions}
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={buttonArray}
         tabsArray={tabsArray}

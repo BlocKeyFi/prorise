@@ -7,6 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { formatDistanceToNow } from "date-fns";
 // Custom components
 import Card from "components/card/Card.js";
 
@@ -26,6 +27,10 @@ export default function TradersCard(props) {
   const textColorSecondary = useColorModeValue("gray.200", "gray.200");
   const textColorCount = useColorModeValue("green.300", "green.300");
   const textColorCountNegative = "#F00090";
+
+  const daysAgo = formatDistanceToNow(new Date(props?.paragraph), {
+    addSuffix: true,
+  });
 
   return (
     <Card
@@ -59,7 +64,7 @@ export default function TradersCard(props) {
                 fontSize={{ base: "sm", xl: "xs", "3xl": "sm" }}
                 fontWeight="400"
               >
-                {props?.paragraph}
+                {daysAgo}
               </Text>
             </Flex>
             {props?.icon && <img src={star} />}
@@ -83,7 +88,7 @@ export default function TradersCard(props) {
             </Flex>
             <Text
               color={
-                props?.textvalue1.includes("-")
+                props?.textvalue1?.includes("-")
                   ? textColorCountNegative
                   : textColorCount
               }
@@ -144,7 +149,7 @@ export default function TradersCard(props) {
             {"ont copié ce trade"}
           </Text>
         </Flex>
-        <Link to={`/admin/trader-detail/${props?.heading}`}>
+        <Link to={`/admin/trader-detail/${props?.id}`}>
           <Button
             fontSize="16px"
             variant="brand"

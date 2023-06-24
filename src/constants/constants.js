@@ -2,9 +2,14 @@ import { IoShareSharp } from "react-icons/io5";
 import { MdStar } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
 
+// export const BASE_URL = 'http://18.194.220.237:3000/api/'
+
+
+
+
 export const TradersCardData = Array.from({ length: 20 }, () => ({
   name: "lucky14",
-  subheading: "Il ya 11 jours",
+  subheading: "2023-06-17T21:25:06.206Z",
   text1: "ROI 7 jours",
   textvalue1: "20.60 %",
   text2: "Win rate 7 jours",

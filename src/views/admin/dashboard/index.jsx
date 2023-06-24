@@ -11,8 +11,11 @@ import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 import { IoIosArrowForward } from "react-icons/io";
 import TradersCard from "components/card/TradersCard";
 import { TradersCardData } from "constants/constants";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Dashboard() {
+  const { data } = useSelector((state) => state?.leaderBoard);
   return (
     <Box>
       <Flex color="white" gap={5}>
@@ -36,17 +39,19 @@ export default function Dashboard() {
           Top traders
         </Text>
         <Center>
-          <Link
-            fontWeight="500"
-            color={"gary.200"}
-            href="/admin/top-traders"
-            display={"flex"}
-            alignItems={"center"}
-            gap={3}
-          >
-            {"En voir plus "}
+          <>
+            <NavLink
+              fontWeight="500"
+              color={"gary.200"}
+              to="/admin/top-traders"
+              display={"flex"}
+              alignItems={"center"}
+              gap={3}
+            >
+              {"En voir plus "}
+            </NavLink>
             <IoIosArrowForward />
-          </Link>
+          </>
         </Center>
       </Flex>
 
@@ -55,18 +60,20 @@ export default function Dashboard() {
         gap="20px"
         mb="20px"
       >
-        {TradersCardData?.slice(0, 4).map((item) => {
+        {data?.slice(0, 4).map((item) => {
           return (
             <TradersCard
-              heading={item?.name}
-              paragraph={item?.subheading}
-              text1={item?.text1}
-              text2={item?.text2}
-              textvalue1={item?.textvalue1}
-              textvalue2={item?.textvalue2}
+              id={item?.encryptedUid}
+              heading={item?.nickName}
+              paragraph={item?.updated_at}
+              image={item?.userPhotoUrl}
+              text1={"ROI 7 jours"}
+              text2={"Win rate 7 jours"}
+              textvalue1={item?.roi}
+              textvalue2={item?.winrate}
               btnText="Copier"
               isCopy={item?.isCopy}
-              copyCount={item.copyCount}
+              copyCount={item.followerCount}
               icon={item.isStar}
             />
           );
