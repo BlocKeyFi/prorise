@@ -27,14 +27,16 @@ export default function Dashboard(props) {
   }
 
   useEffect(() => {
-    dispatch(
-      getLeaderboardsData({
-        searchCriteria: {
-          period: "WEEKLY",
-          currentPage: 1,
-        },
-      })
-    );
+    if (auth) {
+      dispatch(
+        getLeaderboardsData({
+          searchCriteria: {
+            period: "WEEKLY",
+            currentPage: 1,
+          },
+        })
+      );
+    }
   }, []);
 
   // functions for changing the states from components

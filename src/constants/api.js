@@ -1,14 +1,9 @@
 import axios from "axios";
-import https from 'https';
 
 
-const agent = new https.Agent({
-  rejectUnauthorized: false
-});
 
 export const apiInstance = axios.create({
-  baseURL: "https://ec2-18-194-220-237.eu-central-1.compute.amazonaws.com:3000/api/",
-  httpsAgent: agent
+  baseURL: "https://ec2-18-194-220-237.eu-central-1.compute.amazonaws.com/api/",
 });
 
 // Function to set the Bearer token
