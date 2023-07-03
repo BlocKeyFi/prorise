@@ -48,7 +48,7 @@ function Login() {
   return (
     <OnboardingAuth>
       <Flex
-        maxW={{ base: "100%", md: "max-content" }}
+        maxW={{ base: "100%", md: "max-content", xs:"max-content"}}
         w="100%"
         mx={{ base: "auto", lg: "0px" }}
         me="auto"
@@ -57,28 +57,33 @@ function Login() {
         justifyContent="center"
         mb={{ base: "30px", md: "60px" }}
         px={{ base: "25px", md: "0px" }}
-        mt={{ base: "40px", md: "14vh" }}
+        mt={{ base: "0px", md: "14vh" }}
         flexDirection="column"
       >
-        <Heading color={textColor} fontSize="36px" mb="10px">
+        <Heading
+          color={textColor}
+          fontSize={{ xl: "36px", lg: "36px", md: "36px", sm: "26px" }}
+          mb="10px"
+        >
           {"Connectez-vous"}
         </Heading>
         <Text
           mb="36px"
           ms="4px"
+          w={{ xl: "70%", lg: "70%", md: "70%", sm: "100%" }}
           color={textColorSecondary}
           fontWeight="400"
-          fontSize="md"
+          fontSize={{ sm: "sm" }}
           textAlign={"center"}
         >
-          Pour accédez à la plateforme, veuillez entrer votre adresse courriel{" "}
-          <br /> et votre mot de passe.
+          Pour accédez à la plateforme, veuillez entrer votre adresse courriel
+          et votre mot de passe.
         </Text>
 
         <Flex
           zIndex="2"
           direction="column"
-          w={{ base: "50%", md: "600px" }}
+          w={{ base: "50%", md: "600px", sm: "100%" }}
           maxW="85%"
           background="transparent"
           borderRadius="15px"

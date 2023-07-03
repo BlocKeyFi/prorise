@@ -35,7 +35,7 @@ export default function PriceCard(props) {
       justifyContent="center"
       align="center"
       direction="column"
-      w="700px"
+      w={{ xl: "700px", lg: "700px", md: "700px", sm: "100%" }}
       mb="0px"
       m="2"
       {...rest}
@@ -81,7 +81,7 @@ export default function PriceCard(props) {
               fontSize="20px"
               variant="brand"
               fontWeight="500"
-              w={"28%"}
+              w={{ xl: "28%", lg: "28%", md: "28%", sm: "100%" }}
               h="45"
               bg="#0075FF"
               borderRadius="16px"
@@ -146,10 +146,15 @@ export default function PriceCard(props) {
       </Flex>
       {setting ? null : (
         <Button
-          fontSize="24px"
+        fontSize={{ xl: "24px", lg: "24px", md: "24px", sm: "17px" }}
           variant="brand"
           fontWeight="500"
-          w={props?.id === 1 ? "65%" : "45%"}
+          w={{
+            xl: props?.id === 1 ? "65%" : "45%",
+            lg: props?.id === 1 ? "65%" : "45%",
+            md: props?.id === 1 ? "65%" : "45%",
+            sm: "100%",
+          }}
           h="55"
           mb="24px"
           bg="#0075FF"

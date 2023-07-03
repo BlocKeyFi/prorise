@@ -101,7 +101,11 @@ function Register() {
         mt={{ base: "40px", md: "14vh" }}
         flexDirection="column"
       >
-        <Heading color={textColor} fontSize="36px" mb="10px">
+        <Heading
+          color={textColor}
+          fontSize={{ xl: "36px", lg: "36px", md: "36px", sm: "26px" }}
+          mb="10px"
+        >
           {onbordOne && "Bienvenue sur ProRise!"}
           {onbordTwo && "Créez votre compte"}
           {onbordThree && "Choisissez votre plan"}
@@ -109,6 +113,7 @@ function Register() {
         <Text
           mb="36px"
           ms="4px"
+          w={{ xl: "80%", lg: "80%", md: "80%", sm: "100%" }}
           color={textColorSecondary}
           fontWeight="400"
           fontSize="md"
@@ -127,7 +132,7 @@ function Register() {
           <Flex
             zIndex="2"
             direction="column"
-            w={{ base: "50%" }}
+            w={{ base: "50%", xl: "50%", md: "80%", sm: "100%" }}
             maxW="100%"
             background="transparent"
             borderRadius="15px"
@@ -141,7 +146,7 @@ function Register() {
               alt="playIcon"
               zIndex="2"
               position="fixed"
-              top={450}
+              top={{ base: 450, sm: 440 }}
               loading="lazy"
             />
             <Flex align="center" mb="25px">
@@ -151,7 +156,7 @@ function Register() {
               fontSize="24px"
               variant="brand"
               fontWeight="500"
-              w="15%"
+              w={{ xl: "15%", lg: "20%", md: "30%", sm: "100%" }}
               h="55"
               mb="24px"
               bg="#0075FF"
@@ -167,8 +172,8 @@ function Register() {
           <Flex
             zIndex="2"
             direction="column"
-            w={{ base: "50%", md: "600px" }}
-            maxW="85%"
+            w={{ base: "50%", md: "600px",sm: "100%" }}
+            maxW="100%"
             background="transparent"
             borderRadius="15px"
             mx={{ base: "auto", lg: "unset" }}
@@ -176,11 +181,14 @@ function Register() {
             mb={{ base: "20px", md: "auto" }}
             textAlign={"center"}
           >
-            <FormControl mb={"30"} isRequired>
-              <Flex direction={"row"} justifyContent={"space-between"}>
+            <FormControl mb={{base:"30px" , sm:"0px"}} isRequired>
+              <Flex
+                direction={{ xl: "row", lg: "row", md: "column", sm: "column" }}
+                justifyContent={"space-between"}
+              >
                 <InputFeild
                   label="Prénom"
-                  w="250px"
+                  w={{ xl: "260px", lg: "260px", md: "100%", sm: "100%" }}
                   onChange={(e) =>
                     setUserData({ ...userData, fisrtName: e.target.value })
                   }
@@ -188,7 +196,7 @@ function Register() {
                 />
                 <InputFeild
                   label="Nom de famille"
-                  w="250px"
+                  w={{ xl: "260px", lg: "260px", md: "100%", sm: "100%" }}
                   onChange={(e) =>
                     setUserData({ ...userData, lastName: e.target.value })
                   }
@@ -211,12 +219,12 @@ function Register() {
               />
             </FormControl>
             <Button
-              fontSize="24px"
+              fontSize={{ xl: "24px", lg: "24px", md: "24px", sm: "20px" }}
               variant="brand"
               fontWeight="500"
               w="100%"
               h="55"
-              mb={"30"}
+              mb={{base:"30px" , sm:"0px"}}
               bg="#0075FF"
               borderRadius="16px"
               _hover={{ bg: "#0075FF" }}
@@ -251,8 +259,8 @@ function Register() {
         {onbordThree && (
           <Flex
             zIndex="2"
-            direction="row"
-            w={{ base: "100%" }}
+            direction={{ xl: "row", lg: "row", md: "column", sm: "column" }}
+            w={{ base: "100%", md: "100%",sm: "100%" }}
             maxW="100%"
             background="transparent"
             borderRadius="15px"
