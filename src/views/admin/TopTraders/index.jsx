@@ -36,7 +36,7 @@ export default function Marketplace() {
         />
       </Flex>
       <SimpleGrid
-        columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1 }}
+        columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 4 }}
         gap="20px"
         mb="20px"
       >

@@ -157,7 +157,7 @@ export default function Dashboard(props) {
           transitionDuration=".2s, .2s, .35s"
           transitionProperty="top, bottom, width"
           transitionTimingFunction="linear, linear, ease"
-          pt={{ base: "130px", md: "110px", xl: "110px" }}
+          pt={{ base: "130px", md: "110px", xl: "110px", sm: "80px" }}
           p={"30px"}
         >
           {getRoute() ? (
