@@ -36,7 +36,7 @@ export default function DailyTraffic(props) {
       <Flex justify="space-between" align="start" px="10px" pt="5px">
         <Flex flexDirection="column" align="start" me="20px">
           <Flex w="100%">
-            <Text me="auto" color="white" fontSize="32px" fontWeight="700">
+            <Text me="auto" color="white" fontSize={{ xl: "34px", lg: "34px", md: "34px", sm: "16px" }} fontWeight="700">
               Symboles
             </Text>
           </Flex>

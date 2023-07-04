@@ -78,7 +78,7 @@ export default function TradersCard(props) {
               <img src={present} />
               <Text
                 color={textColorSecondary}
-                fontSize="14px"
+                fontSize={{ xl: "14px", lg: "12px", md: "14px", sm: "12px" }}
                 textAlign="start"
                 lineHeight="100%"
                 fontWeight="600"
@@ -92,7 +92,7 @@ export default function TradersCard(props) {
                   ? textColorCountNegative
                   : textColorCount
               }
-              fontSize="26px"
+              fontSize={{ xl: "26px", lg: "26px", md: "26px", sm: "20px" }}
               textAlign="start"
               lineHeight="100%"
               fontWeight="600"
@@ -107,7 +107,7 @@ export default function TradersCard(props) {
               <img src={present} />
               <Text
                 color={textColorSecondary}
-                fontSize="14px"
+                fontSize={{ xl: "14px", lg: "12px", md: "14px", sm: "12px" }}
                 textAlign="end"
                 lineHeight="100%"
                 fontWeight="600"
@@ -117,7 +117,7 @@ export default function TradersCard(props) {
             </Flex>
             <Text
               color={textColorCount}
-              fontSize="26px"
+              fontSize={{ xl: "26px", lg: "26px", md: "26px", sm: "20px" }}
               textAlign="end"
               lineHeight="100%"
               fontWeight="600"
@@ -132,7 +132,7 @@ export default function TradersCard(props) {
         <Flex direction={"column"} w="100%" gap={1}>
           <Text
             color={textColor}
-            fontSize="16px"
+            fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "14px" }}
             textAlign="start"
             lineHeight="100%"
             fontWeight="600"
@@ -141,7 +141,7 @@ export default function TradersCard(props) {
           </Text>
           <Text
             color={textColorSecondary}
-            fontSize="12px"
+            fontSize={{ xl: "12px", lg: "12px", md: "12px", sm: "10px" }}
             textAlign="start"
             lineHeight="100%"
             fontWeight="400"
@@ -154,7 +154,7 @@ export default function TradersCard(props) {
             fontSize="16px"
             variant="brand"
             fontWeight="500"
-            w={"120px"}
+            w={"100%"}
             h="35px"
             bg={props?.isCopy ? "none" : "#0075FF"}
             borderRadius="10px"

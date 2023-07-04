@@ -30,8 +30,20 @@ export default function Settings() {
   // ProRIse Color Mode
   return (
     <Box>
-      <Flex w="100%" p={4} color="white" justifyContent={"space-between"}>
-        <Tabs variant="unstyled">
+      <Flex
+        direction={{
+          "2xl": "row",
+          xl: "row",
+          lg: "row",
+          md: "row",
+          sm: "column-reverse",
+        }}
+        w="100%"
+        p={4}
+        color="white"
+        justifyContent={"space-between"}
+      >
+        <Tabs variant="unstyled" pt={{ xl: 0, lg: 0, md: 0, sm: 4 }}>
           <TabList>
             <Tab
               _selected={{ color: "white", bg: "rgba(255, 255, 255, 0.08)" }}
@@ -39,6 +51,7 @@ export default function Settings() {
               color={"gray.200"}
               borderRadius={8}
               value={0}
+              fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "12px" }}
               onClick={(e) => setTabIndex(parseInt(e.target.value))}
             >
               Mes favoris
@@ -49,6 +62,7 @@ export default function Settings() {
               borderRadius={8}
               color={"gray.200"}
               value={1}
+              fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "12px" }}
               onClick={(e) => setTabIndex(parseInt(e.target.value))}
               gap={3}
             >
@@ -70,7 +84,7 @@ export default function Settings() {
           border="none"
           color="white"
           placeholder="Trier par : ROI 7 jours"
-          w={"15%"}
+          w={{ "2xl": "15%", xl: "20%", lg: "25%", md: "35%", sm: "100%" }}
         />
       </Flex>
       {tabIndex === 0 ? (

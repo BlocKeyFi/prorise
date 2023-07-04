@@ -32,7 +32,7 @@ export default function Marketplace() {
           border="none"
           color="white"
           placeholder="Trier par : ROI 7 jours"
-          w={"15%"}
+          w={{ "2xl": "15%", xl: "20%", lg: "25%", md: "35%", sm: "100%" }}
         />
       </Flex>
       <SimpleGrid

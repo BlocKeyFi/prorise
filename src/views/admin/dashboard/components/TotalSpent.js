@@ -59,7 +59,7 @@ export default function TotalSpent(props) {
         >
           <Text
             color={textColor}
-            fontSize="34px"
+            fontSize={{ xl: "34px", lg: "34px", md: "34px", sm: "16px" }}
             textAlign="start"
             fontWeight="700"
             lineHeight="100%"
@@ -67,14 +67,19 @@ export default function TotalSpent(props) {
             {props?.heading}
           </Text>
           {props?.design === 1 && (
-            <Flex dir="row" justifyContent={"start"} w="25%" gap={2}>
+            <Flex
+              dir="row"
+              justifyContent={"start"}
+              w={{ "2xl": "25%", xl: "25%", lg: "25%", md: "25%", sm: "50%" }}
+              gap={2}
+            >
               <Button
                 ms="auto"
                 align="center"
                 justifyContent="center"
                 bg={bgButton}
                 _hover={bgHover}
-                w="70px"
+                w="100%"
                 h="60px"
                 lineHeight="100%"
                 borderRadius="10px"
@@ -90,7 +95,13 @@ export default function TotalSpent(props) {
               >
                 <Text
                   color={textColor}
-                  fontSize="14px"
+                  fontSize={{
+                    "2xl": "xl",
+                    xl: "16px",
+                    lg: "xl",
+                    md: "16px",
+                    sm: "12px",
+                  }}
                   textAlign="start"
                   fontWeight="400"
                   lineHeight="100%"
@@ -100,7 +111,13 @@ export default function TotalSpent(props) {
                 </Text>
                 <Text
                   color={textColor}
-                  fontSize="24px"
+                  fontSize={{
+                    "2xl": "xl",
+                    xl: "16px",
+                    lg: "xl",
+                    md: "16px",
+                    sm: "12px",
+                  }}
                   textAlign="start"
                   fontWeight="700"
                   lineHeight="100%"
@@ -113,7 +130,7 @@ export default function TotalSpent(props) {
         </Flex>
         {props?.design === 2 && (
           <SimpleGrid
-            columns={{ base: 2, md: 2, lg: 3, xl: 5, sm: 1 }}
+            columns={{ base: 2, md: 5, lg: 5, xl: 5, sm: 2 }}
             gap="20px"
             marginTop={props?.heading ? 10 : 0}
           >

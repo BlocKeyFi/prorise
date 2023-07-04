@@ -68,15 +68,31 @@ export default function BasicCard(props) {
       backgroundRepeat="no-repeat"
       bgSize="cover"
       alignSelf="center"
-      w={{ base: "100%", md: "60%", xl: "99%" }}
+      w={{ base: "100%" }}
       bgPosition="10%"
       mx="auto"
       p="30px"
       {...rest}
     >
       <Flex direction="column" color="white" h="100%" w="100%">
-        <Flex justify="space-between" align="center" mb="30px">
-          <Text fontSize="32px" fontWeight="bold" display={"flex"} gap={3}>
+        <Flex
+          direction={{
+            "2xl": "row",
+            xl: "row",
+            lg: "row",
+            md: "row",
+            sm: "column",
+          }}
+          justify="space-between"
+          mb="30px"
+          gap={3}
+        >
+          <Text
+            fontSize={{ xl: "36px", lg: "36px", md: "36px", sm: "16px" }}
+            fontWeight="bold"
+            display={"flex"}
+            gap={3}
+          >
             {tabsArray && <Avatar src={userImage} />}
             {heading}
           </Text>
@@ -113,6 +129,7 @@ export default function BasicCard(props) {
                   color={"gray.200"}
                   borderRadius={8}
                   value={0}
+                  fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "11px" }}
                   onClick={handleClick}
                 >
                   Personnes parrainées
@@ -126,6 +143,7 @@ export default function BasicCard(props) {
                   borderRadius={8}
                   color={"gray.200"}
                   value={1}
+                  fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "12px" }}
                   onClick={handleClick}
                   gap={3}
                 >
@@ -183,7 +201,13 @@ export default function BasicCard(props) {
           <Flex direction="column">
             <Box>
               <Text
-                fontSize={{ sm: "xl", lg: "sm", xl: "16px" }}
+                fontSize={{
+                  "2xl": "xl",
+                  xl: "14px",
+                  lg: "xl",
+                  md: "16px",
+                  sm: "12px",
+                }}
                 color={"white"}
               >
                 {paragraph}
@@ -191,7 +215,16 @@ export default function BasicCard(props) {
             </Box>
             <Flex mt="14px" mb={share ? 4 : 10}>
               <Flex direction="column" me="34px">
-                <Text fontSize="xl" fontWeight="500">
+                <Text
+                  fontSize={{
+                    "2xl": "xl",
+                    xl: "16px",
+                    lg: "xl",
+                    md: "16px",
+                    sm: "12px",
+                  }}
+                  fontWeight="500"
+                >
                   {!tabIndex && button
                     ? "Réclamez votre récompense dès maintenant!"
                     : price}
@@ -219,8 +252,23 @@ export default function BasicCard(props) {
           </Button>
         )}
         {share && (
-          <Flex direction={"row"} gap={10} color={"gray.200"} fontSize={14}>
-            <Flex gap={10}>
+          <Flex
+            direction={{
+              "2xl": "row",
+              xl: "row",
+              lg: "row",
+              md: "row",
+              sm: "column",
+            }}
+            gap={10}
+            color={"gray.200"}
+            fontSize={14}
+            justifyContent={"space-between"}
+          >
+            <Flex
+              gap={{ "2xl": 10, xl: 4, lg: 20, md: 10, sm: 10 }}
+              justifyContent={"center"}
+            >
               <Flex direction={"column"} alignItems={"center"} gap={3}>
                 <Center
                   bg={"rgba(160, 174, 192, 0.04)"}
@@ -284,7 +332,7 @@ export default function BasicCard(props) {
                     _placeholder={{ fontWeight: "400", color: "white" }}
                     h="53px"
                     borderRadius="8"
-                    width={350}
+                    width={"100%"}
                     value={"https://www.prorise.io/ref/123456789ABC"}
                     color={"gray.200"}
                     disabled

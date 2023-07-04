@@ -57,7 +57,7 @@ function Sidebar(props) {
 
 // FUNCTIONS
 export function SidebarResponsive(props) {
-  let sidebarBackgroundColor = useColorModeValue("white", "navy.800");
+  let sidebarBackgroundColor = useColorModeValue("white", "radial-gradient(circle at 65% 100%, rgba(17, 74, 172, 1) 0%, rgba(39, 34, 115, 1) 43%, rgba(18, 18, 47, 1) 100%)");
   let menuColor = useColorModeValue("gray.400", "white");
   // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure();

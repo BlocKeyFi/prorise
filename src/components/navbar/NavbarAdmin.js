@@ -86,10 +86,18 @@ export default function AdminNavbar(props) {
               boxShadow: "none",
             }}
           >
-            {brandText === "Tableau de bord" ? "Bonjour Cole! 👋" :  brandText === "Default Brand Text" ? "Top Traders" : brandText }
+            {brandText === "Tableau de bord"
+              ? "Bonjour Cole! 👋"
+              : brandText === "Default Brand Text"
+              ? "Top Traders"
+              : brandText}
           </Text>
         </Box>
-        <Box ms="auto" w={{ sm: "10%", md: "unset" }}>
+        <Box
+          ms="auto"
+          w={{ sm: "10%", md: "unset" }}
+          display={brandText === "Analytiques" ? "none" : "block"}
+        >
           <SidebarResponsive routes={routes} />
         </Box>
       </Flex>
@@ -97,7 +105,10 @@ export default function AdminNavbar(props) {
         <Text color="white">{message}</Text>
       ) : (
         brandText === "Analytiques" && (
-          <Flex w="30%" gap={3}>
+          <Flex
+            w={{ "2xl": "30%", xl: "50%", lg: "55%", md: "100%", sm: "100%" }}
+            gap={3}
+          >
             <Select
               bg="rgba(255, 255, 255, 0.08)"
               border="none"
@@ -109,7 +120,7 @@ export default function AdminNavbar(props) {
               variant="brand"
               fontWeight="600"
               w={"auto"}
-              h="36px"
+              h="38px"
               px={10}
               display="flex"
               bg={"#0075FF"}
@@ -120,6 +131,9 @@ export default function AdminNavbar(props) {
               <Icon as={IoShareSharp} />
               {"Partager"}
             </Button>
+            <Box ms="auto" w={{ sm: "10%", md: "unset" }}>
+              <SidebarResponsive routes={routes} />
+            </Box>
           </Flex>
         )
       )}
