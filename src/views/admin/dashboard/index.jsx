@@ -1,7 +1,7 @@
 import React from "react";
 
 // ProRIse imports
-import { Box, Center, Flex, Link, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Grid, GridItem, Link, SimpleGrid, Text } from "@chakra-ui/react";
 
 // Custom components
 
@@ -18,14 +18,42 @@ export default function Dashboard() {
   const { data } = useSelector((state) => state?.leaderBoard);
   return (
     <Box>
-      <Flex color="white" gap={5}>
-        <Box w="75%">
+      <Grid
+        templateRows="repeat(1, 1fr)"
+        templateColumns="repeat(4, 1fr)"
+        gap={8}
+      >
+        <GridItem
+          colSpan={{
+            "2xl": 3,
+            xl: 3,
+            lg: 3,
+            md: 4,
+            sm: 4,
+          }}
+        >
           <TotalSpent heading="Portefeuille" design={1} />
-        </Box>
-        <Box w="24%">
+        </GridItem>
+        <GridItem
+          colSpan={{
+            "2xl": 1,
+            xl: 1,
+            lg: 1,
+            md: 4,
+            sm: 4,
+          }}
+        >
           <TableCard />
-        </Box>
-      </Flex>
+        </GridItem>
+      </Grid>
+        {/* <Flex color="white" gap={5}>
+          <Box w="75%">
+            
+          </Box>
+          <Box w="25%">
+            <TableCard />
+          </Box>
+        </Flex> */}
 
       <Flex direction={"row"} justifyContent={"space-between"}>
         <Text

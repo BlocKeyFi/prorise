@@ -152,24 +152,56 @@ export default function Settings() {
               templateColumns="repeat(4, 1fr)"
               gap={4}
             >
-              <GridItem colSpan={2}>
+              <GridItem
+                colSpan={{
+                  "2xl": 2,
+                  xl: 2,
+                  lg: 2,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild label="Prénom" placeholder="Cole" type="email" />
               </GridItem>
-              <GridItem colSpan={2}>
+              <GridItem
+                colSpan={{
+                  "2xl": 2,
+                  xl: 2,
+                  lg: 2,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild
                   label="Nom de famille"
                   placeholder="Caufield"
                   type="text"
                 />
               </GridItem>
-              <GridItem colSpan={2}>
+              <GridItem
+                colSpan={{
+                  "2xl": 2,
+                  xl: 2,
+                  lg: 2,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild
                   label="Adresse courriel"
                   placeholder="cole.caufield@gmail.com"
                   type="text"
                 />
               </GridItem>
-              <GridItem colSpan={2}>
+              <GridItem
+                colSpan={{
+                  "2xl": 2,
+                  xl: 2,
+                  lg: 2,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild
                   label="Numéro de téléphone"
                   placeholder="+33 755-272-124"
@@ -179,28 +211,36 @@ export default function Settings() {
             </Grid>
           </BasicCard>
           <BasicCard heading="Notifications">
-            <Grid templateRows="repeat(1, 1fr)">
-              <Center gap={10}>
-                <GridItem colSpan={2}>
-                  <Text fontSize="lg"> Par courriel</Text>
-                  <Text fontSize="sm" color={textColorSecondary}>
-                    Recevez des notifications par courriel pour ne rien manquer
-                    pendant votre absence. Vous pouvez les désactiver en tout
-                    temps.
-                  </Text>
-                  {switchWithText()}
-                </GridItem>
-                <Divider orientation="vertical" />
-                <GridItem colSpan={2}>
-                  <Text fontSize="lg"> Par SMS </Text>
-                  <Text fontSize="sm" color={textColorSecondary}>
-                    Recevez des notifications par SMS pour ne rien manquer
-                    pendant votre absence. Vous pouvez les désactiver en tout
-                    temps.
-                  </Text>
-                  {switchWithText()}
-                </GridItem>
-              </Center>
+            <Grid
+              templateRows="repeat(1, 1fr)"
+              display={"flex"}
+              justifyContent={"space-between"}
+              flexDirection={{
+                "2xl": "row",
+                xl: "row",
+                lg: "row",
+                md: "row",
+                sm: "column",
+              }}
+            >
+              <GridItem colSpan={2}>
+                <Text fontSize="lg"> Par courriel</Text>
+                <Text fontSize="sm" color={textColorSecondary}>
+                  Recevez des notifications par courriel pour ne rien manquer
+                  pendant votre absence. Vous pouvez les désactiver en tout
+                  temps.
+                </Text>
+                {switchWithText()}
+              </GridItem>
+              <Divider orientation="vertical" />
+              <GridItem colSpan={2}>
+                <Text fontSize="lg"> Par SMS </Text>
+                <Text fontSize="sm" color={textColorSecondary}>
+                  Recevez des notifications par SMS pour ne rien manquer pendant
+                  votre absence. Vous pouvez les désactiver en tout temps.
+                </Text>
+                {switchWithText()}
+              </GridItem>
             </Grid>
           </BasicCard>
           <BasicCard heading="Connexion API">
@@ -236,10 +276,26 @@ export default function Settings() {
               templateColumns="repeat(4, 1fr)"
               gap={4}
             >
-              <GridItem colSpan={2}>
+              <GridItem
+                colSpan={{
+                  "2xl": 2,
+                  xl: 2,
+                  lg: 2,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild label="Ancien mot de passe" type="password" />
               </GridItem>
-              <GridItem colSpan={2}>
+              <GridItem
+                colSpan={{
+                  "2xl": 2,
+                  xl: 2,
+                  lg: 2,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild label="Nouveau mot de passe" type="password" />
               </GridItem>
             </Grid>
@@ -253,34 +309,37 @@ export default function Settings() {
             buttonHeader={true}
             btnText={"Mettre à jour"}
           >
-            <Grid
-              templateRows="repeat(1, 1fr)"
-              templateColumns="repeat(4, 1fr)"
-              gap={4}
+            <Flex
+              zIndex="2"
+              direction={{ xl: "row", lg: "row", md: "column", sm: "column" }}
+              w={{ base: "100%", md: "100%", sm: "100%" }}
+              maxW="100%"
+              background="transparent"
+              borderRadius="15px"
+              mx={{ base: "auto", lg: "unset" }}
+              me="auto"
+              mb={{ base: "20px", md: "auto" }}
+              alignItems="center"
             >
-              <GridItem colSpan={2}>
-                <PriceCard
-                  id={1}
-                  heading={"De base"}
-                  paragraph={
-                    "Profitez de la liste des top traders à un prix avantageux."
-                  }
-                  price={"€59/mois"}
-                  btnText={"Sélectionner"}
-                  setting={true}
-                />
-              </GridItem>
-              <GridItem colSpan={2}>
-                <PriceCard
-                  id={2}
-                  badge={"POPULAIRE"}
-                  heading={"Avancé"}
-                  paragraph={"Profitez de toutes les fonctionnalités."}
-                  price={"€89/mois"}
-                  setting={true}
-                />
-              </GridItem>
-            </Grid>
+              <PriceCard
+                id={1}
+                heading={"De base"}
+                paragraph={
+                  "Profitez de la liste des top traders à un prix avantageux."
+                }
+                price={"€59/mois"}
+                btnText={"Sélectionner"}
+                setting={true}
+              />
+              <PriceCard
+                id={2}
+                badge={"POPULAIRE"}
+                heading={"Avancé"}
+                paragraph={"Profitez de toutes les fonctionnalités."}
+                price={"€89/mois"}
+                setting={true}
+              />
+            </Flex>
           </BasicCard>
           <BasicCard heading="Mode de paiement">
             <Grid
@@ -288,7 +347,15 @@ export default function Settings() {
               templateColumns="repeat(3, 1fr)"
               gap={10}
             >
-              <GridItem colSpan={1}>
+              <GridItem
+                colSpan={{
+                  "2xl": 1,
+                  xl: 1,
+                  lg: 1,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild
                   label="Numéro de carte de crédit"
                   type="password"
@@ -296,14 +363,30 @@ export default function Settings() {
                   placeholder={"**** **** **** 9010"}
                 />
               </GridItem>
-              <GridItem colSpan={1}>
+              <GridItem
+                colSpan={{
+                  "2xl": 1,
+                  xl: 1,
+                  lg: 1,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild
                   label="Date d’expiration"
                   type="number"
                   placeholder={"11/2023"}
                 />
               </GridItem>
-              <GridItem colSpan={1}>
+              <GridItem
+                colSpan={{
+                  "2xl": 1,
+                  xl: 1,
+                  lg: 1,
+                  md: 4,
+                  sm: 4,
+                }}
+              >
                 <InputFeild label="CVV" type="password" placeholder={"***"} />
               </GridItem>
             </Grid>

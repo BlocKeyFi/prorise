@@ -81,7 +81,7 @@ export default function PriceCard(props) {
               fontSize="20px"
               variant="brand"
               fontWeight="500"
-              w={{ xl: "28%", lg: "28%", md: "28%", sm: "100%" }}
+              w={{ "2xl": "28%", xl: "38%", lg: "40%", md: "28%", sm: "100%" }}
               h="45"
               bg="#0075FF"
               borderRadius="16px"
@@ -146,7 +146,7 @@ export default function PriceCard(props) {
       </Flex>
       {setting ? null : (
         <Button
-        fontSize={{ xl: "24px", lg: "24px", md: "24px", sm: "17px" }}
+          fontSize={{ xl: "24px", lg: "24px", md: "24px", sm: "17px" }}
           variant="brand"
           fontWeight="500"
           w={{

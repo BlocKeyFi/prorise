@@ -25,7 +25,12 @@ export default function TableCard(props) {
   );
   return (
     <Card p="20px" align="left" direction="column" w="100%" {...rest}>
-      <Text color={textColor} fontSize="32px" fontWeight="600" mt="4px">
+      <Text
+        color={textColor}
+        fontSize={{ xl: "32px", lg: "24px", md: "34px", sm: "16px" }}
+        fontWeight="600"
+        mt="4px"
+      >
         Trades actifs
       </Text>
 
@@ -39,23 +44,76 @@ export default function TableCard(props) {
         mt="15px"
         mx="auto"
       >
-        <SimpleGrid columns={2} gap={20}>
-          <Text fontSize="md" color="gray.200" fontWeight="400" mb="5px">
+        <SimpleGrid
+          columns={2}
+          gap={{
+            "2xl": 20,
+            xl: 10,
+            lg: 10,
+            md: 10,
+            sm: 20,
+          }}
+        >
+          <Text
+            fontSize={{ xl: "14px", lg: "14px", md: "14px", sm: "12px" }}
+            color="gray.200"
+            fontWeight="400"
+            mb="5px"
+          >
             ORDER COIN
           </Text>
-          <Text fontSize="md" color="gray.200" fontWeight="400" mb="5px">
+          <Text
+            fontSize={{ xl: "14px", lg: "14px", md: "14px", sm: "12px" }}
+            color="gray.200"
+            fontWeight="400"
+            mb="5px"
+          >
             ROI
           </Text>
         </SimpleGrid>
       </Card>
-      <Card w="100%" p="15px" px="20px" bg="none" h="215px">
+      <Card
+        w="100%"
+        p="15px"
+        px="20px"
+        bg="none"
+        h={{
+          "2xl": "221px",
+          xl: "195px",
+          lg: "214px",
+          md: "221px",
+          sm: "221px",
+        }}
+      >
         {data.map(() => {
           return (
-            <SimpleGrid columns={2} gap={12}>
-              <Text fontSize="md" color="white.200" fontWeight="400" mb="5px">
+            <SimpleGrid columns={2} gap={8}>
+              <Text
+                fontSize={{
+                  "2xl": "18px",
+                  xl: "13px",
+                  lg: "11px",
+                  md: "14px",
+                  sm: "12px",
+                }}
+                color="white.200"
+                fontWeight="400"
+                mb="5px"
+              >
                 IMXUSDT
               </Text>
-              <Text fontSize="md" color="green.300" fontWeight="400" mb="5px">
+              <Text
+                fontSize={{
+                  "2xl": "18px",
+                  xl: "15px",
+                  lg: "14px",
+                  md: "14px",
+                  sm: "12px",
+                }}
+                color="green.300"
+                fontWeight="400"
+                mb="5px"
+              >
                 ROI
               </Text>
             </SimpleGrid>

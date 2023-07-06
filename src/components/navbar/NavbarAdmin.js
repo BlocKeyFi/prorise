@@ -93,11 +93,7 @@ export default function AdminNavbar(props) {
               : brandText}
           </Text>
         </Box>
-        <Box
-          ms="auto"
-          w={{ sm: "10%", md: "unset" }}
-          display={brandText === "Analytiques" ? "none" : "block"}
-        >
+        <Box ms="auto" w={{ sm: "10%", md: "unset" }}>
           <SidebarResponsive routes={routes} />
         </Box>
       </Flex>
@@ -108,6 +104,13 @@ export default function AdminNavbar(props) {
           <Flex
             w={{ "2xl": "30%", xl: "50%", lg: "55%", md: "100%", sm: "100%" }}
             gap={3}
+            display={{
+              "2xl": "flex",
+              xl: "flex",
+              lg: "flex",
+              md: "none",
+              sm: "none",
+            }}
           >
             <Select
               bg="rgba(255, 255, 255, 0.08)"

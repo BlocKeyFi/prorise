@@ -81,7 +81,7 @@ export default function BasicCard(props) {
             xl: "row",
             lg: "row",
             md: "row",
-            sm: "column",
+            sm: `${tabsArray ? "column" : "row"}`,
           }}
           justify="space-between"
           mb="30px"
