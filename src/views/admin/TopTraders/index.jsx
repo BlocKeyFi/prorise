@@ -8,6 +8,7 @@ import { Box, SimpleGrid, Select, Flex } from "@chakra-ui/react";
 import TradersCard from "components/card/TradersCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getLeaderboardsData } from "store/actions";
+import { resetTraderPositions } from "store/actions";
 
 export default function Marketplace() {
   const { data } = useSelector((state) => state?.leaderBoard);
@@ -15,6 +16,7 @@ export default function Marketplace() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetTraderPositions());
     dispatch(
       getLeaderboardsData({
         searchCriteria: {

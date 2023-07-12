@@ -51,6 +51,7 @@ export default function BasicCard(props) {
     tabIndex,
     tabsArray,
     userImage,
+    traderPositions,
     ...rest
   } = props;
 
@@ -346,7 +347,7 @@ export default function BasicCard(props) {
         {table && (
           <GlobalTable
             columnsData={columnsDataActiveTrades}
-            tableData={tableDataDevelopment}
+            tableData={traderPositions ?? []}
             tableHeading="Trades actifs"
             slice={value}
             p={0}

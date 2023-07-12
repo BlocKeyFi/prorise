@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetTraderPositions } from "store/actions";
+import { clearState } from "store/actions";
 import { getTraderPositions } from "store/actions";
 import { getLeaderboardsData } from "store/actions";
 
@@ -10,7 +12,7 @@ const initialState = {
   errorMessage: "",
 };
 
-const userSlice = createSlice({
+const leaderboardSlice = createSlice({
   name: "leader",
   initialState,
   extraReducers: {
@@ -29,6 +31,7 @@ const userSlice = createSlice({
     },
     [getTraderPositions.pending]: (state) => {
       state.isLoading = true;
+      state.traderPositions = initialState.traderPositions;
     },
     [getTraderPositions.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
@@ -40,7 +43,10 @@ const userSlice = createSlice({
       state.isSuccess = false;
       state.errorMessage = payload;
     },
+    [resetTraderPositions]: (state) => {
+      state.traderPositions = initialState.traderPositions;
+    },
   },
 });
 
-export default userSlice.reducer;
+export default leaderboardSlice.reducer;

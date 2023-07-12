@@ -8,7 +8,7 @@ const initialState = {
   errorMessage: "",
 };
 
-const userSlice = createSlice({
+const exchangeSlice = createSlice({
   name: "exchange",
   initialState,
   extraReducers: {
@@ -28,4 +28,4 @@ const userSlice = createSlice({
   },
 });
 
-export default userSlice.reducer;
+export default exchangeSlice.reducer;

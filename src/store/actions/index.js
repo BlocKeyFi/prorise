@@ -1,8 +1,10 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import apiInstance from "constants/api";
 import { setAuthToken } from "constants/api";
 import { PRO_RISE } from "constants/apiConstants";
 import { toast } from "react-hot-toast";
+
+export const resetTraderPositions = createAction("leader/resetTraderPositions");
 
 export const userRegister = createAsyncThunk(
   "user/Register",

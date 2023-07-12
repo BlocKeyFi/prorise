@@ -18,7 +18,6 @@ import { getTraderPositions } from "store/actions";
 // Custom components
 
 export default function TraderDetails() {
-
   const dispatch = useDispatch();
   const { data, traderPositions } = useSelector((state) => state?.leaderBoard);
 
@@ -41,10 +40,11 @@ export default function TraderDetails() {
       <BasicCard
         heading={filterData[0]?.nickName}
         userImage={user}
-        table={tabIndex === "2" ? false : traderPositions}
+        table={tabIndex === "2" ? false : true}
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={buttonArray}
         tabsArray={tabsArray}
+        traderPositions={traderPositions}
       >
         {tabIndex === "2" && (
           <Grid

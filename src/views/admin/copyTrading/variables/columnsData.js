@@ -1,31 +1,31 @@
 export const columnsDataActiveTrades = [
   {
     Header: "DATE D’ENTREE",
-    accessor: "Date d’entrée",
+    accessor: "updateTimeStamp",
   },
   {
     Header: "POSITION",
-    accessor: "Position",
+    accessor: "amount",
   },
   {
     Header: "ORDER COIN",
-    accessor: "Order coin",
+    accessor: "symbol",
   },
   {
     Header: "PRIX D’ENTREE",
-    accessor: "Prix d’entré",
+    accessor: "entryPrice",
   },
   {
     Header: "ROI",
-    accessor: "Roi",
+    accessor: "roe",
   },
   {
     Header: "LEVIER",
-    accessor: "Levier",
+    accessor: "leverage",
   },
   {
     Header: "STATUS",
-    accessor: "Status",
+    accessor: "long",
   },
 ];
 

@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 /* eslint-disable */
 import {
   Box,
+  Center,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -20,6 +22,7 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
+import { timeConverter } from "utils/utils";
 
 export default function GlobalTable(props) {
   const { columnsData, tableData, slice, p } = props;
@@ -45,16 +48,24 @@ export default function GlobalTable(props) {
     prepareRow,
     initialState,
   } = tableInstance;
-  initialState.pageSize = 11;
+  initialState.pageSize = 15;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
+
+  if (!page.length) {
+    return (
+      <Center>
+        <Spinner size="xl" />
+      </Center>
+    );
+  }
 
   return (
     <Box p={p ? p : 0}>
       <TableContainer>
         <Table {...getTableProps()} variant="simple" color="gray.500">
-          <Thead >
-            {headerGroups.map((headerGroup, index) => (
+          <Thead>
+            {headerGroups?.map((headerGroup, index) => (
               <Tr
                 {...headerGroup.getHeaderGroupProps()}
                 key={index}
@@ -78,16 +89,18 @@ export default function GlobalTable(props) {
             ))}
           </Thead>
           <Tbody {...getTableBodyProps()}>
-            {page.slice(slice ? `${(0, 6)}` : 0).map((row, index) => {
+            {page?.map((row, index) => {
               prepareRow(row);
+
               return (
                 <Tr {...row.getRowProps()} key={index}>
-                  {row.cells.map((cell, index) => {
+                  {row?.cells?.map((cell, index) => {
                     let data = "";
                     if (cell.column.Header === "DATE D’ENTREE") {
+                      const date = timeConverter(cell.value);
                       data = (
                         <Text color={textColor} fontSize="sm" fontWeight="400">
-                          {cell.value}
+                          {date}
                         </Text>
                       );
                     } else if (cell.column.Header === "POSITION") {
@@ -137,7 +150,7 @@ export default function GlobalTable(props) {
                           fontSize="sm"
                           fontWeight="400"
                         >
-                          {cell.value}
+                          {cell.value ? "Profit" : "Loss"}
                         </Text>
                       );
                     } else if (cell.column.Header === "DATE DE SORTIE") {
