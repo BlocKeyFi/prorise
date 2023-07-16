@@ -173,7 +173,7 @@ export default function GlobalTable(props) {
                           borderRadius="6px"
                           textAlign={"left"}
                           gap={2}
-                          onClick={onCopy}
+                          onClick={() => onCopy(cell.row.original)}
                         >
                           {"Copy"}
                         </Button>

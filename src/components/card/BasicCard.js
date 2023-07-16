@@ -50,7 +50,7 @@ export default function BasicCard(props) {
     tabsArray,
     userImage,
     traderPositions,
-    onSubmit,
+    onAllCopy,
     onCopy,
     ...rest
   } = props;
@@ -170,7 +170,7 @@ export default function BasicCard(props) {
                     // _focus={{ bg: props?.isCopy ? "none" : "#0075FF" }}
                     textAlign={"left"}
                     gap={2}
-                    onClick={onSubmit}
+                    onClick={item.title === "Copier" ? onAllCopy : null}
                     disabled={
                       item.title === "Copier" && !traderPositions ? true : false
                     }

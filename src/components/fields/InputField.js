@@ -18,8 +18,18 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine, RiVisaLine } from "react-icons/ri";
 
 export default function Default(props) {
-  const { id, label, extra, placeholder, type, mb, onChange, icon, ...rest } =
-    props;
+  const {
+    id,
+    label,
+    extra,
+    placeholder,
+    type,
+    mb,
+    onChange,
+    icon,
+    disabled,
+    ...rest
+  } = props;
   // ProRIse Color Mode
   const textColorPrimary = useColorModeValue("white", "white");
   const textColorSecondary = "gray.400";
@@ -63,6 +73,7 @@ export default function Default(props) {
           fontSize={"16px"}
           border="0.8px solid rgba(255, 255, 255, 0.3) !important"
           onChange={onChange}
+          disabled={disabled}
         />
         {type === "password" && (
           <InputRightElement display="flex" alignItems="center" mt="4px">

@@ -9,10 +9,13 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  Flex,
+  Icon,
+  Text,
 } from "@chakra-ui/react";
 
 import InputFeild from "components/fields/InputField";
-import { useState } from "react";
+import { BiCopy } from "react-icons/bi";
 // Custom components
 
 export default function Dialog({
@@ -25,9 +28,9 @@ export default function Dialog({
   connection,
   capitalPercent,
   setCapitalPercent,
+  filterData,
 }) {
   const cancelRef = React.useRef();
-
   return (
     <>
       <AlertDialog
@@ -71,19 +74,84 @@ export default function Dialog({
             ) : (
               <React.Fragment>
                 <InputFeild
-                  label="Gestion du risque"
-                  type="number"
-                  value={capitalPercent}
-                  onChange={(e) => setCapitalPercent(e.target.value)}
+                  label="Trader"
+                  value={filterData && filterData[0]?.nickName}
+                  disabled
                 />
+                <Flex direction={"row"} gap={5}>
+                  <InputFeild
+                    value={"€" + filterData && filterData[0]?.rank}
+                    label="Capital"
+                    disabled
+                  />
+                  <InputFeild
+                    label="Gestion du risque"
+                    type="number"
+                    value={capitalPercent}
+                    onChange={(e) => setCapitalPercent(Number(e.target.value))}
+                  />
+                </Flex>
               </React.Fragment>
             )}
           </AlertDialogBody>
           <AlertDialogCloseButton />
           <AlertDialogFooter>
-            <Button colorScheme="blue" ml={3} onClick={onSubmit}>
-              {connection ? "Connect" : "Copy"}
-            </Button>
+            <Flex
+              direction={"row"}
+              gap={5}
+              justifyContent={!connection ? "space-between" : "flex-end"}
+              w={"100%"}
+              alignItems={"center"}
+            >
+              {!connection && (
+                <Flex direction={"column"} w="100%" gap={1}>
+                  <Text
+                    fontSize={{
+                      xl: "16px",
+                      lg: "16px",
+                      md: "16px",
+                      sm: "14px",
+                    }}
+                    textAlign="start"
+                    lineHeight="100%"
+                    fontWeight="600"
+                  >
+                    {filterData &&
+                      filterData[0]?.followerCount + " " + "personnes"}
+                  </Text>
+                  <Text
+                    fontSize={{
+                      xl: "12px",
+                      lg: "12px",
+                      md: "12px",
+                      sm: "10px",
+                    }}
+                    textAlign="start"
+                    lineHeight="100%"
+                    fontWeight="400"
+                  >
+                    {"ont copié ce trade"}
+                  </Text>
+                </Flex>
+              )}
+
+              <Button
+                fontSize="14px"
+                variant="brand"
+                fontWeight="600"
+                w={"auto"}
+                h="36px"
+                display="flex"
+                bg={"#0075FF"}
+                borderRadius="10px"
+                textAlign={"left"}
+                gap={2}
+                onClick={onSubmit}
+              >
+                {!connection && <Icon as={BiCopy} />}
+                {connection ? "Connect" : "Copier"}
+              </Button>
+            </Flex>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

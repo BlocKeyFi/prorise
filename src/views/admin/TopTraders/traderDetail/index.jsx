@@ -31,6 +31,7 @@ export default function TraderDetails() {
   const [tabIndex, setTabIndex] = useState(false);
 
   const [capitalPercent, setCapitalPercent] = useState(0);
+  const [selectedTrade, setSelectedTrade] = useState({});
 
   const { id } = useParams();
 
@@ -46,27 +47,29 @@ export default function TraderDetails() {
 
   const onAllCopy = async () => {
     onOpen();
+    setSelectedTrade({});
   };
 
-  const onCopy = (e) => {
-    console.log(e);
+  const onCopy = async (e) => {
+    onOpen();
+    setSelectedTrade(e);
   };
 
   const onSubmit = async () => {
     const params = {
       capitalPercent: capitalPercent,
       exchange: exchangeConnection,
-      traderPositions: traderPositions,
+      traderPositions: selectedTrade.symbol ? [selectedTrade] : traderPositions,
     };
 
     try {
       setAuthToken(localStorage.getItem("jwt"));
       await apiInstance.post(`${PRO_RISE.copyTrade}`, params);
       toast.success("Successfully Copy Trades List");
+      onClose();
     } catch (error) {
       toast.error(error.message);
     }
-    onClose();
   };
 
   return (
@@ -77,7 +80,7 @@ export default function TraderDetails() {
         table={tabIndex === "2" ? false : true}
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={buttonArray}
-        onSubmit={onAllCopy}
+        onAllCopy={onAllCopy}
         tabsArray={tabsArray}
         traderPositions={traderPositions}
         onCopy={onCopy}
@@ -105,6 +108,7 @@ export default function TraderDetails() {
         capitalPercent={capitalPercent}
         setCapitalPercent={setCapitalPercent}
         connection={false}
+        filterData={filterData}
       />
       <Footer />
     </Box>

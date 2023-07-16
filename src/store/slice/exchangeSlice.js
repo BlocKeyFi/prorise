@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getOpenPositions } from "store/actions";
 import { currentlyExchangeConnected } from "store/actions";
 import { exchange } from "store/actions";
 
@@ -8,6 +9,7 @@ const initialState = {
   isSuccess: false,
   errorMessage: "",
   exchangeConnection: "",
+  currentPositions: [],
 };
 
 const exchangeSlice = createSlice({
@@ -36,6 +38,19 @@ const exchangeSlice = createSlice({
       state.exchangeConnection = payload?.result?.exchange;
     },
     [currentlyExchangeConnected.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.errorMessage = payload;
+    },
+    [getOpenPositions.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getOpenPositions.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.currentPositions = payload?.data?.result?.openPositions;
+    },
+    [getOpenPositions.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.isSuccess = false;
       state.errorMessage = payload;

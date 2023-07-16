@@ -72,6 +72,22 @@ export const currentlyExchangeConnected = createAsyncThunk(
     }
   }
 );
+export const getOpenPositions = createAsyncThunk(
+  "exchange/getOpenPositions",
+  async (params, { rejectWithValue }) => {
+    try {
+      setAuthToken(localStorage.getItem("jwt"));
+      const { data } = await apiInstance.post(
+        `${PRO_RISE.getOpenPositions}`,
+        params
+      );
+      return data;
+    } catch (error) {
+      toast.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const getLeaderboardsData = createAsyncThunk(
   "leader/getLeaderboardsData",

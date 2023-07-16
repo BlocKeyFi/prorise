@@ -1,7 +1,16 @@
 import React from "react";
 
 // ProRIse imports
-import { Box, Center, Flex, Grid, GridItem, Link, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Grid,
+  GridItem,
+  Link,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 
 // Custom components
 
@@ -11,11 +20,30 @@ import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 import { IoIosArrowForward } from "react-icons/io";
 import TradersCard from "components/card/TradersCard";
 import { TradersCardData } from "constants/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { getOpenPositions } from "store/actions";
+import { useEffect } from "react";
 
 export default function Dashboard() {
   const { data } = useSelector((state) => state?.leaderBoard);
+
+  const { currentPositions, exchangeConnection, errorMessage } = useSelector(
+    (state) => state?.exchange
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      getOpenPositions({
+        exchange: exchangeConnection,
+      })
+    );
+  }, []);
+
+  console.log(errorMessage);
+
   return (
     <Box>
       <Grid
@@ -46,7 +74,7 @@ export default function Dashboard() {
           <TableCard />
         </GridItem>
       </Grid>
-        {/* <Flex color="white" gap={5}>
+      {/* <Flex color="white" gap={5}>
           <Box w="75%">
             
           </Box>
