@@ -22,6 +22,7 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       state.auth = false;
+      state.errorMessage = "";
       state.login = {};
     },
     [userRegister.rejected]: (state, { payload }) => {

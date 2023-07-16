@@ -39,7 +39,9 @@ function Register() {
   const [onbordTwo, setOnbordTwo] = useState(false);
   const [onbordThree, setOnbordThree] = useState(false);
 
-  const { isLoading, isSuccess } = useSelector((state) => state.user);
+  const { isLoading, isSuccess, errorMessage } = useSelector(
+    (state) => state.user
+  );
 
   const [userData, setUserData] = useState({
     email: "",
@@ -67,6 +69,8 @@ function Register() {
       history.push("/");
     }
   };
+
+  console.log(errorMessage.length);
 
   const checkUser = () => {
     if (email && password && fisrtName && lastName) {
