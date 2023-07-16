@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 export const apiInstance = axios.create({
-  baseURL: "http://3.71.231.58/api/",
+  baseURL: BASE_URL,
 });
 
 // Function to set the Bearer token

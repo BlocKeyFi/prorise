@@ -77,7 +77,6 @@ function Register() {
         username: fisrtName + "-" + lastName,
       };
       dispatch(userRegister(userFinalobj));
-      history.push("/");
     } else {
       toast.error("Fill all the feilds");
     }

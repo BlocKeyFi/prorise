@@ -60,7 +60,7 @@ export default function Default(props) {
         )}
         <Input
           {...rest}
-          type={type}
+          type={show || type}
           id={id}
           fontWeight="500"
           color={textColorSecondary}

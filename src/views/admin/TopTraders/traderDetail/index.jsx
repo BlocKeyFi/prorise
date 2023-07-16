@@ -19,6 +19,7 @@ import { PRO_RISE } from "constants/apiConstants";
 import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
 import Dialog from "components/dialog/Dialog";
+import { CLOSE } from "constants/constants";
 
 // Custom components
 
@@ -43,6 +44,14 @@ export default function TraderDetails() {
     );
   }, [id]);
 
+  const refresh = () => {
+    dispatch(
+      getTraderPositions({
+        encryptedUid: id,
+      })
+    );
+  };
+
   const filterData = data.filter((item) => item.encryptedUid === id);
 
   const onAllCopy = async () => {
@@ -50,9 +59,24 @@ export default function TraderDetails() {
     setSelectedTrade({});
   };
 
-  const onCopy = async (e) => {
-    onOpen();
-    setSelectedTrade(e);
+  const onAction = async (e, action) => {
+    if (action === CLOSE) {
+      const params = {
+        exchange: exchangeConnection,
+        positionsToClose: [selectedTrade],
+      };
+      try {
+        setAuthToken(localStorage.getItem("jwt"));
+        await apiInstance.post(`${PRO_RISE.closePosition}`, params);
+        toast.success("Successfully Closed");
+        onClose();
+      } catch (error) {
+        toast.error(error.message);
+      }
+    } else {
+      onOpen();
+      setSelectedTrade(e);
+    }
   };
 
   const onSubmit = async () => {
@@ -65,7 +89,11 @@ export default function TraderDetails() {
     try {
       setAuthToken(localStorage.getItem("jwt"));
       await apiInstance.post(`${PRO_RISE.copyTrade}`, params);
-      toast.success("Successfully Copy Trades List");
+      toast.success(
+        selectedTrade.symbol
+          ? "Successfully Copy Trade"
+          : "Successfully Copy Trades List"
+      );
       onClose();
     } catch (error) {
       toast.error(error.message);
@@ -83,7 +111,8 @@ export default function TraderDetails() {
         onAllCopy={onAllCopy}
         tabsArray={tabsArray}
         traderPositions={traderPositions}
-        onCopy={onCopy}
+        onAction={onAction}
+        refresh={refresh}
       >
         {tabIndex === "2" && (
           <Grid

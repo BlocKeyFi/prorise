@@ -1,11 +1,10 @@
-import { IoShareSharp } from "react-icons/io5";
+import { IoRefresh, IoShareSharp } from "react-icons/io5";
 import { MdStar } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
 
-// export const BASE_URL = 'http://18.194.220.237:3000/api/'
+export const CLOSE = "close";
 
-
-
+export const BASE_URL = "http://3.71.231.58/api/";
 
 export const TradersCardData = Array.from({ length: 20 }, () => ({
   name: "lucky14",
@@ -32,6 +31,10 @@ export const buttonArray = [
   {
     title: "Copier",
     icon: BiCopy,
+  },
+  {
+    title: "Refresh",
+    icon: IoRefresh,
   },
 ];
 

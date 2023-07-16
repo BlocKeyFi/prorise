@@ -12,10 +12,15 @@ import {
 import PropTypes from "prop-types";
 import { SidebarResponsive } from "components/sidebar/Sidebar";
 import routes from "routes";
-import { IoShareSharp } from "react-icons/io5";
+import { IoLogOut, IoShareSharp } from "react-icons/io5";
+import { BiLogOutCircle } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { logout } from "store/actions";
 
 export default function AdminNavbar(props) {
   const { secondary, message, brandText } = props;
+
+  const dispatch = useDispatch();
 
   // Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)
   let mainText = useColorModeValue("navy.700", "white");
@@ -96,6 +101,11 @@ export default function AdminNavbar(props) {
         <Box ms="auto" w={{ sm: "10%", md: "unset" }}>
           <SidebarResponsive routes={routes} />
         </Box>
+        <Icon
+          as={BiLogOutCircle}
+          sx={{ fontSize: 50, cursor: "pointer" }}
+          onClick={() => dispatch(logout())}
+        />
       </Flex>
       {secondary ? (
         <Text color="white">{message}</Text>

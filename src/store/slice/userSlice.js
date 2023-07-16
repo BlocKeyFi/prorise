@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { logout } from "store/actions";
 import { userLogin } from "store/actions";
 import { userRegister } from "store/actions";
 
@@ -42,6 +43,10 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       state.errorMessage = payload;
+    },
+    [logout]: (state) => {
+      state.auth = initialState.auth;
+      state.login = initialState.login;
     },
   },
 });

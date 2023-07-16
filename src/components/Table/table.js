@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   Icon,
   Spinner,
   Table,
@@ -25,9 +26,10 @@ import {
   useTable,
 } from "react-table";
 import { timeConverter } from "utils/utils";
+import { CLOSE } from "constants/constants";
 
 export default function GlobalTable(props) {
-  const { columnsData, tableData, slice, p, onCopy } = props;
+  const { columnsData, tableData, slice, p, onAction } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -54,7 +56,7 @@ export default function GlobalTable(props) {
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
-  if (!page.length) {
+  if (!tableData.length) {
     return (
       <Center>
         <Spinner size="xl" />
@@ -162,21 +164,38 @@ export default function GlobalTable(props) {
                       );
                     } else if (cell.column.Header === "ACTION") {
                       data = (
-                        <Button
-                          fontSize="14px"
-                          variant="brand"
-                          fontWeight="600"
-                          w={"auto"}
-                          h="30px"
-                          display="flex"
-                          bg={"#0075FF"}
-                          borderRadius="6px"
-                          textAlign={"left"}
-                          gap={2}
-                          onClick={() => onCopy(cell.row.original)}
-                        >
-                          {"Copy"}
-                        </Button>
+                        <Flex gap={2}>
+                          <Button
+                            fontSize="14px"
+                            variant="brand"
+                            fontWeight="600"
+                            w={"auto"}
+                            h="30px"
+                            display="flex"
+                            bg={"#0075FF"}
+                            borderRadius="6px"
+                            textAlign={"left"}
+                            gap={2}
+                            onClick={() => onAction(cell.row.original)}
+                          >
+                            {"Copy"}
+                          </Button>
+                          <Button
+                            fontSize="14px"
+                            variant="brand"
+                            fontWeight="600"
+                            w={"auto"}
+                            h="30px"
+                            display="flex"
+                            bg={"#0075FF"}
+                            borderRadius="6px"
+                            textAlign={"left"}
+                            gap={2}
+                            onClick={() => onAction(cell.row.original, CLOSE)}
+                          >
+                            {"Close"}
+                          </Button>
+                        </Flex>
                       );
                     }
                     return (

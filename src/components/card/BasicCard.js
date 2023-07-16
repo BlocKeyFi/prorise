@@ -51,7 +51,8 @@ export default function BasicCard(props) {
     userImage,
     traderPositions,
     onAllCopy,
-    onCopy,
+    onAction,
+    refresh,
     ...rest
   } = props;
 
@@ -170,7 +171,13 @@ export default function BasicCard(props) {
                     // _focus={{ bg: props?.isCopy ? "none" : "#0075FF" }}
                     textAlign={"left"}
                     gap={2}
-                    onClick={item.title === "Copier" ? onAllCopy : null}
+                    onClick={
+                      item.title === "Copier"
+                        ? onAllCopy
+                        : item.title === "Refresh"
+                        ? refresh
+                        : null
+                    }
                     disabled={
                       item.title === "Copier" && !traderPositions ? true : false
                     }
@@ -356,7 +363,7 @@ export default function BasicCard(props) {
             slice={value}
             p={0}
             bg={"none"}
-            onCopy={onCopy}
+            onAction={onAction}
           />
         )}
       </Flex>

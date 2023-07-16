@@ -6,6 +6,8 @@ import { toast } from "react-hot-toast";
 
 export const resetTraderPositions = createAction("leader/resetTraderPositions");
 
+export const logout = createAction("logout/user");
+
 export const userRegister = createAsyncThunk(
   "user/Register",
   async (params, { rejectWithValue }) => {
