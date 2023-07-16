@@ -2,7 +2,9 @@ import React, { useMemo } from "react";
 /* eslint-disable */
 import {
   Box,
+  Button,
   Center,
+  Icon,
   Spinner,
   Table,
   TableContainer,
@@ -25,7 +27,7 @@ import {
 import { timeConverter } from "utils/utils";
 
 export default function GlobalTable(props) {
-  const { columnsData, tableData, slice, p } = props;
+  const { columnsData, tableData, slice, p, onCopy } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -91,7 +93,6 @@ export default function GlobalTable(props) {
           <Tbody {...getTableBodyProps()}>
             {page?.map((row, index) => {
               prepareRow(row);
-
               return (
                 <Tr {...row.getRowProps()} key={index}>
                   {row?.cells?.map((cell, index) => {
@@ -106,7 +107,7 @@ export default function GlobalTable(props) {
                     } else if (cell.column.Header === "POSITION") {
                       data = (
                         <Text color={textColor} fontSize="sm" fontWeight="400">
-                          {cell.value}
+                          {cell.value ? "buy" : "sell"}
                         </Text>
                       );
                     } else if (cell.column.Header === "ORDER COIN") {
@@ -130,7 +131,7 @@ export default function GlobalTable(props) {
                     } else if (cell.column.Header === "ROI") {
                       data = (
                         <Text
-                          color={"green.300"}
+                          color={cell?.value < 0 ? "red" : "green.300"}
                           fontSize="sm"
                           fontWeight="400"
                         >
@@ -146,11 +147,11 @@ export default function GlobalTable(props) {
                     } else if (cell.column.Header === "STATUS") {
                       data = (
                         <Text
-                          color={"green.300"}
+                          color={!cell.value ? "green.300" : "red"}
                           fontSize="sm"
                           fontWeight="400"
                         >
-                          {cell.value ? "Profit" : "Loss"}
+                          {!cell.value ? "Profit" : "Loss"}
                         </Text>
                       );
                     } else if (cell.column.Header === "DATE DE SORTIE") {
@@ -158,6 +159,24 @@ export default function GlobalTable(props) {
                         <Text color={textColor} fontSize="sm" fontWeight="400">
                           {cell.value}
                         </Text>
+                      );
+                    } else if (cell.column.Header === "ACTION") {
+                      data = (
+                        <Button
+                          fontSize="14px"
+                          variant="brand"
+                          fontWeight="600"
+                          w={"auto"}
+                          h="30px"
+                          display="flex"
+                          bg={"#0075FF"}
+                          borderRadius="6px"
+                          textAlign={"left"}
+                          gap={2}
+                          onClick={onCopy}
+                        >
+                          {"Copy"}
+                        </Button>
                       );
                     }
                     return (

@@ -28,10 +28,8 @@ import { TbBrandTelegram, TbBrandWhatsapp } from "react-icons/tb";
 import copyIcon from "../../assets/img/dashboards/svgIcon/copy.svg";
 
 import { columnsDataActiveTrades } from "views/admin/copyTrading/variables/columnsData";
-import tableDataDevelopment from "views/admin/copyTrading/variables/tableDataDevelopment.json";
 import GlobalTable from "components/Table/table";
 import { MdEdit } from "react-icons/md";
-import { useEffect } from "react";
 
 export default function BasicCard(props) {
   const {
@@ -52,6 +50,8 @@ export default function BasicCard(props) {
     tabsArray,
     userImage,
     traderPositions,
+    onSubmit,
+    onCopy,
     ...rest
   } = props;
 
@@ -170,6 +170,10 @@ export default function BasicCard(props) {
                     // _focus={{ bg: props?.isCopy ? "none" : "#0075FF" }}
                     textAlign={"left"}
                     gap={2}
+                    onClick={onSubmit}
+                    disabled={
+                      item.title === "Copier" && !traderPositions ? true : false
+                    }
                   >
                     <Icon as={item.icon} />
                     {item.title}
@@ -352,6 +356,7 @@ export default function BasicCard(props) {
             slice={value}
             p={0}
             bg={"none"}
+            onCopy={onCopy}
           />
         )}
       </Flex>

@@ -117,11 +117,18 @@ export default function PriceCard(props) {
           >
             {props?.price}
           </Text>
+          {/* Top 3 traders
+Fonction copy trading
+Gestion du risque
+Analytiques
+Statistiques des top traders
+Support WhatsApp 24/7
+Programme de référence */}
 
           <List spacing={5} textAlign={"left"}>
             <ListItem color={iconColor}>
               <ListIcon w={"5"} h={"5"} as={MdCheck} color="white.500" />
-              Liste des top traders
+              Top 3 traders
             </ListItem>
             <ListItem color={props?.id === 2 ? iconColor : "#3D3F58"}>
               <ListIcon
@@ -130,8 +137,9 @@ export default function PriceCard(props) {
                 h={"5"}
                 color={props?.id === 1 ? "#3D3F58" : iconColor}
               />
-              Accès au support 24/7
+              Fonction copy trading
             </ListItem>
+
             <ListItem color={props?.id === 2 ? iconColor : "#3D3F58"}>
               <ListIcon
                 w={"5"}
@@ -139,20 +147,20 @@ export default function PriceCard(props) {
                 as={props?.id === 1 ? IoMdClose : MdCheck}
                 color={props?.id === 1 ? "#3D3F58" : iconColor}
               />
-              Connexion API : Fonction copy trading
+              Gestion du risque
             </ListItem>
           </List>
         </Flex>
       </Flex>
       {setting ? null : (
         <Button
-          fontSize={{ xl: "24px", lg: "24px", md: "24px", sm: "17px" }}
+          fontSize={{ xl: "20px", lg: "24px", md: "24px", sm: "17px" }}
           variant="brand"
           fontWeight="500"
           w={{
-            xl: props?.id === 1 ? "65%" : "45%",
-            lg: props?.id === 1 ? "65%" : "45%",
-            md: props?.id === 1 ? "65%" : "45%",
+            xl: props?.id === 1 ? "90%" : "55%",
+            lg: props?.id === 1 ? "90%" : "55%",
+            md: props?.id === 1 ? "90%" : "55%",
             sm: "100%",
           }}
           h="55"
@@ -161,11 +169,10 @@ export default function PriceCard(props) {
           borderRadius="16px"
           _hover={{ bg: "#0075FF" }}
           textAlign={"left"}
-          disabled={props?.id === 1 ? true : false}
           onClick={() => {
             authScreen &&
               getSubscriptionData({
-                packageType: "GOLD",
+                packageType: props?.heading?.toUpperCase(),
                 purchasedTime: new Date(),
               });
           }}

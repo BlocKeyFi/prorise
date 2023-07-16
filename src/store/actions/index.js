@@ -14,8 +14,12 @@ export const userRegister = createAsyncThunk(
       toast.success("Successfully Register");
       return data;
     } catch (error) {
-      toast.error(error.message);
-      return rejectWithValue(error.message);
+      if (error?.response?.data?.meta?.target[0] === "email") {
+        toast.error("email is already register");
+      } else if (error?.response?.data?.meta?.target[0] === "username") {
+        toast.error("username is already register");
+      }
+      return rejectWithValue(error?.response?.data?.meta?.target[0]);
     }
   }
 );
@@ -41,6 +45,24 @@ export const exchange = createAsyncThunk(
       setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.exchangeConection}`,
+        params
+      );
+      toast.success("Connection Successfully Created");
+      return data;
+    } catch (error) {
+      toast.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const currentlyExchangeConnected = createAsyncThunk(
+  "exchange/currentlyConnected",
+  async (params, { rejectWithValue }) => {
+    try {
+      setAuthToken(localStorage.getItem("jwt"));
+      const { data } = await apiInstance.post(
+        `${PRO_RISE.currentlyConnected}`,
         params
       );
       return data;

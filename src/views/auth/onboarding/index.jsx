@@ -20,13 +20,14 @@ import playIcon from "../../../assets/img/onboarding/Vector.png";
 
 import PriceCard from "./components/priceCard";
 import InputFeild from "components/fields/InputField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { userRegister } from "store/actions";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { subscribeToPackage } from "store/actions";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect } from "react";
 
 function Register() {
   // ProRIse color mode
@@ -38,12 +39,22 @@ function Register() {
   const [onbordTwo, setOnbordTwo] = useState(false);
   const [onbordThree, setOnbordThree] = useState(false);
 
+  const { isLoading, isSuccess } = useSelector((state) => state.user);
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",
     fisrtName: "",
     lastName: "",
   });
+
+  // useEffect(() => {
+  //   if (email && password && fisrtName && lastName && !isLoading && isSuccess) {
+  //     setOnbordThree(true);
+  //     setOnbordTwo(false);
+  //     setOnbordOne(false);
+  //   }
+  // }, [isLoading, isSuccess]);
 
   const { email, password, fisrtName, lastName } = userData;
 
@@ -52,14 +63,6 @@ function Register() {
 
   const onCreateUser = (e) => {
     if (e) {
-      let userFinalobj = {
-        email: email,
-        password: password,
-        phoneNumber: "",
-        username: fisrtName + "-" + lastName,
-      };
-
-      dispatch(userRegister(userFinalobj));
       dispatch(subscribeToPackage(e));
       history.push("/");
     }
@@ -67,9 +70,14 @@ function Register() {
 
   const checkUser = () => {
     if (email && password && fisrtName && lastName) {
-      setOnbordThree(true);
-      setOnbordTwo(false);
-      setOnbordOne(false);
+      let userFinalobj = {
+        email: email,
+        password: password,
+        phoneNumber: "",
+        username: fisrtName + "-" + lastName,
+      };
+      dispatch(userRegister(userFinalobj));
+      history.push("/");
     } else {
       toast.error("Fill all the feilds");
     }
@@ -172,7 +180,7 @@ function Register() {
           <Flex
             zIndex="2"
             direction="column"
-            w={{ base: "50%", md: "600px",sm: "100%" }}
+            w={{ base: "50%", md: "600px", sm: "100%" }}
             maxW="100%"
             background="transparent"
             borderRadius="15px"
@@ -181,7 +189,7 @@ function Register() {
             mb={{ base: "20px", md: "auto" }}
             textAlign={"center"}
           >
-            <FormControl mb={{base:"30px" , sm:"0px"}} isRequired>
+            <FormControl mb={{ base: "30px", sm: "0px" }} isRequired>
               <Flex
                 direction={{ xl: "row", lg: "row", md: "column", sm: "column" }}
                 justifyContent={"space-between"}
@@ -224,7 +232,7 @@ function Register() {
               fontWeight="500"
               w="100%"
               h="55"
-              mb={{base:"30px" , sm:"0px"}}
+              mb={{ base: "30px", sm: "0px" }}
               bg="#0075FF"
               borderRadius="16px"
               _hover={{ bg: "#0075FF" }}
@@ -260,8 +268,7 @@ function Register() {
           <Flex
             zIndex="2"
             direction={{ xl: "row", lg: "row", md: "column", sm: "column" }}
-            w={{ base: "100%", md: "100%",sm: "100%" }}
-            maxW="100%"
+            w={{ base: "60%", "2xl": "60%", md: "100%", sm: "100%" }}
             background="transparent"
             borderRadius="15px"
             mx={{ base: "auto", lg: "unset" }}
@@ -271,20 +278,27 @@ function Register() {
           >
             <PriceCard
               id={1}
-              heading={"De base"}
-              paragraph={
-                "Profitez de la liste des top traders à un prix avantageux."
-              }
-              price={"€59/mois"}
+              heading={"Silver"}
+              paragraph={"Le plan parfait pour débuter."}
+              price={"€24/mois"}
               btnText={"Essai gratuit de 7 jours"}
               getSubscriptionData={(e) => onCreateUser(e)}
               authScreen={true}
             />
             <PriceCard
               id={2}
+              heading={"Gold"}
+              paragraph={"Le plan parfait pour débuter."}
+              price={"€59/mois"}
+              btnText={"Sélectionner"}
+              getSubscriptionData={(e) => onCreateUser(e)}
+              authScreen={true}
+            />
+            <PriceCard
+              id={2}
               badge={"POPULAIRE"}
-              heading={"Avancé"}
-              paragraph={"Profitez de toutes les fonctionnalités."}
+              heading={"Platinum"}
+              paragraph={"Le plan complet pour le copy trading."}
               price={"€89/mois"}
               btnText={"Sélectionner"}
               getSubscriptionData={(e) => onCreateUser(e)}

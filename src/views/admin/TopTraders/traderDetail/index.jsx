@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // ProRIse imports
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import BasicCard from "components/card/BasicCard";
 import { buttonArray } from "constants/constants";
@@ -14,14 +14,23 @@ import Footer from "components/footer/FooterAdmin";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getTraderPositions } from "store/actions";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import { setAuthToken } from "constants/api";
+import { toast } from "react-hot-toast";
+import Dialog from "components/dialog/Dialog";
 
 // Custom components
 
 export default function TraderDetails() {
   const dispatch = useDispatch();
   const { data, traderPositions } = useSelector((state) => state?.leaderBoard);
+  const { exchangeConnection } = useSelector((state) => state?.exchange);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [tabIndex, setTabIndex] = useState(false);
+
+  const [capitalPercent, setCapitalPercent] = useState(0);
 
   const { id } = useParams();
 
@@ -35,6 +44,31 @@ export default function TraderDetails() {
 
   const filterData = data.filter((item) => item.encryptedUid === id);
 
+  const onAllCopy = async () => {
+    onOpen();
+  };
+
+  const onCopy = (e) => {
+    console.log(e);
+  };
+
+  const onSubmit = async () => {
+    const params = {
+      capitalPercent: capitalPercent,
+      exchange: exchangeConnection,
+      traderPositions: traderPositions,
+    };
+
+    try {
+      setAuthToken(localStorage.getItem("jwt"));
+      await apiInstance.post(`${PRO_RISE.copyTrade}`, params);
+      toast.success("Successfully Copy Trades List");
+    } catch (error) {
+      toast.error(error.message);
+    }
+    onClose();
+  };
+
   return (
     <Box>
       <BasicCard
@@ -43,8 +77,10 @@ export default function TraderDetails() {
         table={tabIndex === "2" ? false : true}
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={buttonArray}
+        onSubmit={onAllCopy}
         tabsArray={tabsArray}
         traderPositions={traderPositions}
+        onCopy={onCopy}
       >
         {tabIndex === "2" && (
           <Grid
@@ -61,6 +97,15 @@ export default function TraderDetails() {
           </Grid>
         )}
       </BasicCard>
+      <Dialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        heading={`Paramètres du copiage`}
+        capitalPercent={capitalPercent}
+        setCapitalPercent={setCapitalPercent}
+        connection={false}
+      />
       <Footer />
     </Box>
   );

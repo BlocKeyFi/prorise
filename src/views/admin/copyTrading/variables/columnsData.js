@@ -5,7 +5,7 @@ export const columnsDataActiveTrades = [
   },
   {
     Header: "POSITION",
-    accessor: "amount",
+    accessor: "long",
   },
   {
     Header: "ORDER COIN",
@@ -25,7 +25,11 @@ export const columnsDataActiveTrades = [
   },
   {
     Header: "STATUS",
-    accessor: "long",
+    accessor: "short",
+  },
+  {
+    Header: "ACTION",
+    accessor: "",
   },
 ];
 
@@ -46,7 +50,7 @@ export const columnsDataTradeHistory = [
     Header: "PRIX D’ENTREE",
     accessor: "Prix d’entré",
   },
-  
+
   {
     Header: "PRIX DE SORTIE",
     accessor: "Prix de sortie",

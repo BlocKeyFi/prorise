@@ -16,6 +16,7 @@ import {
   Switch,
   Text,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 // Custom components
@@ -26,14 +27,33 @@ import InputFeild from "components/fields/InputField";
 import { MdEdit } from "react-icons/md";
 import PriceCard from "views/auth/onboarding/components/priceCard";
 import { RiVisaLine } from "react-icons/ri";
+import Dialog from "components/dialog/Dialog";
+import { useDispatch, useSelector } from "react-redux";
+import { exchange } from "store/actions";
+import { generateRandomString } from "utils/utils";
+import { currentlyExchangeConnected } from "store/actions";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const switchs = Array.from({ length: 4 }, () => ({}));
 
   const textColor = useColorModeValue("white", "white");
   const textColorSecondary = useColorModeValue("gray.200", "gray.200");
+
+  const dispatch = useDispatch();
+
+  const { login } = useSelector((state) => state.user);
+  const { exchangeConnection } = useSelector((state) => state.exchange);
+
+  const [exchangeData, setExchangeData] = useState({
+    secretKey: "",
+    apiKey: "",
+    exchange: "",
+    connectionName: generateRandomString(8),
+  });
 
   const switchWithText = () => {
     return switchs?.map((item, index) => {
@@ -54,6 +74,19 @@ export default function Settings() {
         </FormControl>
       );
     });
+  };
+
+  const updateExchnageData = (e) => {
+    onOpen();
+    setExchangeData({ ...exchangeData, exchange: e.toLowerCase() });
+  };
+
+  const onSubmit = () => {
+    dispatch(exchange(exchangeData));
+    setTimeout(() => {
+      dispatch(currentlyExchangeConnected({ user: login?.user?.email }));
+    }, 3000);
+    onClose();
   };
 
   const randerConnected = () => {
@@ -83,7 +116,7 @@ export default function Settings() {
                   width={"100%"}
                   mt={1}
                 >
-                  {"Connecté"}
+                  {"Déconnecter"}
                 </Text>
               </Heading>
             </Box>
@@ -100,9 +133,29 @@ export default function Settings() {
                 _hover={{ bg: "#0075FF" }}
                 textAlign={"left"}
                 gap={2}
+                // disabled={
+                //   exchangeConnection === "binance" && index === 0
+                //     ? true
+                //     : exchangeConnection === "bybit" && index === 1
+                //     ? true
+                //     : exchangeConnection === "kucoin" && index === 2
+                //     ? true
+                //     : false
+                // }
+                onClick={() =>
+                  updateExchnageData(
+                    index === 0
+                      ? "Binance"
+                      : index === 1
+                      ? "ByBit"
+                      : index === 2
+                      ? "KuCoin"
+                      : null
+                  )
+                }
               >
                 <Icon as={MdEdit} />
-                {"Déconnecter"}
+                {"Connecté"}
               </Button>
             </Box>
           </Flex>
@@ -265,6 +318,15 @@ export default function Settings() {
             </Flex>
             <br />
             {randerConnected()}
+            <Dialog
+              isOpen={isOpen}
+              onClose={onClose}
+              onSubmit={onSubmit}
+              heading={`Make Connection`}
+              exchangeData={exchangeData}
+              setExchangeData={setExchangeData}
+              connection={true}
+            />
           </BasicCard>
           <BasicCard
             heading="Mot de passe"

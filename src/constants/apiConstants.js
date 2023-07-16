@@ -3,6 +3,8 @@ export const PRO_RISE = {
   register: "user",
   subscribeToPackage: "user/subscribeToPackage",
   exchangeConection: "exchange",
+  currentlyConnected: "exchange/currentlyConnected",
+  copyTrade: "exchange/copyTrade",
   getLeaderboardsData: "leaderboards/getLeaderboardsData",
   getTraderPositions: "leaderboards/getTraderPositions",
 };
