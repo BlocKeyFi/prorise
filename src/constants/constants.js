@@ -4,7 +4,7 @@ import { BiCopy } from "react-icons/bi";
 
 export const CLOSE = "close";
 
-export const BASE_URL = "http://3.71.231.58/api/";
+export const BASE_URL = "https://api.prorise.io/api/";
 
 export const TradersCardData = Array.from({ length: 20 }, () => ({
   name: "lucky14",
