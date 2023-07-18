@@ -63,7 +63,7 @@ export default function TraderDetails() {
     if (action === CLOSE) {
       const params = {
         exchange: exchangeConnection,
-        positionsToClose: [selectedTrade],
+        positionsToClose: [e],
       };
       try {
         setAuthToken(localStorage.getItem("jwt"));

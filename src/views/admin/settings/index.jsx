@@ -132,6 +132,15 @@ export default function Settings() {
                 borderRadius="10px"
                 _hover={{ bg: "#0075FF" }}
                 textAlign={"left"}
+                disabled={
+                  index === 0
+                    ? true
+                    : index === 1
+                    ? false
+                    : index === 2
+                    ? true
+                    : null
+                }
                 gap={2}
                 // disabled={
                 //   exchangeConnection === "binance" && index === 0
