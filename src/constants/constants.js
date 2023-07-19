@@ -3,6 +3,12 @@ import { MdStar } from "react-icons/md";
 import { BiCopy } from "react-icons/bi";
 
 export const CLOSE = "close";
+export const ALREADY_EMAIL = "Email is already register";
+export const SUCCESS_REGISTER = "Successfully Register";
+export const ALREADY_UESR = "Username is already register";
+export const EMAIL = "email";
+export const USERNAME = "username";
+export const TARGET_ZERO = 0;
 
 export const BASE_URL = "https://api.prorise.io/api/";
 
@@ -52,3 +58,43 @@ export const tabsArray = [
     title: "Statistiques",
   },
 ];
+
+export const pakageSilver = [
+  "Top 3 traders",
+  "Fonction copy trading",
+  "Gestion du risque",
+  "Analytiques",
+  "Statistiques des top traders",
+  "Support WhatsApp 24/7",
+  "Programme de référence",
+];
+
+export const pakageGold = [
+  "Top 5 traders",
+  "Fonction copy trading",
+  "Gestion du risque",
+  "Analytiques",
+  "Statistiques des top traders",
+  "Support WhatsApp 24/7",
+  "Programme de référence",
+];
+
+export const pakagePlatinum = [
+  "Leaderboard Binance complet",
+  "Fonction copy trading",
+  "Gestion du risque",
+  "Analytiques",
+  "Statistiques des top traders",
+  "Support WhatsApp 24/7",
+  "Programme de référence",
+];
+
+export const pakageDetails = (e) => {
+  if (e === "pakageSilver") {
+    return pakageSilver;
+  } else if (e === "pakageGold") {
+    return pakageGold;
+  } else if (e === "pakagePlatinum") {
+    return pakagePlatinum;
+  }
+};

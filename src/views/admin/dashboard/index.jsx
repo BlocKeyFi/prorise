@@ -19,7 +19,6 @@ import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 
 import { IoIosArrowForward } from "react-icons/io";
 import TradersCard from "components/card/TradersCard";
-import { TradersCardData } from "constants/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { getOpenPositions } from "store/actions";

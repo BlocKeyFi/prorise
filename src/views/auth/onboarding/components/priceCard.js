@@ -16,26 +16,30 @@ import {
 
 // Custom components
 import Card from "components/card/Card.js";
-import { IoMdClose } from "react-icons/io";
 import { MdCheck, MdStar } from "react-icons/md";
 
 import cartIcon from "../../../../assets/img/dashboards/svgIcon/cart.svg";
+import { pakageDetails } from "constants/constants";
+import { IoMdClose } from "react-icons/io";
 
 export default function PriceCard(props) {
-  const { setting, authScreen, getSubscriptionData, ...rest } = props;
+  const { setting, authScreen, getSubscriptionData, email, ...rest } = props;
 
   // ProRIse Color Mode
 
   const textColor = useColorModeValue("white", "white");
-  const textColorSecondary = useColorModeValue("white", "white");
+  const textColorSecondary = useColorModeValue("white", "#A0AEC0");
   const iconColor = useColorModeValue("white", "white");
+
+  const pakageName = `${"pakage" + props?.heading}`;
+  const pakageDetail = pakageDetails(pakageName);
 
   return (
     <Card
       justifyContent="center"
       align="center"
       direction="column"
-      w={{ xl: "700px", lg: "700px", md: "700px", sm: "100%" }}
+      w={{ xl: "350px", lg: "350px", md: "350px", sm: "100%" }}
       mb="0px"
       m="2"
       {...rest}
@@ -117,20 +121,45 @@ export default function PriceCard(props) {
           >
             {props?.price}
           </Text>
-          {/* Top 3 traders
-Fonction copy trading
-Gestion du risque
-Analytiques
-Statistiques des top traders
-Support WhatsApp 24/7
-Programme de référence */}
-
           <List spacing={5} textAlign={"left"}>
-            <ListItem color={iconColor}>
-              <ListIcon w={"5"} h={"5"} as={MdCheck} color="white.500" />
-              Top 3 traders
-            </ListItem>
-            <ListItem color={props?.id === 2 ? iconColor : "#3D3F58"}>
+            {pakageDetail &&
+              pakageDetail?.map((item, index) => (
+                <ListItem
+                  color={
+                    pakageName === "pakageSilver" && index === 0
+                      ? iconColor
+                      : pakageName === "pakageGold" &&
+                        (index === 0 ||
+                          index === 1 ||
+                          index === 2 ||
+                          index === 3)
+                      ? iconColor
+                      : pakageName === "pakagePlatinum"
+                      ? iconColor
+                      : "#3D3F58"
+                  }
+                >
+                  <ListIcon
+                    w={"5"}
+                    h={"5"}
+                    as={
+                      pakageName === "pakageSilver" && index === 0
+                        ? MdCheck
+                        : pakageName === "pakageGold" &&
+                          (index === 0 ||
+                            index === 1 ||
+                            index === 2 ||
+                            index === 3)
+                        ? MdCheck
+                        : pakageName === "pakagePlatinum"
+                        ? MdCheck
+                        : IoMdClose
+                    }
+                  />
+                  {item}
+                </ListItem>
+              ))}
+            {/* <ListItem color={props?.id === 2 ? iconColor : "#3D3F58"}>
               <ListIcon
                 as={props?.id === 1 ? IoMdClose : MdCheck}
                 w={"5"}
@@ -148,7 +177,7 @@ Programme de référence */}
                 color={props?.id === 1 ? "#3D3F58" : iconColor}
               />
               Gestion du risque
-            </ListItem>
+            </ListItem> */}
           </List>
         </Flex>
       </Flex>
@@ -174,6 +203,7 @@ Programme de référence */}
               getSubscriptionData({
                 packageType: props?.heading?.toUpperCase(),
                 purchasedTime: new Date(),
+                user: email,
               });
           }}
         >

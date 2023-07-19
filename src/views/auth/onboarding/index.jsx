@@ -22,12 +22,21 @@ import PriceCard from "./components/priceCard";
 import InputFeild from "components/fields/InputField";
 import { useDispatch, useSelector } from "react-redux";
 
-import { userRegister } from "store/actions";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { subscribeToPackage } from "store/actions";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect } from "react";
+
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import {
+  SUCCESS_REGISTER,
+  ALREADY_EMAIL,
+  ALREADY_UESR,
+  EMAIL,
+  USERNAME,
+  TARGET_ZERO,
+} from "constants/constants";
 
 function Register() {
   // ProRIse color mode
@@ -35,28 +44,16 @@ function Register() {
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("#A0AEC0", "gray.200");
 
-  const [onbordOne, setOnbordOne] = useState(true);
-  const [onbordTwo, setOnbordTwo] = useState(false);
+  const [onbordOne, setOnbordOne] = useState(false);
+  const [onbordTwo, setOnbordTwo] = useState(true);
   const [onbordThree, setOnbordThree] = useState(false);
 
-  const { isLoading, isSuccess, errorMessage } = useSelector(
-    (state) => state.user
-  );
-
   const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-    fisrtName: "",
-    lastName: "",
+    email: "errorMessage@gmail.com",
+    password: "errorMessage",
+    fisrtName: "errorMessage",
+    lastName: "errorMessage",
   });
-
-  // useEffect(() => {
-  //   if (email && password && fisrtName && lastName && !isLoading && isSuccess) {
-  //     setOnbordThree(true);
-  //     setOnbordTwo(false);
-  //     setOnbordOne(false);
-  //   }
-  // }, [isLoading, isSuccess]);
 
   const { email, password, fisrtName, lastName } = userData;
 
@@ -66,13 +63,13 @@ function Register() {
   const onCreateUser = (e) => {
     if (e) {
       dispatch(subscribeToPackage(e));
-      history.push("/");
+      setOnbordThree(false);
+      setOnbordTwo(false);
+      setOnbordOne(true);
     }
   };
 
-  console.log(errorMessage.length);
-
-  const checkUser = () => {
+  const checkUser = async () => {
     if (email && password && fisrtName && lastName) {
       let userFinalobj = {
         email: email,
@@ -80,20 +77,20 @@ function Register() {
         phoneNumber: "",
         username: fisrtName + "-" + lastName,
       };
-      dispatch(userRegister(userFinalobj));
-    } else {
-      toast.error("Fill all the feilds");
-    }
-  };
-
-  const changeScreens = () => {
-    if (onbordOne) {
-      setOnbordTwo(true);
-      setOnbordOne(false);
-    }
-    if (onbordTwo) {
-      setOnbordThree(true);
-      setOnbordTwo(false);
+      try {
+        await apiInstance.post(`${PRO_RISE.register}`, userFinalobj);
+        toast.success(SUCCESS_REGISTER);
+        setOnbordTwo(false);
+        setOnbordThree(true);
+      } catch (error) {
+        if (error?.response?.data?.meta?.target[TARGET_ZERO] === EMAIL) {
+          toast.error(ALREADY_EMAIL);
+        } else if (
+          error?.response?.data?.meta?.target[TARGET_ZERO] === USERNAME
+        ) {
+          toast.error(ALREADY_UESR);
+        }
+      }
     }
   };
 
@@ -173,7 +170,7 @@ function Register() {
               bg="#0075FF"
               borderRadius="16px"
               _hover={{ bg: "#0075FF" }}
-              onClick={changeScreens}
+              onClick={() => history.push("/")}
             >
               Suivant
             </Button>
@@ -200,6 +197,7 @@ function Register() {
                 <InputFeild
                   label="Prénom"
                   w={{ xl: "260px", lg: "260px", md: "100%", sm: "100%" }}
+                  value={fisrtName}
                   onChange={(e) =>
                     setUserData({ ...userData, fisrtName: e.target.value })
                   }
@@ -208,6 +206,7 @@ function Register() {
                 <InputFeild
                   label="Nom de famille"
                   w={{ xl: "260px", lg: "260px", md: "100%", sm: "100%" }}
+                  value={lastName}
                   onChange={(e) =>
                     setUserData({ ...userData, lastName: e.target.value })
                   }
@@ -217,6 +216,7 @@ function Register() {
                 label="Adresse courriel"
                 placeholder="cole.caufield@gmail.com"
                 type="email"
+                value={email}
                 onChange={(e) =>
                   setUserData({ ...userData, email: e.target.value })
                 }
@@ -224,6 +224,7 @@ function Register() {
               <InputFeild
                 label="Mot de passe"
                 type="password"
+                value={password}
                 onChange={(e) =>
                   setUserData({ ...userData, password: e.target.value })
                 }
@@ -271,7 +272,7 @@ function Register() {
           <Flex
             zIndex="2"
             direction={{ xl: "row", lg: "row", md: "column", sm: "column" }}
-            w={{ base: "60%", "2xl": "60%", md: "100%", sm: "100%" }}
+            w={"100%"}
             background="transparent"
             borderRadius="15px"
             mx={{ base: "auto", lg: "unset" }}
@@ -287,6 +288,7 @@ function Register() {
               btnText={"Essai gratuit de 7 jours"}
               getSubscriptionData={(e) => onCreateUser(e)}
               authScreen={true}
+              email={email}
             />
             <PriceCard
               id={2}
@@ -296,6 +298,7 @@ function Register() {
               btnText={"Sélectionner"}
               getSubscriptionData={(e) => onCreateUser(e)}
               authScreen={true}
+              email={email}
             />
             <PriceCard
               id={2}
@@ -306,6 +309,7 @@ function Register() {
               btnText={"Sélectionner"}
               getSubscriptionData={(e) => onCreateUser(e)}
               authScreen={true}
+              email={email}
             />
           </Flex>
         )}

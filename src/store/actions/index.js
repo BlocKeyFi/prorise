@@ -8,24 +8,6 @@ export const resetTraderPositions = createAction("leader/resetTraderPositions");
 
 export const logout = createAction("logout/user");
 
-export const userRegister = createAsyncThunk(
-  "user/Register",
-  async (params, { rejectWithValue }) => {
-    try {
-      const { data } = await apiInstance.post(`${PRO_RISE.register}`, params);
-      toast.success("Successfully Register");
-      return data;
-    } catch (error) {
-      if (error?.response?.data?.meta?.target[0] === "email") {
-        toast.error("email is already register");
-      } else if (error?.response?.data?.meta?.target[0] === "username") {
-        toast.error("username is already register");
-      }
-      return rejectWithValue(error?.response?.data?.meta?.target[0]);
-    }
-  }
-);
-
 export const userLogin = createAsyncThunk(
   "user/Login",
   async (params, { rejectWithValue }) => {
@@ -34,8 +16,8 @@ export const userLogin = createAsyncThunk(
       toast.success("Successfully Login");
       return data;
     } catch (error) {
-      toast.error(error.message);
-      return rejectWithValue(error.message);
+      toast.error(error?.response?.data?.message);
+      return rejectWithValue(error?.response?.data.message);
     }
   }
 );
