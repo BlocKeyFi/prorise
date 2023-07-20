@@ -14,11 +14,14 @@ import { SidebarResponsive } from "components/sidebar/Sidebar";
 import routes from "routes";
 import { IoLogOut, IoShareSharp } from "react-icons/io5";
 import { BiLogOutCircle } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "store/actions";
 
 export default function AdminNavbar(props) {
   const { secondary, message, brandText } = props;
+
+  const { login } = useSelector((state) => state.user);
+  const { user } = login;
 
   const dispatch = useDispatch();
 
@@ -90,11 +93,14 @@ export default function AdminNavbar(props) {
             _focus={{
               boxShadow: "none",
             }}
+            textTransform={"capitalize"}
           >
             {brandText === "Tableau de bord"
-              ? "Bonjour Cole! 👋"
+              ? `${user.username} 👋`
               : brandText === "Default Brand Text"
               ? "Top Traders"
+              : brandText === "userName"
+              ? `${user.username} 👋`
               : brandText}
           </Text>
         </Box>

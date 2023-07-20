@@ -10,11 +10,10 @@ import {
 import Card from "components/card/Card.js";
 
 import React from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function TableCard(props) {
-  const { ...rest } = props;
-
-  let data = Array.from({ length: 6 }, () => ({}));
+  const { data, ...rest } = props;
 
   // ProRIse Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
@@ -77,6 +76,8 @@ export default function TableCard(props) {
         p="15px"
         px="20px"
         bg="none"
+        scrollBehavior={"smooth"}
+        overflowY={"scroll"}
         h={{
           "2xl": "221px",
           xl: "195px",
@@ -85,40 +86,42 @@ export default function TableCard(props) {
           sm: "221px",
         }}
       >
-        {data.map(() => {
-          return (
-            <SimpleGrid columns={2} gap={8}>
-              <Text
-                fontSize={{
-                  "2xl": "18px",
-                  xl: "13px",
-                  lg: "11px",
-                  md: "14px",
-                  sm: "12px",
-                }}
-                color="white.200"
-                fontWeight="400"
-                mb="5px"
-              >
-                IMXUSDT
-              </Text>
-              <Text
-                fontSize={{
-                  "2xl": "18px",
-                  xl: "15px",
-                  lg: "14px",
-                  md: "14px",
-                  sm: "12px",
-                }}
-                color="green.300"
-                fontWeight="400"
-                mb="5px"
-              >
-                ROI
-              </Text>
-            </SimpleGrid>
-          );
-        })}
+        {data
+          ? data?.map((item) => {
+              return (
+                <SimpleGrid columns={2} gap={8}>
+                  <Text
+                    fontSize={{
+                      "2xl": "18px",
+                      xl: "13px",
+                      lg: "11px",
+                      md: "14px",
+                      sm: "12px",
+                    }}
+                    color="white.200"
+                    fontWeight="400"
+                    mb="5px"
+                  >
+                    {item?.symbol}
+                  </Text>
+                  <Text
+                    fontSize={{
+                      "2xl": "18px",
+                      xl: "15px",
+                      lg: "14px",
+                      md: "14px",
+                      sm: "12px",
+                    }}
+                    color="green.300"
+                    fontWeight="400"
+                    mb="5px"
+                  >
+                    {item?.unrealisedPnl}
+                  </Text>
+                </SimpleGrid>
+              );
+            })
+          : "No Active Trades"}
       </Card>
       <Center>
         <Button
@@ -133,7 +136,7 @@ export default function TableCard(props) {
           textAlign={"center"}
           gap={2}
         >
-          {"En voir plus"}
+          <Link to="admin/copy-trading">{"En voir plus"}</Link>
         </Button>
       </Center>
     </Card>

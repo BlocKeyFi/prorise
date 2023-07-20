@@ -20,6 +20,7 @@ import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
 import Dialog from "components/dialog/Dialog";
 import { CLOSE } from "constants/constants";
+import { closePosition } from "store/actions";
 
 // Custom components
 
@@ -65,14 +66,7 @@ export default function TraderDetails() {
         exchange: exchangeConnection,
         positionsToClose: [e],
       };
-      try {
-        setAuthToken(localStorage.getItem("jwt"));
-        await apiInstance.post(`${PRO_RISE.closePosition}`, params);
-        toast.success("Successfully Closed");
-        onClose();
-      } catch (error) {
-        toast.error(error.message);
-      }
+      dispatch(closePosition(params));
     } else {
       onOpen();
       setSelectedTrade(e);

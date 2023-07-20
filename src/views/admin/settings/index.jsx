@@ -46,7 +46,6 @@ export default function Settings() {
   const dispatch = useDispatch();
 
   const { login } = useSelector((state) => state.user);
-  const { exchangeConnection } = useSelector((state) => state.exchange);
 
   const [exchangeData, setExchangeData] = useState({
     secretKey: "",

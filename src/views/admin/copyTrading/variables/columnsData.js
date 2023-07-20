@@ -1,6 +1,41 @@
 export const columnsDataActiveTrades = [
   {
     Header: "DATE D’ENTREE",
+    accessor: "updatedTime",
+  },
+  {
+    Header: "POSITION",
+    accessor: "long",
+  },
+  {
+    Header: "ORDER COIN",
+    accessor: "symbol",
+  },
+  {
+    Header: "PRIX D’ENTREE",
+    accessor: "avgPrice",
+  },
+  {
+    Header: "ROI",
+    accessor: "liqPrice",
+  },
+  {
+    Header: "LEVIER",
+    accessor: "leverage",
+  },
+  {
+    Header: "STATUS",
+    accessor: "short",
+  },
+  {
+    Header: "ACTION",
+    accessor: "",
+  },
+];
+
+export const columnsCopyTrade = [
+  {
+    Header: "DATE D’ENTREE",
     accessor: "updateTimeStamp",
   },
   {

@@ -48,7 +48,7 @@ const exchangeSlice = createSlice({
     [getOpenPositions.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.currentPositions = payload?.data?.result?.openPositions;
+      state.currentPositions = payload?.result?.openPositions;
     },
     [getOpenPositions.rejected]: (state, { payload }) => {
       state.isLoading = false;

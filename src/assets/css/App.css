@@ -17,12 +17,26 @@ option {
 body::-webkit-scrollbar {
   width: 0.7em;
 }
- 
+
 body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
+
 body::-webkit-scrollbar-thumb {
-  background-color:#0075FF;
+  background-color: #0075ff;
   outline: 1px solid 0075FFy;
+}
+
+.css-v0gq7l::-webkit-scrollbar {
+  width: 0.3em;
+}
+
+.css-v0gq7l::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.css-v0gq7l::-webkit-scrollbar-thumb {
+  background-color: #65768a;
+  /* outline: 1px solid 0075FFy; */
+  border-radius: 10px;
 }

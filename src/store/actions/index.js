@@ -40,22 +40,6 @@ export const exchange = createAsyncThunk(
   }
 );
 
-export const currentlyExchangeConnected = createAsyncThunk(
-  "exchange/currentlyConnected",
-  async (params, { rejectWithValue }) => {
-    try {
-      setAuthToken(localStorage.getItem("jwt"));
-      const { data } = await apiInstance.post(
-        `${PRO_RISE.currentlyConnected}`,
-        params
-      );
-      return data;
-    } catch (error) {
-      toast.error(error.message);
-      return rejectWithValue(error.message);
-    }
-  }
-);
 export const getOpenPositions = createAsyncThunk(
   "exchange/getOpenPositions",
   async (params, { rejectWithValue }) => {
@@ -73,9 +57,33 @@ export const getOpenPositions = createAsyncThunk(
   }
 );
 
+export const currentlyExchangeConnected = createAsyncThunk(
+  "exchange/currentlyConnected",
+  async (params, { rejectWithValue, dispatch }) => {
+    try {
+      setAuthToken(localStorage.getItem("jwt"));
+      const { data } = await apiInstance.post(
+        `${PRO_RISE.currentlyConnected}`,
+        params
+      );
+      dispatch(
+        getOpenPositions({
+          exchange: data?.result?.exchange,
+        })
+      );
+      return data;
+    } catch (error) {
+      toast.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const getLeaderboardsData = createAsyncThunk(
   "leader/getLeaderboardsData",
-  async (params, { rejectWithValue }) => {
+  async (params, { rejectWithValue, dispatch, getState }) => {
+    const { user } = getState();
+    dispatch(currentlyExchangeConnected({ email: user?.login?.user?.email }));
     try {
       setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
@@ -119,6 +127,19 @@ export const subscribeToPackage = createAsyncThunk(
     } catch (error) {
       toast.error(error.message);
       return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const closePosition = createAsyncThunk(
+  "leader/subscribeToPackage",
+  async (params, { rejectWithValue }) => {
+    try {
+      setAuthToken(localStorage.getItem("jwt"));
+      await apiInstance.post(`${PRO_RISE.closePosition}`, params);
+      toast.success("Successfully Closed");
+    } catch (error) {
+      toast.error(error.message);
     }
   }
 );

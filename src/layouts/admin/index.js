@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { getLeaderboardsData } from "store/actions";
 import { useEffect } from "react";
-import { currentlyExchangeConnected } from "store/actions";
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -20,7 +19,7 @@ export default function Dashboard(props) {
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const { auth, login } = useSelector((state) => state.user);
+  const { auth } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   if (!auth) {
@@ -37,7 +36,6 @@ export default function Dashboard(props) {
           },
         })
       );
-      dispatch(currentlyExchangeConnected({ email: login?.user?.email }));
     }
   }, []);
 

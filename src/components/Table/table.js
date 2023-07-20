@@ -29,7 +29,7 @@ import { timeConverter } from "utils/utils";
 import { CLOSE } from "constants/constants";
 
 export default function GlobalTable(props) {
-  const { columnsData, tableData, slice, p, onAction } = props;
+  const { columnsData, tableData, copyTrade, p, onAction } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -165,36 +165,39 @@ export default function GlobalTable(props) {
                     } else if (cell.column.Header === "ACTION") {
                       data = (
                         <Flex gap={2}>
-                          <Button
-                            fontSize="14px"
-                            variant="brand"
-                            fontWeight="600"
-                            w={"auto"}
-                            h="30px"
-                            display="flex"
-                            bg={"#0075FF"}
-                            borderRadius="6px"
-                            textAlign={"left"}
-                            gap={2}
-                            onClick={() => onAction(cell.row.original)}
-                          >
-                            {"Copy"}
-                          </Button>
-                          <Button
-                            fontSize="14px"
-                            variant="brand"
-                            fontWeight="600"
-                            w={"auto"}
-                            h="30px"
-                            display="flex"
-                            bg={"#0075FF"}
-                            borderRadius="6px"
-                            textAlign={"left"}
-                            gap={2}
-                            onClick={() => onAction(cell.row.original, CLOSE)}
-                          >
-                            {"Close"}
-                          </Button>
+                          {!copyTrade ? (
+                            <Button
+                              fontSize="14px"
+                              variant="brand"
+                              fontWeight="600"
+                              w={"auto"}
+                              h="30px"
+                              display="flex"
+                              bg={"#0075FF"}
+                              borderRadius="6px"
+                              textAlign={"left"}
+                              gap={2}
+                              onClick={() => onAction(cell.row.original)}
+                            >
+                              {"Copy"}
+                            </Button>
+                          ) : (
+                            <Button
+                              fontSize="14px"
+                              variant="brand"
+                              fontWeight="600"
+                              w={"auto"}
+                              h="30px"
+                              display="flex"
+                              bg={"#0075FF"}
+                              borderRadius="6px"
+                              textAlign={"left"}
+                              gap={2}
+                              onClick={() => onAction(cell.row.original, CLOSE)}
+                            >
+                              {"Close"}
+                            </Button>
+                          )}
                         </Flex>
                       );
                     }

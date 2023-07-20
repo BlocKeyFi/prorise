@@ -70,7 +70,7 @@ export default function TotalSpent(props) {
             <Flex
               dir="row"
               justifyContent={"start"}
-              w={{ "2xl": "25%", xl: "25%", lg: "25%", md: "25%", sm: "50%" }}
+              w={{ "2xl": "25%", xl: "30%", lg: "40%", md: "40%", sm: "50%" }}
               gap={2}
             >
               <Button
@@ -79,7 +79,7 @@ export default function TotalSpent(props) {
                 justifyContent="center"
                 bg={bgButton}
                 _hover={bgHover}
-                w="100%"
+                // w="30%"
                 h="60px"
                 lineHeight="100%"
                 borderRadius="10px"
@@ -122,7 +122,7 @@ export default function TotalSpent(props) {
                   fontWeight="700"
                   lineHeight="100%"
                 >
-                  €28,342
+                  € 0
                 </Text>
               </Flex>
             </Flex>

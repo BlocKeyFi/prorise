@@ -19,29 +19,12 @@ import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 
 import { IoIosArrowForward } from "react-icons/io";
 import TradersCard from "components/card/TradersCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
-import { getOpenPositions } from "store/actions";
-import { useEffect } from "react";
 
 export default function Dashboard() {
   const { data } = useSelector((state) => state?.leaderBoard);
-
-  const { currentPositions, exchangeConnection, errorMessage } = useSelector(
-    (state) => state?.exchange
-  );
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      getOpenPositions({
-        exchange: exchangeConnection,
-      })
-    );
-  }, []);
-
-  console.log(errorMessage);
+  const { currentPositions } = useSelector((state) => state?.exchange);
 
   return (
     <Box>
@@ -70,7 +53,7 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
-          <TableCard />
+          <TableCard data={currentPositions} />
         </GridItem>
       </Grid>
       {/* <Flex color="white" gap={5}>

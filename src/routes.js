@@ -59,7 +59,7 @@ const routes = [
     component: SponsorShip,
   },
   {
-    name: "Cole Caufield",
+    name: "userName",
     layout: "/admin",
     path: "/profile1",
     icon: <img src={profile} />,

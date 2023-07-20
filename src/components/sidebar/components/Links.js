@@ -10,6 +10,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 export function SidebarLinks(props) {
   //   Chakra color mode
@@ -21,9 +22,12 @@ export function SidebarLinks(props) {
 
   const { routes } = props;
 
+  const { login } = useSelector((state) => state.user);
+  const { user } = login;
+
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return location.pathname.includes(routeName);
+    return location.pathname.includes(routeName || "trader-detail");
   };
 
   const bagde = () => {
@@ -111,7 +115,11 @@ export function SidebarLinks(props) {
                           : "normal"
                       }
                     >
-                      {route.name === "Copy trading" ? bagde() : route.name}
+                      {route.name === "Copy trading"
+                        ? bagde()
+                        : route.name === "userName"
+                        ? user?.username
+                        : route.name}
                     </Text>
                   </Flex>
                 </HStack>

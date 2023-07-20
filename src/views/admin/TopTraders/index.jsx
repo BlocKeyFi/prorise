@@ -18,7 +18,6 @@ import TradersCard from "components/card/TradersCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getLeaderboardsData } from "store/actions";
 import { resetTraderPositions } from "store/actions";
-import { BiRefresh } from "react-icons/bi";
 import { IoRefresh } from "react-icons/io5";
 
 export default function Marketplace() {

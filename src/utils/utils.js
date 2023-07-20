@@ -36,7 +36,7 @@ export const formatDate = (timestamp) => {
 };
 
 export const timeConverter = (UNIX_timestamp) => {
-  var a = new Date(UNIX_timestamp);
+  var a = new Date(parseInt(UNIX_timestamp));
   var months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
   var year = a.getFullYear();
   var month = months[a.getMonth()];
@@ -49,9 +49,9 @@ export const timeConverter = (UNIX_timestamp) => {
   return time;
 };
 
-const data = generateDayWiseTimeSeries(new Date("1 Jan 2023").getTime(), 6, {
+const data = generateDayWiseTimeSeries(new Date().getTime(), 6, {
   min: 0,
-  max: 30000,
+  max: 0,
 });
 
 export const formattedData = data.map((point) => ({

@@ -27,9 +27,9 @@ import { TbBrandTelegram, TbBrandWhatsapp } from "react-icons/tb";
 
 import copyIcon from "../../assets/img/dashboards/svgIcon/copy.svg";
 
-import { columnsDataActiveTrades } from "views/admin/copyTrading/variables/columnsData";
 import GlobalTable from "components/Table/table";
 import { MdEdit } from "react-icons/md";
+import { columnsCopyTrade } from "views/admin/copyTrading/variables/columnsData";
 
 export default function BasicCard(props) {
   const {
@@ -357,7 +357,7 @@ export default function BasicCard(props) {
         )}
         {table && (
           <GlobalTable
-            columnsData={columnsDataActiveTrades}
+            columnsData={columnsCopyTrade}
             tableData={traderPositions ?? []}
             tableHeading="Trades actifs"
             slice={value}

@@ -15,13 +15,29 @@ import {
 import Card from "components/card/Card";
 import React from "react";
 
-
 import GlobalTable from "components/Table/table";
+import { CLOSE } from "constants/constants";
+import apiInstance from "constants/api";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+import { setAuthToken } from "constants/api";
+import { closePosition } from "store/actions";
 
 export default function DevelopmentTable(props) {
   const { columnsData, tableData, tableHeading, slice, p, bg } = props;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
+  const { exchangeConnection } = useSelector((state) => state.exchange);
+
+  const dispatch = useDispatch();
+
+  const onAction = async (e) => {
+    const params = {
+      exchange: exchangeConnection,
+      positionsToClose: [e],
+    };
+    dispatch(closePosition(params));
+  };
 
   return (
     <Card
@@ -46,8 +62,9 @@ export default function DevelopmentTable(props) {
         columnsData={columnsData}
         tableData={tableData}
         tableHeading={tableHeading}
-        slice={slice}
         p={p}
+        copyTrade={true}
+        onAction={onAction}
       />
     </Card>
   );

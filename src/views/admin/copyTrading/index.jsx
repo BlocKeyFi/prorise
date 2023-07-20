@@ -23,9 +23,12 @@ import {
 import DevelopmentTable from "./components/DevelopmentTable";
 import TradersCard from "components/card/TradersCard";
 import { TradersCardData } from "constants/constants";
+import { useSelector } from "react-redux";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
+
+  const { currentPositions } = useSelector((state) => state?.exchange);
 
   // ProRIse Color Mode
   return (
@@ -114,9 +117,8 @@ export default function Settings() {
         <SimpleGrid gap={10}>
           <DevelopmentTable
             columnsData={columnsDataActiveTrades}
-            tableData={tableDataDevelopment}
+            tableData={currentPositions}
             tableHeading="Trades actifs"
-            slice={true}
             p={10}
           />
           <DevelopmentTable
