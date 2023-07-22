@@ -1,6 +1,5 @@
 import { formattedData } from "utils/utils";
 
-
 export const pieChartOptions = {
   labels: ["ARBUSDT", "ALICEUSDT", "IDUSDT", "XRPUSDT", "CRVUSDT", "JOEUSDT"],
   colors: ["#2CD9FF"],
@@ -9,46 +8,72 @@ export const pieChartOptions = {
     type: "donut",
     dropShadow: {
       enabled: true,
-      color: "#111",
-      top: -1,
+      color: "#1a202c",
+      top: 1,
       left: 3,
       blur: 3,
-      opacity: 0.2,
+      opacity: 1,
     },
   },
   stroke: {
-    width: 4,
-    colors:'#1a202c',
+    width: 0,
+    colors: "#1a202c",
   },
+  legend: {
+    show: true,
+    position: "right",
+    horizontalAlign: "left",
+    floating: false,
+    fontSize: "16px",
+    fontFamily: "Arial, sans-serif",
+    fontWeight: "normal",
+    color: "#FFFFFF",
+    markers: {
+      show: false,
+      width: 12,
+      height: 12,
+      radius: 6,
+    },
+    itemMargin: {
+      horizontal: 0,
+      vertical: 5,
+    },
+    onItemClick: {
+      toggleDataSeries: true,
+    },
+    onItemHover: {
+      highlightDataSeries: true,
+    },
+  },
+
   plotOptions: {
     pie: {
-      expandOnClick:false,
+      expandOnClick: false,
       donut: {
-        expandOnClick:false,
-        size: '85%',
+        expandOnClick: false,
+        size: "85%",
         labels: {
           show: true,
-          name:{
-            show:true,
-            color:"#FFFFFF",
+          name: {
+            show: true,
+            color: "#FFFFFF",
           },
           value: {
             showAlways: true,
             show: true,
-            fontSize:'24px',
-            color:"#FFFFFF",
+            fontSize: "20px",
+            color: "#FFFFFF",
           },
           total: {
             showAlways: true,
             show: true,
-            fontSize:'24px',
-            color:"#FFFFFF",
+            fontSize: "20px",
+            color: "#FFFFFF",
           },
         },
       },
     },
   },
-  
 
   states: {
     hover: {
@@ -72,11 +97,9 @@ export const pieChartOptions = {
       },
     },
   ],
-
 };
 
 export const pieChartData = [63, 25, 12, 30, 10, 40];
-
 
 export const lineChartDataTotalSpent = [
   {

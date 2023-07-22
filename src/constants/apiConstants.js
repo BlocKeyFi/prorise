@@ -1,6 +1,7 @@
 export const PRO_RISE = {
   login: "auth/login",
   register: "user",
+  addFavTrader: "user/addFavTrader",
   subscribeToPackage: "user/subscribeToPackage",
   exchangeConection: "exchange",
   currentlyConnected: "exchange/currentlyConnected",
@@ -9,4 +10,5 @@ export const PRO_RISE = {
   closePosition: "exchange/closePosition",
   getLeaderboardsData: "leaderboards/getLeaderboardsData",
   getTraderPositions: "leaderboards/getTraderPositions",
+  getPlans: "plan/getPlans",
 };

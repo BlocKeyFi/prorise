@@ -94,6 +94,27 @@ export default function TraderDetails() {
     }
   };
 
+  const onButtonAction = async (e) => {
+    if (e === "Ajouter aux favoris") {
+      try {
+        setAuthToken(localStorage.getItem("jwt"));
+        await apiInstance.post(`${PRO_RISE.addFavTrader}`, {
+          encryptedUid: id,
+        });
+        toast.success("Successfully Add in favirate");
+        onClose();
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+    if (e === "Copier") {
+      onAllCopy();
+    }
+    if (e === "Refresh") {
+      refresh();
+    }
+  };
+
   return (
     <Box>
       <BasicCard
@@ -102,11 +123,10 @@ export default function TraderDetails() {
         table={tabIndex === "2" ? false : true}
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={buttonArray}
-        onAllCopy={onAllCopy}
         tabsArray={tabsArray}
         traderPositions={traderPositions}
         onAction={onAction}
-        refresh={refresh}
+        onButtonAction={onButtonAction}
       >
         {tabIndex === "2" && (
           <Grid

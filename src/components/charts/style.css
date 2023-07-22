@@ -1,0 +1,21 @@
+/* First segment */
+.apexcharts-pie-series-0 path {
+    /* Apply border radius to the first segment */
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  
+  /* Second segment */
+  .apexcharts-pie-series-1 path {
+    /* Apply border radius to the second segment */
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  
+  /* Third segment */
+  .apexcharts-pie-series-2 path {
+    /* Apply border radius to the third segment */
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  

@@ -21,6 +21,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import TradersCard from "components/card/TradersCard";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import DailyTraffic from "./components/ActiveTraders";
 
 export default function Dashboard() {
   const { data } = useSelector((state) => state?.leaderBoard);
@@ -55,17 +56,41 @@ export default function Dashboard() {
         >
           <TableCard data={currentPositions} />
         </GridItem>
-      </Grid>
-      {/* <Flex color="white" gap={5}>
-          <Box w="75%">
-            
-          </Box>
-          <Box w="25%">
-            <TableCard />
-          </Box>
-        </Flex> */}
+        <GridItem
+          colSpan={{
+            "2xl": 3,
+            xl: 3,
+            lg: 3,
+            md: 4,
+            sm: 4,
+          }}
+        >
+          <TotalSpent heading="Performances" design={2} />
+        </GridItem>
 
-      <Flex direction={"row"} justifyContent={"space-between"}>
+        <GridItem
+          colSpan={{
+            "2xl": 1,
+            xl: 1,
+            lg: 1,
+            md: 4,
+            sm: 4,
+          }}
+        >
+          <DailyTraffic
+            h={{
+              "2xl": "52vh",
+              xl: "52vh",
+              lg: "52vh",
+              md: "52vh",
+              sm: "52vh",
+            }}
+            pieHeight={"100%"}
+          />
+        </GridItem>
+      </Grid>
+
+      {/* <Flex direction={"row"} justifyContent={"space-between"}>
         <Text
           mt="16px"
           mb="16px"
@@ -116,7 +141,7 @@ export default function Dashboard() {
             />
           );
         })}
-      </SimpleGrid>
+      </SimpleGrid> */}
     </Box>
   );
 }

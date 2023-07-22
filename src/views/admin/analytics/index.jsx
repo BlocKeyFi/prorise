@@ -79,7 +79,7 @@ export default function Analytics() {
             sm: 4,
           }}
         >
-          <DailyTraffic />
+          <DailyTraffic pieHeight={"80%"} />
         </GridItem>
         <GridItem colSpan={4}>
           <TotalSpent heading="Performances" design={2} />

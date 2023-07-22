@@ -134,7 +134,7 @@ export default function TotalSpent(props) {
             gap="20px"
             marginTop={props?.heading ? 10 : 0}
           >
-            {TradersCardData?.slice(0, 5).map((item) => {
+            {TradersCardData?.slice(0, 5).map((item, index) => {
               return (
                 <>
                   <Flex direction={"column"} w="100%" align={"start"} pt={3}>
@@ -147,15 +147,29 @@ export default function TotalSpent(props) {
                           lineHeight="100%"
                           fontWeight="600"
                         >
-                          {item?.text1}
+                          {index === 0
+                            ? "ROI 30 jours"
+                            : index === 1
+                            ? "MDD 30 jours"
+                            : index === 2
+                            ? "Win rate 30 jours"
+                            : index === 3
+                            ? "Total wins 30 jours"
+                            : index === 4
+                            ? "Total orders 30 jours"
+                            : null}
                         </Text>
                       </Flex>
                     </Center>
                     <Text
                       color={
-                        item?.textvalue1.includes("-") ? "green.300" : "white"
+                        index === 0
+                          ? "green.300"
+                          : index === 1
+                          ? "green.300"
+                          : "white"
                       }
-                      fontSize="26px"
+                      fontSize="28px"
                       lineHeight="100%"
                       fontWeight="600"
                       pt={"2"}

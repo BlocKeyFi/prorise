@@ -52,6 +52,7 @@ export default function BasicCard(props) {
     traderPositions,
     onAllCopy,
     onAction,
+    onButtonAction,
     refresh,
     ...rest
   } = props;
@@ -171,13 +172,7 @@ export default function BasicCard(props) {
                     // _focus={{ bg: props?.isCopy ? "none" : "#0075FF" }}
                     textAlign={"left"}
                     gap={2}
-                    onClick={
-                      item.title === "Copier"
-                        ? onAllCopy
-                        : item.title === "Refresh"
-                        ? refresh
-                        : null
-                    }
+                    onClick={() => onButtonAction(item.title)}
                     disabled={
                       item.title === "Copier" && !traderPositions ? true : false
                     }

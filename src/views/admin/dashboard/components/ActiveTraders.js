@@ -13,7 +13,7 @@ import PieChart from "components/charts/PieChart";
 import { pieChartData, pieChartOptions } from "variables/charts";
 
 export default function DailyTraffic(props) {
-  const { ...rest } = props;
+  const { pieHeight, ...rest } = props;
 
   // const renderSteps = () => {
   //   const stepAngle = 360 / 10;
@@ -36,7 +36,12 @@ export default function DailyTraffic(props) {
       <Flex justify="space-between" align="start" px="10px" pt="5px">
         <Flex flexDirection="column" align="start" me="20px">
           <Flex w="100%">
-            <Text me="auto" color="white" fontSize={{ xl: "34px", lg: "34px", md: "34px", sm: "16px" }} fontWeight="700">
+            <Text
+              me="auto"
+              color="white"
+              fontSize={{ xl: "34px", lg: "34px", md: "34px", sm: "16px" }}
+              fontWeight="700"
+            >
               Symboles
             </Text>
           </Flex>
@@ -55,7 +60,12 @@ export default function DailyTraffic(props) {
           </Text>
         </Flex>
         {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
-        <PieChart chartData={pieChartData} chartOptions={pieChartOptions} />
+
+        <PieChart
+          chartData={pieChartData}
+          chartOptions={pieChartOptions}
+          pieHeight={pieHeight}
+        />
       </Box>
     </Card>
   );

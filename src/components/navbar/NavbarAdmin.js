@@ -34,6 +34,8 @@ export default function AdminNavbar(props) {
   let secondaryMargin = "0px";
   let gap = "0px";
 
+  const username = user.username.split("-");
+
   return (
     <Box
       position={navbarPosition}
@@ -96,11 +98,11 @@ export default function AdminNavbar(props) {
             textTransform={"capitalize"}
           >
             {brandText === "Tableau de bord"
-              ? `${user.username} 👋`
+              ? `${username[0] ? username[0] : user.username} 👋`
               : brandText === "Default Brand Text"
               ? "Top Traders"
               : brandText === "userName"
-              ? `${user.username} 👋`
+              ? `${username[0] ? username[0] : user.username} 👋`
               : brandText}
           </Text>
         </Box>
@@ -113,6 +115,46 @@ export default function AdminNavbar(props) {
           onClick={() => dispatch(logout())}
         />
       </Flex>
+      {brandText === "Tableau de bord" && (
+        <Select
+          bg="rgba(255, 255, 255, 0.08)"
+          border="none"
+          color="white"
+          w={300}
+          // placeholder="Trier par : ROI 7 jours"
+        >
+          {[1, 2, 3, 4, 5].map((item, index) => (
+            <option
+              value={
+                index === 0
+                  ? "7 DAYS"
+                  : index === 1
+                  ? "30 DAYS"
+                  : index === 2
+                  ? "3 MONTHS"
+                  : index === 3
+                  ? "6 MONTHS"
+                  : index === 4
+                  ? "1 YEAR"
+                  : null
+              }
+            >
+              {index === 0
+                ? "Trier par : 7 jours"
+                : index === 1
+                ? "Trier par : 30 jours"
+                : index === 2
+                ? "Trier par : 3 mois"
+                : index === 3
+                ? "Trier par :  6 mois"
+                : index === 4
+                ? "Trier par : 1 année"
+                : null}
+            </option>
+          ))}
+        </Select>
+      )}
+
       {secondary ? (
         <Text color="white">{message}</Text>
       ) : (

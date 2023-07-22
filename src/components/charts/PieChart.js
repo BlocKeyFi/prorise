@@ -1,5 +1,6 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
+import "./style.css";
 
 class PieChart extends React.Component {
   constructor(props) {
@@ -23,9 +24,9 @@ class PieChart extends React.Component {
       <ReactApexChart
         options={this.state.chartOptions}
         series={this.state.chartData}
-        type='donut'
-        width='80%'
-        height='80%'
+        type="donut"
+        width={this.props.pieHeight}
+        height={this.props.pieHeight}
       />
     );
   }

@@ -49,10 +49,10 @@ function Register() {
   const [onbordThree, setOnbordThree] = useState(false);
 
   const [userData, setUserData] = useState({
-    email: "errorMessage@gmail.com",
-    password: "errorMessage",
-    fisrtName: "errorMessage",
-    lastName: "errorMessage",
+    email: "",
+    password: "",
+    fisrtName: "",
+    lastName: "",
   });
 
   const { email, password, fisrtName, lastName } = userData;
