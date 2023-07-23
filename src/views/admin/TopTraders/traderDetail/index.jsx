@@ -21,6 +21,7 @@ import { toast } from "react-hot-toast";
 import Dialog from "components/dialog/Dialog";
 import { CLOSE } from "constants/constants";
 import { closePosition } from "store/actions";
+import { getLeaderboardsData } from "store/actions";
 
 // Custom components
 
@@ -49,6 +50,15 @@ export default function TraderDetails() {
     dispatch(
       getTraderPositions({
         encryptedUid: id,
+      })
+    );
+
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          period: "WEEKLY",
+          currentPage: 1,
+        },
       })
     );
   };
@@ -102,7 +112,14 @@ export default function TraderDetails() {
           encryptedUid: id,
         });
         toast.success("Successfully Add in favirate");
-        onClose();
+        dispatch(
+          getLeaderboardsData({
+            searchCriteria: {
+              period: "WEEKLY",
+              currentPage: 1,
+            },
+          })
+        );
       } catch (error) {
         toast.error(error.message);
       }
@@ -127,6 +144,7 @@ export default function TraderDetails() {
         traderPositions={traderPositions}
         onAction={onAction}
         onButtonAction={onButtonAction}
+        favorite={filterData[0]?.favorite}
       >
         {tabIndex === "2" && (
           <Grid

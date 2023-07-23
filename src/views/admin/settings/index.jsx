@@ -22,7 +22,11 @@ import {
 // Custom components
 import GlobalTabs from "components/Tabs/tabs";
 import BasicCard from "components/card/BasicCard";
+
 import user from "../../../assets/img/dashboards/Profile.png";
+import Binance from "../../../assets/img/dashboards/svgIcon/Binance.svg";
+import ByBit from "../../../assets/img/dashboards/svgIcon/Bybit.svg";
+import KuCoin from "../../../assets/img/dashboards/svgIcon/KuCoin.svg";
 import InputFeild from "components/fields/InputField";
 import { MdEdit } from "react-icons/md";
 import PriceCard from "views/auth/onboarding/components/priceCard";
@@ -99,7 +103,17 @@ export default function Settings() {
             justifyContent={"space-between"}
           >
             <Box display={"flex"} direction={"row"} gap={5}>
-              <img src={user} />
+              <img
+                src={
+                  index === 0
+                    ? Binance
+                    : index === 1
+                    ? ByBit
+                    : index === 2
+                    ? KuCoin
+                    : null
+                }
+              />
               <Heading color={textColor} fontSize="20px">
                 {index === 0
                   ? "Binance"

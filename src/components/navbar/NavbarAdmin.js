@@ -12,11 +12,9 @@ import {
 import PropTypes from "prop-types";
 import { SidebarResponsive } from "components/sidebar/Sidebar";
 import routes from "routes";
-import { IoLogOut, IoShareSharp } from "react-icons/io5";
-import { BiLogOutCircle } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "store/actions";
+import { IoShareSharp } from "react-icons/io5";
 
+import { useDispatch, useSelector } from "react-redux";
 export default function AdminNavbar(props) {
   const { secondary, message, brandText } = props;
 
@@ -34,7 +32,7 @@ export default function AdminNavbar(props) {
   let secondaryMargin = "0px";
   let gap = "0px";
 
-  const username = user.username.split("-");
+  const username = user?.username?.split("-");
 
   return (
     <Box
@@ -98,22 +96,17 @@ export default function AdminNavbar(props) {
             textTransform={"capitalize"}
           >
             {brandText === "Tableau de bord"
-              ? `${username[0] ? username[0] : user.username} 👋`
+              ? `${username[0] ? username[0] : user?.username} 👋`
               : brandText === "Default Brand Text"
               ? "Top Traders"
               : brandText === "userName"
-              ? `${username[0] ? username[0] : user.username} 👋`
+              ? `${username[0] ? username[0] : user?.username} 👋`
               : brandText}
           </Text>
         </Box>
         <Box ms="auto" w={{ sm: "10%", md: "unset" }}>
           <SidebarResponsive routes={routes} />
         </Box>
-        <Icon
-          as={BiLogOutCircle}
-          sx={{ fontSize: 50, cursor: "pointer" }}
-          onClick={() => dispatch(logout())}
-        />
       </Flex>
       {brandText === "Tableau de bord" && (
         <Select

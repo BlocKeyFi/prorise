@@ -1,13 +1,18 @@
 import React from "react";
 // ProRIse imports
-import { Box, Flex, Stack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Icon, Stack, Text } from "@chakra-ui/react";
 //   Custom components
 import Brand from "components/sidebar/components/Brand";
 import Links from "components/sidebar/components/Links";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { BiLogOutCircle } from "react-icons/bi";
+import { logout } from "store/actions";
+import { useDispatch } from "react-redux";
 
 // FUNCTIONS
 
 function SidebarContent(props) {
+  const dispatch = useDispatch();
   const { routes } = props;
   // SIDEBAR
   return (
@@ -27,6 +32,21 @@ function SidebarContent(props) {
         borderRadius="30px"
       >
         <Links routes={routes.slice(5, 8)} />
+        <Box cursor={"pointer"} onClick={() => dispatch(logout())}>
+          <HStack py="15px" ps="10px" borderRadius={"12px"}>
+            <Flex w="100%" alignItems="center" justifyContent="center">
+              <Box me="18px">
+                <Icon
+                  as={BiLogOutCircle}
+                  sx={{ fontSize: 23, cursor: "pointer" }}
+                />
+              </Box>
+              <Text me="auto" textTransform={"capitalize"}>
+                {"Logout"}
+              </Text>
+            </Flex>
+          </HStack>
+        </Box>
       </Box>
     </Flex>
   );

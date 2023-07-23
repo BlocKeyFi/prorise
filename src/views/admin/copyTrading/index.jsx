@@ -27,8 +27,13 @@ import { useSelector } from "react-redux";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
+  const [itemOffset, setItemOffset] = useState(1);
+
+  const { data, isLoading } = useSelector((state) => state?.leaderBoard);
 
   const { currentPositions } = useSelector((state) => state?.exchange);
+
+  const filterFavData = data?.filter((item) => item.favorite === true);
 
   // ProRIse Color Mode
   return (
@@ -90,25 +95,28 @@ export default function Settings() {
           w={{ "2xl": "15%", xl: "20%", lg: "25%", md: "35%", sm: "100%" }}
         />
       </Flex>
-      {tabIndex === 0 ? (
+      {tabIndex === 0 && !isLoading ? (
         <SimpleGrid
           columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 4 }}
           gap="20px"
           mb="20px"
         >
-          {TradersCardData?.map((item) => {
+          {filterFavData?.map((item) => {
+            console.log();
             return (
               <TradersCard
-                heading={item?.name}
-                paragraph={item?.subheading}
-                text1={item?.text1}
-                text2={item?.text2}
-                textvalue1={item?.textvalue1}
-                textvalue2={item?.textvalue2}
+                id={item?.encryptedUid}
+                heading={item?.nickName}
+                paragraph={item?.updated_at}
+                image={item?.userPhotoUrl}
+                text1={"ROI 7 jours"}
+                text2={"Win rate 7 jours"}
+                textvalue1={item?.roi}
+                textvalue2={item?.winrate}
                 btnText="Copier"
                 isCopy={item?.isCopy}
-                copyCount={item.copyCount}
-                icon={item.isStar}
+                copyCount={item.followerCount}
+                icon={item.favorite}
               />
             );
           })}

@@ -106,7 +106,12 @@ export const getTraderPositions = createAsyncThunk(
         `${PRO_RISE.getTraderPositions}`,
         params
       );
-      return data;
+      if (data.success) {
+        return data;
+      } else {
+        toast.error(`${data.error} TraderPositions API`);
+        return rejectWithValue(data.error);
+      }
     } catch (error) {
       toast.error(error.message);
       return rejectWithValue(error.message);

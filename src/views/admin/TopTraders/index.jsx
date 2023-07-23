@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // ProRIse imports
 import {
@@ -19,9 +19,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLeaderboardsData } from "store/actions";
 import { resetTraderPositions } from "store/actions";
 import { IoRefresh } from "react-icons/io5";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 export default function Marketplace() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
+
+  const [itemOffset, setItemOffset] = useState(1);
+
+  const handlePageClick = (e) => {
+    if (e === "next") {
+      setItemOffset(itemOffset + 1);
+    } else {
+      setItemOffset(itemOffset - 1);
+    }
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          period: "WEEKLY",
+          currentPage: itemOffset,
+        },
+      })
+    );
+  };
+
   // ProRIse Color Mode
   const dispatch = useDispatch();
 
@@ -31,7 +51,7 @@ export default function Marketplace() {
       getLeaderboardsData({
         searchCriteria: {
           period: "WEEKLY",
-          currentPage: 1,
+          currentPage: itemOffset,
         },
       })
     );
@@ -42,7 +62,7 @@ export default function Marketplace() {
       getLeaderboardsData({
         searchCriteria: {
           period: "WEEKLY",
-          currentPage: 1,
+          currentPage: itemOffset,
         },
       })
     );
@@ -71,7 +91,7 @@ export default function Marketplace() {
           onClick={refresh}
           gap={3}
         >
-          <Icon as={IoRefresh}  />
+          <Icon as={IoRefresh} />
           Refresh
         </Button>
       </Flex>
@@ -99,11 +119,46 @@ export default function Marketplace() {
                 btnText="Copier"
                 isCopy={item?.isCopy}
                 copyCount={item.followerCount}
-                icon={item.isStar}
+                icon={item.favorite}
               />
             );
           })}
         </SimpleGrid>
+      )}
+      {!isLoading && (
+        <Flex direction={"row"} justifyContent={"space-between"}>
+          <Button
+            loadingText="Loading"
+            spinnerPlacement="start"
+            variant="brand"
+            fontWeight="500"
+            mb={{ base: "30px", sm: "0px" }}
+            bg="#0075FF"
+            borderRadius="10px"
+            _hover={{ bg: "#0075FF" }}
+            onClick={handlePageClick}
+            gap={3}
+            disabled={itemOffset === 1 && true}
+          >
+            <Icon as={ArrowLeftIcon} />
+            Previous Page
+          </Button>
+          <Button
+            loadingText="Loading"
+            spinnerPlacement="start"
+            variant="brand"
+            fontWeight="500"
+            mb={{ base: "30px", sm: "0px" }}
+            bg="#0075FF"
+            borderRadius="10px"
+            _hover={{ bg: "#0075FF" }}
+            onClick={() => handlePageClick("next")}
+            gap={3}
+          >
+            Next Page
+            <Icon as={ArrowRightIcon} />
+          </Button>
+        </Flex>
       )}
     </Box>
   );

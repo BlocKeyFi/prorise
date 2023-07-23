@@ -54,6 +54,7 @@ export default function BasicCard(props) {
     onAction,
     onButtonAction,
     refresh,
+    favorite,
     ...rest
   } = props;
 
@@ -174,7 +175,11 @@ export default function BasicCard(props) {
                     gap={2}
                     onClick={() => onButtonAction(item.title)}
                     disabled={
-                      item.title === "Copier" && !traderPositions ? true : false
+                      item.title === "Copier" && traderPositions.length === 0
+                        ? true
+                        : item.title === "Ajouter aux favoris" && favorite
+                        ? true
+                        : false
                     }
                   >
                     <Icon as={item.icon} />
