@@ -23,11 +23,19 @@ const persistConfig = {
 };
 
 // Combine your reducers
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   user: userReducer,
   exchange: exchangeReducer,
   leaderBoard: leaderboardReducer,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === "user/logout") {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 
 // Create the persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);

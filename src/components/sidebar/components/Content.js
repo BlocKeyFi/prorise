@@ -8,12 +8,20 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { BiLogOutCircle } from "react-icons/bi";
 import { logout } from "store/actions";
 import { useDispatch } from "react-redux";
+import { persistStore } from "redux-persist";
+import { store } from "store/store";
 
 // FUNCTIONS
 
 function SidebarContent(props) {
   const dispatch = useDispatch();
   const { routes } = props;
+
+  const handleLogout = () => {
+    dispatch(logout());
+    const persistor = persistStore(store);
+    persistor.purge();
+  };
   // SIDEBAR
   return (
     <Flex direction="column" height="100%" pt="25px" borderRadius="30px">
@@ -32,7 +40,7 @@ function SidebarContent(props) {
         borderRadius="30px"
       >
         <Links routes={routes.slice(5, 8)} />
-        <Box cursor={"pointer"} onClick={() => dispatch(logout())}>
+        <Box cursor={"pointer"} onClick={handleLogout}>
           <HStack py="15px" ps="10px" borderRadius={"12px"}>
             <Flex w="100%" alignItems="center" justifyContent="center">
               <Box me="18px">

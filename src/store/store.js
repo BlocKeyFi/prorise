@@ -1,7 +1,6 @@
-
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore } from 'redux-persist';
-import { persistedReducer } from './persistConfig';
+import { configureStore } from "@reduxjs/toolkit";
+import { persistStore } from "redux-persist";
+import { persistedReducer } from "./persistConfig";
 
 // Create the Redux store
 const store = configureStore({
@@ -10,5 +9,6 @@ const store = configureStore({
 
 // Create the persisted store
 const persistor = persistStore(store);
+// const persistorClear = persistor.purge();
 
 export { store, persistor };

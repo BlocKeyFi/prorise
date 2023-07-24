@@ -20,6 +20,8 @@ import support from "./assets/img/dashboards/svgIcon/World.svg";
 import Settings from "views/admin/settings";
 import TraderDetails from "views/admin/TopTraders/traderDetail";
 import Login from "views/auth/login";
+import Verification from "views/auth/verification/verification";
+import SendVerification from "views/auth/verification/sendVerification";
 
 const routes = [
   {
@@ -88,6 +90,16 @@ const routes = [
     layout: "/auth",
     path: "/login",
     component: Login,
+  },
+  {
+    layout: "/auth",
+    path: "/verification",
+    component: Verification,
+  },
+  {
+    layout: "/auth",
+    path: "/send-verification",
+    component: SendVerification,
   },
   {
     name: "Top traders",

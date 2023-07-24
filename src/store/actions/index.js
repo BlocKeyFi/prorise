@@ -6,8 +6,6 @@ import { toast } from "react-hot-toast";
 
 export const resetTraderPositions = createAction("leader/resetTraderPositions");
 
-export const logout = createAction("logout/user");
-
 export const userLogin = createAsyncThunk(
   "user/Login",
   async (params, { rejectWithValue }) => {
@@ -83,7 +81,7 @@ export const getLeaderboardsData = createAsyncThunk(
   "leader/getLeaderboardsData",
   async (params, { rejectWithValue, dispatch, getState }) => {
     const { user } = getState();
-    dispatch(currentlyExchangeConnected({ email: user?.login?.user?.email }));
+    dispatch(currentlyExchangeConnected({ user: user?.login?.user?.email }));
     try {
       setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
@@ -148,3 +146,5 @@ export const closePosition = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAction("user/logout");

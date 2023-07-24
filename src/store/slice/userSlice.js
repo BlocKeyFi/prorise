@@ -32,6 +32,7 @@ const userSlice = createSlice({
     [logout]: (state) => {
       state.auth = initialState.auth;
       state.login = initialState.login;
+      localStorage.clear();
     },
   },
 });
