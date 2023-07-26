@@ -125,7 +125,7 @@ export default function Settings() {
         <SimpleGrid gap={10}>
           <DevelopmentTable
             columnsData={columnsDataActiveTrades}
-            tableData={currentPositions}
+            tableData={currentPositions ?? []}
             tableHeading="Trades actifs"
             p={10}
           />

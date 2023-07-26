@@ -141,7 +141,7 @@ export default function TraderDetails() {
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={buttonArray}
         tabsArray={tabsArray}
-        traderPositions={traderPositions}
+        traderPositions={traderPositions ?? []}
         onAction={onAction}
         onButtonAction={onButtonAction}
         favorite={filterData[0]?.favorite}

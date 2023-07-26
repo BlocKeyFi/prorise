@@ -86,42 +86,46 @@ export default function TableCard(props) {
           sm: "221px",
         }}
       >
-        {data
-          ? data?.map((item) => {
-              return (
-                <SimpleGrid columns={2} gap={8}>
-                  <Text
-                    fontSize={{
-                      "2xl": "18px",
-                      xl: "13px",
-                      lg: "11px",
-                      md: "14px",
-                      sm: "12px",
-                    }}
-                    color="white.200"
-                    fontWeight="400"
-                    mb="5px"
-                  >
-                    {item?.symbol}
-                  </Text>
-                  <Text
-                    fontSize={{
-                      "2xl": "18px",
-                      xl: "15px",
-                      lg: "14px",
-                      md: "14px",
-                      sm: "12px",
-                    }}
-                    color="green.300"
-                    fontWeight="400"
-                    mb="5px"
-                  >
-                    {item?.unrealisedPnl}
-                  </Text>
-                </SimpleGrid>
-              );
-            })
-          : "No Active Trades"}
+        {data.length ? (
+          data?.map((item) => {
+            return (
+              <SimpleGrid columns={2} gap={8}>
+                <Text
+                  fontSize={{
+                    "2xl": "18px",
+                    xl: "13px",
+                    lg: "11px",
+                    md: "14px",
+                    sm: "12px",
+                  }}
+                  color="white.200"
+                  fontWeight="400"
+                  mb="5px"
+                >
+                  {item?.symbol}
+                </Text>
+                <Text
+                  fontSize={{
+                    "2xl": "18px",
+                    xl: "15px",
+                    lg: "14px",
+                    md: "14px",
+                    sm: "12px",
+                  }}
+                  color="green.300"
+                  fontWeight="400"
+                  mb="5px"
+                >
+                  {item?.unrealisedPnl}
+                </Text>
+              </SimpleGrid>
+            );
+          })
+        ) : (
+          <Center>
+            <Text fontSize={20}>{"No Active Trades"}</Text>
+          </Center>
+        )}
       </Card>
       <Center>
         <Button
