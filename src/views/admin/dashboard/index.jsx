@@ -54,7 +54,7 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
-          <TableCard data={currentPositions} />
+          <TableCard data={currentPositions ?? []} />
         </GridItem>
         <GridItem
           colSpan={{

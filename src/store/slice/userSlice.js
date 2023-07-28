@@ -22,6 +22,7 @@ const userSlice = createSlice({
       state.isSuccess = true;
       state.login = payload;
       localStorage.setItem("jwt", payload.token);
+      state.errorMessage = "";
       state.auth = true;
     },
     [userLogin.rejected]: (state, { payload }) => {

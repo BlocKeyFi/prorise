@@ -51,7 +51,6 @@ export default function BasicCard(props) {
     userImage,
     traderPositions,
     onAllCopy,
-    onAction,
     onButtonAction,
     refresh,
     favorite,
@@ -363,7 +362,6 @@ export default function BasicCard(props) {
             slice={value}
             p={0}
             bg={"none"}
-            onAction={onAction}
           />
         )}
       </Flex>

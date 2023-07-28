@@ -80,8 +80,9 @@ function Register() {
       try {
         await apiInstance.post(`${PRO_RISE.register}`, userFinalobj);
         toast.success(SUCCESS_REGISTER);
-        setOnbordTwo(false);
-        setOnbordThree(true);
+        history.push("/auth/send-verification");
+        // setOnbordTwo(false);
+        // setOnbordThree(true);
       } catch (error) {
         if (error?.response?.data?.meta?.target[TARGET_ZERO] === EMAIL) {
           toast.error(ALREADY_EMAIL);

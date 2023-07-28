@@ -30,7 +30,7 @@ import { CLOSE } from "constants/constants";
 import { useSelector } from "react-redux";
 
 export default function GlobalTable(props) {
-  const { columnsData, tableData, copyTrade, p, onAction } = props;
+  const { columnsData, tableData, p } = props;
 
   const { errorMessage, isLoading } = useSelector(
     (state) => state?.leaderBoard
@@ -195,46 +195,6 @@ export default function GlobalTable(props) {
                           >
                             {cell.value}
                           </Text>
-                        );
-                      } else if (cell.column.Header === "ACTION") {
-                        data = (
-                          <Flex gap={2}>
-                            {!copyTrade ? (
-                              <Button
-                                fontSize="14px"
-                                variant="brand"
-                                fontWeight="600"
-                                w={"auto"}
-                                h="30px"
-                                display="flex"
-                                bg={"#0075FF"}
-                                borderRadius="6px"
-                                textAlign={"left"}
-                                gap={2}
-                                onClick={() => onAction(cell.row.original)}
-                              >
-                                {"Copy"}
-                              </Button>
-                            ) : (
-                              <Button
-                                fontSize="14px"
-                                variant="brand"
-                                fontWeight="600"
-                                w={"auto"}
-                                h="30px"
-                                display="flex"
-                                bg={"#0075FF"}
-                                borderRadius="6px"
-                                textAlign={"left"}
-                                gap={2}
-                                onClick={() =>
-                                  onAction(cell.row.original, CLOSE)
-                                }
-                              >
-                                {"Close"}
-                              </Button>
-                            )}
-                          </Flex>
                         );
                       }
                       return (

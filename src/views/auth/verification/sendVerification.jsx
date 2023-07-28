@@ -30,7 +30,7 @@ export default function SendVerification() {
           provided
         </Text>
         <Flex justifyContent={"center"}>
-          <img src={require("assets/img/email.png")} width={200} />
+          <img src={require("assets/img/email-send.png")} width={200} />
         </Flex>
         <Flex
           flexDirection="column"
@@ -39,7 +39,7 @@ export default function SendVerification() {
           maxW="100%"
           mt="30px"
         >
-          <Text fontWeight="400" fontSize="16px" color={textColorSecondary}>
+          {/* <Text fontWeight="400" fontSize="16px" color={textColorSecondary}>
             Didn't get the mail ?
             <Text
               color={textColor}
@@ -50,7 +50,7 @@ export default function SendVerification() {
             >
               Send it again
             </Text>
-          </Text>
+          </Text> */}
         </Flex>
       </Card>
     </OnboardingAuth>

@@ -14,8 +14,14 @@ export const userLogin = createAsyncThunk(
       toast.success("Successfully Login");
       return data;
     } catch (error) {
-      toast.error(error?.response?.data?.message);
-      return rejectWithValue(error?.response?.data.message);
+      toast.error(
+        error?.response?.data?.message
+          ? error?.response?.data?.message
+          : error?.response?.data
+          ? error?.response?.data
+          : "Network Error"
+      );
+      return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -90,6 +96,9 @@ export const getLeaderboardsData = createAsyncThunk(
       );
       return data;
     } catch (error) {
+      if (error.message === "Network Error") {
+        dispatch(logout());
+      }
       return rejectWithValue(error.message);
     }
   }

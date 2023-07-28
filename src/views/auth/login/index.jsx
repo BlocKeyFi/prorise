@@ -16,10 +16,11 @@ import OnboardingAuth from "layouts/auth/onboarding";
 // Assets
 
 import InputFeild from "components/fields/InputField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { userLogin } from "store/actions";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function Login() {
   // ProRIse color mode
@@ -28,18 +29,24 @@ function Login() {
   const textColorDetails = useColorModeValue("#A0AEC0", "gray.200");
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLogin = () => {
+  const onLogin = async () => {
     if (email && password) {
-      dispatch(
-        userLogin({
-          email: email,
-          password: password,
-        })
-      );
+      try {
+        await dispatch(
+          userLogin({
+            email: email,
+            password: password,
+          })
+        ).unwrap();
+      } catch (error) {
+        // Handle login error if needed
+        history.push("/auth/send-verification");
+      }
     } else {
       toast.error("Fill All The Feilds");
     }
@@ -48,7 +55,7 @@ function Login() {
   return (
     <OnboardingAuth>
       <Flex
-        maxW={{ base: "100%", md: "max-content", xs:"max-content"}}
+        maxW={{ base: "100%", md: "max-content", xs: "max-content" }}
         w="100%"
         mx={{ base: "auto", lg: "0px" }}
         me="auto"

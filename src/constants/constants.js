@@ -9,6 +9,7 @@ export const ALREADY_UESR = "Username is already register";
 export const EMAIL = "email";
 export const USERNAME = "username";
 export const TARGET_ZERO = 0;
+export const TOKEN = 'token';
 
 export const BASE_URL = "https://api.prorise.io/api/";
 

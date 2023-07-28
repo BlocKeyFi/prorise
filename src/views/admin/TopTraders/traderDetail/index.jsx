@@ -34,7 +34,7 @@ export default function TraderDetails() {
   const [tabIndex, setTabIndex] = useState(false);
 
   const [capitalPercent, setCapitalPercent] = useState(0);
-  const [selectedTrade, setSelectedTrade] = useState({});
+  // const [selectedTrade, setSelectedTrade] = useState({});
 
   const { id } = useParams();
 
@@ -65,39 +65,21 @@ export default function TraderDetails() {
 
   const filterData = data.filter((item) => item.encryptedUid === id);
 
-  const onAllCopy = async () => {
-    onOpen();
-    setSelectedTrade({});
-  };
-
-  const onAction = async (e, action) => {
-    if (action === CLOSE) {
-      const params = {
-        exchange: exchangeConnection,
-        positionsToClose: [e],
-      };
-      dispatch(closePosition(params));
-    } else {
-      onOpen();
-      setSelectedTrade(e);
-    }
-  };
-
   const onSubmit = async () => {
+    // const params = {
+    //   capitalPercent: capitalPercent,
+    //   exchange: exchangeConnection,
+    //   traderPositions: selectedTrade.symbol ? [selectedTrade] : traderPositions,
+    // };
+
     const params = {
-      capitalPercent: capitalPercent,
-      exchange: exchangeConnection,
-      traderPositions: selectedTrade.symbol ? [selectedTrade] : traderPositions,
+      encryptedUid: id,
     };
 
     try {
       setAuthToken(localStorage.getItem("jwt"));
-      await apiInstance.post(`${PRO_RISE.copyTrade}`, params);
-      toast.success(
-        selectedTrade.symbol
-          ? "Successfully Copy Trade"
-          : "Successfully Copy Trades List"
-      );
+      await apiInstance.post(`${PRO_RISE.followTrader}`, params);
+      toast.success("Successfully Follow This Trades List");
       onClose();
     } catch (error) {
       toast.error(error.message);
@@ -125,7 +107,7 @@ export default function TraderDetails() {
       }
     }
     if (e === "Copier") {
-      onAllCopy();
+      onOpen();
     }
     if (e === "Refresh") {
       refresh();
@@ -142,7 +124,6 @@ export default function TraderDetails() {
         buttonArray={buttonArray}
         tabsArray={tabsArray}
         traderPositions={traderPositions ?? []}
-        onAction={onAction}
         onButtonAction={onButtonAction}
         favorite={filterData[0]?.favorite}
       >

@@ -26,11 +26,7 @@ export const columnsDataActiveTrades = [
   {
     Header: "STATUS",
     accessor: "short",
-  },
-  {
-    Header: "ACTION",
-    accessor: "",
-  },
+  }
 ];
 
 export const columnsCopyTrade = [
@@ -61,11 +57,7 @@ export const columnsCopyTrade = [
   {
     Header: "STATUS",
     accessor: "short",
-  },
-  {
-    Header: "ACTION",
-    accessor: "",
-  },
+  }
 ];
 
 export const columnsDataTradeHistory = [
