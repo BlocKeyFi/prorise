@@ -63,7 +63,7 @@ export default function DevelopmentTable(props) {
         tableData={tableData}
         tableHeading={tableHeading}
         p={p}
-        copyTrade={true}
+        copyTrade={exchangeConnection}
         onAction={onAction}
       />
     </Card>

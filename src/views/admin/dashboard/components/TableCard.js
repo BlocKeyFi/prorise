@@ -10,10 +10,13 @@ import {
 import Card from "components/card/Card.js";
 
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function TableCard(props) {
   const { data, ...rest } = props;
+
+  const { exchangeConnection } = useSelector((state) => state?.exchange);
 
   // ProRIse Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
@@ -123,7 +126,31 @@ export default function TableCard(props) {
           })
         ) : (
           <Center>
-            <Text fontSize={20}>{"No Active Trades"}</Text>
+            <Text fontSize={20}>
+              {!exchangeConnection ? "No Connection Found" : "No Active Trades"}
+              <br />
+              <br />
+              {!exchangeConnection ? (
+                <Link to="/admin/setting" style={{ width: "100%" }}>
+                  <Button
+                    fontSize="16px"
+                    variant="brand"
+                    fontWeight="500"
+                    w={"100%"}
+                    h="35px"
+                    bg="#0075FF"
+                    borderRadius="10px"
+                    _hover={{ bg: "#0075FF" }}
+                    textAlign={"center"}
+                    gap={2}
+                  >
+                    {"Build Connection"}
+                  </Button>
+                </Link>
+              ) : (
+                ""
+              )}
+            </Text>
           </Center>
         )}
       </Card>

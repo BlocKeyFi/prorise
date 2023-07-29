@@ -102,7 +102,6 @@ export default function Settings() {
           mb="20px"
         >
           {filterFavData?.map((item) => {
-            console.log();
             return (
               <TradersCard
                 id={item?.encryptedUid}

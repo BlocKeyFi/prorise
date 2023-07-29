@@ -31,8 +31,8 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [email, setEmail] = useState("todaummaunnajou-9567@yopmail.com");
-  const [password, setPassword] = useState("todaummaunnajou-9567");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onLogin = async () => {
     if (email && password) {

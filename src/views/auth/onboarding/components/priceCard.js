@@ -44,7 +44,11 @@ export default function PriceCard(props) {
       justifyContent="center"
       align="center"
       direction="column"
-      w={{ xl: "350px", lg: "350px", md: "350px", sm: "100%" }}
+      w={
+        !setting
+          ? { xl: "350px", lg: "350px", md: "350px", sm: "100%" }
+          : "100%"
+      }
       mb="0px"
       m="2"
       {...rest}
@@ -86,18 +90,24 @@ export default function PriceCard(props) {
               <Icon as={MdStar} color="white.500" w="3" h="3" /> {"POPULAIRE"}
             </Badge>
           )}
-          {setting && !props?.badge && (
+          {setting && (
             <Button
               fontSize="20px"
               variant="brand"
               fontWeight="500"
-              w={{ "2xl": "28%", xl: "38%", lg: "40%", md: "28%", sm: "100%" }}
+              w={{
+                xl: props?.id === 1 ? "60%" : "40%",
+                lg: props?.id === 1 ? "60%" : "40%",
+                md: props?.id === 1 ? "60%" : "40%",
+                sm: "100%",
+              }}
               h="45"
               bg="#0075FF"
               borderRadius="16px"
               _hover={{ bg: "#0075FF" }}
               textAlign={"left"}
               gap={3}
+              disabled={props?.currentPlan === props?.heading}
             >
               <img src={cartIcon} width={20} />
               {props?.btnText}

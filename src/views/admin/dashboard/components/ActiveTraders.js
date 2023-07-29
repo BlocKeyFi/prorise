@@ -14,6 +14,7 @@ import { pieChartData, pieChartOptions } from "variables/charts";
 
 export default function DailyTraffic(props) {
   const { pieHeight, ...rest } = props;
+  
 
   // const renderSteps = () => {
   //   const stepAngle = 360 / 10;

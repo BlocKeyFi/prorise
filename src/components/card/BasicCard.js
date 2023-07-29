@@ -362,6 +362,7 @@ export default function BasicCard(props) {
             slice={value}
             p={0}
             bg={"none"}
+            copyTrade={true}
           />
         )}
       </Flex>

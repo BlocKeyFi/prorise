@@ -26,17 +26,20 @@ import { getOpenPositions } from "store/actions";
 import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { login } = useSelector((state) => state?.user);
-  const { currentPositions } = useSelector((state) => state?.exchange);
+  const { currentPositions, exchangeConnection } = useSelector(
+    (state) => state?.exchange
+  );
 
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    await dispatch(
-      getOpenPositions({
-        exchange: login?.user?.email,
-      })
-    );
+    if (exchangeConnection) {
+      await dispatch(
+        getOpenPositions({
+          exchange: exchangeConnection,
+        })
+      );
+    }
   }, []);
 
   return (

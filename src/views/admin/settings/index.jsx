@@ -36,6 +36,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { exchange } from "store/actions";
 import { generateRandomString } from "utils/utils";
 import { currentlyExchangeConnected } from "store/actions";
+import { useEffect } from "react";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import { setAuthToken } from "constants/api";
+import { toast } from "react-hot-toast";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -46,10 +51,14 @@ export default function Settings() {
 
   const textColor = useColorModeValue("white", "white");
   const textColorSecondary = useColorModeValue("gray.200", "gray.200");
+  const { login } = useSelector((state) => state.user);
+  const { exchangeConnection } = useSelector((state) => state.exchange);
+  const [plans, setPlans] = useState([]);
+
+  const [userDetail, setUserDetail] = useState({ ...login?.user });
 
   const dispatch = useDispatch();
-
-  const { login } = useSelector((state) => state.user);
+  // console.log(getPlans());
 
   const [exchangeData, setExchangeData] = useState({
     secretKey: "",
@@ -57,6 +66,20 @@ export default function Settings() {
     exchange: "",
     connectionName: generateRandomString(8),
   });
+
+  useEffect(async () => {
+    try {
+      setAuthToken(login?.token);
+      const { data } = await apiInstance.get(`${PRO_RISE.getPlans}`);
+      if (data?.success) {
+        setPlans(data?.result);
+      } else {
+        toast.error(data?.message);
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+  }, []);
 
   const switchWithText = () => {
     return switchs?.map((item, index) => {
@@ -93,7 +116,7 @@ export default function Settings() {
   };
 
   const randerConnected = () => {
-    return switchs.slice(0, 3).map((item, index) => {
+    return [1, 2, 3].map((item, index) => {
       return (
         <>
           <Flex
@@ -129,7 +152,13 @@ export default function Settings() {
                   width={"100%"}
                   mt={1}
                 >
-                  {"Déconnecter"}
+                  {exchangeConnection === "binance" && index === 0
+                    ? "Connecté"
+                    : exchangeConnection === "bybit" && index === 1
+                    ? "Connecté"
+                    : exchangeConnection === "kucoin" && index === 2
+                    ? "Connecté"
+                    : "Déconnecter"}
                 </Text>
               </Heading>
             </Box>
@@ -145,25 +174,17 @@ export default function Settings() {
                 borderRadius="10px"
                 _hover={{ bg: "#0075FF" }}
                 textAlign={"left"}
-                disabled={
-                  index === 0
-                    ? true
-                    : index === 1
-                    ? false
-                    : index === 2
-                    ? true
-                    : null
-                }
+                // disabled={exchangeConnection === }
                 gap={2}
-                // disabled={
-                //   exchangeConnection === "binance" && index === 0
-                //     ? true
-                //     : exchangeConnection === "bybit" && index === 1
-                //     ? true
-                //     : exchangeConnection === "kucoin" && index === 2
-                //     ? true
-                //     : false
-                // }
+                disabled={
+                  exchangeConnection === "binance" && index === 0
+                    ? false
+                    : exchangeConnection === "bybit" && index === 1
+                    ? false
+                    : exchangeConnection === "kucoin" && index === 2
+                    ? false
+                    : true
+                }
                 onClick={() =>
                   updateExchnageData(
                     index === 0
@@ -177,7 +198,13 @@ export default function Settings() {
                 }
               >
                 <Icon as={MdEdit} />
-                {"Connecté"}
+                {exchangeConnection === "binance" && index === 0
+                  ? "Déconnecter"
+                  : exchangeConnection === "bybit" && index === 1
+                  ? "Déconnecter"
+                  : exchangeConnection === "kucoin" && index === 2
+                  ? "Déconnecter"
+                  : "Connecté"}
               </Button>
             </Box>
           </Flex>
@@ -236,7 +263,18 @@ export default function Settings() {
                   sm: 4,
                 }}
               >
-                <InputFeild label="Prénom" placeholder="Cole" type="email" />
+                <InputFeild
+                  label="Prénom"
+                  placeholder="Cole"
+                  type="text"
+                  value={userDetail?.username}
+                  onChange={(e) =>
+                    setUserDetail({
+                      ...userDetail,
+                      username: e.target.value,
+                    })
+                  }
+                />
               </GridItem>
               <GridItem
                 colSpan={{
@@ -265,7 +303,14 @@ export default function Settings() {
                 <InputFeild
                   label="Adresse courriel"
                   placeholder="cole.caufield@gmail.com"
-                  type="text"
+                  type="email"
+                  value={userDetail?.email}
+                  onChange={(e) =>
+                    setUserDetail({
+                      ...userDetail,
+                      email: e.target.value,
+                    })
+                  }
                 />
               </GridItem>
               <GridItem
@@ -280,7 +325,14 @@ export default function Settings() {
                 <InputFeild
                   label="Numéro de téléphone"
                   placeholder="+33 755-272-124"
-                  type="text"
+                  type="number"
+                  value={userDetail?.phoneNumber}
+                  onChange={(e) =>
+                    setUserDetail({
+                      ...userDetail,
+                      phoneNumber: e.target.value,
+                    })
+                  }
                 />
               </GridItem>
             </Grid>
@@ -405,24 +457,22 @@ export default function Settings() {
               mb={{ base: "20px", md: "auto" }}
               alignItems="center"
             >
-              <PriceCard
-                id={1}
-                heading={"De base"}
-                paragraph={
-                  "Profitez de la liste des top traders à un prix avantageux."
-                }
-                price={"€59/mois"}
-                btnText={"Sélectionner"}
-                setting={true}
-              />
-              <PriceCard
-                id={2}
-                badge={"POPULAIRE"}
-                heading={"Avancé"}
-                paragraph={"Profitez de toutes les fonctionnalités."}
-                price={"€89/mois"}
-                setting={true}
-              />
+              {plans?.map((item, index) => (
+                <PriceCard
+                  id={++index}
+                  planId={item?.id}
+                  heading={item?.name}
+                  paragraph={item?.description}
+                  price={`€${item?.price}/mois`}
+                  btnText={
+                    index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
+                  }
+                  // getSubscriptionData={(e) => onCreateUser(e)}
+                  setting={true}
+                  userId={login?.user?.id}
+                  currentPlan={login?.user?.currentPlan}
+                />
+              ))}
             </Flex>
           </BasicCard>
           <BasicCard heading="Mode de paiement">

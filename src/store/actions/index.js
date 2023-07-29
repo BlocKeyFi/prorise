@@ -76,8 +76,8 @@ export const currentlyExchangeConnected = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      toast.error(error.message);
-      return rejectWithValue(error.message);
+      // toast.warn("Connection Not found Please build your Connection");
+      return rejectWithValue("Connection error");
     }
   }
 );

@@ -35,7 +35,7 @@ const exchangeSlice = createSlice({
     [currentlyExchangeConnected.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.exchangeConnection = payload?.result?.exchange;
+      state.exchangeConnection = payload?.exchange;
     },
     [currentlyExchangeConnected.rejected]: (state, { payload }) => {
       state.isLoading = false;
