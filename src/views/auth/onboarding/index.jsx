@@ -67,9 +67,9 @@ function Register() {
         setAuthToken(localStorage.getItem("jwt"));
         const { data } = await apiInstance.get(`${PRO_RISE.getPlans}`);
         if (data?.success) {
-          setPlans(data.result);
+          setPlans(data?.result);
         } else {
-          toast.error(data.message);
+          toast.error(data?.message);
         }
       } catch (error) {
         toast.error(error);
