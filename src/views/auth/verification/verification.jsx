@@ -24,7 +24,11 @@ export default function Verification() {
     const url = new URL(window.location.href);
 
     // Get the token query parameter from the URL
-    const token = url.searchParams.get(TOKEN);
+    // const token = url.searchParams.get(TOKEN);
+
+    const encodedString = url?.search;
+
+    const token = encodedString.replace("?=", "");
 
     if (token) {
       // You can now use the 'token' variable in your code
@@ -33,10 +37,6 @@ export default function Verification() {
       } catch (error) {
         toast.error(error);
       }
-
-      // Do something with the token, like dispatching an action or making an API call
-      // For example, if you want to store it in the Redux store:
-      // dispatch({ type: 'SET_TOKEN', payload: token });
     }
   }, []);
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 // ProRIse imports
 import {
@@ -37,6 +37,7 @@ import {
   USERNAME,
   TARGET_ZERO,
 } from "constants/constants";
+import { setAuthToken } from "constants/api";
 
 function Register() {
   // ProRIse color mode
@@ -44,9 +45,12 @@ function Register() {
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("#A0AEC0", "gray.200");
 
+  const { login } = useSelector((state) => state.user);
+
   const [onbordOne, setOnbordOne] = useState(false);
   const [onbordTwo, setOnbordTwo] = useState(true);
   const [onbordThree, setOnbordThree] = useState(false);
+  const [plans, setPlans] = useState([]);
 
   const [userData, setUserData] = useState({
     email: "",
@@ -54,6 +58,24 @@ function Register() {
     fisrtName: "",
     lastName: "",
   });
+
+  useEffect(async () => {
+    if (login?.user?.currentSubscription === null) {
+      setOnbordTwo(false);
+      setOnbordThree(true);
+      try {
+        setAuthToken(localStorage.getItem("jwt"));
+        const { data } = await apiInstance.get(`${PRO_RISE.getPlans}`);
+        if (data?.success) {
+          setPlans(data.result);
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error(error);
+      }
+    }
+  }, [login]);
 
   const { email, password, fisrtName, lastName } = userData;
 
@@ -63,9 +85,10 @@ function Register() {
   const onCreateUser = (e) => {
     if (e) {
       dispatch(subscribeToPackage(e));
+      history.push("/auth");
       setOnbordThree(false);
       setOnbordTwo(false);
-      setOnbordOne(true);
+      setOnbordOne(false);
     }
   };
 
@@ -281,17 +304,22 @@ function Register() {
             mb={{ base: "20px", md: "auto" }}
             alignItems="center"
           >
-            <PriceCard
-              id={1}
-              heading={"Silver"}
-              paragraph={"Le plan parfait pour débuter."}
-              price={"€24/mois"}
-              btnText={"Essai gratuit de 7 jours"}
-              getSubscriptionData={(e) => onCreateUser(e)}
-              authScreen={true}
-              email={email}
-            />
-            <PriceCard
+            {plans.map((item, index) => (
+              <PriceCard
+                id={++index}
+                planId={item?.id}
+                heading={item?.name}
+                paragraph={item?.description}
+                price={`€${item?.price}/mois`}
+                btnText={
+                  index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
+                }
+                getSubscriptionData={(e) => onCreateUser(e)}
+                authScreen={true}
+                userId={login?.user?.id}
+              />
+            ))}
+            {/* <PriceCard
               id={2}
               heading={"Gold"}
               paragraph={"Le plan parfait pour débuter."}
@@ -311,7 +339,7 @@ function Register() {
               getSubscriptionData={(e) => onCreateUser(e)}
               authScreen={true}
               email={email}
-            />
+            /> */}
           </Flex>
         )}
       </Flex>

@@ -31,18 +31,23 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("todaummaunnajou-9567@yopmail.com");
+  const [password, setPassword] = useState("todaummaunnajou-9567");
 
   const onLogin = async () => {
     if (email && password) {
       try {
-        await dispatch(
+        const response = await dispatch(
           userLogin({
             email: email,
             password: password,
           })
         ).unwrap();
+        if (response?.user?.currentSubscription) {
+          history.push("/admin/dashboard");
+        } else {
+          history.push("/auth/onboarding");
+        }
       } catch (error) {
         // Handle login error if needed
         history.push("/auth/send-verification");

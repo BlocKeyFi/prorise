@@ -19,13 +19,25 @@ import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 
 import { IoIosArrowForward } from "react-icons/io";
 import TradersCard from "components/card/TradersCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import DailyTraffic from "./components/ActiveTraders";
+import { getOpenPositions } from "store/actions";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { data } = useSelector((state) => state?.leaderBoard);
+  const { login } = useSelector((state) => state?.user);
   const { currentPositions } = useSelector((state) => state?.exchange);
+
+  const dispatch = useDispatch();
+
+  useEffect(async () => {
+    await dispatch(
+      getOpenPositions({
+        exchange: login?.user?.email,
+      })
+    );
+  }, []);
 
   return (
     <Box>

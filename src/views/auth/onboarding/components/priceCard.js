@@ -23,7 +23,8 @@ import { pakageDetails } from "constants/constants";
 import { IoMdClose } from "react-icons/io";
 
 export default function PriceCard(props) {
-  const { setting, authScreen, getSubscriptionData, email, ...rest } = props;
+  const { setting, authScreen, getSubscriptionData, userId, planId, ...rest } =
+    props;
 
   // ProRIse Color Mode
 
@@ -31,7 +32,11 @@ export default function PriceCard(props) {
   const textColorSecondary = useColorModeValue("white", "#A0AEC0");
   const iconColor = useColorModeValue("white", "white");
 
-  const pakageName = `${"pakage" + props?.heading}`;
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
+  const pakageName = `${"pakage" + capitalizeFirstLetter(props?.heading)}`;
   const pakageDetail = pakageDetails(pakageName);
 
   return (
@@ -62,9 +67,9 @@ export default function PriceCard(props) {
           }
         >
           <Heading color={textColor} fontSize="36px" mb="10px" pr={"5"}>
-            {props?.heading}
+            {capitalizeFirstLetter(props?.heading)}
           </Heading>
-          {props?.badge && (
+          {props?.heading === "PLATINUM" && (
             <Badge
               variant="subtle"
               h={"6"}
@@ -76,8 +81,9 @@ export default function PriceCard(props) {
               display={"flex"}
               alignItems={"center"}
               fontSize={"10"}
+              gap={2}
             >
-              <Icon as={MdStar} color="white.500" w="3" h="3" /> {props?.badge}
+              <Icon as={MdStar} color="white.500" w="3" h="3" /> {"POPULAIRE"}
             </Badge>
           )}
           {setting && !props?.badge && (
@@ -201,9 +207,8 @@ export default function PriceCard(props) {
           onClick={() => {
             authScreen &&
               getSubscriptionData({
-                packageType: props?.heading?.toUpperCase(),
-                purchasedTime: new Date(),
-                user: email,
+                planId,
+                userId,
               });
           }}
         >

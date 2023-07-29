@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
 
@@ -14,9 +14,11 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 export default function Auth() {
   const { auth } = useSelector((state) => state.user);
   const history = useHistory();
+
   if (auth) {
     history.push("/admin");
   }
+
   // states and functions
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components

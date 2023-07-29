@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { subscribeToPackage } from "store/actions";
 import { logout } from "store/actions";
 import { userLogin } from "store/actions";
 
@@ -23,9 +24,24 @@ const userSlice = createSlice({
       state.login = payload;
       localStorage.setItem("jwt", payload.token);
       state.errorMessage = "";
-      state.auth = true;
+      state.auth = payload?.user?.currentSubscription ? true : false;
     },
     [userLogin.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.errorMessage = payload;
+    },
+
+    [subscribeToPackage.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [subscribeToPackage.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.errorMessage = "";
+      state.auth = true;
+    },
+    [subscribeToPackage.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.isSuccess = false;
       state.errorMessage = payload;

@@ -25,6 +25,8 @@ export function SidebarLinks(props) {
   const { login } = useSelector((state) => state.user);
   const { user } = login;
 
+  const username = user?.username?.split("-");
+
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return location.pathname.includes(routeName || "trader-detail");
@@ -118,7 +120,7 @@ export function SidebarLinks(props) {
                       {route.name === "Copy trading"
                         ? bagde()
                         : route.name === "userName"
-                        ? user?.username
+                        ? username[0]
                         : route.name}
                     </Text>
                   </Flex>

@@ -128,20 +128,22 @@ export default function TableCard(props) {
         )}
       </Card>
       <Center>
-        <Button
-          fontSize="16px"
-          variant="brand"
-          fontWeight="500"
-          w={"100%"}
-          h="35px"
-          bg="#0075FF"
-          borderRadius="10px"
-          _hover={{ bg: "#0075FF" }}
-          textAlign={"center"}
-          gap={2}
-        >
-          <Link to="admin/copy-trading">{"En voir plus"}</Link>
-        </Button>
+        <Link to="/admin/copy-trading" style={{ width: "100%" }}>
+          <Button
+            fontSize="16px"
+            variant="brand"
+            fontWeight="500"
+            w={"100%"}
+            h="35px"
+            bg="#0075FF"
+            borderRadius="10px"
+            _hover={{ bg: "#0075FF" }}
+            textAlign={"center"}
+            gap={2}
+          >
+            {"En voir plus"}
+          </Button>
+        </Link>
       </Center>
     </Card>
   );

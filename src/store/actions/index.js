@@ -53,7 +53,11 @@ export const getOpenPositions = createAsyncThunk(
         `${PRO_RISE.getOpenPositions}`,
         params
       );
-      return data;
+      if (data.success) {
+        return data;
+      } else {
+        toast.error(data.error);
+      }
     } catch (error) {
       toast.error(error.message);
       return rejectWithValue(error.message);
@@ -63,17 +67,12 @@ export const getOpenPositions = createAsyncThunk(
 
 export const currentlyExchangeConnected = createAsyncThunk(
   "exchange/currentlyConnected",
-  async (params, { rejectWithValue, dispatch }) => {
+  async (params, { rejectWithValue }) => {
     try {
       setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.currentlyConnected}`,
         params
-      );
-      dispatch(
-        getOpenPositions({
-          exchange: data?.result?.exchange,
-        })
       );
       return data;
     } catch (error) {
@@ -135,6 +134,7 @@ export const subscribeToPackage = createAsyncThunk(
         `${PRO_RISE.subscribeToPackage}`,
         params
       );
+      toast.success(data.message);
       return data;
     } catch (error) {
       toast.error(error.message);
@@ -144,7 +144,7 @@ export const subscribeToPackage = createAsyncThunk(
 );
 
 export const closePosition = createAsyncThunk(
-  "leader/subscribeToPackage",
+  "leader/closePosition",
   async (params, { rejectWithValue }) => {
     try {
       setAuthToken(localStorage.getItem("jwt"));
