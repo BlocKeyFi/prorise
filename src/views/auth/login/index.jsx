@@ -49,8 +49,12 @@ function Login() {
           history.push("/auth/onboarding");
         }
       } catch (error) {
+        if (error.message) {
+          toast.error("Network Error");
+        } else {
+          history.push("/auth/send-verification");
+        }
         // Handle login error if needed
-        history.push("/auth/send-verification");
       }
     } else {
       toast.error("Fill All The Feilds");

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 // ProRIse imports
 import { Box, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
@@ -65,6 +65,40 @@ export default function TraderDetails() {
 
   const filterData = data.filter((item) => item.encryptedUid === id);
 
+  const updatedButtonArray = useMemo(() => {
+    const newButtonArray = [...buttonArray]; // Create a copy of the original buttonArray
+
+    const fetchData = async () => {
+      try {
+        setAuthToken(localStorage.getItem("jwt"));
+        const { data } = await apiInstance.post(
+          `${PRO_RISE.isTraderFollowedByUser}`,
+          {
+            encryptedUid: id,
+          }
+        );
+
+        if (data.traderFollow) {
+          newButtonArray[2].title = "unFolllow";
+        } else {
+          newButtonArray[2].title = "Copier";
+        }
+        // toast.success("Successfully Follow This Trades List");
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+
+    fetchData();
+
+    if (filterData[0].favorite) {
+      newButtonArray[1].title = "Supprimer des favoris";
+    } else {
+      newButtonArray[1].title = "Ajouter aux favoris";
+    }
+    return newButtonArray; // Return the updated buttonArray
+  }, [filterData]);
+
   const onSubmit = async () => {
     // const params = {
     //   capitalPercent: capitalPercent,
@@ -81,19 +115,38 @@ export default function TraderDetails() {
       await apiInstance.post(`${PRO_RISE.followTrader}`, params);
       toast.success("Successfully Follow This Trades List");
       onClose();
+      dispatch(
+        getLeaderboardsData({
+          searchCriteria: {
+            period: "WEEKLY",
+            currentPage: 1,
+          },
+        })
+      );
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   const onButtonAction = async (e) => {
-    if (e === "Ajouter aux favoris") {
+    if (e === "Ajouter aux favoris" || e === "Supprimer des favoris") {
       try {
         setAuthToken(localStorage.getItem("jwt"));
-        await apiInstance.post(`${PRO_RISE.addFavTrader}`, {
-          encryptedUid: id,
-        });
-        toast.success("Successfully Add in favirate");
+        await apiInstance.post(
+          e === "Ajouter aux favoris"
+            ? `${PRO_RISE.addFavTrader}`
+            : `${PRO_RISE.unFavoriteTrader}`,
+          {
+            encryptedUid: id,
+          }
+        );
+        toast.success(
+          `Successfully ${
+            e === "Ajouter aux favoris"
+              ? "Add in favirate"
+              : "Remove from favirate"
+          }`
+        );
         dispatch(
           getLeaderboardsData({
             searchCriteria: {
@@ -109,10 +162,34 @@ export default function TraderDetails() {
     if (e === "Copier") {
       onOpen();
     }
+
+    if (e === "unFolllow") {
+      try {
+        setAuthToken(localStorage.getItem("jwt"));
+        await apiInstance.post(`${PRO_RISE.unfollowTrader}`, {
+          encryptedUid: id,
+        });
+        toast.success(` Successfully unFolllow Trade`);
+        dispatch(
+          getLeaderboardsData({
+            searchCriteria: {
+              period: "WEEKLY",
+              currentPage: 1,
+            },
+          })
+        );
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
     if (e === "Refresh") {
       refresh();
     }
   };
+
+  useEffect(() => {
+    console.log(updatedButtonArray);
+  }, [apiInstance]);
 
   return (
     <Box>
@@ -121,7 +198,7 @@ export default function TraderDetails() {
         userImage={user}
         table={tabIndex === "2" ? false : true}
         getTabIndex={(e) => setTabIndex(e)}
-        buttonArray={buttonArray}
+        buttonArray={updatedButtonArray}
         tabsArray={tabsArray}
         traderPositions={traderPositions ?? []}
         onButtonAction={onButtonAction}

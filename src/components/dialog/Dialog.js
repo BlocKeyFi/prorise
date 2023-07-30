@@ -16,6 +16,8 @@ import {
 
 import InputFeild from "components/fields/InputField";
 import { BiCopy } from "react-icons/bi";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, PaymentElement } from "@stripe/react-stripe-js";
 // Custom components
 
 export default function Dialog({
@@ -29,8 +31,10 @@ export default function Dialog({
   capitalPercent,
   setCapitalPercent,
   filterData,
+  stripe,
 }) {
   const cancelRef = React.useRef();
+
   return (
     <>
       <AlertDialog
@@ -48,52 +52,65 @@ export default function Dialog({
           }
         >
           <AlertDialogHeader fontSize={"34px"}>{heading}</AlertDialogHeader>
-          <AlertDialogBody>
-            {connection ? (
-              <React.Fragment>
-                <InputFeild
-                  label="Secret Key"
-                  type="password"
-                  value={exchangeData.secretKey}
-                  onChange={(e) =>
-                    setExchangeData({
-                      ...exchangeData,
-                      secretKey: e.target.value,
-                    })
-                  }
-                />
-                <InputFeild
-                  label="Api Key"
-                  type="password"
-                  value={exchangeData.apiKey}
-                  onChange={(e) =>
-                    setExchangeData({ ...exchangeData, apiKey: e.target.value })
-                  }
-                />
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <InputFeild
-                  label="Trader"
-                  value={filterData && filterData[0]?.nickName}
-                  disabled
-                />
-                <Flex direction={"row"} gap={5}>
+          {stripe ? (
+            <>
+              {/* <PaymentElement />
+              <button>Submit</button> */}
+            </>
+          ) : (
+            <AlertDialogBody>
+              {connection ? (
+                <React.Fragment>
                   <InputFeild
-                    value={"€" + filterData && filterData[0]?.rank}
-                    label="Capital"
+                    label="Secret Key"
+                    type="password"
+                    value={exchangeData.secretKey}
+                    onChange={(e) =>
+                      setExchangeData({
+                        ...exchangeData,
+                        secretKey: e.target.value,
+                      })
+                    }
+                  />
+                  <InputFeild
+                    label="Api Key"
+                    type="password"
+                    value={exchangeData.apiKey}
+                    onChange={(e) =>
+                      setExchangeData({
+                        ...exchangeData,
+                        apiKey: e.target.value,
+                      })
+                    }
+                  />
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <InputFeild
+                    label="Trader"
+                    value={filterData && filterData[0]?.nickName}
                     disabled
                   />
-                  <InputFeild
-                    label="Gestion du risque"
-                    type="number"
-                    value={capitalPercent}
-                    onChange={(e) => setCapitalPercent(Number(e.target.value))}
-                  />
-                </Flex>
-              </React.Fragment>
-            )}
-          </AlertDialogBody>
+                  <Flex direction={"row"} gap={5}>
+                    <InputFeild
+                      value={"€" + filterData && filterData[0]?.rank}
+                      label="Capital"
+                      disabled
+                    />
+                    <InputFeild
+                      label="Gestion du risque"
+                      type="number"
+                      value={capitalPercent}
+                      onChange={(e) =>
+                        setCapitalPercent(Number(e.target.value))
+                      }
+                    />
+                  </Flex>
+                </React.Fragment>
+              )}
+            </AlertDialogBody>
+          )}
+
           <AlertDialogCloseButton />
           <AlertDialogFooter>
             <Flex

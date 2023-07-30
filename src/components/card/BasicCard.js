@@ -168,15 +168,11 @@ export default function BasicCard(props) {
                     display="flex"
                     bg={"#0075FF"}
                     borderRadius="10px"
-                    // _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
-                    // _focus={{ bg: props?.isCopy ? "none" : "#0075FF" }}
                     textAlign={"left"}
                     gap={2}
                     onClick={() => onButtonAction(item.title)}
                     disabled={
                       item.title === "Copier" && traderPositions.length === 0
-                        ? true
-                        : item.title === "Ajouter aux favoris" && favorite
                         ? true
                         : false
                     }
