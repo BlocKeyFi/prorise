@@ -174,17 +174,25 @@ export default function Settings() {
                 borderRadius="10px"
                 _hover={{ bg: "#0075FF" }}
                 textAlign={"left"}
-                // disabled={exchangeConnection === }
-                gap={2}
                 disabled={
-                  exchangeConnection === "binance" && index === 0
+                  index === 0
+                    ? true
+                    : index === 1
                     ? false
-                    : exchangeConnection === "bybit" && index === 1
-                    ? false
-                    : exchangeConnection === "kucoin" && index === 2
-                    ? false
-                    : true
+                    : index === 2
+                    ? true
+                    : null
                 }
+                gap={2}
+                // disabled={
+                //   exchangeConnection === "binance" && index === 0
+                //     ? true
+                //     : exchangeConnection === "bybit" && index === 1
+                //     ? true
+                //     : exchangeConnection === "kucoin" && index === 2
+                //     ? true
+                //     : false
+                // }
                 onClick={() =>
                   updateExchnageData(
                     index === 0
@@ -457,7 +465,7 @@ export default function Settings() {
               mb={{ base: "20px", md: "auto" }}
               alignItems="center"
             >
-              {plans?.map((item, index) => (
+              {plans?.slice(0, 3)?.map((item, index) => (
                 <PriceCard
                   id={++index}
                   planId={item?.id}

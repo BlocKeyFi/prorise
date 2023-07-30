@@ -71,27 +71,11 @@ export default function Dashboard() {
         >
           <TableCard data={currentPositions ?? []} />
         </GridItem>
-        <GridItem
-          colSpan={{
-            "2xl": 3,
-            xl: 3,
-            lg: 3,
-            md: 4,
-            sm: 4,
-          }}
-        >
+        <GridItem colSpan={4}>
           <TotalSpent heading="Performances" design={2} />
         </GridItem>
 
-        <GridItem
-          colSpan={{
-            "2xl": 1,
-            xl: 1,
-            lg: 1,
-            md: 4,
-            sm: 4,
-          }}
-        >
+        <GridItem colSpan={4}>
           <DailyTraffic
             h={{
               "2xl": "52vh",

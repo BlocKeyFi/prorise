@@ -85,7 +85,7 @@ function Register() {
   const onCreateUser = (e) => {
     if (e) {
       dispatch(subscribeToPackage(e));
-      history.push("/auth");
+      // history.push("/auth");
       setOnbordThree(false);
       setOnbordTwo(false);
       setOnbordOne(false);
@@ -304,7 +304,7 @@ function Register() {
             mb={{ base: "20px", md: "auto" }}
             alignItems="center"
           >
-            {plans.map((item, index) => (
+            {plans?.slice(0, 3)?.map((item, index) => (
               <PriceCard
                 id={++index}
                 planId={item?.id}
