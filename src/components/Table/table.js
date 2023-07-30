@@ -190,11 +190,29 @@ export default function GlobalTable(props) {
                       } else if (cell.column.Header === "STATUS") {
                         data = (
                           <Text
-                            color={!cell.value ? "green.300" : "red"}
+                            color={
+                              cell?.row?.original?.avgPrice
+                                ? cell?.row?.original?.avgPrice?.includes("-")
+                                  ? "red"
+                                  : "green.300"
+                                : cell?.row?.original?.roe
+                                    .toString()
+                                    ?.includes("-")
+                                ? "red"
+                                : "green.300"
+                            }
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {!cell.value ? "Profit" : "Loss"}
+                            {cell?.row?.original?.avgPrice
+                              ? cell?.row?.original?.avgPrice?.includes("-")
+                                ? "Loss"
+                                : "Profit"
+                              : cell?.row?.original?.roe
+                                  ?.toString()
+                                  .includes("-")
+                              ? "Loss"
+                              : "Profit"}
                           </Text>
                         );
                       } else if (cell.column.Header === "DATE DE SORTIE") {

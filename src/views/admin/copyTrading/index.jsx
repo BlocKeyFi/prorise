@@ -128,12 +128,12 @@ export default function Settings() {
             tableHeading="Trades actifs"
             p={10}
           />
-          <DevelopmentTable
+          {/* <DevelopmentTable
             columnsData={columnsDataTradeHistory}
             tableData={tableDataDevelopment}
             tableHeading="Historique des trades"
             p={10}
-          />
+          /> */}
         </SimpleGrid>
       )}
     </Box>
