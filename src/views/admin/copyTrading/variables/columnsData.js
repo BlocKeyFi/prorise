@@ -5,7 +5,7 @@ export const columnsDataActiveTrades = [
   },
   {
     Header: "POSITION",
-    accessor: "long",
+    accessor: "side",
   },
   {
     Header: "ORDER COIN",
@@ -35,8 +35,8 @@ export const columnsCopyTrade = [
     accessor: "updateTimeStamp",
   },
   {
-    Header: "POSITION",
-    accessor: "long",
+    Header: "POSITIONS",
+    accessor: "side",
   },
   {
     Header: "ORDER COIN",

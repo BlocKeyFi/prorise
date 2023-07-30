@@ -117,7 +117,7 @@ export default function GlobalTable(props) {
                             {date}
                           </Text>
                         );
-                      } else if (cell.column.Header === "POSITION") {
+                      } else if (cell.column.Header === "POSITIONS") {
                         data = (
                           <Text
                             color={textColor}
@@ -125,6 +125,16 @@ export default function GlobalTable(props) {
                             fontWeight="400"
                           >
                             {cell.value ? "buy" : "sell"}
+                          </Text>
+                        );
+                      } else if (cell.column.Header === "POSITION") {
+                        data = (
+                          <Text
+                            color={textColor}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {cell.value}
                           </Text>
                         );
                       } else if (cell.column.Header === "ORDER COIN") {
