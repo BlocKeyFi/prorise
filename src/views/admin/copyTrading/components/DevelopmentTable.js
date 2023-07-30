@@ -24,7 +24,7 @@ import { setAuthToken } from "constants/api";
 import { closePosition } from "store/actions";
 
 export default function DevelopmentTable(props) {
-  const { columnsData, tableData, tableHeading, slice, p, bg } = props;
+  const { columnsData, tableData, tableHeading, p, bg } = props;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const { exchangeConnection } = useSelector((state) => state.exchange);

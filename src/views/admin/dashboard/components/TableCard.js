@@ -115,7 +115,9 @@ export default function TableCard(props) {
                     md: "14px",
                     sm: "12px",
                   }}
-                  color="green.300"
+                  color={
+                    item?.unrealisedPnl.includes("-") ? "red" : "green.300"
+                  }
                   fontWeight="400"
                   mb="5px"
                 >

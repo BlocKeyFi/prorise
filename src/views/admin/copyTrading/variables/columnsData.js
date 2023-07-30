@@ -1,7 +1,7 @@
 export const columnsDataActiveTrades = [
   {
     Header: "DATE D’ENTREE",
-    accessor: "updatedTime",
+    accessor: "createdTime",
   },
   {
     Header: "POSITION",
@@ -26,7 +26,7 @@ export const columnsDataActiveTrades = [
   {
     Header: "STATUS",
     accessor: "short",
-  }
+  },
 ];
 
 export const columnsCopyTrade = [
@@ -57,7 +57,7 @@ export const columnsCopyTrade = [
   {
     Header: "STATUS",
     accessor: "short",
-  }
+  },
 ];
 
 export const columnsDataTradeHistory = [
