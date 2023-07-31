@@ -20,7 +20,6 @@ import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
 import Dialog from "components/dialog/Dialog";
 import { CLOSE } from "constants/constants";
-import { closePosition } from "store/actions";
 import { getLeaderboardsData } from "store/actions";
 
 // Custom components
@@ -186,10 +185,6 @@ export default function TraderDetails() {
       refresh();
     }
   };
-
-  useEffect(() => {
-    console.log(updatedButtonArray);
-  }, [apiInstance]);
 
   return (
     <Box>

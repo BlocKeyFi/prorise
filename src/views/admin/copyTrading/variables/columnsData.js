@@ -35,8 +35,8 @@ export const columnsCopyTrade = [
     accessor: "updateTimeStamp",
   },
   {
-    Header: "POSITIONS",
-    accessor: "side",
+    Header: "POSITION",
+    accessor: "long",
   },
   {
     Header: "ORDER COIN",
@@ -63,32 +63,32 @@ export const columnsCopyTrade = [
 export const columnsDataTradeHistory = [
   {
     Header: "DATE D’ENTREE",
-    accessor: "Date d’entrée",
+    accessor: "createdTime",
   },
   {
     Header: "POSITION",
-    accessor: "Position",
+    accessor: "side",
   },
   {
     Header: "ORDER COIN",
-    accessor: "Order coin",
+    accessor: "symbol",
   },
   {
     Header: "PRIX D’ENTREE",
-    accessor: "Prix d’entré",
+    accessor: "avgEntryPrice",
   },
 
   {
     Header: "PRIX DE SORTIE",
-    accessor: "Prix de sortie",
+    accessor: "avgExitPrice",
   },
   {
     Header: "ROI",
-    accessor: "Roi",
+    accessor: "closedPnl",
   },
   {
     Header: "LEVIER",
-    accessor: "Levier",
+    accessor: "leverage",
   },
   {
     Header: "STATUS",
@@ -96,6 +96,6 @@ export const columnsDataTradeHistory = [
   },
   {
     Header: "DATE DE SORTIE",
-    accessor: "Date de sortie",
+    accessor: "updatedTime",
   },
 ];

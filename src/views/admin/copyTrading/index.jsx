@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // ProRIse imports
 import {
   Box,
+  Button,
   Center,
   Flex,
   Select,
@@ -9,6 +10,7 @@ import {
   Tab,
   TabList,
   Tabs,
+  Text,
 } from "@chakra-ui/react";
 
 // proRise Imports
@@ -23,7 +25,15 @@ import {
 import DevelopmentTable from "./components/DevelopmentTable";
 import TradersCard from "components/card/TradersCard";
 import { TradersCardData } from "constants/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getOpenPositions } from "store/actions";
+import { getClosedTrades } from "store/actions";
+import { setAuthToken } from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import apiInstance from "constants/api";
+import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -31,7 +41,22 @@ export default function Settings() {
 
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
 
-  const { currentPositions } = useSelector((state) => state?.exchange);
+  const { currentPositions, exchangeConnection, closedPositions } = useSelector(
+    (state) => state?.exchange
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(async () => {
+    if (exchangeConnection) {
+      dispatch(
+        getOpenPositions({
+          exchange: exchangeConnection,
+        })
+      );
+      dispatch(getClosedTrades("tradeHistory"));
+    }
+  }, []);
 
   const filterFavData = data?.filter((item) => item.favorite === true);
 
@@ -101,24 +126,54 @@ export default function Settings() {
           gap="20px"
           mb="20px"
         >
-          {filterFavData?.map((item) => {
-            return (
-              <TradersCard
-                id={item?.encryptedUid}
-                heading={item?.nickName}
-                paragraph={item?.updated_at}
-                image={item?.userPhotoUrl}
-                text1={"ROI 7 jours"}
-                text2={"Win rate 7 jours"}
-                textvalue1={item?.roi}
-                textvalue2={item?.winrate}
-                btnText="Copier"
-                isCopy={item?.isCopy}
-                copyCount={item.followerCount}
-                icon={item.favorite}
-              />
-            );
-          })}
+          {filterFavData.length ? (
+            filterFavData?.map((item) => {
+              return (
+                <TradersCard
+                  id={item?.encryptedUid}
+                  heading={item?.nickName}
+                  paragraph={item?.updated_at}
+                  image={item?.userPhotoUrl}
+                  text1={"ROI 7 jours"}
+                  text2={"Win rate 7 jours"}
+                  textvalue1={item?.roi}
+                  textvalue2={item?.winrate}
+                  btnText="Copier"
+                  isCopy={item?.isCopy}
+                  copyCount={item.followerCount}
+                  icon={item.favorite}
+                />
+              );
+            })
+          ) : (
+            <Center
+              height={"50vh"}
+              width={"165vh"}
+              display={"flex"}
+              flexDirection={"column"}
+              gap={30}
+            >
+              <Text fontSize="32px" fontWeight="600" lineHeight="100%">
+                {"No Favourite Found"}
+              </Text>
+              <Link to="/admin/top-traders">
+                <Button
+                  fontSize="16px"
+                  variant="brand"
+                  fontWeight="500"
+                  w={"100%"}
+                  h="35px"
+                  bg="#0075FF"
+                  borderRadius="10px"
+                  _hover={{ bg: "#0075FF" }}
+                  textAlign={"center"}
+                  gap={2}
+                >
+                  {"Add Trades"}
+                </Button>
+              </Link>
+            </Center>
+          )}
         </SimpleGrid>
       ) : (
         <SimpleGrid gap={10}>
@@ -128,12 +183,12 @@ export default function Settings() {
             tableHeading="Trades actifs"
             p={10}
           />
-          {/* <DevelopmentTable
+          <DevelopmentTable
             columnsData={columnsDataTradeHistory}
-            tableData={tableDataDevelopment}
+            tableData={closedPositions ?? []}
             tableHeading="Historique des trades"
             p={10}
-          /> */}
+          />
         </SimpleGrid>
       )}
     </Box>

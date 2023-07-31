@@ -143,15 +143,16 @@ export const subscribeToPackage = createAsyncThunk(
   }
 );
 
-export const closePosition = createAsyncThunk(
-  "leader/closePosition",
-  async (params, { rejectWithValue }) => {
+export const getClosedTrades = createAsyncThunk(
+  "leader/getClosedTrades",
+  async ({ rejectWithValue }) => {
     try {
       setAuthToken(localStorage.getItem("jwt"));
-      await apiInstance.post(`${PRO_RISE.closePosition}`, params);
-      toast.success("Successfully Closed");
+      const { data } = await apiInstance.post(`${PRO_RISE.getClosedTrades}`);
+      return data?.tradeHistory;
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.msg);
+      return rejectWithValue(error.msg);
     }
   }
 );

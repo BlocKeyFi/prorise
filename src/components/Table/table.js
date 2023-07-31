@@ -117,16 +117,6 @@ export default function GlobalTable(props) {
                             {date}
                           </Text>
                         );
-                      } else if (cell.column.Header === "POSITIONS") {
-                        data = (
-                          <Text
-                            color={textColor}
-                            fontSize="sm"
-                            fontWeight="400"
-                          >
-                            {cell.value ? "buy" : "sell"}
-                          </Text>
-                        );
                       } else if (cell.column.Header === "POSITION") {
                         data = (
                           <Text
@@ -134,7 +124,11 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {cell?.row?.original?.side
+                              ? cell?.row?.original?.side
+                              : cell.value
+                              ? "Buy"
+                              : "Sell"}
                           </Text>
                         );
                       } else if (cell.column.Header === "ORDER COIN") {
@@ -191,12 +185,16 @@ export default function GlobalTable(props) {
                         data = (
                           <Text
                             color={
-                              cell?.row?.original?.avgPrice
-                                ? cell?.row?.original?.avgPrice?.includes("-")
+                              cell?.row?.original?.avgPrice ||
+                              cell?.row?.original?.closedPnl
+                                ? cell?.row?.original?.avgPrice?.includes(
+                                    "-"
+                                  ) ||
+                                  cell?.row?.original?.closedPnl?.includes("-")
                                   ? "red"
                                   : "green.300"
                                 : cell?.row?.original?.roe
-                                    .toString()
+                                    ?.toString()
                                     ?.includes("-")
                                 ? "red"
                                 : "green.300"
@@ -204,8 +202,10 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell?.row?.original?.avgPrice
-                              ? cell?.row?.original?.avgPrice?.includes("-")
+                            {cell?.row?.original?.avgPrice ||
+                            cell?.row?.original?.closedPnl
+                              ? cell?.row?.original?.avgPrice?.includes("-") ||
+                                cell?.row?.original?.closedPnl?.includes("-")
                                 ? "Loss"
                                 : "Profit"
                               : cell?.row?.original?.roe
@@ -216,13 +216,14 @@ export default function GlobalTable(props) {
                           </Text>
                         );
                       } else if (cell.column.Header === "DATE DE SORTIE") {
+                        const date = timeConverter(cell.value);
                         data = (
                           <Text
                             color={textColor}
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {date}
                           </Text>
                         );
                       }

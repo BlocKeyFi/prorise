@@ -21,6 +21,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { userLogin } from "store/actions";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 function Login() {
   // ProRIse color mode
@@ -33,6 +34,10 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+  });
 
   const onLogin = async () => {
     if (email && password) {
@@ -137,6 +142,24 @@ function Login() {
           >
             Se connecter
           </Button>
+
+          <Button
+            fontSize="24px"
+            variant="brand"
+            fontWeight="500"
+            w="100%"
+            h="55"
+            mb={"30"}
+            bg="white"
+            borderRadius="16px"
+            _hover={{ bg: "white" }}
+            _focus={{ bg: "white" }}
+            color={"black"}
+            onClick={() => googleLogin()}
+          >
+            Sign in with Google 🚀
+          </Button>
+
           <Flex
             flexDirection="column"
             justifyContent="center"

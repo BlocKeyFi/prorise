@@ -10,20 +10,23 @@ import { persistor, store } from "./store/store";
 import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import { PersistGate } from "redux-persist/integration/react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ChakraProvider theme={theme}>
-        <React.StrictMode>
-          <BrowserRouter>
-            <Switch>
-              <Route path={`/auth`} component={AuthLayout} />
-              <Route path={`/admin`} component={AdminLayout} />
-              <Redirect from="/" to="/auth" />
-            </Switch>
-          </BrowserRouter>
-        </React.StrictMode>
+        <GoogleOAuthProvider clientId="265695510821-8m6gdkv15ufr3fk0envbgi22f5lilukc.apps.googleusercontent.com">
+          <React.StrictMode>
+            <BrowserRouter>
+              <Switch>
+                <Route path={`/auth`} component={AuthLayout} />
+                <Route path={`/admin`} component={AdminLayout} />
+                <Redirect from="/" to="/auth" />
+              </Switch>
+            </BrowserRouter>
+          </React.StrictMode>
+        </GoogleOAuthProvider>
         <Toaster
           position="top-center"
           toastOptions={{
