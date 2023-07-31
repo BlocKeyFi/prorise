@@ -40,7 +40,7 @@ export default function Dashboard() {
         })
       );
     }
-  }, []);
+  }, [exchangeConnection]);
 
   return (
     <Box>
