@@ -28,34 +28,24 @@ function SidebarContent(props) {
       <Brand />
       <Stack direction="column" mb="auto" mt="2px">
         <Box ps="20px" pe={{ md: "16px", "2xl": "1px" }}>
-          <Links routes={routes.slice(0, 5)} />
+          <Links routes={routes} />
+          <Box cursor={"pointer"} onClick={handleLogout}>
+            <HStack py="15px" ps="10px" borderRadius={"12px"}>
+              <Flex w="100%" alignItems="center" justifyContent="center">
+                <Box me="18px">
+                  <Icon
+                    as={BiLogOutCircle}
+                    sx={{ fontSize: 23, cursor: "pointer" }}
+                  />
+                </Box>
+                <Text me="auto" textTransform={"capitalize"}>
+                  {"Logout"}
+                </Text>
+              </Flex>
+            </HStack>
+          </Box>
         </Box>
       </Stack>
-
-      <Box
-        ps="20px"
-        pe={{ md: "16px", "2xl": "0px" }}
-        mt="60px"
-        mb="40px"
-        borderRadius="30px"
-      >
-        <Links routes={routes.slice(5, 8)} />
-        <Box cursor={"pointer"} onClick={handleLogout}>
-          <HStack py="15px" ps="10px" borderRadius={"12px"}>
-            <Flex w="100%" alignItems="center" justifyContent="center">
-              <Box me="18px">
-                <Icon
-                  as={BiLogOutCircle}
-                  sx={{ fontSize: 23, cursor: "pointer" }}
-                />
-              </Box>
-              <Text me="auto" textTransform={"capitalize"}>
-                {"Logout"}
-              </Text>
-            </Flex>
-          </HStack>
-        </Box>
-      </Box>
     </Flex>
   );
 }

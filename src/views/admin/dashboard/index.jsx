@@ -8,6 +8,7 @@ import {
   Grid,
   GridItem,
   Link,
+  Select,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
@@ -24,6 +25,9 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import DailyTraffic from "./components/ActiveTraders";
 import { getOpenPositions } from "store/actions";
 import { useEffect } from "react";
+import { columnsDataActiveTrades } from "../copyTrading/variables/columnsData";
+import DevelopmentTable from "../copyTrading/components/DevelopmentTable";
+import Circle from "./components/circle";
 
 export default function Dashboard() {
   const { currentPositions, exchangeConnection } = useSelector(
@@ -44,16 +48,57 @@ export default function Dashboard() {
 
   return (
     <Box>
+      {/* <Flex justifyContent={"right"} py={5}>
+        <Select
+          bg="rgba(255, 255, 255, 0.08)"
+          border="none"
+          color="white"
+          w={300}
+
+          // placeholder="Trier par : ROI 7 jours"
+        >
+          {[1, 2, 3, 4, 5].map((item, index) => (
+            <option
+              value={
+                index === 0
+                  ? "7 DAYS"
+                  : index === 1
+                  ? "30 DAYS"
+                  : index === 2
+                  ? "3 MONTHS"
+                  : index === 3
+                  ? "6 MONTHS"
+                  : index === 4
+                  ? "1 YEAR"
+                  : null
+              }
+            >
+              {index === 0
+                ? "Trier par : 7 jours"
+                : index === 1
+                ? "Trier par : 30 jours"
+                : index === 2
+                ? "Trier par : 3 mois"
+                : index === 3
+                ? "Trier par :  6 mois"
+                : index === 4
+                ? "Trier par : 1 année"
+                : null}
+            </option>
+          ))}
+        </Select>
+      </Flex> */}
+
       <Grid
         templateRows="repeat(1, 1fr)"
-        templateColumns="repeat(4, 1fr)"
+        templateColumns="repeat(3, 1fr)"
         gap={8}
       >
         <GridItem
           colSpan={{
-            "2xl": 3,
-            xl: 3,
-            lg: 3,
+            "2xl": 2,
+            xl: 2,
+            lg: 2,
             md: 4,
             sm: 4,
           }}
@@ -62,29 +107,25 @@ export default function Dashboard() {
         </GridItem>
         <GridItem
           colSpan={{
-            "2xl": 1,
-            xl: 1,
-            lg: 1,
+            "2xl": 2,
+            xl: 2,
+            lg: 2,
             md: 4,
             sm: 4,
           }}
         >
-          <TableCard data={currentPositions ?? []} />
+          {/* <Circle /> */}
+          <DailyTraffic pieHeight={"80%"} />
         </GridItem>
         <GridItem colSpan={4}>
           <TotalSpent heading="Performances" design={2} />
         </GridItem>
-
         <GridItem colSpan={4}>
-          <DailyTraffic
-            h={{
-              "2xl": "52vh",
-              xl: "52vh",
-              lg: "52vh",
-              md: "52vh",
-              sm: "52vh",
-            }}
-            pieHeight={"100%"}
+          <DevelopmentTable
+            columnsData={columnsDataActiveTrades}
+            tableData={currentPositions ?? []}
+            tableHeading="Trades actifs"
+            p={10}
           />
         </GridItem>
       </Grid>

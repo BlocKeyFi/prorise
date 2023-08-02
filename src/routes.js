@@ -22,6 +22,7 @@ import TraderDetails from "views/admin/TopTraders/traderDetail";
 import Login from "views/auth/login";
 import Verification from "views/auth/verification/verification";
 import SendVerification from "views/auth/verification/sendVerification";
+import Leaderboard from "./assets/img/dashboards/svgIcon/presentation-chart-1.svg";
 
 const routes = [
   {
@@ -30,6 +31,7 @@ const routes = [
     path: "/dashboard",
     icon: <img src={dashboard} />,
     component: MainDashboard,
+    primary: true,
   },
   {
     name: "Top traders",
@@ -37,7 +39,15 @@ const routes = [
     path: "/top-traders",
     icon: <img src={topTrand} />,
     component: TopTraders,
-    secondary: true,
+    primary: true,
+  },
+  {
+    name: "Leaderboard",
+    layout: "/admin",
+    path: "/leaderboard",
+    icon: <img src={Leaderboard} />,
+    component: TopTraders,
+    primary: true,
   },
   {
     name: "Copy trading",
@@ -45,30 +55,31 @@ const routes = [
     icon: <img src={copy} />,
     path: "/copy-trading",
     component: CopyTrading,
+    primary: true,
   },
-  {
-    name: "Analytiques",
-    layout: "/admin",
-    path: "/analytics",
-    icon: <img src={Analytiques} />,
-    component: Analytics,
-  },
+  // {
+  //   name: "Analytiques",
+  //   layout: "/admin",
+  //   path: "/analytics",
+  //   icon: <img src={Analytiques} />,
+  //   component: Analytics,
+  // },
   {
     name: "Parrainage",
     layout: "/admin",
     path: "/sponsorship",
     icon: <img src={shear} />,
     component: SponsorShip,
+    primary: true,
   },
+  // {
+  //   name: "userName",
+  //   layout: "/admin",
+  //   path: "/profile1",
+  //   icon: <img src={profile} />,
+  //   component: MainDashboard,
+  // },
   {
-    name: "userName",
-    layout: "/admin",
-    path: "/profile1",
-    icon: <img src={profile} />,
-    component: MainDashboard,
-  },
-  {
-    name: "Réglages",
     layout: "/admin",
     path: "/setting",
     icon: <img src={setting} />,
@@ -80,6 +91,7 @@ const routes = [
     path: "/support",
     icon: <img src={support} />,
     component: MainDashboard,
+    primary: true,
   },
   {
     layout: "/auth",

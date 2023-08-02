@@ -70,7 +70,7 @@ export default function TotalSpent(props) {
             <Flex
               dir="row"
               justifyContent={"start"}
-              w={{ "2xl": "25%", xl: "30%", lg: "40%", md: "40%", sm: "50%" }}
+              w={{ "2xl": "30%", xl: "40%", lg: "40%", md: "40%", sm: "50%" }}
               gap={2}
             >
               <Button
@@ -132,7 +132,7 @@ export default function TotalSpent(props) {
           <SimpleGrid
             columns={{ base: 2, md: 5, lg: 5, xl: 5, sm: 2 }}
             gap="20px"
-            marginTop={props?.heading ? 10 : 0}
+            marginTop={props?.heading ? 8 : 0}
           >
             {TradersCardData?.slice(0, 5).map((item, index) => {
               return (

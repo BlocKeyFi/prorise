@@ -3,9 +3,11 @@ import { NavLink } from "react-router-dom";
 // ProRIse imports
 import {
   Button,
+  Center,
   Flex,
   FormControl,
   Heading,
+  Icon,
   Image,
   Text,
   useColorModeValue,
@@ -38,6 +40,7 @@ import {
   TARGET_ZERO,
 } from "constants/constants";
 import { setAuthToken } from "constants/api";
+import { authButtons } from "constants/constants";
 
 function Register() {
   // ProRIse color mode
@@ -268,6 +271,37 @@ function Register() {
             >
               Créer mon compte
             </Button>
+            <Text
+              color={textColorDetails}
+              fontWeight="400"
+              fontSize="16px"
+              py={30}
+            >
+              Ou créez votre compte avec
+            </Text>
+            <Flex
+              gap={{ "2xl": 10, xl: 4, lg: 20, md: 10, sm: 10 }}
+              justifyContent={"center"}
+            >
+              {authButtons.map((item) => (
+                <Flex direction={"column"} alignItems={"center"} gap={3}>
+                  <Center
+                    bg={"rgba(160, 174, 192, 0.04)"}
+                    _hover={"rgba(160, 174, 192, 0.04)"}
+                    w="158px"
+                    h="64px"
+                    lineHeight="100%"
+                    borderRadius="16px"
+                  >
+                    {item.icon ? (
+                      <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
+                    ) : (
+                      <img src={require(`assets/img/svg/${item.title}.svg`)} />
+                    )}
+                  </Center>
+                </Flex>
+              ))}
+            </Flex>
             <Flex
               flexDirection="column"
               justifyContent="center"

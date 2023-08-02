@@ -3,6 +3,7 @@ import React from "react";
 import {
   Box,
   Button,
+  Center,
   Flex,
   Icon,
   Select,
@@ -15,6 +16,7 @@ import routes from "routes";
 import { IoShareSharp } from "react-icons/io5";
 
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 export default function AdminNavbar(props) {
   const { secondary, message, brandText } = props;
 
@@ -108,47 +110,21 @@ export default function AdminNavbar(props) {
           <SidebarResponsive routes={routes} />
         </Box>
       </Flex>
-      {brandText === "Tableau de bord" && (
-        <Select
-          bg="rgba(255, 255, 255, 0.08)"
-          border="none"
-          color="white"
-          w={300}
-          // placeholder="Trier par : ROI 7 jours"
+      <NavLink to="/admin/setting">
+        <Center
+          bg={"rgba(160, 174, 192, 0.04)"}
+          _hover={"rgba(160, 174, 192, 0.04)"}
+          w="64px"
+          h="64px"
+          lineHeight="100%"
+          borderRadius="16px"
         >
-          {[1, 2, 3, 4, 5].map((item, index) => (
-            <option
-              value={
-                index === 0
-                  ? "7 DAYS"
-                  : index === 1
-                  ? "30 DAYS"
-                  : index === 2
-                  ? "3 MONTHS"
-                  : index === 3
-                  ? "6 MONTHS"
-                  : index === 4
-                  ? "1 YEAR"
-                  : null
-              }
-            >
-              {index === 0
-                ? "Trier par : 7 jours"
-                : index === 1
-                ? "Trier par : 30 jours"
-                : index === 2
-                ? "Trier par : 3 mois"
-                : index === 3
-                ? "Trier par :  6 mois"
-                : index === 4
-                ? "Trier par : 1 année"
-                : null}
-            </option>
-          ))}
-        </Select>
-      )}
-
-      {secondary ? (
+          <img
+            src={require(`assets/img/dashboards/svgIcon/Frame 427319644.png`)}
+          />
+        </Center>
+      </NavLink>
+      {/* {secondary ? (
         <Text color="white">{message}</Text>
       ) : (
         brandText === "Analytiques" && (
@@ -190,7 +166,7 @@ export default function AdminNavbar(props) {
             </Box>
           </Flex>
         )
-      )}
+      )} */}
     </Box>
   );
 }

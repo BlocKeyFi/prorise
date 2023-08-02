@@ -65,7 +65,7 @@ export default function DailyTraffic(props) {
         <PieChart
           chartData={pieChartData}
           chartOptions={pieChartOptions}
-          pieHeight={pieHeight}
+          // pieHeight={pieHeight}
         />
       </Box>
     </Card>

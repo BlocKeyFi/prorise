@@ -73,7 +73,10 @@ export function SidebarLinks(props) {
             {createLinks(route.items)}
           </>
         );
-      } else if (route.layout === "/admin" || route.layout === "/auth") {
+      } else if (
+        (route.layout === "/admin" || route.layout === "/auth") &&
+        route.primary
+      ) {
         return (
           <NavLink key={index} to={route.layout + route.path}>
             {route.icon ? (
@@ -116,13 +119,7 @@ export function SidebarLinks(props) {
                           : "normal"
                       }
                     >
-                      {route.name === "Copy trading"
-                        ? bagde()
-                        : route.name === "userName"
-                        ? username
-                          ? username[0]
-                          : ""
-                        : route.name}
+                      {route.name === "Copy trading" ? bagde() : route.name}
                     </Text>
                   </Flex>
                 </HStack>

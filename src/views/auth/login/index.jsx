@@ -3,10 +3,14 @@ import { NavLink } from "react-router-dom";
 // ProRIse imports
 import {
   Button,
+  Center,
   Flex,
   FormControl,
   Heading,
+  Icon,
   Image,
+  Progress,
+  Spinner,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -22,12 +26,17 @@ import { toast } from "react-hot-toast";
 import { userLogin } from "store/actions";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { TfiTwitter } from "react-icons/tfi";
+import { TbBrandTelegram, TbBrandWhatsapp } from "react-icons/tb";
+import { authButtons } from "constants/constants";
 
 function Login() {
   // ProRIse color mode
   const textColor = useColorModeValue("white", "white");
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("#A0AEC0", "gray.200");
+
+  const { isLoading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -140,25 +149,62 @@ function Login() {
             _hover={{ bg: "#0075FF" }}
             onClick={onLogin}
           >
-            Se connecter
+            {isLoading ? (
+              <Center>
+                <Spinner size="md" />
+              </Center>
+            ) : (
+              "Se connecter"
+            )}
           </Button>
-
-          <Button
-            fontSize="24px"
-            variant="brand"
-            fontWeight="500"
-            w="100%"
-            h="55"
-            mb={"30"}
-            bg="white"
-            borderRadius="16px"
-            _hover={{ bg: "white" }}
-            _focus={{ bg: "white" }}
-            color={"black"}
-            onClick={() => googleLogin()}
+          {/* <Flex> */}
+          {/* <Button
+              fontSize="24px"
+              variant="brand"
+              fontWeight="500"
+              w="100%"
+              h="55"
+              mb={"30"}
+              bg="white"
+              borderRadius="16px"
+              _hover={{ bg: "white" }}
+              _focus={{ bg: "white" }}
+              color={"black"}
+              onClick={() => googleLogin()}
+            >
+              Sign in with Google 🚀
+            </Button> */}
+          <Text
+            color={textColorDetails}
+            fontWeight="400"
+            fontSize="16px"
+            pb={30}
           >
-            Sign in with Google 🚀
-          </Button>
+            Ou créez votre compte avec
+          </Text>
+          <Flex
+            gap={{ "2xl": 10, xl: 4, lg: 20, md: 10, sm: 10 }}
+            justifyContent={"center"}
+          >
+            {authButtons.map((item) => (
+              <Flex direction={"column"} alignItems={"center"} gap={3}>
+                <Center
+                  bg={"rgba(160, 174, 192, 0.04)"}
+                  _hover={"rgba(160, 174, 192, 0.04)"}
+                  w="140px"
+                  h="64px"
+                  lineHeight="100%"
+                  borderRadius="16px"
+                >
+                  {item.icon ? (
+                    <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
+                  ) : (
+                    <img src={require(`assets/img/svg/${item.title}.svg`)} />
+                  )}
+                </Center>
+              </Flex>
+            ))}
+          </Flex>
 
           <Flex
             flexDirection="column"
