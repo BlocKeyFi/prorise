@@ -23,6 +23,7 @@ import Login from "views/auth/login";
 import Verification from "views/auth/verification/verification";
 import SendVerification from "views/auth/verification/sendVerification";
 import Leaderboard from "./assets/img/dashboards/svgIcon/presentation-chart-1.svg";
+import LeaderBoard from "views/admin/leaderBoard";
 
 const routes = [
   {
@@ -46,7 +47,7 @@ const routes = [
     layout: "/admin",
     path: "/leaderboard",
     icon: <img src={Leaderboard} />,
-    component: TopTraders,
+    component: LeaderBoard,
     primary: true,
   },
   {

@@ -112,7 +112,10 @@ export default function AdminNavbar(props) {
       </Flex>
       <NavLink to="/admin/setting">
         <Center
-          bg={"rgba(160, 174, 192, 0.04)"}
+          bg={
+            window.location.pathname === "/admin/setting" &&
+            "rgba(160, 174, 192, 0.04)"
+          }
           _hover={"rgba(160, 174, 192, 0.04)"}
           w="64px"
           h="64px"

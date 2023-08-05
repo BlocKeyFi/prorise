@@ -29,7 +29,6 @@ import copyIcon from "../../assets/img/dashboards/svgIcon/copy.svg";
 
 import GlobalTable from "components/Table/table";
 import { MdEdit } from "react-icons/md";
-import { columnsCopyTrade } from "views/admin/copyTrading/variables/columnsData";
 
 export default function BasicCard(props) {
   const {
@@ -49,11 +48,13 @@ export default function BasicCard(props) {
     tabIndex,
     tabsArray,
     userImage,
-    traderPositions,
+    tableData,
     onAllCopy,
     onButtonAction,
     refresh,
     favorite,
+    isLoading,
+    columnsData,
     ...rest
   } = props;
 
@@ -61,7 +62,7 @@ export default function BasicCard(props) {
 
   const handleClick = (e) => {
     setValue(!value);
-    getTabIndex(e);
+    getTabIndex(parseInt(e.target.value));
   };
 
   // ProRIse Color Mode
@@ -172,7 +173,7 @@ export default function BasicCard(props) {
                     gap={2}
                     onClick={() => onButtonAction(item.title)}
                     disabled={
-                      item.title === "Copier" && traderPositions.length === 0
+                      item.title === "Copier" && tableData.length === 0
                         ? true
                         : false
                     }
@@ -232,9 +233,11 @@ export default function BasicCard(props) {
                   }}
                   fontWeight="500"
                 >
-                  {!tabIndex && button
-                    ? "Réclamez votre récompense dès maintenant!"
-                    : price}
+                  {button
+                    ? !tabIndex
+                      ? "Réclamez votre récompense dès maintenant!"
+                      : `Solde : ${price}`
+                    : null}
                 </Text>
               </Flex>
             </Flex>
@@ -255,7 +258,7 @@ export default function BasicCard(props) {
             gap={2}
           >
             <img src={money} style={{ marginTop: "-2px" }} />
-            {btnText}
+            {tabIndex ? btnText : btnText + price}
           </Button>
         )}
         {share && (
@@ -352,13 +355,14 @@ export default function BasicCard(props) {
         )}
         {table && (
           <GlobalTable
-            columnsData={columnsCopyTrade}
-            tableData={traderPositions ?? []}
+            columnsData={columnsData ?? []}
+            tableData={tableData ?? []}
             tableHeading="Trades actifs"
             slice={value}
             p={0}
             bg={"none"}
             copyTrade={true}
+            isLoading={isLoading}
           />
         )}
       </Flex>

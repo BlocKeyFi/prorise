@@ -10,13 +10,16 @@ import {
 import { formatDistanceToNow } from "date-fns";
 // Custom components
 import Card from "components/card/Card.js";
+import LineAreaChart from "components/charts/LineAreaChart";
 
 import star from "../../assets/img/dashboards/svgIcon/star.svg";
-import copy from "../../assets/img/dashboards/svgIcon/copy fill.svg";
+import copy from "../../assets/img/dashboards/svgIcon/copy-fill.svg";
 import user from "../../assets/img/dashboards/Profile.png";
 import present from "../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import check from "../../assets/img/dashboards/svgIcon/checkmark-light.svg";
 import { Link } from "react-router-dom";
+import { lineChartDataCard } from "variables/charts";
+import { lineChartOptionsCard } from "variables/charts";
 
 export default function TradersCard(props) {
   const { ...rest } = props;
@@ -40,7 +43,7 @@ export default function TradersCard(props) {
       w="100%"
       mb="0px"
       {...rest}
-      p="10"
+      // p="10"
     >
       <Flex justify="space-between" direction={"column"} textAlign={"left"}>
         <Flex align="center">
@@ -71,14 +74,20 @@ export default function TradersCard(props) {
           </Flex>
         </Flex>
       </Flex>
-      <Flex w="100%" flexDirection={{ base: "column", lg: "row" }} pb={"30"}>
+      <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
         <Flex direction={"row"} w="100%" mt="28px" justify="space-between">
           <Flex direction={"column"} w="100%" gap={1}>
             <Flex direction={"row"} w="100%" gap={1}>
               <img src={present} />
               <Text
                 color={textColorSecondary}
-                fontSize={{ xl: "14px", lg: "12px", md: "14px", sm: "12px" }}
+                fontSize={{
+                  "2xl": "14px",
+                  xl: "11px",
+                  lg: "12px",
+                  md: "14px",
+                  sm: "12px",
+                }}
                 textAlign="start"
                 lineHeight="100%"
                 fontWeight="600"
@@ -94,20 +103,25 @@ export default function TradersCard(props) {
               }
               fontSize={{ xl: "26px", lg: "26px", md: "26px", sm: "20px" }}
               textAlign="start"
-              lineHeight="100%"
               fontWeight="600"
-              pt={"2"}
+              py={"5"}
             >
               {props?.textvalue1}
             </Text>
           </Flex>
 
-          <Flex direction={"column"} w="100%" gap={1}>
+          <Flex direction={"column"} w="100%">
             <Flex direction={"row"} w="100%" gap={1} justifyContent={"end"}>
               <img src={present} />
               <Text
                 color={textColorSecondary}
-                fontSize={{ xl: "14px", lg: "12px", md: "14px", sm: "12px" }}
+                fontSize={{
+                  "2xl": "14px",
+                  xl: "11px",
+                  lg: "12px",
+                  md: "14px",
+                  sm: "12px",
+                }}
                 textAlign="end"
                 lineHeight="100%"
                 fontWeight="600"
@@ -115,16 +129,13 @@ export default function TradersCard(props) {
                 {props?.text2}
               </Text>
             </Flex>
-            <Text
-              color={textColorCount}
-              fontSize={{ xl: "26px", lg: "26px", md: "26px", sm: "20px" }}
-              textAlign="end"
-              lineHeight="100%"
-              fontWeight="600"
-              pt={"2"}
-            >
-              {props?.textvalue2}
-            </Text>
+
+            {/* {props?.textvalue2} */}
+            <LineAreaChart
+              chartData={lineChartDataCard}
+              chartOptions={lineChartOptionsCard}
+              height={"50%"}
+            />
           </Flex>
         </Flex>
       </Flex>

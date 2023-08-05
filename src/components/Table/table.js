@@ -6,6 +6,7 @@ import {
   Center,
   Flex,
   Icon,
+  Image,
   Spinner,
   Table,
   TableContainer,
@@ -30,12 +31,10 @@ import { CLOSE } from "constants/constants";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-export default function GlobalTable(props) {
-  const { columnsData, tableData, p } = props;
+import copy from "../../assets/img/dashboards/svgIcon/copy-fill.svg";
 
-  const { errorMessage, isLoading } = useSelector(
-    (state) => state?.leaderBoard
-  );
+export default function GlobalTable(props) {
+  const { columnsData, tableData, p, isLoading } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -62,7 +61,7 @@ export default function GlobalTable(props) {
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
-  if (errorMessage && isLoading) {
+  if (isLoading) {
     return (
       <Center>
         <Spinner size="xl" />
@@ -225,6 +224,25 @@ export default function GlobalTable(props) {
                           >
                             {date}
                           </Text>
+                        );
+                      } else if (cell.column.Header === "ACTION") {
+                        data = (
+                          <Button
+                            fontSize="16px"
+                            variant="brand"
+                            fontWeight="600"
+                            w={"auto"}
+                            // h="30px"
+                            display="flex"
+                            bg={"#0075FF"}
+                            borderRadius="6px"
+                            textAlign={"left"}
+                            gap={2}
+                            // onClick={() => onCopy(cell.row.original)}
+                          >
+                            <Image src={copy} />
+                            {"Copier"}
+                          </Button>
                         );
                       }
                       return (

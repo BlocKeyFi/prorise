@@ -101,7 +101,7 @@ export default function Marketplace() {
         </Center>
       ) : (
         <SimpleGrid
-          columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 4 }}
+          columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1, "2xl": 4 }}
           gap="20px"
           mb="20px"
         >
@@ -113,7 +113,7 @@ export default function Marketplace() {
                 paragraph={item?.updated_at}
                 image={item?.userPhotoUrl}
                 text1={"ROI 7 jours"}
-                text2={"Win rate 7 jours"}
+                text2={"Tendance 7 jours"}
                 textvalue1={item?.roi}
                 textvalue2={item?.winrate}
                 btnText="Copier"

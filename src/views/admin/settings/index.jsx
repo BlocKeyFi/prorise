@@ -41,6 +41,7 @@ import apiInstance from "constants/api";
 import { PRO_RISE } from "constants/apiConstants";
 import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
+import { settingsTab } from "constants/constants";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -224,10 +225,7 @@ export default function Settings() {
 
   return (
     <Box>
-      <GlobalTabs
-        tabs={[{ name: "Profil" }, { name: "Facturation et abonnement" }]}
-        tabIndex={(e) => setTabIndex(e)}
-      />
+      <GlobalTabs tabs={settingsTab} tabIndex={(e) => setTabIndex(e)} />
 
       {tabIndex === 0 && (
         <Flex direction={"column"} gap={10}>
@@ -345,71 +343,6 @@ export default function Settings() {
               </GridItem>
             </Grid>
           </BasicCard>
-          <BasicCard heading="Notifications">
-            <Grid
-              templateRows="repeat(1, 1fr)"
-              display={"flex"}
-              justifyContent={"space-between"}
-              flexDirection={{
-                "2xl": "row",
-                xl: "row",
-                lg: "row",
-                md: "row",
-                sm: "column",
-              }}
-            >
-              <GridItem colSpan={2}>
-                <Text fontSize="lg"> Par courriel</Text>
-                <Text fontSize="sm" color={textColorSecondary}>
-                  Recevez des notifications par courriel pour ne rien manquer
-                  pendant votre absence. Vous pouvez les désactiver en tout
-                  temps.
-                </Text>
-                {switchWithText()}
-              </GridItem>
-              <Divider orientation="vertical" />
-              <GridItem colSpan={2}>
-                <Text fontSize="lg"> Par SMS </Text>
-                <Text fontSize="sm" color={textColorSecondary}>
-                  Recevez des notifications par SMS pour ne rien manquer pendant
-                  votre absence. Vous pouvez les désactiver en tout temps.
-                </Text>
-                {switchWithText()}
-              </GridItem>
-            </Grid>
-          </BasicCard>
-          <BasicCard heading="Connexion API">
-            <Flex
-              alignItems={"center"}
-              direction={"row"}
-              textAlign={"left"}
-              gap={5}
-            >
-              <Heading color={textColor} fontSize="16px">
-                {"Félicitations! 🎉"}
-                <Text
-                  color={textColorSecondary}
-                  fontWeight="400"
-                  fontSize="14px"
-                  width={"100%"}
-                  mt={1}
-                >
-                  {"Tous vos comptes sont connectés."}
-                </Text>
-              </Heading>
-            </Flex>
-            <br />
-            {randerConnected()}
-            <Dialog
-              isOpen={isOpen}
-              onClose={onClose}
-              onSubmit={onSubmit}
-              heading={`Make Connection`}
-              exchangeData={exchangeData}
-              setExchangeData={setExchangeData}
-              connection={true}
-            />
-          </BasicCard>
           <BasicCard
             heading="Mot de passe"
             buttonHeader={true}
@@ -447,6 +380,74 @@ export default function Settings() {
         </Flex>
       )}
       {tabIndex === 1 && (
+        <BasicCard heading="Connexion API">
+          <Flex
+            alignItems={"center"}
+            direction={"row"}
+            textAlign={"left"}
+            gap={5}
+          >
+            <Heading color={textColor} fontSize="16px">
+              {"Félicitations! 🎉"}
+              <Text
+                color={textColorSecondary}
+                fontWeight="400"
+                fontSize="14px"
+                width={"100%"}
+                mt={1}
+              >
+                {"Tous vos comptes sont connectés."}
+              </Text>
+            </Heading>
+          </Flex>
+          <br />
+          {randerConnected()}
+          <Dialog
+            isOpen={isOpen}
+            onClose={onClose}
+            onSubmit={onSubmit}
+            heading={`Make Connection`}
+            exchangeData={exchangeData}
+            setExchangeData={setExchangeData}
+            connection={true}
+          />
+        </BasicCard>
+      )}
+      {tabIndex === 2 && (
+        <BasicCard heading="Notifications">
+          <Grid
+            templateRows="repeat(1, 1fr)"
+            display={"flex"}
+            justifyContent={"space-between"}
+            flexDirection={{
+              "2xl": "row",
+              xl: "row",
+              lg: "row",
+              md: "row",
+              sm: "column",
+            }}
+          >
+            <GridItem colSpan={2}>
+              <Text fontSize="lg"> Par courriel</Text>
+              <Text fontSize="sm" color={textColorSecondary}>
+                Recevez des notifications par courriel pour ne rien manquer
+                pendant votre absence. Vous pouvez les désactiver en tout temps.
+              </Text>
+              {switchWithText()}
+            </GridItem>
+            <Divider orientation="vertical" />
+            <GridItem colSpan={2}>
+              <Text fontSize="lg"> Par SMS </Text>
+              <Text fontSize="sm" color={textColorSecondary}>
+                Recevez des notifications par SMS pour ne rien manquer pendant
+                votre absence. Vous pouvez les désactiver en tout temps.
+              </Text>
+              {switchWithText()}
+            </GridItem>
+          </Grid>
+        </BasicCard>
+      )}
+      {tabIndex === 3 && (
         <Flex direction={"column"} gap={10}>
           <BasicCard
             heading="Abonnement"

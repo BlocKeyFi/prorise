@@ -99,3 +99,89 @@ export const columnsDataTradeHistory = [
     accessor: "updatedTime",
   },
 ];
+
+export const columnsDataSponsorship = [
+  {
+    Header: "UTILISATEUR",
+    accessor: "name",
+  },
+  {
+    Header: "DATE",
+    accessor: "subheading",
+  },
+  {
+    Header: "RECOMPENSE",
+    accessor: "textvalue2",
+  },
+];
+
+export const columnsDataSponsorship2 = [
+  {
+    Header: "DATE",
+    accessor: "subheading",
+  },
+  {
+    Header: "MONTANT RECLAME",
+    accessor: "textvalue2",
+  },
+];
+
+// {
+//   Header: "Nom du trader",
+//   accessor: "createdTime",
+// },
+// {
+//   Header: "Effet de levier moyen",
+//   accessor: "side",
+// },
+// {
+//   Header: "Drawdown (perte max)",
+//   accessor: "symbol",
+// },
+// {
+//   Header: "ROI",
+//   accessor: "avgEntryPrice",
+// },
+
+// {
+//   Header: "Trade par jour",
+//   accessor: "avgExitPrice",
+// },
+// {
+//   Header: "ROI",
+//   accessor: "closedPnl",
+// },
+export const columnsLeaderBoard = [
+  {
+    Header: "DATE D’ENTREE",
+    accessor: "createdTime",
+  },
+  {
+    Header: "POSITION",
+    accessor: "side",
+  },
+  {
+    Header: "ORDER COIN",
+    accessor: "symbol",
+  },
+  {
+    Header: "PRIX D’ENTREE",
+    accessor: "avgPrice",
+  },
+  {
+    Header: "ROI",
+    accessor: "liqPrice",
+  },
+  {
+    Header: "LEVIER",
+    accessor: "leverage",
+  },
+  {
+    Header: "STATUS",
+    accessor: "short",
+  },
+  {
+    Header: "ACTION",
+    accessor: "",
+  },
+];

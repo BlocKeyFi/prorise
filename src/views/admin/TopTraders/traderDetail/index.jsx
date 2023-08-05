@@ -21,12 +21,15 @@ import { toast } from "react-hot-toast";
 import Dialog from "components/dialog/Dialog";
 import { CLOSE } from "constants/constants";
 import { getLeaderboardsData } from "store/actions";
+import { columnsCopyTrade } from "views/admin/copyTrading/variables/columnsData";
 
 // Custom components
 
 export default function TraderDetails() {
   const dispatch = useDispatch();
-  const { data, traderPositions } = useSelector((state) => state?.leaderBoard);
+  const { data, traderPositions, isLoading } = useSelector(
+    (state) => state?.leaderBoard
+  );
   const { exchangeConnection } = useSelector((state) => state?.exchange);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -195,9 +198,11 @@ export default function TraderDetails() {
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={updatedButtonArray}
         tabsArray={tabsArray}
-        traderPositions={traderPositions ?? []}
+        tableData={traderPositions ?? []}
         onButtonAction={onButtonAction}
         favorite={filterData[0]?.favorite}
+        columnsData={columnsCopyTrade}
+        isLoading={isLoading}
       >
         {tabIndex === "2" && (
           <Grid

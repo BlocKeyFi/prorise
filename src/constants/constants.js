@@ -15,9 +15,9 @@ export const TOKEN = "token";
 
 export const BASE_URL = "https://api.prorise.io/api/";
 
-export const TradersCardData = Array.from({ length: 20 }, () => ({
+export const TradersCardData = Array.from({ length: 5 }, () => ({
   name: "lucky14",
-  subheading: "2023-06-17T21:25:06.206Z",
+  subheading: 1549312452,
   text1: "ROI 7 jours",
   textvalue1: "20.60 %",
   text2: "Win rate 7 jours",
@@ -115,4 +115,12 @@ export const authButtons = [
     title: "apple",
     icon: "",
   },
+];
+
+export const settingsTab = [
+  { name: "Profil" },
+  { name: "Connexion API" },
+  { name: "Notifications" },
+  { name: "Facturation et abonnement" },
+  ,
 ];
