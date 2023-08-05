@@ -10,6 +10,7 @@ import {
   Center,
   Spinner,
   Icon,
+  Input,
 } from "@chakra-ui/react";
 
 // Custom components
@@ -20,27 +21,14 @@ import { getLeaderboardsData } from "store/actions";
 import { resetTraderPositions } from "store/actions";
 import { IoRefresh } from "react-icons/io5";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import InputFeild from "components/fields/InputField";
+import { CiSearch } from "react-icons/ci";
+import { RiArrowDownSFill } from "react-icons/ri";
 
 export default function Marketplace() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
 
   const [itemOffset, setItemOffset] = useState(1);
-
-  const handlePageClick = (e) => {
-    if (e === "next") {
-      setItemOffset(itemOffset + 1);
-    } else {
-      setItemOffset(itemOffset - 1);
-    }
-    dispatch(
-      getLeaderboardsData({
-        searchCriteria: {
-          period: "WEEKLY",
-          currentPage: itemOffset,
-        },
-      })
-    );
-  };
 
   // ProRIse Color Mode
   const dispatch = useDispatch();
@@ -55,7 +43,7 @@ export default function Marketplace() {
         },
       })
     );
-  }, []);
+  }, [itemOffset]);
 
   const refresh = () => {
     dispatch(
@@ -70,30 +58,40 @@ export default function Marketplace() {
 
   return (
     <Box>
-      <Flex w="100%" gap={4} p={4} color="white" justifyContent={"end"}>
-        <Select
-          bg="rgba(255, 255, 255, 0.08)"
-          border="none"
-          color="white"
-          placeholder="Trier par : ROI 7 jours"
-          w={{ "2xl": "15%", xl: "20%", lg: "25%", md: "35%", sm: "100%" }}
+      <Flex justifyContent={"space-between"}>
+        <InputFeild
+          w={{ xl: "268px", lg: "268px", md: "100%", sm: "100%" }}
+          required
+          icon={CiSearch}
+          iconPlacement="right"
+          placeholder="Rechercher un trader"
         />
-        <Button
-          // isLoading={isLoading}
-          loadingText="Loading"
-          spinnerPlacement="start"
-          variant="brand"
-          fontWeight="500"
-          mb={{ base: "30px", sm: "0px" }}
-          bg="#0075FF"
-          borderRadius="10px"
-          _hover={{ bg: "#0075FF" }}
-          onClick={refresh}
-          gap={3}
-        >
-          <Icon as={IoRefresh} />
-          Refresh
-        </Button>
+        <Flex w="100%" gap={4} p={4} color="white" justifyContent={"end"}>
+          <Select
+            bg="rgba(255, 255, 255, 0.08)"
+            border="none"
+            color="white"
+            placeholder="Trier par : ROI 7 jours"
+            w={{ "2xl": "15%", xl: "30%", lg: "25%", md: "35%", sm: "100%" }}
+            icon={<Icon as={RiArrowDownSFill} />}
+          />
+          <Button
+            isLoading={isLoading}
+            loadingText="Loading"
+            spinnerPlacement="start"
+            variant="brand"
+            fontWeight="500"
+            mb={{ base: "30px", sm: "0px" }}
+            bg="#0075FF"
+            borderRadius="10px"
+            _hover={{ bg: "#0075FF" }}
+            onClick={refresh}
+            gap={3}
+          >
+            <Icon as={IoRefresh} />
+            Refresh
+          </Button>
+        </Flex>
       </Flex>
       {isLoading ? (
         <Center h="60vh">
@@ -101,7 +99,7 @@ export default function Marketplace() {
         </Center>
       ) : (
         <SimpleGrid
-          columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1, "2xl": 4 }}
+          columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1, "2xl": 5 }}
           gap="20px"
           mb="20px"
         >
@@ -136,7 +134,7 @@ export default function Marketplace() {
             bg="#0075FF"
             borderRadius="10px"
             _hover={{ bg: "#0075FF" }}
-            onClick={handlePageClick}
+            onClick={() => setItemOffset(itemOffset - 1)}
             gap={3}
             disabled={itemOffset === 1 && true}
           >
@@ -152,8 +150,9 @@ export default function Marketplace() {
             bg="#0075FF"
             borderRadius="10px"
             _hover={{ bg: "#0075FF" }}
-            onClick={() => handlePageClick("next")}
+            onClick={() => setItemOffset(itemOffset + 1)}
             gap={3}
+            disabled={itemOffset === data?.length && true}
           >
             Next Page
             <Icon as={ArrowRightIcon} />

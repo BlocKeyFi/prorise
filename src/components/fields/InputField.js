@@ -1,6 +1,7 @@
 // ProRIse imports
 import { CheckIcon, PhoneIcon } from "@chakra-ui/icons";
 import {
+  Center,
   Flex,
   FormLabel,
   Icon,
@@ -28,6 +29,7 @@ export default function Default(props) {
     onChange,
     icon,
     disabled,
+    iconPlacement,
     ...rest
   } = props;
   // ProRIse Color Mode
@@ -53,7 +55,7 @@ export default function Default(props) {
         </Text>
       </FormLabel>
       <InputGroup>
-        {icon && (
+        {icon && !iconPlacement && (
           <InputLeftElement pointerEvents="none" mt={2}>
             <Icon as={icon} w={8} height={8} />
           </InputLeftElement>
@@ -65,7 +67,7 @@ export default function Default(props) {
           fontWeight="500"
           color={textColorSecondary}
           placeholder={placeholder}
-          _placeholder={{ fontWeight: "400", color: "white" }}
+          _placeholder={{ fontWeight: "400", color: textColorSecondary }}
           h="53px"
           maxh="53px"
           bg="rgba(0, 0, 0, 0.2)"
@@ -82,6 +84,16 @@ export default function Default(props) {
               _hover={{ cursor: "pointer" }}
               as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
               onClick={handleClick}
+            />
+          </InputRightElement>
+        )}
+        {iconPlacement === "right" && (
+          <InputRightElement display="flex" alignItems="center" mt="6px">
+            <Icon
+              color={textColorSecondary}
+              _hover={{ cursor: "pointer" }}
+              as={icon}
+              style={{ fontSize: 25 }}
             />
           </InputRightElement>
         )}

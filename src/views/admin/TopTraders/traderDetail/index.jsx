@@ -22,6 +22,8 @@ import Dialog from "components/dialog/Dialog";
 import { CLOSE } from "constants/constants";
 import { getLeaderboardsData } from "store/actions";
 import { columnsCopyTrade } from "views/admin/copyTrading/variables/columnsData";
+import { columnsDataTradeHistory } from "views/admin/copyTrading/variables/columnsData";
+import tableDataDevelopment from "views/admin/copyTrading/variables/tableDataDevelopment.json";
 
 // Custom components
 
@@ -33,7 +35,7 @@ export default function TraderDetails() {
   const { exchangeConnection } = useSelector((state) => state?.exchange);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [tabIndex, setTabIndex] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const [capitalPercent, setCapitalPercent] = useState(0);
   // const [selectedTrade, setSelectedTrade] = useState({});
@@ -194,17 +196,29 @@ export default function TraderDetails() {
       <BasicCard
         heading={filterData[0]?.nickName}
         userImage={user}
-        table={tabIndex === "2" ? false : true}
+        table={tabIndex === 0 || tabIndex === 1 ? true : false}
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={updatedButtonArray}
         tabsArray={tabsArray}
-        tableData={traderPositions ?? []}
+        tableData={
+          tabIndex === 0
+            ? traderPositions
+            : tabIndex === 1
+            ? tableDataDevelopment
+            : []
+        }
         onButtonAction={onButtonAction}
         favorite={filterData[0]?.favorite}
-        columnsData={columnsCopyTrade}
+        columnsData={
+          tabIndex === 0
+            ? columnsCopyTrade
+            : tabIndex === 1
+            ? columnsDataTradeHistory
+            : null
+        }
         isLoading={isLoading}
       >
-        {tabIndex === "2" && (
+        {tabIndex === 2 && (
           <Grid
             templateRows="repeat(1, 1fr)"
             templateColumns="repeat(3, 1fr)"

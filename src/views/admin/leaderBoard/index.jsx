@@ -27,11 +27,12 @@ export default function LeaderBoard() {
   const { currentPositions } = useSelector((state) => state?.exchange);
 
   // ProRIse Color Mode
+
   return (
     <Box>
       <BasicCard
         columnsData={columnsLeaderBoard}
-        tableData={currentPositions ?? []}
+        tableData={data ?? []}
         table={true}
         isLoading={isLoading}
         p={10}

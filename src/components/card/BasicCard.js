@@ -61,7 +61,8 @@ export default function BasicCard(props) {
   const [value, setValue] = useState(slice ? slice : false);
 
   const handleClick = (e) => {
-    setValue(!value);
+    console.log(e);
+    // setValue(!value);
     getTabIndex(parseInt(e.target.value));
   };
 
@@ -75,7 +76,7 @@ export default function BasicCard(props) {
       w={{ base: "100%" }}
       bgPosition="10%"
       mx="auto"
-      p="30px"
+      p="20px"
       {...rest}
     >
       <Flex direction="column" color="white" h="100%" w="100%">
@@ -88,7 +89,8 @@ export default function BasicCard(props) {
             sm: `${tabsArray ? "column" : "row"}`,
           }}
           justify="space-between"
-          mb="30px"
+          alignItems={"center"}
+          // mb="30px"
           gap={3}
         >
           <Text
@@ -96,31 +98,11 @@ export default function BasicCard(props) {
             fontWeight="bold"
             display={"flex"}
             gap={3}
+            alignItems={"center"}
           >
             {tabsArray && <Avatar src={userImage} />}
             {heading}
           </Text>
-          {tabsArray && (
-            <Tabs variant="unstyled">
-              <TabList>
-                {tabsArray?.map((item) => (
-                  <Tab
-                    _selected={{
-                      color: "white",
-                      bg: "rgba(255, 255, 255, 0.08)",
-                    }}
-                    _focus={{ border: "none" }}
-                    color={"gray.200"}
-                    borderRadius={8}
-                    value={item.id}
-                    onClick={(e) => handleClick(e.target.value)}
-                  >
-                    {item.title}
-                  </Tab>
-                ))}
-              </TabList>
-            </Tabs>
-          )}
           {tabs && (
             <Tabs variant="unstyled">
               <TabList>
@@ -161,6 +143,7 @@ export default function BasicCard(props) {
               {buttonArray?.map((item) => {
                 return (
                   <Button
+                    isLoading={item.title === "Refresh" && isLoading}
                     fontSize="14px"
                     variant="brand"
                     fontWeight="600"
@@ -204,7 +187,31 @@ export default function BasicCard(props) {
             </Button>
           )}
         </Flex>
+        <Center py={3}>
+          {tabsArray && (
+            <Tabs variant="unstyled">
+              <TabList>
+                {tabsArray?.map((item, index) => (
+                  <Tab
+                    _selected={{
+                      color: "white",
+                      bg: "rgba(255, 255, 255, 0.08)",
+                    }}
+                    _focus={{ border: "none" }}
+                    color={"gray.200"}
+                    borderRadius={8}
+                    value={index}
+                    onClick={(e) => handleClick(e)}
+                  >
+                    {item.title}
+                  </Tab>
+                ))}
+              </TabList>
+            </Tabs>
+          )}
+        </Center>
         {children}
+
         {paragraph && (
           <Flex direction="column">
             <Box>
@@ -353,6 +360,7 @@ export default function BasicCard(props) {
             </Flex>
           </Flex>
         )}
+
         {table && (
           <GlobalTable
             columnsData={columnsData ?? []}

@@ -90,7 +90,7 @@ export default function PriceCard(props) {
               <Icon as={MdStar} color="white.500" w="3" h="3" /> {"POPULAIRE"}
             </Badge>
           )}
-          {setting && (
+          {authScreen && (
             <Button
               fontSize="20px"
               variant="brand"
@@ -108,6 +108,12 @@ export default function PriceCard(props) {
               textAlign={"left"}
               gap={3}
               disabled={props?.currentPlan === props?.heading}
+              onClick={() => {
+                getSubscriptionData({
+                  planId,
+                  userId,
+                });
+              }}
             >
               <img src={cartIcon} width={20} />
               {props?.btnText}
@@ -197,15 +203,15 @@ export default function PriceCard(props) {
           </List>
         </Flex>
       </Flex>
-      {setting ? null : (
+      {setting && (
         <Button
           fontSize={{ xl: "20px", lg: "24px", md: "24px", sm: "17px" }}
           variant="brand"
           fontWeight="500"
           w={{
-            xl: props?.id === 1 ? "90%" : "55%",
-            lg: props?.id === 1 ? "90%" : "55%",
-            md: props?.id === 1 ? "90%" : "55%",
+            xl: props?.id === 1 ? "90%" : "65%",
+            lg: props?.id === 1 ? "90%" : "65%",
+            md: props?.id === 1 ? "90%" : "65%",
             sm: "100%",
           }}
           h="55"
@@ -214,13 +220,14 @@ export default function PriceCard(props) {
           borderRadius="16px"
           _hover={{ bg: "#0075FF" }}
           textAlign={"left"}
-          onClick={() => {
-            authScreen &&
-              getSubscriptionData({
-                planId,
-                userId,
-              });
-          }}
+          disabled={props?.currentPlan === props?.heading}
+          // onClick={() => {
+          //   setting &&
+          //     getSubscriptionData({
+          //       planId,
+          //       userId,
+          //     });
+          // }}
         >
           <Icon
             width="10"

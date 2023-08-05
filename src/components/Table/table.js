@@ -180,6 +180,40 @@ export default function GlobalTable(props) {
                             {cell.value}
                           </Text>
                         );
+                      } else if (
+                        cell.column.Header === "DRAWDOWN (PERTE MAX)"
+                      ) {
+                        data = (
+                          <Text
+                            color={textColor}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {cell.value}
+                          </Text>
+                        );
+                      } else if (cell.column.Header === "TRADE PAR JOUR") {
+                        data = (
+                          <Text
+                            color={textColor}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {cell.value}
+                          </Text>
+                        );
+                      } else if (
+                        cell.column.Header === "EFFET DE LEVIER MOYEN"
+                      ) {
+                        data = (
+                          <Text
+                            color={textColor}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {cell.value}
+                          </Text>
+                        );
                       } else if (cell.column.Header === "STATUS") {
                         data = (
                           <Text
@@ -223,6 +257,16 @@ export default function GlobalTable(props) {
                             fontWeight="400"
                           >
                             {date}
+                          </Text>
+                        );
+                      } else if (cell.column.Header === "NOM DU TRADER") {
+                        data = (
+                          <Text
+                            color={textColor}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {cell.value}
                           </Text>
                         );
                       } else if (cell.column.Header === "ACTION") {
