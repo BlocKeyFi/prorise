@@ -196,11 +196,7 @@ export default function TraderDetails() {
         buttonArray={updatedButtonArray}
         tabsArray={tabsArray}
         tableData={
-          tabIndex === 0
-            ? traderPositions ?? []
-            : tabIndex === 1
-            ? tableDataDevelopment
-            : []
+          tabIndex === 0 ? traderPositions ?? [] : tabIndex === 1 ? [] : []
         }
         onButtonAction={onButtonAction}
         favorite={filterData[0]?.favorite}
