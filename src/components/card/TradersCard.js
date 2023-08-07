@@ -51,7 +51,7 @@ export default function TradersCard(props) {
             <Avatar
               h={{ base: "48px", xl: "36px", "2xl": "48px" }}
               w={{ base: "48px", xl: "36px", "2xl": "48px" }}
-              src={user}
+              src={props?.image}
             />
             <Flex direction="column" align="start">
               <Text

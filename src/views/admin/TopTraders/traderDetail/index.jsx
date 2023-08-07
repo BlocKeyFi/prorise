@@ -37,7 +37,7 @@ export default function TraderDetails() {
 
   const [tabIndex, setTabIndex] = useState(0);
 
-  const [capitalPercent, setCapitalPercent] = useState(0);
+  const [capitalPercent, setCapitalPercent] = useState(null);
   // const [selectedTrade, setSelectedTrade] = useState({});
 
   const { id } = useParams();
@@ -104,13 +104,8 @@ export default function TraderDetails() {
   }, [filterData]);
 
   const onSubmit = async () => {
-    // const params = {
-    //   capitalPercent: capitalPercent,
-    //   exchange: exchangeConnection,
-    //   traderPositions: selectedTrade.symbol ? [selectedTrade] : traderPositions,
-    // };
-
     const params = {
+      capitalPercent: capitalPercent,
       encryptedUid: id,
     };
 
@@ -195,14 +190,14 @@ export default function TraderDetails() {
     <Box>
       <BasicCard
         heading={filterData[0]?.nickName}
-        userImage={user}
+        userImage={filterData[0]?.userPhotoUrl}
         table={tabIndex === 0 || tabIndex === 1 ? true : false}
         getTabIndex={(e) => setTabIndex(e)}
         buttonArray={updatedButtonArray}
         tabsArray={tabsArray}
         tableData={
           tabIndex === 0
-            ? traderPositions
+            ? traderPositions ?? []
             : tabIndex === 1
             ? tableDataDevelopment
             : []

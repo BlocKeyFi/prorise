@@ -55,6 +55,7 @@ export default function BasicCard(props) {
     favorite,
     isLoading,
     columnsData,
+    onCopy,
     ...rest
   } = props;
 
@@ -94,7 +95,13 @@ export default function BasicCard(props) {
           gap={3}
         >
           <Text
-            fontSize={{ xl: "36px", lg: "36px", md: "36px", sm: "16px" }}
+            fontSize={{
+              "2xl": "36px",
+              xl: "26px",
+              lg: "26px",
+              md: "26px",
+              sm: "16px",
+            }}
             fontWeight="bold"
             display={"flex"}
             gap={3}
@@ -371,6 +378,7 @@ export default function BasicCard(props) {
             bg={"none"}
             copyTrade={true}
             isLoading={isLoading}
+            onCopy={onCopy}
           />
         )}
       </Flex>

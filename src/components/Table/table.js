@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 /* eslint-disable */
 import {
+  Avatar,
   Box,
   Button,
   Center,
@@ -34,7 +35,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import copy from "../../assets/img/dashboards/svgIcon/copy-fill.svg";
 
 export default function GlobalTable(props) {
-  const { columnsData, tableData, p, isLoading } = props;
+  const { columnsData, tableData, p, isLoading, onCopy } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -88,9 +89,14 @@ export default function GlobalTable(props) {
                       pe="10px"
                       key={index}
                       fontFamily="Urbanist"
-                      fontSize={"14px"}
+                      fontSize={{
+                        "2xl": "14px",
+                        xl: "12px",
+                        lg: "12px",
+                        md: "12px",
+                        sm: "10px",
+                      }}
                       border={"none"}
-                      w={"100%"}
                     >
                       {column.render("Header")}
                     </Th>
@@ -261,30 +267,54 @@ export default function GlobalTable(props) {
                         );
                       } else if (cell.column.Header === "NOM DU TRADER") {
                         data = (
-                          <Text
-                            color={textColor}
-                            fontSize="sm"
-                            fontWeight="400"
-                          >
-                            {cell.value}
-                          </Text>
+                          <Flex gap={3} alignItems={"center"}>
+                            <Avatar
+                              h={{ base: "48px", xl: "36px", "2xl": "48px" }}
+                              w={{ base: "48px", xl: "36px", "2xl": "48px" }}
+                              src={cell?.row?.original?.userPhotoUrl}
+                            />
+                            <Text
+                              color={textColor}
+                              fontSize="sm"
+                              fontWeight="400"
+                            >
+                              {cell.value}
+                            </Text>
+                          </Flex>
                         );
                       } else if (cell.column.Header === "ACTION") {
                         data = (
                           <Button
-                            fontSize="16px"
+                            fontSize={{
+                              "2xl": "16px",
+                              xl: "12px",
+                              lg: "12px",
+                              md: "12px",
+                              sm: "10px",
+                            }}
                             variant="brand"
                             fontWeight="600"
                             w={"auto"}
-                            // h="30px"
+                            h="35px"
                             display="flex"
                             bg={"#0075FF"}
                             borderRadius="6px"
                             textAlign={"left"}
                             gap={2}
-                            // onClick={() => onCopy(cell.row.original)}
+                            onClick={() =>
+                              onCopy(cell?.row?.original?.encryptedUid)
+                            }
                           >
-                            <Image src={copy} />
+                            <Image
+                              src={copy}
+                              w={{
+                                "2xl": "20px",
+                                xl: "16px",
+                                lg: "16px",
+                                md: "16px",
+                                sm: "10px",
+                              }}
+                            />
                             {"Copier"}
                           </Button>
                         );

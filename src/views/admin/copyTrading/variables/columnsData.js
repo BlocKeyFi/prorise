@@ -137,7 +137,7 @@ export const columnsLeaderBoard = [
   },
   {
     Header: "DRAWDOWN (PERTE MAX)",
-    accessor: "value",
+    accessor: "followerCount",
   },
   {
     Header: "ROI",
