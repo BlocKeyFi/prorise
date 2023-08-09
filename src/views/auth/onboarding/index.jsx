@@ -82,16 +82,13 @@ function Register() {
 
   const { email, password, fisrtName, lastName } = userData;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useHistory();
 
-  const onCreateUser = (e) => {
-    if (e) {
-      dispatch(subscribeToPackage(e));
-      // history.push("/auth");
-      setOnbordThree(false);
-      setOnbordTwo(false);
-      setOnbordOne(false);
+  const onCheckOut = async (param) => {
+    const { data } = await apiInstance.post(`${PRO_RISE.checkOut}`, param);
+    if (data?.success) {
+      window.location.href = data?.url;
     }
   };
 
@@ -338,17 +335,20 @@ function Register() {
             mb={{ base: "20px", md: "auto" }}
             alignItems="center"
           >
-            {plans?.slice(0, 3)?.map((item, index) => (
+            {plans?.map((item, index) => (
               <PriceCard
                 id={++index}
-                planId={item?.id}
                 heading={item?.name}
                 paragraph={item?.description}
                 price={`€${item?.price}/mois`}
                 btnText={
                   index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
                 }
-                getSubscriptionData={(e) => onCreateUser(e)}
+                onClick={(e) =>
+                  onCheckOut({
+                    priceId: item?.stripePrice,
+                  })
+                }
                 authScreen={true}
                 userId={login?.user?.id}
               />

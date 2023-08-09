@@ -23,8 +23,15 @@ import { pakageDetails } from "constants/constants";
 import { IoMdClose } from "react-icons/io";
 
 export default function PriceCard(props) {
-  const { setting, authScreen, getSubscriptionData, userId, planId, ...rest } =
-    props;
+  const {
+    setting,
+    authScreen,
+    getSubscriptionData,
+    userId,
+    planId,
+    onClick,
+    ...rest
+  } = props;
 
   // ProRIse Color Mode
 
@@ -221,13 +228,7 @@ export default function PriceCard(props) {
           _hover={{ bg: "#0075FF" }}
           textAlign={"left"}
           disabled={props?.currentPlan === props?.heading}
-          // onClick={() => {
-          //   setting &&
-          //     getSubscriptionData({
-          //       planId,
-          //       userId,
-          //     });
-          // }}
+          onClick={onClick}
         >
           <Icon
             width="10"

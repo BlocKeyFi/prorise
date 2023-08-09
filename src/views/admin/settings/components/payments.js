@@ -20,7 +20,7 @@ import { PRO_RISE } from "constants/apiConstants";
 import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
 
-export default function Settings() {
+export default function Payments() {
   const { login } = useSelector((state) => state.user);
   const [plans, setPlans] = useState([]);
 
@@ -37,6 +37,13 @@ export default function Settings() {
       toast.error(error);
     }
   }, []);
+
+  const onCheckOut = async (param) => {
+    const { data } = await apiInstance.post(`${PRO_RISE.checkOut}`, param);
+    if (data?.success) {
+      window.location.href = data?.url;
+    }
+  };
 
   return (
     <Flex direction={"column"} gap={10}>
@@ -57,17 +64,20 @@ export default function Settings() {
           mb={{ base: "20px", md: "auto" }}
           alignItems="center"
         >
-          {plans?.slice(0, 3)?.map((item, index) => (
+          {plans?.map((item, index) => (
             <PriceCard
               id={++index}
-              planId={item?.id}
               heading={item?.name}
               paragraph={item?.description}
-              price={`€${item?.price}/mois`}
+              price={`€ ${item?.price}/mois`}
               btnText={
                 index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
               }
-              //   getSubscriptionData={(e) => onCreateUser(e)}
+              onClick={() =>
+                onCheckOut({
+                  priceId: item?.stripePrice,
+                })
+              }
               setting={true}
               userId={login?.user?.id}
               currentPlan={login?.user?.currentPlan}

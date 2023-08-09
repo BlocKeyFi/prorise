@@ -15,7 +15,6 @@ import {
 
 // Custom components
 import BasicCard from "components/card/BasicCard";
-import { useSelector } from "react-redux";
 
 export default function Notifications() {
   const switchs = Array.from({ length: 4 }, () => ({}));
