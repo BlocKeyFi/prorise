@@ -10,26 +10,29 @@ import Card from "components/card/Card.js";
 
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import PieChart from "components/charts/PieChart";
-import { pieChartData, pieChartOptions } from "variables/charts";
+import { pieChartOptions } from "variables/charts";
 
 export default function DailyTraffic(props) {
-  const { pieHeight, ...rest } = props;
+  const { pieHeight, currentPositions, traderDetail, ...rest } = props;
 
-  // const renderSteps = () => {
-  //   const stepAngle = 360 / 10;
+  const symbols = [...new Set(currentPositions?.map((item) => item?.symbol))];
+  const data = [
+    ...new Set(
+      currentPositions?.map((item) =>
+        traderDetail ? item?.entryPrice : item?.size
+      )
+    ),
+  ];
 
-  //   return Array.from({ length: 10 }, (_, index) => (
-  //     <div
-  //       key={index}
-  //       style={{
-  //         transform: `rotate(${index * stepAngle}deg)`,
-  //         width:200
-  //       }}
-  //     />
-  //   ));
-  // };
+  const numericValues = data?.map((value) => parseFloat(value));
 
-  // console.log(renderSteps())
+  // Calculate total sum of values
+  const totalSum = numericValues?.reduce((sum, value) => sum + value, 0);
+
+  // Calculate percentages
+  const percentages = numericValues?.map((value) => (value / totalSum) * 100);
+
+  const options = pieChartOptions(symbols);
 
   return (
     <Card align="center" direction="column" w="100%" {...rest}>
@@ -62,9 +65,9 @@ export default function DailyTraffic(props) {
         {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
 
         <PieChart
-          chartData={pieChartData}
-          chartOptions={pieChartOptions}
-          pieHeight={"100%"}
+          chartData={percentages ?? []}
+          chartOptions={options ?? []}
+          pieHeight={"95%"}
         />
       </Box>
     </Card>

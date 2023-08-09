@@ -56,14 +56,13 @@ export default function BasicCard(props) {
     isLoading,
     columnsData,
     onCopy,
+    onClick,
     ...rest
   } = props;
 
   const [value, setValue] = useState(slice ? slice : false);
 
   const handleClick = (e) => {
-    console.log(e);
-    // setValue(!value);
     getTabIndex(parseInt(e.target.value));
   };
 
@@ -188,6 +187,7 @@ export default function BasicCard(props) {
               _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
               textAlign={"left"}
               gap={2}
+              onClick={onClick}
             >
               <Icon as={MdEdit} />
               {btnText}

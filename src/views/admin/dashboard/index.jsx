@@ -28,11 +28,18 @@ import { useEffect } from "react";
 import { columnsDataActiveTrades } from "../copyTrading/variables/columnsData";
 import DevelopmentTable from "../copyTrading/components/DevelopmentTable";
 import Circle from "./components/circle";
+import { setAuthToken } from "constants/api";
+import apiInstance from "constants/api";
+import { toast } from "react-hot-toast";
+import { PRO_RISE } from "constants/apiConstants";
+import { useState } from "react";
 
 export default function Dashboard() {
   const { currentPositions, exchangeConnection } = useSelector(
     (state) => state?.exchange
   );
+
+  const [balance, setBalance] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -43,6 +50,13 @@ export default function Dashboard() {
           exchange: exchangeConnection,
         })
       );
+    }
+
+    const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
+      symbol: "USDT",
+    });
+    if (data?.success) {
+      setBalance(data?.balance);
     }
   }, [exchangeConnection]);
 
@@ -103,7 +117,7 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
-          <TotalSpent heading="Portefeuille" design={1} />
+          <TotalSpent heading="Portefeuille" design={1} balance={balance} />
         </GridItem>
         <GridItem
           colSpan={{
@@ -115,7 +129,7 @@ export default function Dashboard() {
           }}
         >
           {/* <Circle /> */}
-          <DailyTraffic pieHeight={"80%"} />
+          <DailyTraffic pieHeight={"80%"} currentPositions={currentPositions} />
         </GridItem>
         <GridItem colSpan={4}>
           <TotalSpent heading="Performances" design={2} />

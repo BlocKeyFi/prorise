@@ -43,6 +43,7 @@ export default function TraderDetails() {
   const { id } = useParams();
 
   useEffect(() => {
+    setAuthToken(localStorage.getItem("jwt"));
     dispatch(
       getTraderPositions({
         encryptedUid: id,
@@ -74,7 +75,6 @@ export default function TraderDetails() {
 
     const fetchData = async () => {
       try {
-        setAuthToken(localStorage.getItem("jwt"));
         const { data } = await apiInstance.post(
           `${PRO_RISE.isTraderFollowedByUser}`,
           {
@@ -110,7 +110,6 @@ export default function TraderDetails() {
     };
 
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       await apiInstance.post(`${PRO_RISE.followTrader}`, params);
       toast.success("Successfully Follow This Trades List");
       onClose();
@@ -130,7 +129,6 @@ export default function TraderDetails() {
   const onButtonAction = async (e) => {
     if (e === "Ajouter aux favoris" || e === "Supprimer des favoris") {
       try {
-        setAuthToken(localStorage.getItem("jwt"));
         await apiInstance.post(
           e === "Ajouter aux favoris"
             ? `${PRO_RISE.addFavTrader}`
@@ -159,12 +157,13 @@ export default function TraderDetails() {
       }
     }
     if (e === "Copier") {
+      const { data } = await apiInstance.post(`${PRO_RISE.getCapitalPercent}`);
+      setCapitalPercent(data?.defaultCapitalPercent);
       onOpen();
     }
 
     if (e === "unFolllow") {
       try {
-        setAuthToken(localStorage.getItem("jwt"));
         await apiInstance.post(`${PRO_RISE.unfollowTrader}`, {
           encryptedUid: id,
         });
@@ -219,7 +218,10 @@ export default function TraderDetails() {
               <TotalSpent design={2} />
             </GridItem>
             <GridItem colSpan={1}>
-              <DailyTraffic />
+              <DailyTraffic
+                currentPositions={traderPositions ?? []}
+                traderDetail={true}
+              />
             </GridItem>
           </Grid>
         )}

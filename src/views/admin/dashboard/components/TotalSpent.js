@@ -25,7 +25,7 @@ import present from "../../../../assets/img/dashboards/svgIcon/presentation-char
 import { TradersCardData } from "constants/constants";
 
 export default function TotalSpent(props) {
-  const { ...rest } = props;
+  const { balance, ...rest } = props;
 
   // ProRIse Color Mode
 
@@ -122,7 +122,7 @@ export default function TotalSpent(props) {
                   fontWeight="700"
                   lineHeight="100%"
                 >
-                  € 0
+                  {`€ ${balance}`}
                 </Text>
               </Flex>
             </Flex>
@@ -134,7 +134,7 @@ export default function TotalSpent(props) {
             gap="20px"
             marginTop={props?.heading ? 8 : 0}
           >
-            {TradersCardData?.slice(0, 5).map((item, index) => {
+            {[0, 1, 2, 3, 4]?.slice(0, 5).map((item, index) => {
               return (
                 <>
                   <Flex direction={"column"} w="100%" align={"start"} pt={3}>
@@ -174,7 +174,17 @@ export default function TotalSpent(props) {
                       fontWeight="600"
                       pt={"2"}
                     >
-                      {item?.textvalue1}
+                      {index === 0
+                        ? "20 %"
+                        : index === 1
+                        ? "40 %"
+                        : index === 2
+                        ? "50 %"
+                        : index === 3
+                        ? "90 %"
+                        : index === 4
+                        ? "85 %"
+                        : null}
                     </Text>
                   </Flex>
                 </>

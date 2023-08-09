@@ -20,6 +20,9 @@ import user from "../../../../assets/img/dashboards/Profile.png";
 import InputFeild from "components/fields/InputField";
 
 import { useSelector } from "react-redux";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import { toast } from "react-hot-toast";
 
 export default function Profile() {
   const textColor = useColorModeValue("white", "white");
@@ -27,6 +30,34 @@ export default function Profile() {
   const { login } = useSelector((state) => state.user);
 
   const [userDetail, setUserDetail] = useState({ ...login?.user });
+  const [password, setPassword] = useState({
+    password: "",
+    newPassword: "",
+  });
+
+  const updateData = async () => {
+    const extractedData = {
+      firstName: userDetail?.firstName,
+      lastName: userDetail?.lastName,
+      phoneNumber: userDetail?.phoneNumber,
+      email: userDetail?.email,
+    };
+    const { data } = await apiInstance.post(
+      `${PRO_RISE.updateUserInfo}`,
+      extractedData
+    );
+    toast.success(data?.message);
+  };
+
+  const onChangePassword = async () => {
+    const { data } = await apiInstance.post(
+      `${PRO_RISE.changePassword}`,
+      password
+    );
+    if (data?.success) {
+      toast.success(data?.msg);
+    }
+  };
 
   return (
     <Box>
@@ -35,6 +66,7 @@ export default function Profile() {
           heading="Informations de base"
           buttonHeader={true}
           btnText={"Mettre à jour"}
+          onClick={updateData}
         >
           <Flex
             alignItems={"center"}
@@ -75,11 +107,11 @@ export default function Profile() {
                 label="Prénom"
                 placeholder="Cole"
                 type="text"
-                value={userDetail?.username}
+                value={userDetail?.firstName}
                 onChange={(e) =>
                   setUserDetail({
                     ...userDetail,
-                    username: e.target.value,
+                    firstName: e.target.value,
                   })
                 }
               />
@@ -97,6 +129,13 @@ export default function Profile() {
                 label="Nom de famille"
                 placeholder="Caufield"
                 type="text"
+                value={userDetail?.lastName}
+                onChange={(e) =>
+                  setUserDetail({
+                    ...userDetail,
+                    lastName: e.target.value,
+                  })
+                }
               />
             </GridItem>
             <GridItem
@@ -149,6 +188,7 @@ export default function Profile() {
           heading="Mot de passe"
           buttonHeader={true}
           btnText={"Mettre à jour"}
+          onClick={onChangePassword}
         >
           <Grid
             templateRows="repeat(1, 1fr)"
@@ -164,7 +204,17 @@ export default function Profile() {
                 sm: 4,
               }}
             >
-              <InputFeild label="Ancien mot de passe" type="password" />
+              <InputFeild
+                label="Ancien mot de passe"
+                type="password"
+                value={password?.password}
+                onChange={(e) =>
+                  setPassword({
+                    ...password,
+                    password: e.target.value,
+                  })
+                }
+              />
             </GridItem>
             <GridItem
               colSpan={{
@@ -175,7 +225,17 @@ export default function Profile() {
                 sm: 4,
               }}
             >
-              <InputFeild label="Nouveau mot de passe" type="password" />
+              <InputFeild
+                label="Nouveau mot de passe"
+                type="password"
+                value={password?.newPassword}
+                onChange={(e) =>
+                  setPassword({
+                    ...password,
+                    newPassword: e.target.value,
+                  })
+                }
+              />
             </GridItem>
           </Grid>
         </BasicCard>

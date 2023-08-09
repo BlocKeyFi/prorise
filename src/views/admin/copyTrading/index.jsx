@@ -140,8 +140,8 @@ export default function Settings() {
                   textvalue2={item?.winrate}
                   btnText="Copier"
                   isCopy={item?.isCopy}
-                  copyCount={item.followerCount}
-                  icon={item.favorite}
+                  copyCount={item?.followerCount}
+                  icon={item?.favorite}
                 />
               );
             })
