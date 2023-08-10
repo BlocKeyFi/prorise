@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { getLeaderboardsData } from "store/actions";
 import { useEffect } from "react";
+import { getRefralLink } from "store/actions";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -26,7 +29,7 @@ export default function Dashboard(props) {
     history.push("/");
   }
 
-  useEffect(() => {
+  useEffect(async () => {
     if (auth) {
       dispatch(
         getLeaderboardsData({
@@ -36,6 +39,8 @@ export default function Dashboard(props) {
           },
         })
       );
+      const { data } = await apiInstance.post(`${PRO_RISE.getRefralLink}`);
+      dispatch(getRefralLink(data?.link));
     }
   }, []);
 

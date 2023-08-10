@@ -115,12 +115,7 @@ export default function PriceCard(props) {
               textAlign={"left"}
               gap={3}
               disabled={props?.currentPlan === props?.heading}
-              onClick={() => {
-                getSubscriptionData({
-                  planId,
-                  userId,
-                });
-              }}
+              onClick={onClick}
             >
               <img src={cartIcon} width={20} />
               {props?.btnText}

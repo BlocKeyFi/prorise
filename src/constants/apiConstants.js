@@ -7,6 +7,7 @@ export const PRO_RISE = {
   changePassword: "user/changePassword",
   unFavoriteTrader: "user/unFavoriteTrader",
   getWalletBalance: "user/getWalletBalance",
+  getRefralLink: "user/getRefralLink",
   isTraderFollowedByUser: "user/isTraderFollowedByUser",
   unfollowTrader: "user/unfollowTrader",
   subscribeToPackage: "user/subscribeToPackage",

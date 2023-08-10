@@ -92,13 +92,20 @@ function Register() {
     }
   };
 
+  const url = new URL(window.location.href);
+
+  const encodedString = url?.search;
+
+  const refralCode = encodedString.replace("?ref=", "");
+
   const checkUser = async () => {
     if (email && password && fisrtName && lastName) {
       let userFinalobj = {
-        email: email,
-        password: password,
+        email,
+        password,
         phoneNumber: "",
         username: fisrtName + "-" + lastName,
+        refralCode,
       };
       try {
         await apiInstance.post(`${PRO_RISE.register}`, userFinalobj);

@@ -8,10 +8,6 @@ import {
   Text,
   Button,
   Center,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  Image,
   Tabs,
   TabList,
   Tab,
@@ -22,10 +18,6 @@ import Card from "components/card/Card.js";
 
 // Assets
 import money from "assets/img/dashboards/svgIcon/money.svg";
-import { TfiTwitter } from "react-icons/tfi";
-import { TbBrandTelegram, TbBrandWhatsapp } from "react-icons/tb";
-
-import copyIcon from "../../assets/img/dashboards/svgIcon/copy.svg";
 
 import GlobalTable from "components/Table/table";
 import { MdEdit } from "react-icons/md";
@@ -57,6 +49,8 @@ export default function BasicCard(props) {
     columnsData,
     onCopy,
     onClick,
+    refralLink,
+    inputRef,
     ...rest
   } = props;
 
@@ -217,8 +211,6 @@ export default function BasicCard(props) {
             </Tabs>
           )}
         </Center>
-        {children}
-
         {paragraph && (
           <Flex direction="column">
             <Box>
@@ -235,7 +227,7 @@ export default function BasicCard(props) {
                 {paragraph}
               </Text>
             </Box>
-            <Flex mt="14px" mb={share ? 4 : 10}>
+            <Flex mt="14px" mb={share ? 3 : 10}>
               <Flex direction="column" me="34px">
                 <Text
                   fontSize={{
@@ -257,6 +249,8 @@ export default function BasicCard(props) {
             </Flex>
           </Flex>
         )}
+        {children}
+
         {btnText && button && (
           <Button
             fontSize="14px"
@@ -274,98 +268,6 @@ export default function BasicCard(props) {
             <img src={money} style={{ marginTop: "-2px" }} />
             {tabIndex ? btnText : btnText + price}
           </Button>
-        )}
-        {share && (
-          <Flex
-            direction={{
-              "2xl": "row",
-              xl: "row",
-              lg: "row",
-              md: "row",
-              sm: "column",
-            }}
-            gap={10}
-            color={"gray.200"}
-            fontSize={14}
-            justifyContent={"space-between"}
-          >
-            <Flex
-              gap={{ "2xl": 10, xl: 4, lg: 20, md: 10, sm: 10 }}
-              justifyContent={"center"}
-            >
-              <Flex direction={"column"} alignItems={"center"} gap={3}>
-                <Center
-                  bg={"rgba(160, 174, 192, 0.04)"}
-                  _hover={"rgba(160, 174, 192, 0.04)"}
-                  w="50px"
-                  h="50px"
-                  lineHeight="100%"
-                  borderRadius="10px"
-                >
-                  <Icon
-                    as={TbBrandTelegram}
-                    w="20px"
-                    h="auto"
-                    color="gray.400"
-                  />
-                </Center>
-                Telegram
-              </Flex>
-              <Flex direction={"column"} alignItems={"center"} gap={3}>
-                <Center
-                  bg={"rgba(160, 174, 192, 0.04)"}
-                  _hover={"rgba(160, 174, 192, 0.04)"}
-                  w="50px"
-                  h="50px"
-                  lineHeight="100%"
-                  borderRadius="10px"
-                >
-                  <Icon as={TfiTwitter} w="20px" h="auto" color="gray.400" />
-                </Center>
-                Twitter
-              </Flex>
-              <Flex direction={"column"} alignItems={"center"} gap={3}>
-                <Center
-                  bg={"rgba(160, 174, 192, 0.04)"}
-                  _hover={"rgba(160, 174, 192, 0.04)"}
-                  w="50px"
-                  h="50px"
-                  lineHeight="100%"
-                  borderRadius="10px"
-                >
-                  <Icon
-                    as={TbBrandWhatsapp}
-                    w="20px"
-                    h="auto"
-                    color="gray.400"
-                  />
-                </Center>
-                Whatsapp
-              </Flex>
-            </Flex>
-            <Center>ou</Center>
-            <Flex direction={"column"} alignItems={"center"} gap={3}>
-              <Center>
-                <InputGroup>
-                  <InputLeftElement pointerEvents="none" mt={2}>
-                    <Image src={copyIcon} />
-                  </InputLeftElement>
-                  <Input
-                    fontWeight="500"
-                    placeholder="https://www.prorise.io/ref/123456789ABC"
-                    _placeholder={{ fontWeight: "400", color: "white" }}
-                    h="53px"
-                    borderRadius="8"
-                    width={"100%"}
-                    value={"https://www.prorise.io/ref/123456789ABC"}
-                    color={"gray.200"}
-                    disabled
-                  />
-                </InputGroup>
-              </Center>
-              Copiez votre lien
-            </Flex>
-          </Flex>
         )}
 
         {table && (

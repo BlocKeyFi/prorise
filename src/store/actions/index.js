@@ -12,6 +12,7 @@ export const userLogin = createAsyncThunk(
     try {
       const { data } = await apiInstance.post(`${PRO_RISE.login}`, params);
       toast.success("Successfully Login");
+
       return data;
     } catch (error) {
       toast.error(
@@ -156,5 +157,7 @@ export const getClosedTrades = createAsyncThunk(
     }
   }
 );
+
+export const getRefralLink = createAction("user/getRefralLink");
 
 export const logout = createAction("user/logout");

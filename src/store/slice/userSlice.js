@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getRefralLink } from "store/actions";
 import { subscribeToPackage } from "store/actions";
 import { logout } from "store/actions";
 import { userLogin } from "store/actions";
@@ -9,6 +10,7 @@ const initialState = {
   isSuccess: false,
   errorMessage: "",
   auth: false,
+  refralLink: "",
 };
 
 const userSlice = createSlice({
@@ -46,6 +48,14 @@ const userSlice = createSlice({
       state.isSuccess = false;
       state.errorMessage = payload;
     },
+
+    [getRefralLink]: (state, { payload }) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.errorMessage = "";
+      state.refralLink = payload;
+    },
+
     [logout]: (state) => {
       state.auth = initialState.auth;
       state.login = initialState.login;
