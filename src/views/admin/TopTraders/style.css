@@ -1,0 +1,13 @@
+.css-n4m7n6 option {
+    color: white;
+    width: 310px ;
+    padding: 10px 15px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .css-n4m7n6 option:hover {
+    padding-left: 25px;
+    width: 270px;
+    color: #EC6F66 !important;
+  }

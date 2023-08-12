@@ -28,6 +28,7 @@ import { PRO_RISE } from "constants/apiConstants";
 import { getLeaderboardsData } from "store/actions";
 import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
+import { resetTraderPositions } from "store/actions";
 
 export default function LeaderBoard() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
@@ -36,7 +37,20 @@ export default function LeaderBoard() {
   const [id, setId] = useState(null);
   const [filterData, setFilterData] = useState([]);
 
+  const [itemOffset, setItemOffset] = useState(1);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          period: "WEEKLY",
+          currentPage: itemOffset,
+        },
+      })
+    );
+  }, [itemOffset]);
 
   // ProRIse Color Mode
 

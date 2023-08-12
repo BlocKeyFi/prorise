@@ -30,6 +30,7 @@ export default function Default(props) {
     icon,
     disabled,
     iconPlacement,
+    onClick,
     ...rest
   } = props;
   // ProRIse Color Mode
@@ -94,6 +95,7 @@ export default function Default(props) {
               _hover={{ cursor: "pointer" }}
               as={icon}
               style={{ fontSize: 25 }}
+              onClick={placeholder === "Rechercher un trader" && onClick}
             />
           </InputRightElement>
         )}

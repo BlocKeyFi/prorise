@@ -47,6 +47,29 @@ export const buttonArray = [
   },
 ];
 
+export const selectTimeDuration = [
+  {
+    title: "Trier par : 7 jours",
+    value: "WEEKLY",
+  },
+  {
+    title: "Trier par : 30 jours",
+    value: "MONTHLY",
+  },
+  {
+    title: "Trier par : 3 mois",
+    value: "3 MONTHS",
+  },
+  {
+    title: "Trier par :  6 mois",
+    value: "6 MONTHS",
+  },
+  {
+    title: "Trier par : 1 année",
+    value: "YEARLY",
+  },
+];
+
 export const tabsArray = [
   {
     id: 0,

@@ -11,6 +11,7 @@ import {
   Spinner,
   Icon,
   Input,
+  Text,
 } from "@chakra-ui/react";
 
 // Custom components
@@ -24,11 +25,14 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import InputFeild from "components/fields/InputField";
 import { CiSearch } from "react-icons/ci";
 import { RiArrowDownSFill } from "react-icons/ri";
+import { selectTimeDuration } from "constants/constants";
+import "./style.css";
 
 export default function Marketplace() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
 
   const [itemOffset, setItemOffset] = useState(1);
+  const [search, setSearch] = useState("");
 
   // ProRIse Color Mode
   const dispatch = useDispatch();
@@ -54,6 +58,29 @@ export default function Marketplace() {
         },
       })
     );
+    setSearch("");
+  };
+
+  const onSearch = () => {
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          currentPage: itemOffset,
+          nickName: search,
+        },
+      })
+    );
+  };
+
+  const onSelect = (e) => {
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          currentPage: itemOffset,
+          period: e,
+        },
+      })
+    );
   };
 
   return (
@@ -61,20 +88,27 @@ export default function Marketplace() {
       <Flex justifyContent={"space-between"}>
         <InputFeild
           w={{ xl: "268px", lg: "268px", md: "100%", sm: "100%" }}
-          required
           icon={CiSearch}
           iconPlacement="right"
           placeholder="Rechercher un trader"
+          onClick={onSearch}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <Flex w="100%" gap={4} p={4} color="white" justifyContent={"end"}>
           <Select
             bg="rgba(255, 255, 255, 0.08)"
             border="none"
             color="white"
-            placeholder="Trier par : ROI 7 jours"
-            w={{ "2xl": "15%", xl: "30%", lg: "25%", md: "35%", sm: "100%" }}
+            w={{ "2xl": "20%", xl: "30%", lg: "25%", md: "35%", sm: "100%" }}
             icon={<Icon as={RiArrowDownSFill} />}
-          />
+            onChange={(e) => onSelect(e.target.value)}
+          >
+            {selectTimeDuration?.map((item) => (
+              <option value={item.value}>{item.title}</option>
+            ))}
+          </Select>
+
           <Button
             isLoading={isLoading}
             loadingText="Loading"
@@ -97,7 +131,7 @@ export default function Marketplace() {
         <Center h="60vh">
           <Spinner size="xl" />
         </Center>
-      ) : (
+      ) : data.length ? (
         <SimpleGrid
           columns={{ base: 2, md: 2, lg: 3, xl: 4, sm: 1, "2xl": 5 }}
           gap="20px"
@@ -122,8 +156,28 @@ export default function Marketplace() {
             );
           })}
         </SimpleGrid>
+      ) : (
+        <Flex
+          direction={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          h="60vh"
+        >
+          <img
+            src={require("assets/img/notfound.png")}
+            width={300}
+            style={{ borderRadius: 100 }}
+          />
+          <Text
+            // color={textColorSecondary}
+            fontWeight="400"
+            fontSize={{ lg: "lg" }}
+          >
+            No Data Find
+          </Text>
+        </Flex>
       )}
-      {!isLoading && (
+      {!isLoading && data?.length > 20 && (
         <Flex direction={"row"} justifyContent={"space-between"}>
           <Button
             loadingText="Loading"

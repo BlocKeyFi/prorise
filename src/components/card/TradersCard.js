@@ -82,7 +82,7 @@ export default function TradersCard(props) {
               <Text
                 color={textColorSecondary}
                 fontSize={{
-                  "2xl": "14px",
+                  "2xl": "13px",
                   xl: "11px",
                   lg: "12px",
                   md: "14px",
@@ -116,7 +116,7 @@ export default function TradersCard(props) {
               <Text
                 color={textColorSecondary}
                 fontSize={{
-                  "2xl": "14px",
+                  "2xl": "13px",
                   xl: "11px",
                   lg: "12px",
                   md: "14px",
