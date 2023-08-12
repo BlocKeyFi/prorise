@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // ProRIse imports
 import {
   Box,
@@ -31,7 +31,6 @@ import { toast } from "react-hot-toast";
 
 export default function LeaderBoard() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
-  const { currentPositions } = useSelector((state) => state?.exchange);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [capitalPercent, setCapitalPercent] = useState(null);
   const [id, setId] = useState(null);
@@ -65,7 +64,12 @@ export default function LeaderBoard() {
     }
   };
 
-  const onCopy = (e) => {
+  useEffect(async () => {
+    const { data } = await apiInstance.post(`${PRO_RISE.getCapitalPercent}`);
+    setCapitalPercent(data?.defaultCapitalPercent);
+  }, [isOpen]);
+
+  const onCopy = async (e) => {
     setFilterData(data?.filter((item) => item?.encryptedUid === e));
     onOpen();
     setId(e);
@@ -90,7 +94,8 @@ export default function LeaderBoard() {
         capitalPercent={capitalPercent}
         setCapitalPercent={setCapitalPercent}
         connection={false}
-        filterData={filterData}
+        filterData={filterData[0] ?? {}}
+        btnText={"Copier"}
       />
     </Box>
   );

@@ -24,6 +24,7 @@ import Verification from "views/auth/verification/verification";
 import SendVerification from "views/auth/verification/sendVerification";
 import Leaderboard from "./assets/img/dashboards/svgIcon/presentation-chart-1.svg";
 import LeaderBoard from "views/admin/leaderBoard";
+import ForgotPassword from "views/auth/forgotPassword";
 
 const routes = [
   {
@@ -103,6 +104,11 @@ const routes = [
     layout: "/auth",
     path: "/login",
     component: Login,
+  },
+  {
+    layout: "/auth",
+    path: "/forgot-password",
+    component: ForgotPassword,
   },
   {
     layout: "/auth",

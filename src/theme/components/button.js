@@ -13,6 +13,7 @@ export const buttonStyles = {
         _active: {
           boxShadow: "none",
         },
+        cursor: "pointer",
       },
       variants: {
         outline: () => ({
@@ -86,16 +87,16 @@ export const buttonStyles = {
         setup: (props) => ({
           fontWeight: "500",
           borderRadius: "50px",
-          bg: mode("transparent", "#0075FF")(props),
+          bg: mode("transparent", "transparent")(props),
           border: mode("1px solid", "0px solid")(props),
           borderColor: mode("secondaryGray.400", "transparent")(props),
           color: mode("secondaryGray.900", "white")(props),
           _focus: {
-            bg: mode("transparent", "#0075FF")(props),
+            bg: mode("transparent", "transparent")(props),
           },
-          _active: { bg: mode("transparent", "#0075FF")(props) },
+          _active: { bg: mode("transparent", "transparent")(props) },
           _hover: {
-            bg: mode("secondaryGray.100", "#0075FF")(props),
+            bg: mode("secondaryGray.100", "transparent")(props),
           },
         }),
       },

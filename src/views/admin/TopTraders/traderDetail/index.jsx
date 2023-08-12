@@ -234,7 +234,8 @@ export default function TraderDetails() {
         capitalPercent={capitalPercent}
         setCapitalPercent={setCapitalPercent}
         connection={false}
-        filterData={filterData}
+        filterData={filterData[0] ?? {}}
+        btnText={"Copier"}
       />
       <Footer />
     </Box>

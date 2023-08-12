@@ -198,6 +198,7 @@ export default function Connections() {
           exchangeData={exchangeData}
           setExchangeData={setExchangeData}
           connection={true}
+          btnText={'Connect'}
         />
       </BasicCard>
     </Box>

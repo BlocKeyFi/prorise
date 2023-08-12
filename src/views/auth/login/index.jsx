@@ -13,6 +13,7 @@ import {
   Spinner,
   Text,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 // Custom components
 
@@ -29,6 +30,8 @@ import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { TfiTwitter } from "react-icons/tfi";
 import { TbBrandTelegram, TbBrandWhatsapp } from "react-icons/tb";
 import { authButtons } from "constants/constants";
+import Dialog from "components/dialog/Dialog";
+import { useEffect } from "react";
 
 function Login() {
   // ProRIse color mode
@@ -37,12 +40,15 @@ function Login() {
   const textColorDetails = useColorModeValue("#A0AEC0", "gray.200");
 
   const { isLoading } = useSelector((state) => state.user);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const googleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => console.log(tokenResponse),
@@ -75,8 +81,50 @@ function Login() {
     }
   };
 
+  useEffect(() => {
+    setSuccess(false);
+  }, [isOpen]);
+
+  const onSubmit = (e) => {
+    setSuccess(true);
+    setForgotEmail("");
+  };
+
   return (
     <OnboardingAuth>
+      <Dialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        heading={`Mot de passe oublié`}
+        auth
+        btnText={"Send Email"}
+        success={success}
+      >
+        {!success ? (
+          <InputFeild
+            label="Email"
+            type="email"
+            value={forgotEmail}
+            onChange={(e) => setForgotEmail(e.target.value)}
+          />
+        ) : (
+          <Flex direction={"column"} alignItems={"center"}>
+            <img
+              src={require("assets/img/email-verified.png")}
+              width={200}
+              style={{ borderRadius: 100 }}
+            />
+            <Text
+              color={textColorSecondary}
+              fontWeight="400"
+              fontSize={{ sm: "sm" }}
+            >
+              Check Your Email
+            </Text>
+          </Flex>
+        )}
+      </Dialog>
       <Flex
         maxW={{ base: "100%", md: "max-content", xs: "max-content" }}
         w="100%"
@@ -136,6 +184,15 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            <Button
+              color={textColor}
+              float={"left"}
+              variant="setup"
+              onClick={onOpen}
+            >
+              Mot de passe oublié
+            </Button>
           </FormControl>
           <Button
             fontSize="24px"

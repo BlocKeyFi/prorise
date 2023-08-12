@@ -31,7 +31,10 @@ export default function Dialog({
   capitalPercent,
   setCapitalPercent,
   filterData,
-  stripe,
+  children,
+  auth,
+  btnText,
+  success,
 }) {
   const cancelRef = React.useRef();
 
@@ -48,68 +51,63 @@ export default function Dialog({
 
         <AlertDialogContent
           bg={
-            "linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.08) 100%), linear-gradient(175deg, rgba(6, 11, 40, 0.67) 0%, rgba(10, 14, 35, 0.64) 100%)"
+            !auth
+              ? "linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.08) 100%), linear-gradient(175deg, rgba(6, 11, 40, 0.67) 0%, rgba(10, 14, 35, 0.64) 100%)"
+              : "linear-gradient(126deg, rgba(18, 18, 47, 1) 100%, rgba(10, 14, 35, 0.53) 91.2%)"
           }
         >
           <AlertDialogHeader fontSize={"34px"}>{heading}</AlertDialogHeader>
-          {stripe ? (
-            <>
-              {/* <PaymentElement />
-              <button>Submit</button> */}
-            </>
-          ) : (
-            <AlertDialogBody>
-              {connection ? (
-                <React.Fragment>
+          <AlertDialogBody>
+            {children}
+            {connection && (
+              <React.Fragment>
+                <InputFeild
+                  label="Secret Key"
+                  type="password"
+                  value={exchangeData.secretKey}
+                  onChange={(e) =>
+                    setExchangeData({
+                      ...exchangeData,
+                      secretKey: e.target.value,
+                    })
+                  }
+                />
+                <InputFeild
+                  label="Api Key"
+                  type="password"
+                  value={exchangeData.apiKey}
+                  onChange={(e) =>
+                    setExchangeData({
+                      ...exchangeData,
+                      apiKey: e.target.value,
+                    })
+                  }
+                />
+              </React.Fragment>
+            )}
+            {filterData && (
+              <React.Fragment>
+                <InputFeild
+                  label="Trader"
+                  value={filterData ? filterData?.nickName : ""}
+                  disabled
+                />
+                <Flex direction={"row"} gap={5}>
                   <InputFeild
-                    label="Secret Key"
-                    type="password"
-                    value={exchangeData.secretKey}
-                    onChange={(e) =>
-                      setExchangeData({
-                        ...exchangeData,
-                        secretKey: e.target.value,
-                      })
-                    }
-                  />
-                  <InputFeild
-                    label="Api Key"
-                    type="password"
-                    value={exchangeData.apiKey}
-                    onChange={(e) =>
-                      setExchangeData({
-                        ...exchangeData,
-                        apiKey: e.target.value,
-                      })
-                    }
-                  />
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <InputFeild
-                    label="Trader"
-                    value={filterData && filterData[0]?.nickName}
+                    value={"€" + filterData ? filterData?.rank : ""}
+                    label="Capital"
                     disabled
                   />
-                  <Flex direction={"row"} gap={5}>
-                    <InputFeild
-                      value={"€" + filterData && filterData[0]?.rank}
-                      label="Capital"
-                      disabled
-                    />
-                    <InputFeild
-                      label="Gestion du risque"
-                      type="number"
-                      value={capitalPercent}
-                      onChange={(e) =>
-                        setCapitalPercent(Number(e.target.value))
-                      }
-                    />
-                  </Flex>
-                </React.Fragment>
-              )}
-            </AlertDialogBody>
-          )}
+                  <InputFeild
+                    label="Gestion du risque"
+                    type="number"
+                    value={capitalPercent}
+                    onChange={(e) => setCapitalPercent(Number(e.target.value))}
+                  />
+                </Flex>
+              </React.Fragment>
+            )}
+          </AlertDialogBody>
 
           <AlertDialogCloseButton />
           <AlertDialogFooter>
@@ -120,7 +118,7 @@ export default function Dialog({
               w={"100%"}
               alignItems={"center"}
             >
-              {!connection && (
+              {!connection && !auth && (
                 <Flex direction={"column"} w="100%" gap={1}>
                   <Text
                     fontSize={{
@@ -134,7 +132,7 @@ export default function Dialog({
                     fontWeight="600"
                   >
                     {filterData &&
-                      filterData[0]?.followerCount + " " + "personnes"}
+                      filterData?.followerCount + " " + "personnes"}
                   </Text>
                   <Text
                     fontSize={{
@@ -154,9 +152,9 @@ export default function Dialog({
 
               <Button
                 fontSize="14px"
-                variant="brand"
+                // variant="brand"
                 fontWeight="600"
-                w={"auto"}
+                w={auth ? "100%" : "auto"}
                 h="36px"
                 display="flex"
                 bg={"#0075FF"}
@@ -164,9 +162,11 @@ export default function Dialog({
                 textAlign={"left"}
                 gap={2}
                 onClick={onSubmit}
+                disabled={success ? success : false}
               >
-                {!connection && <Icon as={BiCopy} />}
-                {connection ? "Connect" : "Copier"}
+                {!connection && !auth && <Icon as={BiCopy} />}
+
+                {btnText}
               </Button>
             </Flex>
           </AlertDialogFooter>
