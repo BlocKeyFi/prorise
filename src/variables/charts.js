@@ -1,8 +1,8 @@
 import { formattedData } from "utils/utils";
 
-export const pieChartOptions = (symbols) => {
+export const pieChartOptions = (symbol) => {
   return {
-    labels: symbols,
+    labels: symbol,
     colors: ["#2CD9FF"],
     chart: {
       width: 380,

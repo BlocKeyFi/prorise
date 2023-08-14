@@ -37,7 +37,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
-  const [itemOffset, setItemOffset] = useState(1);
+  const [getFollowedTraders, setFollowedTraders] = useState([]);
 
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
 
@@ -56,6 +56,10 @@ export default function Settings() {
       );
       dispatch(getClosedTrades("tradeHistory"));
     }
+
+    const { data } = await apiInstance.post(`${PRO_RISE.getFollowedTraders}`);
+
+    setFollowedTraders(data?.success ? data?.traders : []);
   }, []);
 
   const filterFavData = data?.filter((item) => item.favorite === true);
@@ -110,6 +114,18 @@ export default function Settings() {
                 3
               </Center>
             </Tab>
+            <Tab
+              _selected={{ color: "white", bg: "rgba(255, 255, 255, 0.08)" }}
+              _focus={{ border: "none" }}
+              borderRadius={8}
+              color={"gray.200"}
+              value={3}
+              fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "12px" }}
+              onClick={(e) => setTabIndex(parseInt(e.target.value))}
+              gap={3}
+            >
+              Mes suivis
+            </Tab>
           </TabList>
         </Tabs>
         <Select
@@ -120,7 +136,7 @@ export default function Settings() {
           w={{ "2xl": "15%", xl: "20%", lg: "25%", md: "35%", sm: "100%" }}
         />
       </Flex>
-      {tabIndex === 0 && !isLoading ? (
+      {tabIndex === 0 && !isLoading && (
         <SimpleGrid
           columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 4 }}
           gap="20px"
@@ -175,7 +191,9 @@ export default function Settings() {
             </Center>
           )}
         </SimpleGrid>
-      ) : (
+      )}
+
+      {tabIndex === 1 && (
         <SimpleGrid gap={10}>
           <DevelopmentTable
             columnsData={columnsDataActiveTrades}
@@ -189,6 +207,63 @@ export default function Settings() {
             tableHeading="Historique des trades"
             p={10}
           />
+        </SimpleGrid>
+      )}
+
+      {tabIndex === 3 && (
+        <SimpleGrid
+          columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 4 }}
+          gap="20px"
+          mb="20px"
+        >
+          {getFollowedTraders.length ? (
+            getFollowedTraders?.map((item) => {
+              return (
+                <TradersCard
+                  id={item?.encryptedUid}
+                  heading={item?.nickName}
+                  paragraph={item?.updated_at}
+                  image={item?.userPhotoUrl}
+                  text1={"ROI 7 jours"}
+                  text2={"Win rate 7 jours"}
+                  textvalue1={item?.roi}
+                  textvalue2={item?.winrate}
+                  btnText="Copier"
+                  isCopy={item?.isCopy}
+                  copyCount={item?.followerCount}
+                  icon={item?.favorite}
+                />
+              );
+            })
+          ) : (
+            <Center
+              height={"50vh"}
+              width={"165vh"}
+              display={"flex"}
+              flexDirection={"column"}
+              gap={30}
+            >
+              <Text fontSize="32px" fontWeight="600" lineHeight="100%">
+                {"No Follow Trade Found"}
+              </Text>
+              <Link to="/admin/top-traders">
+                <Button
+                  fontSize="16px"
+                  variant="brand"
+                  fontWeight="500"
+                  w={"100%"}
+                  h="35px"
+                  bg="#0075FF"
+                  borderRadius="10px"
+                  _hover={{ bg: "#0075FF" }}
+                  textAlign={"center"}
+                  gap={2}
+                >
+                  {"Copy Trades"}
+                </Button>
+              </Link>
+            </Center>
+          )}
         </SimpleGrid>
       )}
     </Box>

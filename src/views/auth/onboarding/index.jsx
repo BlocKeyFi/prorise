@@ -356,7 +356,7 @@ function Register() {
                     priceId: item?.stripePrice,
                   })
                 }
-                authScreen={true}
+                setting={true}
                 userId={login?.user?.id}
               />
             ))}

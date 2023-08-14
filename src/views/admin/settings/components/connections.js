@@ -27,6 +27,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { exchange } from "store/actions";
 import { generateRandomString } from "utils/utils";
 import { currentlyExchangeConnected } from "store/actions";
+import { connetions } from "constants/constants";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import { toast } from "react-hot-toast";
+import { disconnetExchange } from "store/actions";
 
 export default function Connections() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,8 +64,16 @@ export default function Connections() {
     onClose();
   };
 
+  const disConnectConnection = async (e) => {
+    dispatch(
+      disconnetExchange({
+        exchange: e,
+      })
+    );
+  };
+
   const randerConnected = () => {
-    return [1, 2, 3].map((item, index) => {
+    return connetions?.map((item, index) => {
       return (
         <>
           <Flex
@@ -82,13 +95,7 @@ export default function Connections() {
                 }
               />
               <Heading color={textColor} fontSize="20px">
-                {index === 0
-                  ? "Binance"
-                  : index === 1
-                  ? "ByBit"
-                  : index === 2
-                  ? "KuCoin"
-                  : null}
+                {item.title}
                 <Text
                   color={textColorSecondary}
                   fontWeight="400"
@@ -96,13 +103,9 @@ export default function Connections() {
                   width={"100%"}
                   mt={1}
                 >
-                  {exchangeConnection === "binance" && index === 0
-                    ? "Connecté"
-                    : exchangeConnection === "bybit" && index === 1
-                    ? "Connecté"
-                    : exchangeConnection === "kucoin" && index === 2
-                    ? "Connecté"
-                    : "Déconnecter"}
+                  {item.title.toLowerCase() === exchangeConnection
+                    ? "Déconnecter"
+                    : "Connecté"}
                 </Text>
               </Heading>
             </Box>
@@ -118,43 +121,15 @@ export default function Connections() {
                 borderRadius="10px"
                 _hover={{ bg: "#0075FF" }}
                 textAlign={"left"}
-                disabled={
-                  index === 0
-                    ? true
-                    : index === 1
-                    ? false
-                    : index === 2
-                    ? true
-                    : null
-                }
                 gap={2}
-                // disabled={
-                //   exchangeConnection === "binance" && index === 0
-                //     ? true
-                //     : exchangeConnection === "bybit" && index === 1
-                //     ? true
-                //     : exchangeConnection === "kucoin" && index === 2
-                //     ? true
-                //     : false
-                // }
                 onClick={() =>
-                  updateExchnageData(
-                    index === 0
-                      ? "Binance"
-                      : index === 1
-                      ? "ByBit"
-                      : index === 2
-                      ? "KuCoin"
-                      : null
-                  )
+                  item.title.toLowerCase() === exchangeConnection
+                    ? disConnectConnection(exchangeConnection)
+                    : updateExchnageData(item.title.toLowerCase())
                 }
               >
                 <Icon as={MdEdit} />
-                {exchangeConnection === "binance" && index === 0
-                  ? "Déconnecter"
-                  : exchangeConnection === "bybit" && index === 1
-                  ? "Déconnecter"
-                  : exchangeConnection === "kucoin" && index === 2
+                {item.title.toLowerCase() === exchangeConnection
                   ? "Déconnecter"
                   : "Connecté"}
               </Button>
@@ -198,7 +173,7 @@ export default function Connections() {
           exchangeData={exchangeData}
           setExchangeData={setExchangeData}
           connection={true}
-          btnText={'Connect'}
+          btnText={"Connect"}
         />
       </BasicCard>
     </Box>

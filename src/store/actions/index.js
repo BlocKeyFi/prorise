@@ -83,6 +83,24 @@ export const currentlyExchangeConnected = createAsyncThunk(
   }
 );
 
+export const disconnetExchange = createAsyncThunk(
+  "exchange/currentlyConnected",
+  async (params, { rejectWithValue }) => {
+    try {
+      setAuthToken(localStorage.getItem("jwt"));
+      const { data } = await apiInstance.post(
+        `${PRO_RISE.disconnetExchange}`,
+        params
+      );
+      toast.success(`SuccessFully Disconnect ${params?.exchange}`);
+      return data;
+    } catch (error) {
+      // toast.warn("Connection Not found Please build your Connection");
+      return rejectWithValue("Connection error");
+    }
+  }
+);
+
 export const getLeaderboardsData = createAsyncThunk(
   "leader/getLeaderboardsData",
   async (params, { rejectWithValue, dispatch, getState }) => {

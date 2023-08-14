@@ -15,16 +15,11 @@ import { pieChartOptions } from "variables/charts";
 export default function DailyTraffic(props) {
   const { pieHeight, currentPositions, traderDetail, ...rest } = props;
 
-  const symbols = [...new Set(currentPositions?.map((item) => item?.symbol))];
-  const data = [
-    ...new Set(
-      currentPositions?.map((item) =>
-        traderDetail ? item?.entryPrice : item?.size
-      )
-    ),
-  ];
-
-  const numericValues = data?.map((value) => parseFloat(value));
+  const symbolsArray = currentPositions
+    ?.slice(0, 7)
+    ?.map((item) => item?.symbol);
+  const sizesArray = currentPositions?.slice(0, 7)?.map((item) => item?.size);
+  const numericValues = sizesArray?.map((value) => parseFloat(value));
 
   // Calculate total sum of values
   const totalSum = numericValues?.reduce((sum, value) => sum + value, 0);
@@ -32,7 +27,12 @@ export default function DailyTraffic(props) {
   // Calculate percentages
   const percentages = numericValues?.map((value) => (value / totalSum) * 100);
 
-  const options = pieChartOptions(symbols);
+  // const mergedArray = symbolsArray.map((symbol, index) => ({
+  //   symbol: symbol,
+  //   size: percentages[index],
+  // }));
+
+  const options = pieChartOptions(symbolsArray);
 
   return (
     <Card align="center" direction="column" w="100%" {...rest}>
@@ -66,7 +66,7 @@ export default function DailyTraffic(props) {
 
         <PieChart
           chartData={percentages ?? []}
-          chartOptions={options ?? []}
+          chartOptions={options ?? {}}
           pieHeight={"95%"}
         />
       </Box>

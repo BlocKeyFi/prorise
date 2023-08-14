@@ -44,6 +44,16 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    setAuthToken(localStorage.getItem("jwt"));
+    const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
+      symbol: "USDT",
+    });
+    if (data?.success) {
+      setBalance(data?.balance);
+    }
+  }, []);
+
+  useEffect(async () => {
     if (exchangeConnection) {
       await dispatch(
         getOpenPositions({
@@ -51,14 +61,9 @@ export default function Dashboard() {
         })
       );
     }
-
-    const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
-      symbol: "USDT",
-    });
-    if (data?.success) {
-      setBalance(data?.balance);
-    }
   }, [exchangeConnection]);
+
+  console.log(currentPositions);
 
   return (
     <Box>
@@ -117,7 +122,11 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
-          <TotalSpent heading="Portefeuille" design={1} balance={balance} />
+          <TotalSpent
+            heading="Portefeuille"
+            design={1}
+            balance={balance === "" && 0}
+          />
         </GridItem>
         <GridItem
           colSpan={{

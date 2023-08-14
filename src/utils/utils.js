@@ -50,8 +50,8 @@ export const timeConverter = (UNIX_timestamp) => {
 };
 
 const data = generateDayWiseTimeSeries(new Date().getTime(), 6, {
-  min: 3000,
-  max: 220,
+  min: 0,
+  max: 0,
 });
 
 export const formattedData = data.map((point) => ({

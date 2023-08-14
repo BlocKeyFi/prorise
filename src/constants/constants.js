@@ -140,6 +140,18 @@ export const authButtons = [
   },
 ];
 
+export const connetions = [
+  {
+    title: "Binance",
+  },
+  {
+    title: "ByBit",
+  },
+  {
+    title: "KuCoin",
+  },
+];
+
 export const settingsTab = [
   { name: "Profil" },
   { name: "Connexion API" },
