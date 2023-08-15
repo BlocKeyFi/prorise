@@ -62,11 +62,16 @@ export default function Marketplace() {
   };
 
   const onSearch = () => {
+    const isAllUpperCase = search
+      .split("")
+      .every((char) => char === char.toUpperCase());
+
     dispatch(
       getLeaderboardsData({
         searchCriteria: {
           currentPage: itemOffset,
-          nickName: search,
+          nickName: !isAllUpperCase && search,
+          encryptedUid: isAllUpperCase && search,
         },
       })
     );
@@ -177,7 +182,7 @@ export default function Marketplace() {
           </Text>
         </Flex>
       )}
-      {!isLoading && data?.length > 20 && (
+      {!isLoading && data?.length === 20 && (
         <Flex direction={"row"} justifyContent={"space-between"}>
           <Button
             loadingText="Loading"

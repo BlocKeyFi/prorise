@@ -63,8 +63,6 @@ export default function Dashboard() {
     }
   }, [exchangeConnection]);
 
-  console.log(currentPositions);
-
   return (
     <Box>
       {/* <Flex justifyContent={"right"} py={5}>
@@ -125,7 +123,7 @@ export default function Dashboard() {
           <TotalSpent
             heading="Portefeuille"
             design={1}
-            balance={balance === "" && 0}
+            balance={balance === "" ? 0 : balance}
           />
         </GridItem>
         <GridItem
@@ -137,7 +135,6 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
-          {/* <Circle /> */}
           <DailyTraffic pieHeight={"80%"} currentPositions={currentPositions} />
         </GridItem>
         <GridItem colSpan={4}>

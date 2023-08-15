@@ -56,18 +56,18 @@ export const selectTimeDuration = [
     title: "Trier par : 30 jours",
     value: "MONTHLY",
   },
-  {
-    title: "Trier par : 3 mois",
-    value: "3 MONTHS",
-  },
-  {
-    title: "Trier par :  6 mois",
-    value: "6 MONTHS",
-  },
-  {
-    title: "Trier par : 1 année",
-    value: "YEARLY",
-  },
+  // {
+  //   title: "Trier par : 3 mois",
+  //   value: "3 MONTHS",
+  // },
+  // {
+  //   title: "Trier par :  6 mois",
+  //   value: "6 MONTHS",
+  // },
+  // {
+  //   title: "Trier par : 1 année",
+  //   value: "YEARLY",
+  // },
 ];
 
 export const tabsArray = [

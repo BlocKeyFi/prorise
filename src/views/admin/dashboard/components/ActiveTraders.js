@@ -26,6 +26,10 @@ export default function DailyTraffic(props) {
 
   // Calculate percentages
   const percentages = numericValues?.map((value) => (value / totalSum) * 100);
+  const finalPercentages = percentages?.map((value) =>
+    parseFloat(value?.toFixed(6))
+  );
+
 
   // const mergedArray = symbolsArray.map((symbol, index) => ({
   //   symbol: symbol,
@@ -65,7 +69,7 @@ export default function DailyTraffic(props) {
         {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
 
         <PieChart
-          chartData={percentages ?? []}
+          chartData={finalPercentages ?? []}
           chartOptions={options ?? {}}
           pieHeight={"95%"}
         />

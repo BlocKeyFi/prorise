@@ -210,12 +210,12 @@ export default function PriceCard(props) {
           fontSize={{ xl: "20px", lg: "24px", md: "24px", sm: "17px" }}
           variant="brand"
           fontWeight="500"
-          w={{
-            xl: props?.id === 1 ? "90%" : "65%",
-            lg: props?.id === 1 ? "90%" : "65%",
-            md: props?.id === 1 ? "90%" : "65%",
-            sm: "100%",
-          }}
+          // w={{
+          //   xl: props?.id === 1 ? "90%" : "65%",
+          //   lg: props?.id === 1 ? "90%" : "65%",
+          //   md: props?.id === 1 ? "90%" : "65%",
+          //   sm: "100%",
+          // }}
           h="55"
           mb="24px"
           bg="#0075FF"

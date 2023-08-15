@@ -34,9 +34,10 @@ import { PRO_RISE } from "constants/apiConstants";
 import apiInstance from "constants/api";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { getLeaderboardsData } from "store/actions";
 
 export default function Settings() {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(1);
   const [getFollowedTraders, setFollowedTraders] = useState([]);
 
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
@@ -60,9 +61,15 @@ export default function Settings() {
     const { data } = await apiInstance.post(`${PRO_RISE.getFollowedTraders}`);
 
     setFollowedTraders(data?.success ? data?.traders : []);
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          currentPage: 1,
+          favorite: true,
+        },
+      })
+    );
   }, []);
-
-  const filterFavData = data?.filter((item) => item.favorite === true);
 
   // ProRIse Color Mode
   return (
@@ -82,17 +89,6 @@ export default function Settings() {
       >
         <Tabs variant="unstyled" pt={{ xl: 0, lg: 0, md: 0, sm: 4 }}>
           <TabList>
-            <Tab
-              _selected={{ color: "white", bg: "rgba(255, 255, 255, 0.08)" }}
-              _focus={{ border: "none" }}
-              color={"gray.200"}
-              borderRadius={8}
-              value={0}
-              fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "12px" }}
-              onClick={(e) => setTabIndex(parseInt(e.target.value))}
-            >
-              Mes favoris
-            </Tab>
             <Tab
               _selected={{ color: "white", bg: "rgba(255, 255, 255, 0.08)" }}
               _focus={{ border: "none" }}
@@ -126,6 +122,17 @@ export default function Settings() {
             >
               Mes suivis
             </Tab>
+            <Tab
+              _selected={{ color: "white", bg: "rgba(255, 255, 255, 0.08)" }}
+              _focus={{ border: "none" }}
+              color={"gray.200"}
+              borderRadius={8}
+              value={0}
+              fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "12px" }}
+              onClick={(e) => setTabIndex(parseInt(e.target.value))}
+            >
+              Mes favoris
+            </Tab>
           </TabList>
         </Tabs>
         <Select
@@ -142,8 +149,8 @@ export default function Settings() {
           gap="20px"
           mb="20px"
         >
-          {filterFavData.length ? (
-            filterFavData?.map((item) => {
+          {data?.length ? (
+            data?.map((item) => {
               return (
                 <TradersCard
                   id={item?.encryptedUid}

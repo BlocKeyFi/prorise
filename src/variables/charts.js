@@ -90,10 +90,34 @@ export const pieChartOptions = (symbol) => {
         breakpoint: 480,
         options: {
           chart: {
-            width: 200,
+            width: "100%",
           },
           legend: {
             position: "bottom",
+            padding: 20,
+          },
+        },
+      },
+      {
+        breakpoint: 1500,
+        options: {
+          chart: {
+            width: "100%",
+          },
+          legend: {
+            position: "bottom",
+            padding: 20,
+          },
+        },
+      },
+      {
+        breakpoint: 1024,
+        options: {
+          chart: {
+            width: "100%",
+          },
+          legend: {
+            position: "right",
           },
         },
       },

@@ -5,6 +5,7 @@ import {
   Button,
   Center,
   Flex,
+  Icon,
   Select,
   SimpleGrid,
   Tab,
@@ -28,7 +29,9 @@ import { PRO_RISE } from "constants/apiConstants";
 import { getLeaderboardsData } from "store/actions";
 import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
-import { resetTraderPositions } from "store/actions";
+import InputFeild from "components/fields/InputField";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { CiSearch } from "react-icons/ci";
 
 export default function LeaderBoard() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
@@ -39,7 +42,25 @@ export default function LeaderBoard() {
 
   const [itemOffset, setItemOffset] = useState(1);
 
+  const [search, setSearch] = useState("");
+
   const dispatch = useDispatch();
+
+  const onSearch = () => {
+    const isAllUpperCase = search
+      .split("")
+      .every((char) => char === char.toUpperCase());
+
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          currentPage: itemOffset,
+          nickName: !isAllUpperCase && search,
+          encryptedUid: isAllUpperCase && search,
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     dispatch(
@@ -96,9 +117,55 @@ export default function LeaderBoard() {
         tableData={data ?? []}
         table={true}
         isLoading={isLoading}
-        p={10}
+        p={4}
         onCopy={onCopy}
-      />
+      >
+        <Flex justifyContent={"space-between"}>
+          <InputFeild
+            w={{ xl: "268px", lg: "268px", md: "100%", sm: "100%" }}
+            icon={CiSearch}
+            iconPlacement="right"
+            placeholder="Rechercher un trader"
+            onClick={onSearch}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {data?.length === 20 && (
+            <Flex direction={"row"} justifyContent={"right"} gap={2} py={2}>
+              <Button
+                loadingText="Loading"
+                spinnerPlacement="start"
+                variant="brand"
+                fontWeight="500"
+                mb={{ base: "30px", sm: "0px" }}
+                bg="rgba(255, 255, 255, 0.08)"
+                borderRadius="6px"
+                _hover={{ bg: "rgba(255, 255, 255, 0.08)" }}
+                onClick={() => setItemOffset(itemOffset - 1)}
+                gap={3}
+                disabled={itemOffset === 1 && true}
+              >
+                <Icon as={ArrowLeftIcon} />
+              </Button>
+              <Button
+                loadingText="Loading"
+                spinnerPlacement="start"
+                variant="brand"
+                fontWeight="500"
+                mb={{ base: "30px", sm: "0px" }}
+                bg="rgba(255, 255, 255, 0.08)"
+                borderRadius="6px"
+                _hover={{ bg: "rgba(255, 255, 255, 0.08)" }}
+                onClick={() => setItemOffset(itemOffset + 1)}
+                gap={3}
+                disabled={itemOffset === data?.length && true}
+              >
+                <Icon as={ArrowRightIcon} />
+              </Button>
+            </Flex>
+          )}
+        </Flex>
+      </BasicCard>
 
       <Dialog
         isOpen={isOpen}

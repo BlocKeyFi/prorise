@@ -85,7 +85,7 @@ export default function Payments() {
           ))}
         </Flex>
       </BasicCard>
-      <BasicCard heading="Mode de paiement">
+      {/* <BasicCard heading="Mode de paiement">
         <Grid
           templateRows="repeat(1, 1fr)"
           templateColumns="repeat(3, 1fr)"
@@ -134,7 +134,7 @@ export default function Payments() {
             <InputFeild label="CVV" type="password" placeholder={"***"} />
           </GridItem>
         </Grid>
-      </BasicCard>
+      </BasicCard> */}
       <BasicCard heading="Historique des paiements" table={true} slice={true} />
     </Flex>
   );

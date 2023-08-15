@@ -107,55 +107,77 @@ export default function SponsorShip() {
                 gap={{ "2xl": 10, xl: 4, lg: 20, md: 10, sm: 10 }}
                 justifyContent={"center"}
               >
-                <Flex direction={"column"} alignItems={"center"} gap={3}>
-                  <Center
-                    bg={"rgba(160, 174, 192, 0.04)"}
-                    _hover={"rgba(160, 174, 192, 0.04)"}
-                    w="50px"
-                    h="50px"
-                    lineHeight="100%"
-                    borderRadius="10px"
-                  >
-                    <Icon
-                      as={TbBrandTelegram}
-                      w="20px"
-                      h="auto"
-                      color="gray.400"
-                    />
-                  </Center>
-                  Telegram
-                </Flex>
-                <Flex direction={"column"} alignItems={"center"} gap={3}>
-                  <Center
-                    bg={"rgba(160, 174, 192, 0.04)"}
-                    _hover={"rgba(160, 174, 192, 0.04)"}
-                    w="50px"
-                    h="50px"
-                    lineHeight="100%"
-                    borderRadius="10px"
-                  >
-                    <Icon as={TfiTwitter} w="20px" h="auto" color="gray.400" />
-                  </Center>
-                  Twitter
-                </Flex>
-                <Flex direction={"column"} alignItems={"center"} gap={3}>
-                  <Center
-                    bg={"rgba(160, 174, 192, 0.04)"}
-                    _hover={"rgba(160, 174, 192, 0.04)"}
-                    w="50px"
-                    h="50px"
-                    lineHeight="100%"
-                    borderRadius="10px"
-                  >
-                    <Icon
-                      as={TbBrandWhatsapp}
-                      w="20px"
-                      h="auto"
-                      color="gray.400"
-                    />
-                  </Center>
-                  Whatsapp
-                </Flex>
+                <a
+                  href={`https://telegram.me/share/url?url=${refralLink}`}
+                  data-action="share/telegram/share"
+                  target="_blank"
+                >
+                  <Flex direction={"column"} alignItems={"center"} gap={3}>
+                    <Center
+                      bg={"rgba(160, 174, 192, 0.04)"}
+                      _hover={"rgba(160, 174, 192, 0.04)"}
+                      w="50px"
+                      h="50px"
+                      lineHeight="100%"
+                      borderRadius="10px"
+                    >
+                      <Icon
+                        as={TbBrandTelegram}
+                        w="20px"
+                        h="auto"
+                        color="gray.400"
+                      />
+                    </Center>
+                    Telegram
+                  </Flex>
+                </a>
+                <a
+                  href={`http://twitter.com/share?text=${refralLink}`}
+                  data-action="share/twitter/share"
+                  target="_blank"
+                >
+                  <Flex direction={"column"} alignItems={"center"} gap={3}>
+                    <Center
+                      bg={"rgba(160, 174, 192, 0.04)"}
+                      _hover={"rgba(160, 174, 192, 0.04)"}
+                      w="50px"
+                      h="50px"
+                      lineHeight="100%"
+                      borderRadius="10px"
+                    >
+                      <Icon
+                        as={TfiTwitter}
+                        w="20px"
+                        h="auto"
+                        color="gray.400"
+                      />
+                    </Center>
+                    Twitter
+                  </Flex>
+                </a>
+                <a
+                  href={`whatsapp://send?text=${refralLink}`}
+                  data-action="share/whatsapp/share"
+                >
+                  <Flex direction={"column"} alignItems={"center"} gap={3}>
+                    <Center
+                      bg={"rgba(160, 174, 192, 0.04)"}
+                      _hover={"rgba(160, 174, 192, 0.04)"}
+                      w="50px"
+                      h="50px"
+                      lineHeight="100%"
+                      borderRadius="10px"
+                    >
+                      <Icon
+                        as={TbBrandWhatsapp}
+                        w="20px"
+                        h="auto"
+                        color="gray.400"
+                      />
+                    </Center>
+                    Whatsapp
+                  </Flex>
+                </a>
               </Flex>
               <Center>ou</Center>
               <Flex direction={"column"} alignItems={"center"} gap={3}>
