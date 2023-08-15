@@ -95,7 +95,7 @@ export default function TraderDetails() {
 
     fetchData();
 
-    if (filterData[0].favorite) {
+    if (filterData[0]?.favorite) {
       newButtonArray[1].title = "Supprimer des favoris";
     } else {
       newButtonArray[1].title = "Ajouter aux favoris";

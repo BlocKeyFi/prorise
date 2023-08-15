@@ -127,12 +127,12 @@ export const pieChartOptions = (symbol) => {
 
 export const pieChartData = [63, 25, 12, 30, 10, 40];
 
-export const lineChartDataTotalSpent = [
-  {
-    name: "Portefeuille",
-    data: formattedData,
-  },
-];
+// export const lineChartDataTotalSpent = [
+//   {
+//     name: "Portefeuille",
+//     data: formattedData,
+//   },
+// ];
 
 export const lineChartOptionsTotalSpent = {
   chart: {
@@ -200,7 +200,6 @@ export const lineChartOptionsTotalSpent = {
   legend: {
     show: true,
   },
-  color: ["red", "red"],
 };
 
 export const lineChartDataCard = [

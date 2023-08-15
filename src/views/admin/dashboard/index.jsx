@@ -33,9 +33,10 @@ import apiInstance from "constants/api";
 import { toast } from "react-hot-toast";
 import { PRO_RISE } from "constants/apiConstants";
 import { useState } from "react";
+import { getClosedTrades } from "store/actions";
 
 export default function Dashboard() {
-  const { currentPositions, exchangeConnection } = useSelector(
+  const { currentPositions, exchangeConnection, closedPositions } = useSelector(
     (state) => state?.exchange
   );
 
@@ -49,8 +50,9 @@ export default function Dashboard() {
       symbol: "USDT",
     });
     if (data?.success) {
-      setBalance(data?.balance);
+      setBalance(parseFloat(data?.balance)?.toFixed(1));
     }
+    dispatch(getClosedTrades("tradeHistory"));
   }, []);
 
   useEffect(async () => {
@@ -138,7 +140,11 @@ export default function Dashboard() {
           <DailyTraffic pieHeight={"80%"} currentPositions={currentPositions} />
         </GridItem>
         <GridItem colSpan={4}>
-          <TotalSpent heading="Performances" design={2} />
+          <TotalSpent
+            heading="Performances"
+            design={2}
+            data={closedPositions}
+          />
         </GridItem>
         <GridItem colSpan={4}>
           <DevelopmentTable

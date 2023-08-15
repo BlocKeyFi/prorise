@@ -22,10 +22,12 @@ import {
 
 import wallet from "../../../../assets/img/dashboards/svgIcon/wallet.svg";
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
-import { TradersCardData } from "constants/constants";
+import { generateDayWiseTimeSeries } from "utils/utils";
+import { formatDate } from "utils/utils";
 
 export default function TotalSpent(props) {
-  const { balance, ...rest } = props;
+  const { balance, data, ...rest } = props;
+  console.log(data);
 
   // ProRIse Color Mode
 
@@ -39,6 +41,33 @@ export default function TotalSpent(props) {
     { bg: "rgba(0, 0, 0, 0.4)" },
     { bg: "rgba(0, 0, 0, 0.4)" }
   );
+
+  // const closedPnlValues = data?.map((data) => parseFloat(data?.closedPnl));
+  // const time = data?.map((data) => parseFloat(data?.createdTime));
+
+  // console.log(closedPnlValues);
+
+  // const minClosedPnl = closedPnlValues?.length && Math.min(...closedPnlValues);
+  // const maxClosedPnl = closedPnlValues?.length && Math.max(...closedPnlValues);
+
+  // console.log("Minimum closedPnl:", minClosedPnl);
+  // console.log("Maximum closedPnl:", maxClosedPnl);
+
+  // console.log(generateData);
+
+  // const finalData = generateData?.map((point) => ({
+  //   x: formatDate(point.x),
+  //   y: point.y,
+  // }));
+  // const generateData = generateDayWiseTimeSeries(time, data?.length, {
+  //   min: minClosedPnl,
+  //   max: maxClosedPnl,
+  // });
+
+  const finalData = data?.map((data) => ({
+    x: formatDate(parseInt(data.createdTime)),
+    y: parseFloat(data.closedPnl).toFixed(0),
+  }))
 
   return (
     <Card
@@ -208,7 +237,12 @@ export default function TotalSpent(props) {
             </Text>
           </Flex>
           <LineAreaChart
-            chartData={lineChartDataTotalSpent}
+            chartData={[
+              {
+                name: "Portefeuille",
+                data: finalData,
+              },
+            ]}
             chartOptions={lineChartOptionsTotalSpent}
           />
         </Box>
