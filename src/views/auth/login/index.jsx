@@ -53,17 +53,29 @@ function Login() {
   const [success, setSuccess] = useState(false);
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => onLogin(tokenResponse?.access_token),
+    onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse?.access_token),
   });
 
-  const onLogin = async (token) => {
+  const onGoogleLogin = async (token) => {
+    const response = await dispatch(
+      userLogin({
+        google_access_token: token ?? "",
+      })
+    ).unwrap();
+    if (response?.user?.currentSubscription) {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/auth/onboarding");
+    }
+  };
+
+  const onLogin = async () => {
     if (email && password) {
       try {
         const response = await dispatch(
           userLogin({
             email: email ?? "",
             password: password ?? "",
-            google_access_token: token,
           })
         ).unwrap();
         if (response?.user?.currentSubscription) {
