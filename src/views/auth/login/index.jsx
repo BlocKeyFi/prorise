@@ -32,6 +32,8 @@ import { TbBrandTelegram, TbBrandWhatsapp } from "react-icons/tb";
 import { authButtons } from "constants/constants";
 import Dialog from "components/dialog/Dialog";
 import { useEffect } from "react";
+import { PRO_RISE } from "constants/apiConstants";
+import apiInstance from "constants/api";
 
 function Login() {
   // ProRIse color mode
@@ -51,16 +53,17 @@ function Login() {
   const [success, setSuccess] = useState(false);
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onSuccess: (tokenResponse) => onLogin(tokenResponse?.access_token),
   });
 
-  const onLogin = async () => {
+  const onLogin = async (token) => {
     if (email && password) {
       try {
         const response = await dispatch(
           userLogin({
-            email: email,
-            password: password,
+            email: email ?? "",
+            password: password ?? "",
+            google_access_token: token,
           })
         ).unwrap();
         if (response?.user?.currentSubscription) {
@@ -252,6 +255,7 @@ function Login() {
                   h="64px"
                   lineHeight="100%"
                   borderRadius="16px"
+                  onClick={googleLogin}
                 >
                   {item.icon ? (
                     <Icon as={item.icon} w="35px" h="auto" color="gray.400" />

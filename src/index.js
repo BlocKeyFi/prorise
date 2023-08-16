@@ -12,11 +12,14 @@ import { Toaster } from "react-hot-toast";
 import { PersistGate } from "redux-persist/integration/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+//my Key
+//265695510821-8m6gdkv15ufr3fk0envbgi22f5lilukc.apps.googleusercontent.com
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ChakraProvider theme={theme}>
-        <GoogleOAuthProvider clientId="265695510821-8m6gdkv15ufr3fk0envbgi22f5lilukc.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="589699786468-pgervv2cd4bk71hkj5h4j9f58an4j6gi.apps.googleusercontent.com">
           <React.StrictMode>
             <BrowserRouter>
               <Switch>

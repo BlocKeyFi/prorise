@@ -67,7 +67,7 @@ export default function TotalSpent(props) {
   const finalData = data?.map((data) => ({
     x: formatDate(parseInt(data.createdTime)),
     y: parseFloat(data.closedPnl).toFixed(0),
-  }))
+  }));
 
   return (
     <Card
