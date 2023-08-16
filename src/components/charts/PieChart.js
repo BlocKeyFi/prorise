@@ -1,6 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import "./style.css";
+import { Text } from "@chakra-ui/react";
 
 class PieChart extends React.Component {
   constructor(props) {
@@ -21,13 +22,21 @@ class PieChart extends React.Component {
 
   render() {
     return (
-      <ReactApexChart
-        options={this.state.chartOptions}
-        series={this.state.chartData}
-        type="donut"
-        width={this.props.pieHeight}
-        height={this.props.pieHeight}
-      />
+      <>
+        {this.state.chartData?.length ? (
+          <ReactApexChart
+            options={this.state.chartOptions}
+            series={this.state.chartData}
+            type="donut"
+            width={this.props.pieHeight}
+            height={this.props.pieHeight}
+          />
+        ) : (
+          <Text fontSize={30} py={10}>
+            {"No Data Found"}
+          </Text>
+        )}
+      </>
     );
   }
 }

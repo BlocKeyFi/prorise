@@ -125,7 +125,7 @@ export default function Dashboard() {
           <TotalSpent
             heading="Portefeuille"
             design={1}
-            balance={balance === "" ? 0 : balance}
+            balance={balance === "" && exchangeConnection === "" ? 0 : balance}
           />
         </GridItem>
         <GridItem
@@ -137,7 +137,11 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
-          <DailyTraffic pieHeight={"80%"} currentPositions={currentPositions} />
+          <DailyTraffic
+            pieHeight={"80%"}
+            currentPositions={currentPositions}
+            exchangeConnection={exchangeConnection}
+          />
         </GridItem>
         <GridItem colSpan={4}>
           <TotalSpent

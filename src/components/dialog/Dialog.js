@@ -62,17 +62,6 @@ export default function Dialog({
             {connection && (
               <React.Fragment>
                 <InputFeild
-                  label="Secret Key"
-                  type="password"
-                  value={exchangeData.secretKey}
-                  onChange={(e) =>
-                    setExchangeData({
-                      ...exchangeData,
-                      secretKey: e.target.value,
-                    })
-                  }
-                />
-                <InputFeild
                   label="Api Key"
                   type="password"
                   value={exchangeData.apiKey}
@@ -80,6 +69,17 @@ export default function Dialog({
                     setExchangeData({
                       ...exchangeData,
                       apiKey: e.target.value,
+                    })
+                  }
+                />
+                <InputFeild
+                  label="Secret Key"
+                  type="password"
+                  value={exchangeData.secretKey}
+                  onChange={(e) =>
+                    setExchangeData({
+                      ...exchangeData,
+                      secretKey: e.target.value,
                     })
                   }
                 />

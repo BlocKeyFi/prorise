@@ -1,7 +1,7 @@
 import React from "react";
 
 // ProRIse imports
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
 
 // Custom components
 import Card from "components/card/Card.js";
@@ -11,9 +11,17 @@ import Card from "components/card/Card.js";
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import PieChart from "components/charts/PieChart";
 import { pieChartOptions } from "variables/charts";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import ReactApexChart from "react-apexcharts";
 
 export default function DailyTraffic(props) {
-  const { pieHeight, currentPositions, traderDetail, ...rest } = props;
+  const {
+    pieHeight,
+    currentPositions,
+    traderDetail,
+    exchangeConnection,
+    ...rest
+  } = props;
 
   const symbolsArray = currentPositions
     ?.slice(0, 7)
@@ -29,7 +37,6 @@ export default function DailyTraffic(props) {
   const finalPercentages = percentages?.map((value) =>
     parseFloat(value?.toFixed(6))
   );
-
 
   // const mergedArray = symbolsArray.map((symbol, index) => ({
   //   symbol: symbol,
@@ -67,12 +74,38 @@ export default function DailyTraffic(props) {
           </Text>
         </Flex>
         {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
-
-        <PieChart
-          chartData={finalPercentages ?? []}
-          chartOptions={options ?? {}}
-          pieHeight={"95%"}
-        />
+        {exchangeConnection ? (
+          <ReactApexChart
+            series={finalPercentages ?? []}
+            options={options ?? {}}
+            height={"95%"}
+            type="donut"
+          />
+        ) : (
+          <Center h={200}>
+            <Text fontSize={20}>
+              No Connection Found
+              <br />
+              <br />
+              <Link to="/admin/setting" style={{ width: "100%" }}>
+                <Button
+                  fontSize="16px"
+                  variant="brand"
+                  fontWeight="500"
+                  w={"100%"}
+                  h="35px"
+                  bg="#0075FF"
+                  borderRadius="10px"
+                  _hover={{ bg: "#0075FF" }}
+                  textAlign={"center"}
+                  gap={2}
+                >
+                  {"Build Connection"}
+                </Button>
+              </Link>
+            </Text>
+          </Center>
+        )}
       </Box>
     </Card>
   );
