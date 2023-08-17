@@ -125,7 +125,9 @@ export default function Dashboard() {
           <TotalSpent
             heading="Portefeuille"
             design={1}
-            balance={balance && exchangeConnection ? balance : 0}
+            balance={
+              balance?.lenght && exchangeConnection?.lenght ? balance : 0
+            }
           />
         </GridItem>
         <GridItem
