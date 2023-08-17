@@ -32,6 +32,7 @@ import { toast } from "react-hot-toast";
 import InputFeild from "components/fields/InputField";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { CiSearch } from "react-icons/ci";
+import { IoRefresh } from "react-icons/io5";
 
 export default function LeaderBoard() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
@@ -110,6 +111,18 @@ export default function LeaderBoard() {
     setId(e);
   };
 
+  const refresh = () => {
+    dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          period: "WEEKLY",
+          currentPage: itemOffset,
+        },
+      })
+    );
+    setSearch("");
+  };
+
   return (
     <Box>
       <BasicCard
@@ -161,6 +174,22 @@ export default function LeaderBoard() {
                 disabled={itemOffset === data?.length && true}
               >
                 <Icon as={ArrowRightIcon} />
+              </Button>
+              <Button
+                isLoading={isLoading}
+                loadingText="Loading"
+                spinnerPlacement="start"
+                variant="brand"
+                fontWeight="500"
+                mb={{ base: "30px", sm: "0px" }}
+                bg="#0075FF"
+                borderRadius="10px"
+                _hover={{ bg: "#0075FF" }}
+                onClick={refresh}
+                gap={3}
+              >
+                <Icon as={IoRefresh} />
+                Refresh
               </Button>
             </Flex>
           )}

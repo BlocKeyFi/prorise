@@ -51,7 +51,7 @@ export const timeConverter = (UNIX_timestamp) => {
 
 const data = generateDayWiseTimeSeries(new Date().getTime(), 6, {
   min: 0,
-  max: 0,
+  max: 30,
 });
 
 export const formattedData = data.map((point) => ({

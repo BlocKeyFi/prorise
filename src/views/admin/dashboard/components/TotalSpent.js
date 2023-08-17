@@ -15,15 +15,12 @@ import LineChart from "components/charts/LineChart";
 import LineAreaChart from "components/charts/LineAreaChart";
 import React from "react";
 
-import {
-  lineChartDataTotalSpent,
-  lineChartOptionsTotalSpent,
-} from "variables/charts";
 
 import wallet from "../../../../assets/img/dashboards/svgIcon/wallet.svg";
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import { generateDayWiseTimeSeries } from "utils/utils";
 import { formatDate } from "utils/utils";
+import ReactApexChart from "react-apexcharts";
 
 export default function TotalSpent(props) {
   const { balance, data, ...rest } = props;
@@ -41,6 +38,77 @@ export default function TotalSpent(props) {
     { bg: "rgba(0, 0, 0, 0.4)" },
     { bg: "rgba(0, 0, 0, 0.4)" }
   );
+
+  const lineChartOptionsTotalSpent = {
+    chart: {
+      foreColor: "#A3AED0",
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: ["#2CD9FF", "#2CD9FF"],
+    markers: {
+      size: 0,
+      colors: "white",
+      strokeColors: "#2CD9FF",
+      strokeWidth: 3,
+      strokeOpacity: 20,
+      strokeDashArray: 0,
+      fillOpacity: 1,
+      discrete: [],
+      shape: "circle",
+      radius: 2,
+      offsetX: 0,
+      offsetY: 0,
+      showNullDataPoints: true,
+    },
+    tooltip: {
+      theme: "dark",
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+    },
+    xaxis: {
+      type: "string",
+      labels: {
+        formatter: function (value) {
+          return formatDate(value);
+        },
+        style: {
+          colors: "#A3AED0",
+          fontSize: "16px",
+          fontWeight: "500",
+          fontFamily: "Urbanist",
+        },
+      },
+      axisBorder: {
+        show: true,
+      },
+      axisTicks: {
+        show: true,
+      },
+    },
+    yaxis: {
+      show: true,
+      lines: {
+        show: true,
+      },
+      labels: {
+        style: {
+          colors: "#A3AED0",
+          fontSize: "16px",
+          fontWeight: "500",
+          fontFamily: "Urbanist",
+        },
+      },
+    },
+    legend: {
+      show: true,
+    },
+  };
 
   // const closedPnlValues = data?.map((data) => parseFloat(data?.closedPnl));
   // const time = data?.map((data) => parseFloat(data?.createdTime));
@@ -64,9 +132,9 @@ export default function TotalSpent(props) {
   //   max: maxClosedPnl,
   // });
 
-  const finalData = data?.map((data) => ({
-    x: formatDate(parseInt(data.createdTime)),
-    y: parseFloat(data.closedPnl).toFixed(0),
+  const finalData = data?.map((item) => ({
+    x: new Date(parseInt(item.createdTime)),
+    y: parseFloat(item.closedPnl).toFixed(0),
   }));
 
   return (
@@ -236,14 +304,17 @@ export default function TotalSpent(props) {
               {"Valeur 30 jours"}
             </Text>
           </Flex>
-          <LineAreaChart
-            chartData={[
+          <ReactApexChart
+            options={lineChartOptionsTotalSpent} // Aapke options object
+            series={[
               {
-                name: "Portefeuille",
+                name: "Closed",
                 data: finalData,
               },
             ]}
-            chartOptions={lineChartOptionsTotalSpent}
+            type="line"
+            width="100%"
+            height="100%"
           />
         </Box>
       </Flex>

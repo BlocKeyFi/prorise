@@ -20,6 +20,8 @@ import check from "../../assets/img/dashboards/svgIcon/checkmark-light.svg";
 import { Link } from "react-router-dom";
 import { lineChartDataCard } from "variables/charts";
 import { lineChartOptionsCard } from "variables/charts";
+import { formattedData } from "utils/utils";
+import ReactApexChart from "react-apexcharts";
 
 export default function TradersCard(props) {
   const { ...rest } = props;
@@ -131,10 +133,27 @@ export default function TradersCard(props) {
             </Flex>
 
             {/* {props?.textvalue2} */}
-            <LineAreaChart
+            {/* <LineAreaChart
               chartData={lineChartDataCard}
               chartOptions={lineChartOptionsCard}
-              height={"50%"}
+             formattedData
+            /> */}
+
+            <ReactApexChart
+              options={lineChartOptionsCard} // Aapke options object
+              series={[
+                {
+                  name: "",
+                  data: props?.textvalue2?.includes("-")
+                    ? [0, 0]
+                    : formattedData,
+                  color: props?.textvalue2?.includes("-")
+                    ? textColorCountNegative
+                    : "#28bce0",
+                },
+              ]}
+              type="line"
+              height={props?.textvalue2?.includes("-") ? "40%" : "50%"}
             />
           </Flex>
         </Flex>

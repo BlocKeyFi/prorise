@@ -125,7 +125,7 @@ export default function Dashboard() {
           <TotalSpent
             heading="Portefeuille"
             design={1}
-            balance={balance === "" && exchangeConnection === "" ? 0 : balance}
+            balance={balance && exchangeConnection ? balance : 0}
           />
         </GridItem>
         <GridItem
@@ -153,7 +153,7 @@ export default function Dashboard() {
         <GridItem colSpan={4}>
           <DevelopmentTable
             columnsData={columnsDataActiveTrades}
-            tableData={currentPositions ?? []}
+            tableData={exchangeConnection ? currentPositions ?? [] : []}
             tableHeading="Trades actifs"
             p={10}
           />

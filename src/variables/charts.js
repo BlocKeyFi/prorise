@@ -1,3 +1,4 @@
+import { formatDate } from "utils/utils";
 import { formattedData } from "utils/utils";
 
 export const pieChartOptions = (symbol) => {
@@ -169,6 +170,9 @@ export const lineChartOptionsTotalSpent = {
   xaxis: {
     type: "string",
     labels: {
+      formatter: function (value) {
+        return formatDate(value);
+      },
       style: {
         colors: "#A3AED0",
         fontSize: "16px",
@@ -210,6 +214,10 @@ export const lineChartDataCard = [
 ];
 
 export const lineChartOptionsCard = {
+  tooltip: {
+    enabled: false, // Disabling the tooltip on hover
+    theme: "dark",
+  },
   chart: {
     padding: "0px",
     show: false, // Hide the entire chart content
@@ -217,7 +225,11 @@ export const lineChartOptionsCard = {
     toolbar: {
       show: false,
     },
+    zoom: {
+      enabled: false, // Disabling zoom functionality
+    },
   },
+
   colors: ["#2CD9FF", "#2CD9FF"],
   markers: {
     size: 0,
@@ -233,9 +245,9 @@ export const lineChartOptionsCard = {
     offsetX: 0,
     offsetY: 0,
     showNullDataPoints: false,
-  },
-  tooltip: {
-    theme: "dark",
+    hover: {
+      size: 0,
+    },
   },
   dataLabels: {
     enabled: false,
@@ -269,7 +281,6 @@ export const lineChartOptionsCard = {
     },
   },
   legend: {
-    show: false, // Hide the legend
+    show: false, // Hiding the legend
   },
-  color: ["red", "red"],
 };
