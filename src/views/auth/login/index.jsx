@@ -58,7 +58,7 @@ function Login() {
 
   const onGoogleLogin = async (token) => {
     console.log(" google auth response --->> ", token)
-    let token = token?.access_token
+    token = token?.access_token
     const response = await dispatch(
       userLogin({
         google_access_token: token ?? "",
