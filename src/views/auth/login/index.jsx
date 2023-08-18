@@ -53,10 +53,12 @@ function Login() {
   const [success, setSuccess] = useState(false);
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse?.id_token),
+    onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse),
   });
 
   const onGoogleLogin = async (token) => {
+    console.log(" google auth response --->> ", token)
+    let token = token?.access_token
     const response = await dispatch(
       userLogin({
         google_access_token: token ?? "",
