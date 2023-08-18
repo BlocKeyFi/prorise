@@ -24,7 +24,7 @@ import ReactApexChart from "react-apexcharts";
 
 export default function TotalSpent(props) {
   const { balance, data, ...rest } = props;
-  console.log(data);
+
 
   // ProRIse Color Mode
 
@@ -247,14 +247,14 @@ export default function TotalSpent(props) {
                           {index === 0
                             ? "ROI 30 jours"
                             : index === 1
-                            ? "MDD 30 jours"
-                            : index === 2
-                            ? "Win rate 30 jours"
-                            : index === 3
-                            ? "Total wins 30 jours"
-                            : index === 4
-                            ? "Total orders 30 jours"
-                            : null}
+                              ? "MDD 30 jours"
+                              : index === 2
+                                ? "Win rate 30 jours"
+                                : index === 3
+                                  ? "Total wins 30 jours"
+                                  : index === 4
+                                    ? "Total orders 30 jours"
+                                    : null}
                         </Text>
                       </Flex>
                     </Center>
@@ -263,8 +263,8 @@ export default function TotalSpent(props) {
                         index === 0
                           ? "green.300"
                           : index === 1
-                          ? "green.300"
-                          : "white"
+                            ? "green.300"
+                            : "white"
                       }
                       fontSize="28px"
                       lineHeight="100%"
@@ -274,14 +274,14 @@ export default function TotalSpent(props) {
                       {index === 0
                         ? "20 %"
                         : index === 1
-                        ? "40 %"
-                        : index === 2
-                        ? "50 %"
-                        : index === 3
-                        ? "90 %"
-                        : index === 4
-                        ? "85 %"
-                        : null}
+                          ? "40 %"
+                          : index === 2
+                            ? "50 %"
+                            : index === 3
+                              ? "90 %"
+                              : index === 4
+                                ? "85 %"
+                                : null}
                     </Text>
                   </Flex>
                 </>

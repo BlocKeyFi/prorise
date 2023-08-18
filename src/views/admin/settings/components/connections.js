@@ -122,6 +122,7 @@ export default function Connections() {
                 _hover={{ bg: "#0075FF" }}
                 textAlign={"left"}
                 gap={2}
+                disabled={exchangeConnection ? item.title.toLowerCase() === exchangeConnection ? false : true : false}
                 onClick={() =>
                   item.title.toLowerCase() === exchangeConnection
                     ? disConnectConnection(exchangeConnection)

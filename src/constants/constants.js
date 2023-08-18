@@ -130,10 +130,10 @@ export const authButtons = [
     title: "google",
     icon: FcGoogle,
   },
-  {
-    title: "facbook",
-    icon: "",
-  },
+  // {
+  //   title: "facbook",
+  //   icon: "",
+  // },
   {
     title: "apple",
     icon: "",

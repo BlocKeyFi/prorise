@@ -210,7 +210,7 @@ export default function Settings() {
           />
           <DevelopmentTable
             columnsData={columnsDataTradeHistory}
-            tableData={closedPositions ?? []}
+            tableData={exchangeConnection ? closedPositions ?? [] : []}
             tableHeading="Historique des trades"
             p={10}
           />

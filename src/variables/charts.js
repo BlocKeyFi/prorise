@@ -67,6 +67,7 @@ export const pieChartOptions = (symbol) => {
               color: "#FFFFFF",
             },
             total: {
+
               showAlways: true,
               show: true,
               fontSize: "20px",
@@ -97,6 +98,12 @@ export const pieChartOptions = (symbol) => {
             position: "bottom",
             padding: 20,
           },
+          total: {
+            showAlways: true,
+            show: true,
+            fontSize: "12px",
+            color: "#FFFFFF",
+          },
         },
       },
       {
@@ -119,6 +126,12 @@ export const pieChartOptions = (symbol) => {
           },
           legend: {
             position: "right",
+          },
+          total: {
+            showAlways: true,
+            show: true,
+            fontSize: "12px",
+            color: "#FFFFFF",
           },
         },
       },

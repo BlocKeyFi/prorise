@@ -51,6 +51,7 @@ export default function BasicCard(props) {
     onClick,
     refralLink,
     inputRef,
+    exchangeConnection,
     ...rest
   } = props;
 
@@ -140,7 +141,14 @@ export default function BasicCard(props) {
           )}
           {buttonArray && (
             <Box display={"flex"} gap={5}>
-              {buttonArray?.map((item) => {
+              {buttonArray?.map((item , index) => {
+                const isTableData = index === 2 && tableData.length === 0
+                  ? true
+                  : false
+
+                  const isExchangeConnection = index === 2 && !exchangeConnection
+                  ? true
+                  : false
                 return (
                   <Button
                     isLoading={item.title === "Refresh" && isLoading}
@@ -156,9 +164,7 @@ export default function BasicCard(props) {
                     gap={2}
                     onClick={() => onButtonAction(item.title)}
                     disabled={
-                      item.title === "Copier" && tableData.length === 0
-                        ? true
-                        : false
+                      !exchangeConnection ?  isExchangeConnection : isTableData
                     }
                   >
                     <Icon as={item.icon} />

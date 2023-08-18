@@ -49,8 +49,10 @@ export default function Dashboard() {
     const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
       symbol: "USDT",
     });
-    if (data?.success) {
+    if (data?.success && data?.balance) {
       setBalance(parseFloat(data?.balance)?.toFixed(1));
+    }else{
+      setBalance(0)
     }
     dispatch(getClosedTrades("tradeHistory"));
   }, []);
@@ -62,8 +64,11 @@ export default function Dashboard() {
           exchange: exchangeConnection,
         })
       );
+    }else{
+      setBalance(0)
     }
   }, [exchangeConnection]);
+
 
   return (
     <Box>
@@ -126,7 +131,7 @@ export default function Dashboard() {
             heading="Portefeuille"
             design={1}
             balance={
-              balance?.lenght && exchangeConnection?.lenght ? balance : 0
+              balance 
             }
           />
         </GridItem>
@@ -149,7 +154,7 @@ export default function Dashboard() {
           <TotalSpent
             heading="Performances"
             design={2}
-            data={closedPositions}
+            data={exchangeConnection ? closedPositions ?? [] : []}
           />
         </GridItem>
         <GridItem colSpan={4}>

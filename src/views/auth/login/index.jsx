@@ -55,6 +55,9 @@ function Login() {
   const googleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse),
   });
+  const appleLogin = () =>{
+    console.log("apple");
+  };
 
   const onGoogleLogin = async (token) => {
     console.log(" google auth response --->> ", token)
@@ -260,7 +263,7 @@ function Login() {
             gap={{ "2xl": 10, xl: 4, lg: 20, md: 10, sm: 10 }}
             justifyContent={"center"}
           >
-            {authButtons.map((item) => (
+            {authButtons.map((item, index) => (
               <Flex direction={"column"} alignItems={"center"} gap={3}>
                 <Center
                   bg={"rgba(160, 174, 192, 0.04)"}
@@ -269,7 +272,7 @@ function Login() {
                   h="64px"
                   lineHeight="100%"
                   borderRadius="16px"
-                  onClick={googleLogin}
+                  onClick={index ===0 ?googleLogin : appleLogin}
                 >
                   {item.icon ? (
                     <Icon as={item.icon} w="35px" h="auto" color="gray.400" />

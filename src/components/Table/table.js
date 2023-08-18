@@ -37,6 +37,10 @@ import copy from "../../assets/img/dashboards/svgIcon/copy-fill.svg";
 export default function GlobalTable(props) {
   const { columnsData, tableData, p, isLoading, onCopy } = props;
 
+  const { exchangeConnection } = useSelector(
+    (state) => state?.exchange
+  );
+
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
 
@@ -304,6 +308,7 @@ export default function GlobalTable(props) {
                             onClick={() =>
                               onCopy(cell?.row?.original?.encryptedUid)
                             }
+                            disabled={!exchangeConnection}
                           >
                             <Image
                               src={copy}

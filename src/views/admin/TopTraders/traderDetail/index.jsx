@@ -207,6 +207,7 @@ export default function TraderDetails() {
             : null
         }
         isLoading={isLoading}
+        exchangeConnection={exchangeConnection} 
       >
         {tabIndex === 2 && (
           <Grid
