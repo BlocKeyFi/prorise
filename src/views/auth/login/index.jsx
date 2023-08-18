@@ -53,7 +53,7 @@ function Login() {
   const [success, setSuccess] = useState(false);
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse?.access_token),
+    onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse?.id_token),
   });
 
   const onGoogleLogin = async (token) => {
