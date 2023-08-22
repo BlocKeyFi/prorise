@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getRefralLink } from "store/actions";
+import { updateUser } from "store/actions";
 import { subscribeToPackage } from "store/actions";
 import { logout } from "store/actions";
 import { userLogin } from "store/actions";
@@ -54,6 +55,13 @@ const userSlice = createSlice({
       state.isSuccess = true;
       state.errorMessage = "";
       state.refralLink = payload;
+    },
+
+    [updateUser]: (state, { payload }) => {
+      state.login = {
+        ...state.login,
+        user: payload,
+      };
     },
 
     [logout]: (state) => {

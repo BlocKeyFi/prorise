@@ -7,7 +7,6 @@ import BasicCard from "components/card/BasicCard";
 import { buttonArray } from "constants/constants";
 import { tabsArray } from "constants/constants";
 
-import user from "../../../../assets/img/dashboards/Profile.png";
 import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 import DailyTraffic from "views/admin/dashboard/components/ActiveTraders";
 import Footer from "components/footer/FooterAdmin";
@@ -19,11 +18,9 @@ import { PRO_RISE } from "constants/apiConstants";
 import { setAuthToken } from "constants/api";
 import { toast } from "react-hot-toast";
 import Dialog from "components/dialog/Dialog";
-import { CLOSE } from "constants/constants";
 import { getLeaderboardsData } from "store/actions";
 import { columnsCopyTrade } from "views/admin/copyTrading/variables/columnsData";
 import { columnsDataTradeHistory } from "views/admin/copyTrading/variables/columnsData";
-import tableDataDevelopment from "views/admin/copyTrading/variables/tableDataDevelopment.json";
 
 // Custom components
 
@@ -38,7 +35,6 @@ export default function TraderDetails() {
   const [tabIndex, setTabIndex] = useState(0);
 
   const [capitalPercent, setCapitalPercent] = useState(null);
-  // const [selectedTrade, setSelectedTrade] = useState({});
 
   const { id } = useParams();
 
@@ -69,6 +65,8 @@ export default function TraderDetails() {
   };
 
   const filterData = data.filter((item) => item.encryptedUid === id);
+
+  
 
   const updatedButtonArray = useMemo(() => {
     const newButtonArray = [...buttonArray]; // Create a copy of the original buttonArray

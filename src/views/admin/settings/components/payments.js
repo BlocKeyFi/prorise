@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 
 // ProRIse imports
-import { Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Flex} from "@chakra-ui/react";
 
 // Custom components
-import GlobalTabs from "components/Tabs/tabs";
 import BasicCard from "components/card/BasicCard";
 
-import InputFeild from "components/fields/InputField";
-
 import PriceCard from "views/auth/onboarding/components/priceCard";
-import { RiVisaLine } from "react-icons/ri";
 
 import { useSelector } from "react-redux";
 
@@ -64,7 +60,7 @@ export default function Payments() {
           mb={{ base: "20px", md: "auto" }}
           alignItems="center"
         >
-          {plans?.map((item, index) => (
+          {plans?.slice(0,3)?.map((item, index) => (
             <PriceCard
               id={++index}
               heading={item?.name}

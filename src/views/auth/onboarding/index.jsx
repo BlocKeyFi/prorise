@@ -22,11 +22,10 @@ import playIcon from "../../../assets/img/onboarding/Vector.png";
 
 import PriceCard from "./components/priceCard";
 import InputFeild from "components/fields/InputField";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { subscribeToPackage } from "store/actions";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import apiInstance from "constants/api";
@@ -82,7 +81,6 @@ function Register() {
 
   const { email, password, fisrtName, lastName } = userData;
 
-  // const dispatch = useDispatch();
   const history = useHistory();
 
   const onCheckOut = async (param) => {
@@ -342,7 +340,7 @@ function Register() {
             mb={{ base: "20px", md: "auto" }}
             alignItems="center"
           >
-            {plans?.map((item, index) => (
+            {plans?.slice(0,3)?.map((item, index) => (
               <PriceCard
                 id={++index}
                 heading={item?.name}

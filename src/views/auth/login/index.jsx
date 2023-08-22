@@ -8,8 +8,6 @@ import {
   FormControl,
   Heading,
   Icon,
-  Image,
-  Progress,
   Spinner,
   Text,
   useColorModeValue,
@@ -26,14 +24,12 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { userLogin } from "store/actions";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
-import { TfiTwitter } from "react-icons/tfi";
-import { TbBrandTelegram, TbBrandWhatsapp } from "react-icons/tb";
+import { useGoogleLogin } from "@react-oauth/google";
+
 import { authButtons } from "constants/constants";
 import Dialog from "components/dialog/Dialog";
 import { useEffect } from "react";
-import { PRO_RISE } from "constants/apiConstants";
-import apiInstance from "constants/api";
+
 
 function Login() {
   // ProRIse color mode
@@ -134,6 +130,7 @@ function Login() {
               src={require("assets/img/email-verified.png")}
               width={200}
               style={{ borderRadius: 100 }}
+              alt="email-verified"
             />
             <Text
               color={textColorSecondary}
@@ -277,7 +274,7 @@ function Login() {
                   {item.icon ? (
                     <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
                   ) : (
-                    <img src={require(`assets/img/svg/${item.title}.svg`)} />
+                    <img src={require(`assets/img/svg/${item.title}.svg`)} alt="title" />
                   )}
                 </Center>
               </Flex>

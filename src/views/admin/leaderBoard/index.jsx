@@ -3,15 +3,8 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Center,
   Flex,
   Icon,
-  Select,
-  SimpleGrid,
-  Tab,
-  TabList,
-  Tabs,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 
@@ -19,7 +12,6 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  columnsDataTradeHistory,
   columnsLeaderBoard,
 } from "../copyTrading/variables/columnsData";
 import BasicCard from "components/card/BasicCard";
@@ -100,12 +92,14 @@ export default function LeaderBoard() {
     }
   };
 
-  useEffect(async () => {
+  const getCapital = async () => {
     const { data } = await apiInstance.post(`${PRO_RISE.getCapitalPercent}`);
     setCapitalPercent(data?.defaultCapitalPercent);
-  }, [isOpen]);
+  }
+
 
   const onCopy = async (e) => {
+    getCapital()
     setFilterData(data?.filter((item) => item?.encryptedUid === e));
     onOpen();
     setId(e);

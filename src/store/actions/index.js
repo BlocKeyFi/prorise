@@ -5,6 +5,7 @@ import { PRO_RISE } from "constants/apiConstants";
 import { toast } from "react-hot-toast";
 
 export const resetTraderPositions = createAction("leader/resetTraderPositions");
+export const updateUser = createAction("user/updateUserDetail");
 
 export const userLogin = createAsyncThunk(
   "user/Login",
@@ -12,15 +13,14 @@ export const userLogin = createAsyncThunk(
     try {
       const { data } = await apiInstance.post(`${PRO_RISE.login}`, params);
       toast.success("Successfully Login");
-
       return data;
     } catch (error) {
       toast.error(
         error?.response?.data?.message
           ? error?.response?.data?.message
           : error?.response?.data
-          ? error?.response?.data
-          : "Network Error"
+            ? error?.response?.data
+            : "Network Error"
       );
       return rejectWithValue(error?.response?.data);
     }
@@ -104,8 +104,8 @@ export const disconnetExchange = createAsyncThunk(
 export const getLeaderboardsData = createAsyncThunk(
   "leader/getLeaderboardsData",
   async (params, { rejectWithValue, dispatch, getState }) => {
-    const { user } = getState();
-    dispatch(currentlyExchangeConnected({ user: user?.login?.user?.email }));
+    // const { user } = getState();
+    // dispatch(currentlyExchangeConnected({ user: user?.login?.user?.email }));
     try {
       setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(

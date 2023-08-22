@@ -10,11 +10,12 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { getLeaderboardsData } from "store/actions";
 import { useEffect } from "react";
 import { getRefralLink } from "store/actions";
 import apiInstance from "constants/api";
 import { PRO_RISE } from "constants/apiConstants";
+import { currentlyExchangeConnected } from "store/actions";
+import { setAuthToken } from "constants/api";
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -22,7 +23,7 @@ export default function Dashboard(props) {
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const { auth } = useSelector((state) => state.user);
+  const { auth, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   if (!auth) {
@@ -31,14 +32,8 @@ export default function Dashboard(props) {
 
   useEffect(async () => {
     if (auth) {
-      dispatch(
-        getLeaderboardsData({
-          searchCriteria: {
-            period: "WEEKLY",
-            currentPage: 1,
-          },
-        })
-      );
+      setAuthToken(localStorage.getItem("jwt"));
+      dispatch(currentlyExchangeConnected({ user: user?.login?.user?.email }));
       const { data } = await apiInstance.post(`${PRO_RISE.getRefralLink}`);
       dispatch(getRefralLink(data?.link));
     }

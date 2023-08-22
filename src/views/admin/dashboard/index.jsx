@@ -3,34 +3,22 @@ import React from "react";
 // ProRIse imports
 import {
   Box,
-  Center,
-  Flex,
   Grid,
   GridItem,
-  Link,
-  Select,
-  SimpleGrid,
-  Text,
 } from "@chakra-ui/react";
 
 // Custom components
 
-import TableCard from "views/admin/dashboard/components/TableCard";
 import TotalSpent from "views/admin/dashboard/components/TotalSpent";
 
-import { IoIosArrowForward } from "react-icons/io";
-import TradersCard from "components/card/TradersCard";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import DailyTraffic from "./components/ActiveTraders";
 import { getOpenPositions } from "store/actions";
 import { useEffect } from "react";
 import { columnsDataActiveTrades } from "../copyTrading/variables/columnsData";
 import DevelopmentTable from "../copyTrading/components/DevelopmentTable";
-import Circle from "./components/circle";
 import { setAuthToken } from "constants/api";
 import apiInstance from "constants/api";
-import { toast } from "react-hot-toast";
 import { PRO_RISE } from "constants/apiConstants";
 import { useState } from "react";
 import { getClosedTrades } from "store/actions";

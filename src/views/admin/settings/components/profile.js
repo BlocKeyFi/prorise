@@ -19,15 +19,18 @@ import user from "../../../../assets/img/dashboards/Profile.png";
 
 import InputFeild from "components/fields/InputField";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import apiInstance from "constants/api";
 import { PRO_RISE } from "constants/apiConstants";
 import { toast } from "react-hot-toast";
+import { updateUser } from "store/actions";
 
 export default function Profile() {
   const textColor = useColorModeValue("white", "white");
   const textColorSecondary = useColorModeValue("gray.200", "gray.200");
   const { login } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch()
 
   const [userDetail, setUserDetail] = useState({ ...login?.user });
   const [password, setPassword] = useState({
@@ -36,26 +39,55 @@ export default function Profile() {
   });
 
   const updateData = async () => {
-    const extractedData = {
-      firstName: userDetail?.firstName,
-      lastName: userDetail?.lastName,
-      phoneNumber: userDetail?.phoneNumber,
-      email: userDetail?.email,
-    };
-    const { data } = await apiInstance.post(
-      `${PRO_RISE.updateUserInfo}`,
-      extractedData
-    );
-    toast.success(data?.message);
+    const requiredFields = ["firstName", "lastName", "phoneNumber", "email"];
+    if (
+      !userDetail.firstName ||
+      !userDetail.lastName ||
+      !userDetail.phoneNumber ||
+      !userDetail.email
+    ) {
+      if (!userDetail) {
+        toast.error("userDetail is missing");
+      } else {
+        for (const field of requiredFields) {
+          if (!userDetail[field]) {
+            toast.error(`${field} is missing`);
+          }
+        }
+      }
+
+    } else {
+      const extractedData = {
+        firstName: userDetail?.firstName,
+        lastName: userDetail?.lastName,
+        phoneNumber: userDetail?.phoneNumber,
+        email: userDetail?.email,
+      };
+      const { data } = await apiInstance.post(
+        `${PRO_RISE.updateUserInfo}`,
+        extractedData
+      );
+      dispatch(updateUser(data?.data))
+      toast.success(data?.message);
+    }
   };
 
   const onChangePassword = async () => {
-    const { data } = await apiInstance.post(
-      `${PRO_RISE.changePassword}`,
-      password
-    );
-    if (data?.success) {
-      toast.success(data?.msg);
+    if (password.password && password.newPassword) {
+
+      const { data } = await apiInstance.post(
+        `${PRO_RISE.changePassword}`,
+        password
+      );
+      if (data?.success) {
+        toast.success(data?.msg);
+        setPassword({
+          password: "",
+          newPassword: "",
+        })
+      }else{
+        toast.error(data?.msg);
+      }
     }
   };
 
@@ -104,6 +136,7 @@ export default function Profile() {
               }}
             >
               <InputFeild
+                isInvalid={!userDetail?.firstName}
                 label="Prénom"
                 placeholder="Cole"
                 type="text"
@@ -126,6 +159,7 @@ export default function Profile() {
               }}
             >
               <InputFeild
+                isInvalid={!userDetail?.lastName}
                 label="Nom de famille"
                 placeholder="Caufield"
                 type="text"

@@ -16,8 +16,7 @@ import {
 
 import InputFeild from "components/fields/InputField";
 import { BiCopy } from "react-icons/bi";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements, PaymentElement } from "@stripe/react-stripe-js";
+
 // Custom components
 
 export default function Dialog({

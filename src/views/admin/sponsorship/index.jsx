@@ -93,15 +93,16 @@ export default function SponsorShip() {
                 sm: "column",
               }}
               gap={{
-                "2xl": 10,
-                xl: 3,
-                lg: 3,
-                md: 3,
-                sm: 3,
+                "2xl": 20,
+                xl: 10,
+                lg: 10,
+                md:10,
+                sm: 1,
               }}
               color={"gray.200"}
               fontSize={14}
-              justifyContent={"space-between"}
+              alignItems={'center'}
+              justifyContent={"center"}
             >
               <Flex
                 gap={{ "2xl": 10, xl: 4, lg: 20, md: 10, sm: 10 }}
