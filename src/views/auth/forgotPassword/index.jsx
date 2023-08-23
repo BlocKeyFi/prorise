@@ -16,6 +16,10 @@ import OnboardingAuth from "layouts/auth/onboarding";
 
 import InputFeild from "components/fields/InputField";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ForgotPassword() {
   // ProRIse color mode
@@ -25,7 +29,7 @@ function ForgotPassword() {
   const [passwords, setPasswords] = useState({ password1: "", password2: "" });
   const [passwordsMatch, setPasswordsMatch] = useState(true);
 
-
+  const history = useHistory();
   const handlePasswordChange = (event) => {
     const { name, value } = event.target;
     setPasswords((prevPasswords) => ({
@@ -40,30 +44,33 @@ function ForgotPassword() {
     }
   };
 
-  const onLogin = async () => {
+  const onChangePassword = async () => {
     if (passwordsMatch) {
-      //   try {
-      //     const response = await dispatch(
-      //       userLogin({
-      //         password: password,
-      //         password: password,
-      //       })
-      //     ).unwrap();
-      //     if (response?.user?.currentSubscription) {
-      //       history.push("/admin/dashboard");
-      //     } else {
-      //       history.push("/auth/onboarding");
-      //     }
-      //   } catch (error) {
-      //     if (error.message) {
-      //       toast.error("Network Error");
-      //     } else {
-      //       history.push("/auth/send-verification");
-      //     }
-      //     // Handle login error if needed
-      //   }
-      // } else {
-      //   toast.error("Fill All The Feilds");
+      // Get the URL from the current location
+      const url = new URL(window.location.href);
+
+      // Get the token query parameter from the URL
+      // const token = url.searchParams.get(TOKEN);
+
+      const encodedString = url?.pathname;
+
+      const token = encodedString.replace("/auth/forgot-password/token=", "");
+
+      if (token) {
+        // You can now use the 'token' variable in your code
+        try {
+          const {data} = await apiInstance.post(`${PRO_RISE.resetPassword}`, { newPassword: passwords.password1, token: token });
+        if(data?.success){
+          toast.success(data?.msg);
+          history.push('/')
+        }else{
+          toast.error(data?.message);
+        }
+        
+        } catch (error) {
+          toast.error(error);
+        }
+      }
     }
   };
 
@@ -135,7 +142,7 @@ function ForgotPassword() {
             bg="#0075FF"
             borderRadius="16px"
             _hover={{ bg: "#0075FF" }}
-            onClick={onLogin}
+            onClick={onChangePassword}
           >
             Changer le mot de passe
           </Button>

@@ -29,6 +29,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { authButtons } from "constants/constants";
 import Dialog from "components/dialog/Dialog";
 import { useEffect } from "react";
+import { PRO_RISE } from "constants/apiConstants";
+import apiInstance from "constants/api";
 
 
 function Login() {
@@ -51,7 +53,7 @@ function Login() {
   const googleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse),
   });
-  const appleLogin = () =>{
+  const appleLogin = () => {
     console.log("apple");
   };
 
@@ -101,8 +103,14 @@ function Login() {
     setSuccess(false);
   }, [isOpen]);
 
-  const onSubmit = (e) => {
-    setSuccess(true);
+  const onSubmit = async (e) => {
+    try {
+      const { data } = await apiInstance.post(`${PRO_RISE.forgotPasswordRequest}`, { email: forgotEmail });
+      setSuccess(data?.success);
+    } catch (error) {
+      toast.error(error);
+    }
+   
     setForgotEmail("");
   };
 
@@ -269,7 +277,7 @@ function Login() {
                   h="64px"
                   lineHeight="100%"
                   borderRadius="16px"
-                  onClick={index ===0 ?googleLogin : appleLogin}
+                  onClick={index === 0 ? googleLogin : appleLogin}
                 >
                   {item.icon ? (
                     <Icon as={item.icon} w="35px" h="auto" color="gray.400" />

@@ -33,7 +33,6 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    setAuthToken(localStorage.getItem("jwt"));
     const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
       symbol: "USDT",
     });

@@ -24,4 +24,6 @@ export const PRO_RISE = {
   getTraderPositions: "leaderboards/getTraderPositions",
   getPlans: "plan/getPlans",
   checkOut: "payment/create-checkout-session",
+  forgotPasswordRequest: "user/forgotPasswordRequest",
+  resetPassword:"user/resetPassword"
 };
