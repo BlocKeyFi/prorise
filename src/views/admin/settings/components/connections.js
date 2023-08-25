@@ -16,10 +16,6 @@ import {
 
 import BasicCard from "components/card/BasicCard";
 
-import Binance from "assets/img/dashboards/svgIcon/Binance.svg";
-import ByBit from "assets/img/dashboards/svgIcon/Bybit.svg";
-import KuCoin from "assets/img/dashboards/svgIcon/KuCoin.svg";
-
 import { MdEdit } from "react-icons/md";
 
 import Dialog from "components/dialog/Dialog";
@@ -42,12 +38,12 @@ export default function Connections() {
   const { exchangeConnection } = useSelector((state) => state.exchange);
 
   const dispatch = useDispatch();
-  // console.log(getPlans());
 
   const [exchangeData, setExchangeData] = useState({
     secretKey: "",
     apiKey: "",
     exchange: "",
+    passphrase: "",
     connectionName: generateRandomString(8),
   });
 
@@ -60,8 +56,8 @@ export default function Connections() {
     dispatch(exchange(exchangeData));
     setTimeout(() => {
       dispatch(currentlyExchangeConnected({ user: login?.user?.email }));
-    }, 3000);
-    onClose();
+      onClose();
+    }, 2000);
   };
 
   const disConnectConnection = async (e) => {
@@ -71,6 +67,8 @@ export default function Connections() {
       })
     );
   };
+
+  console.log(exchangeData);
 
   const randerConnected = () => {
     return connetions?.map((item, index) => {
@@ -83,17 +81,7 @@ export default function Connections() {
             justifyContent={"space-between"}
           >
             <Box display={"flex"} direction={"row"} gap={5}>
-              <img
-                src={
-                  index === 0
-                    ? Binance
-                    : index === 1
-                    ? ByBit
-                    : index === 2
-                    ? KuCoin
-                    : null
-                }
-              />
+              <img src={item.icon} width={50} height={50} />
               <Heading color={textColor} fontSize="20px">
                 {item.title}
                 <Text
@@ -122,7 +110,13 @@ export default function Connections() {
                 _hover={{ bg: "#0075FF" }}
                 textAlign={"left"}
                 gap={2}
-                disabled={exchangeConnection ? item.title.toLowerCase() === exchangeConnection ? false : true : false}
+                disabled={
+                  exchangeConnection
+                    ? item.title.toLowerCase() === exchangeConnection
+                      ? false
+                      : true
+                    : false
+                }
                 onClick={() =>
                   item.title.toLowerCase() === exchangeConnection
                     ? disConnectConnection(exchangeConnection)

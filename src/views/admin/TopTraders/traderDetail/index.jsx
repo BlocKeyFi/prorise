@@ -20,21 +20,23 @@ import { toast } from "react-hot-toast";
 import Dialog from "components/dialog/Dialog";
 import { getLeaderboardsData } from "store/actions";
 import { columnsCopyTrade } from "views/admin/copyTrading/variables/columnsData";
-import { columnsDataTradeHistory } from "views/admin/copyTrading/variables/columnsData";
+import { userTradeHistory } from "views/admin/copyTrading/variables/columnsData";
 
 // Custom components
 
 export default function TraderDetails() {
   const dispatch = useDispatch();
-  const { data, traderPositions, isLoading } = useSelector(
+  const { data, traderPositions, traderHistory, isLoading } = useSelector(
     (state) => state?.leaderBoard
   );
+
   const { exchangeConnection } = useSelector((state) => state?.exchange);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [tabIndex, setTabIndex] = useState(0);
 
   const [capitalPercent, setCapitalPercent] = useState(null);
+  const [balance, setBalance] = useState(0);
 
   const { id } = useParams();
 
@@ -65,8 +67,6 @@ export default function TraderDetails() {
   };
 
   const filterData = data.filter((item) => item.encryptedUid === id);
-
-  
 
   const updatedButtonArray = useMemo(() => {
     const newButtonArray = [...buttonArray]; // Create a copy of the original buttonArray
@@ -155,9 +155,18 @@ export default function TraderDetails() {
       }
     }
     if (e === "Copier") {
+      onOpen();
       const { data } = await apiInstance.post(`${PRO_RISE.getCapitalPercent}`);
       setCapitalPercent(data?.defaultCapitalPercent);
-      onOpen();
+      apiInstance
+        .post(`${PRO_RISE.getWalletBalance}`, {
+          symbol: "USDT",
+        })
+        .then((res) =>
+          setBalance(
+            res?.data?.balance ? parseFloat(res?.data?.balance)?.toFixed(1) : 0
+          )
+        );
     }
 
     if (e === "unFolllow") {
@@ -193,7 +202,11 @@ export default function TraderDetails() {
         buttonArray={updatedButtonArray}
         tabsArray={tabsArray}
         tableData={
-          tabIndex === 0 ? traderPositions ?? [] : tabIndex === 1 ? [] : []
+          tabIndex === 0
+            ? traderPositions ?? []
+            : tabIndex === 1
+            ? traderHistory
+            : []
         }
         onButtonAction={onButtonAction}
         favorite={filterData[0]?.favorite}
@@ -201,11 +214,11 @@ export default function TraderDetails() {
           tabIndex === 0
             ? columnsCopyTrade
             : tabIndex === 1
-            ? columnsDataTradeHistory
+            ? userTradeHistory
             : null
         }
         isLoading={isLoading}
-        exchangeConnection={exchangeConnection} 
+        exchangeConnection={exchangeConnection}
       >
         {tabIndex === 2 && (
           <Grid
@@ -214,11 +227,15 @@ export default function TraderDetails() {
             gap={2}
           >
             <GridItem colSpan={2}>
-              <TotalSpent design={2} />
+              <TotalSpent
+                design={2}
+                data={traderHistory ?? []}
+                traderDetail={true}
+              />
             </GridItem>
             <GridItem colSpan={1}>
               <DailyTraffic
-                currentPositions={traderPositions ?? []}
+                currentPositions={traderHistory ?? []}
                 traderDetail={true}
               />
             </GridItem>
@@ -235,6 +252,7 @@ export default function TraderDetails() {
         connection={false}
         filterData={filterData[0] ?? {}}
         btnText={"Copier"}
+        balance={balance}
       />
       <Footer />
     </Box>

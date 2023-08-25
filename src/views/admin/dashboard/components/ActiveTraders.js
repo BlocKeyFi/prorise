@@ -1,7 +1,9 @@
 import React from "react";
 
 // ProRIse imports
-import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Spinner, Text } from "@chakra-ui/react";
+
+import { VictoryPie, VictoryLabel } from "victory";
 
 // Custom components
 import Card from "components/card/Card.js";
@@ -26,7 +28,11 @@ export default function DailyTraffic(props) {
   const symbolsArray = currentPositions
     ?.slice(0, 7)
     ?.map((item) => item?.symbol);
-  const sizesArray = currentPositions?.slice(0, 7)?.map((item) => item?.size);
+  const options = pieChartOptions(symbolsArray);
+
+  const sizesArray = currentPositions
+    ?.slice(0, 7)
+    ?.map((item) => (traderDetail ? item?.roe : item?.size));
   const numericValues = sizesArray?.map((value) => parseFloat(value));
 
   // Calculate total sum of values
@@ -38,15 +44,19 @@ export default function DailyTraffic(props) {
     parseFloat(value?.toFixed(6))
   );
 
-  // const mergedArray = symbolsArray.map((symbol, index) => ({
-  //   symbol: symbol,
-  //   size: percentages[index],
-  // }));
-
-  const options = pieChartOptions(symbolsArray);
+  const mergedArray = symbolsArray.map((symbol, index) => ({
+    x: percentages[index],
+    y: percentages[index],
+  }));
 
   return (
-    <Card align="center" direction="column" w="100%" {...rest}>
+    <Card
+      bg={traderDetail && "transparent"}
+      align="center"
+      direction="column"
+      w="100%"
+      {...rest}
+    >
       <Flex justify="space-between" align="start" px="10px" pt="5px">
         <Flex flexDirection="column" align="start" me="20px">
           <Flex w="100%">
@@ -73,15 +83,16 @@ export default function DailyTraffic(props) {
             Préférence 30 jours
           </Text>
         </Flex>
-        {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
-        {exchangeConnection ? (
-          <ReactApexChart
-            series={finalPercentages ?? []}
-            options={options ?? {}}
-            height={"95%"}
-            type="donut"
-          />
-        ) : (
+        {traderDetail && !currentPositions?.length && (
+          <Center h={200}>
+            <Text fontSize={20}>
+              No data Found
+              <br />
+              <br />
+            </Text>
+          </Center>
+        )}
+        {!exchangeConnection && !traderDetail && (
           <Center h={200}>
             <Text fontSize={20}>
               No Connection Found
@@ -104,6 +115,102 @@ export default function DailyTraffic(props) {
                 </Button>
               </Link>
             </Text>
+          </Center>
+        )}
+        {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
+
+        {currentPositions ? (
+          <>
+            {exchangeConnection && (
+              <ReactApexChart
+                series={finalPercentages ?? []}
+                options={options ?? {}}
+                height={"95%"}
+                type="donut"
+              />
+            )}
+            {traderDetail && (
+              // <Flex>
+              //   <svg viewBox="0 0 400 400">
+              //     <VictoryPie
+              //       padAngle={({ datum }) => 1}
+              //       cornerRadius={({ datum }) => 45}
+              //       // colorScale={["gray", "gray", "gray", "gray", "gray"]}
+              //       standalone={false}
+              //       width={200}
+              //       height={200}
+              //       data={mergedArray}
+              //       radius={100}
+              //       innerRadius={85}
+              //       // labelRadius={88}
+              //       style={{
+              //         data: {
+              //           // fillOpacity: 0.9, stroke: "#2cd9ff", strokeWidth: 3
+              //         },
+              //       }}
+              //       events={[
+              //         {
+              //           target: "data",
+              //           eventHandlers: {
+              //             onMouseOver: (event, props) => {
+              //               console.log(props);
+              //               return [
+              //                 {
+              //                   target: "data",
+              //                   mutation: ({ style }) => {
+              //                     return style.fill === "#2cd9ff"
+              //                       ? null
+              //                       : { style: { fill: "#2cd9ff" } };
+              //                   },
+              //                 },
+              //               ];
+              //             },
+              //             onMouseOut: () => {
+              //               return [
+              //                 {
+              //                   target: "data",
+              //                   mutation: ({ style }) => {
+              //                     return null;
+              //                   },
+              //                 },
+              //               ];
+              //             },
+              //           },
+              //         },
+              //       ]}
+              //     />
+              //     <VictoryLabel
+              //       textAnchor="middle"
+              //       style={{ fontSize: 20 }}
+              //       x={100}
+              //       y={100}
+              //       text="text here"
+              //     />
+              //   </svg>
+              //   dasdasd
+              // </Flex>
+
+              // <VictoryPie
+              //   cornerRadius={({ datum }) => datum.y * 50}
+              //   data={[
+              //     { x: 1, y: 2, label: "one" },
+              //     { x: 2, y: 3, label: "two" },
+              //     { x: 3, y: 5, label: "three" },
+              //   ]}
+              //   padAngle={({ datum }) => datum.y}
+              //   innerRadius={120}
+              // />
+              <ReactApexChart
+                series={finalPercentages ?? []}
+                options={options ?? {}}
+                height={"95%"}
+                type="donut"
+              />
+            )}
+          </>
+        ) : (
+          <Center height={200}>
+            <Spinner size="xl" />
           </Center>
         )}
       </Box>

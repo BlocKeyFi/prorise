@@ -152,3 +152,39 @@ export const columnsLeaderBoard = [
     accessor: "",
   },
 ];
+
+export const userTradeHistory = [
+  {
+    Header: "DATE DE SORTIE",
+    accessor: "updateTimeStamp",
+  },
+  {
+    Header: "POSITION",
+    accessor: "side",
+  },
+  {
+    Header: "ORDER COIN",
+    accessor: "symbol",
+  },
+  {
+    Header: "PRIX D’ENTREE",
+    accessor: "entryPrice",
+  },
+
+  {
+    Header: "PRIX DE SORTIE",
+    accessor: "markPrice",
+  },
+  {
+    Header: "ROI",
+    accessor: "roe",
+  },
+  {
+    Header: "LEVIER",
+    accessor: "leverage",
+  },
+  {
+    Header: "STATUS",
+    accessor: "Status",
+  },
+];

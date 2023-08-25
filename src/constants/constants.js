@@ -4,6 +4,10 @@ import { BiCopy } from "react-icons/bi";
 
 import { FcGoogle } from "react-icons/fc";
 
+import Binance from "assets/img/dashboards/svgIcon/Binance.svg";
+import ByBit from "assets/img/dashboards/svgIcon/Bybit.svg";
+import KuCoin from "assets/img/dashboards/svgIcon/KuCoin.svg";
+
 export const CLOSE = "close";
 export const ALREADY_EMAIL = "Email is already register";
 export const SUCCESS_REGISTER = "Successfully Register";
@@ -143,12 +147,15 @@ export const authButtons = [
 export const connetions = [
   {
     title: "Binance",
+    icon: Binance,
   },
   {
     title: "ByBit",
+    icon: ByBit,
   },
   {
-    title: "KuCoin",
+    title: "BitGet",
+    icon: "https://altcoinsbox.com/wp-content/uploads/2023/04/bitget-logo.png",
   },
 ];
 

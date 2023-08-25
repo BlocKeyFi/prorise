@@ -25,5 +25,8 @@ export const PRO_RISE = {
   getPlans: "plan/getPlans",
   checkOut: "payment/create-checkout-session",
   forgotPasswordRequest: "user/forgotPasswordRequest",
-  resetPassword:"user/resetPassword"
+  resetPassword: "user/resetPassword",
+  getUserPerformanceAnalytics: "user/getUserPerformanceAnalytics",
+  getRefralHistory: "getRefralHistory",
+  portalSession: "payment/create-portal-session",
 };

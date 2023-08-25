@@ -23,21 +23,13 @@ export default function Dashboard(props) {
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const { auth, user } = useSelector((state) => state.user);
+  const { auth } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
+
   if (!auth) {
     history.push("/");
   }
-
-  useEffect(async () => {
-    if (auth) {
-      setAuthToken(localStorage.getItem("jwt"));
-      dispatch(currentlyExchangeConnected({ user: user?.login?.user?.email }));
-      const { data } = await apiInstance.post(`${PRO_RISE.getRefralLink}`);
-      dispatch(getRefralLink(data?.link));
-    }
-  }, []);
 
   // functions for changing the states from components
   const getRoute = () => {

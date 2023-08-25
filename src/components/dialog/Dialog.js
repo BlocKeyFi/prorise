@@ -34,6 +34,7 @@ export default function Dialog({
   auth,
   btnText,
   success,
+  balance,
 }) {
   const cancelRef = React.useRef();
 
@@ -60,6 +61,19 @@ export default function Dialog({
             {children}
             {connection && (
               <React.Fragment>
+                {exchangeData?.exchange === "bitget" && (
+                  <InputFeild
+                    label="Pass Phrase"
+                    type="password"
+                    value={exchangeData.passphrase}
+                    onChange={(e) =>
+                      setExchangeData({
+                        ...exchangeData,
+                        passphrase: e.target.value,
+                      })
+                    }
+                  />
+                )}
                 <InputFeild
                   label="Api Key"
                   type="password"
@@ -93,7 +107,7 @@ export default function Dialog({
                 />
                 <Flex direction={"row"} gap={5}>
                   <InputFeild
-                    value={"€" + filterData ? filterData?.rank : ""}
+                    value={"€ " + balance ?? 0}
                     label="Capital"
                     disabled
                   />

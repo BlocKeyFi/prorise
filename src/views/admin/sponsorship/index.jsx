@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // ProRIse imports
 import {
@@ -28,13 +28,23 @@ import { TfiTwitter } from "react-icons/tfi";
 
 import copyIcon from "../../../assets/img/dashboards/svgIcon/copy.svg";
 import { toast } from "react-hot-toast";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
 
 export default function SponsorShip() {
   const [tabIndex, setTabIndex] = useState(0);
+  const [refralHistory, setRefralHistory] = useState([]);
 
   const { refralLink } = useSelector((state) => state?.user);
 
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    apiInstance
+      .post(`${PRO_RISE.getRefralHistory}`)
+      .then((response) => console.log(response))
+      .catch((e) => toast.error(`${PRO_RISE.getRefralHistory} failed`));
+  }, []);
 
   const copyValue = () => {
     if (inputRef.current) {
@@ -96,12 +106,12 @@ export default function SponsorShip() {
                 "2xl": 20,
                 xl: 10,
                 lg: 10,
-                md:10,
+                md: 10,
                 sm: 1,
               }}
               color={"gray.200"}
               fontSize={14}
-              alignItems={'center'}
+              alignItems={"center"}
               justifyContent={"center"}
             >
               <Flex

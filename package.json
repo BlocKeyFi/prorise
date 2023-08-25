@@ -48,6 +48,7 @@
     "redux-persist-transform-immutable": "^5.0.0",
     "stylis": "^4.1.1",
     "stylis-plugin-rtl": "2.0.2",
+    "victory": "^36.6.11",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

@@ -15,7 +15,6 @@ import LineChart from "components/charts/LineChart";
 import LineAreaChart from "components/charts/LineAreaChart";
 import React from "react";
 
-
 import wallet from "../../../../assets/img/dashboards/svgIcon/wallet.svg";
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
 import { generateDayWiseTimeSeries } from "utils/utils";
@@ -23,8 +22,8 @@ import { formatDate } from "utils/utils";
 import ReactApexChart from "react-apexcharts";
 
 export default function TotalSpent(props) {
-  const { balance, data, ...rest } = props;
-
+  const { balance, data, analytics, traderDetail, ...rest } = props;
+  const analyticsKeyValueArray = Object.entries(analytics ?? {});
 
   // ProRIse Color Mode
 
@@ -133,8 +132,10 @@ export default function TotalSpent(props) {
   // });
 
   const finalData = data?.map((item) => ({
-    x: new Date(parseInt(item.createdTime)),
-    y: parseFloat(item.closedPnl).toFixed(0),
+    x: new Date(
+      parseInt(traderDetail ? item?.updateTimeStamp : item?.createdTime)
+    ),
+    y: parseFloat(traderDetail ? item?.pnl : item?.closedPnl).toFixed(0),
   }));
 
   return (
@@ -231,7 +232,7 @@ export default function TotalSpent(props) {
             gap="20px"
             marginTop={props?.heading ? 8 : 0}
           >
-            {[0, 1, 2, 3, 4]?.slice(0, 5).map((item, index) => {
+            {analyticsKeyValueArray?.map(([key, value], index) => {
               return (
                 <>
                   <Flex direction={"column"} w="100%" align={"start"} pt={3}>
@@ -243,45 +244,25 @@ export default function TotalSpent(props) {
                           fontSize="14px"
                           lineHeight="100%"
                           fontWeight="600"
+                          textTransform={"capitalize"}
                         >
-                          {index === 0
-                            ? "ROI 30 jours"
-                            : index === 1
-                              ? "MDD 30 jours"
-                              : index === 2
-                                ? "Win rate 30 jours"
-                                : index === 3
-                                  ? "Total wins 30 jours"
-                                  : index === 4
-                                    ? "Total orders 30 jours"
-                                    : null}
+                          {`${key} 30 jours`}
                         </Text>
                       </Flex>
                     </Center>
                     <Text
                       color={
-                        index === 0
+                        index === 0 || index === 1 || index === 2
                           ? "green.300"
-                          : index === 1
-                            ? "green.300"
-                            : "white"
+                          : "white"
                       }
                       fontSize="28px"
                       lineHeight="100%"
                       fontWeight="600"
                       pt={"2"}
+                      px={index === 0 ? 0 : 4}
                     >
-                      {index === 0
-                        ? "20 %"
-                        : index === 1
-                          ? "40 %"
-                          : index === 2
-                            ? "50 %"
-                            : index === 3
-                              ? "90 %"
-                              : index === 4
-                                ? "85 %"
-                                : null}
+                      {`${value?.toFixed(0)} %`}
                     </Text>
                   </Flex>
                 </>

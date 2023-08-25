@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // ProRIse imports
-import { Flex} from "@chakra-ui/react";
+import { Button, Center, Flex, Spinner } from "@chakra-ui/react";
 
 // Custom components
 import BasicCard from "components/card/BasicCard";
@@ -41,13 +41,18 @@ export default function Payments() {
     }
   };
 
+  const checkOutSession = async () => {
+    const { data } = await apiInstance.post(`${PRO_RISE.portalSession}`);
+    if (data?.success) {
+      window.location.href = data?.url;
+    } else {
+      toast.error(data?.message);
+    }
+  };
+
   return (
     <Flex direction={"column"} gap={10}>
-      <BasicCard
-        heading="Abonnement"
-        buttonHeader={true}
-        btnText={"Mettre à jour"}
-      >
+      <BasicCard heading="Abonnement">
         <Flex
           zIndex="2"
           direction={{ xl: "row", lg: "row", md: "column", sm: "column" }}
@@ -60,25 +65,31 @@ export default function Payments() {
           mb={{ base: "20px", md: "auto" }}
           alignItems="center"
         >
-          {plans?.slice(0,3)?.map((item, index) => (
-            <PriceCard
-              id={++index}
-              heading={item?.name}
-              paragraph={item?.description}
-              price={`€ ${item?.price}/mois`}
-              btnText={
-                index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
-              }
-              onClick={() =>
-                onCheckOut({
-                  priceId: item?.stripePrice,
-                })
-              }
-              setting={true}
-              userId={login?.user?.id}
-              currentPlan={login?.user?.currentPlan}
-            />
-          ))}
+          {plans.length ? (
+            plans?.slice(0, 3)?.map((item, index) => (
+              <PriceCard
+                id={++index}
+                heading={item?.name}
+                paragraph={item?.description}
+                price={`€ ${item?.price}/mois`}
+                btnText={
+                  index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
+                }
+                onClick={() =>
+                  onCheckOut({
+                    priceId: item?.stripePrice,
+                  })
+                }
+                setting={true}
+                userId={login?.user?.id}
+                currentPlan={login?.user?.currentPlan}
+              />
+            ))
+          ) : (
+            <Center width={"100%"}>
+              <Spinner size="xl" />
+            </Center>
+          )}
         </Flex>
       </BasicCard>
       {/* <BasicCard heading="Mode de paiement">
@@ -131,7 +142,29 @@ export default function Payments() {
           </GridItem>
         </Grid>
       </BasicCard> */}
-      <BasicCard heading="Historique des paiements" table={true} slice={true} />
+      <BasicCard
+        heading="Historique des paiements"
+        table={false}
+        slice={true}
+        h={"30vh"}
+      >
+        <Center width={"100%"} h={100}>
+          <Button
+            fontSize="20px"
+            variant="brand"
+            fontWeight="500"
+            h="45"
+            bg="#0075FF"
+            borderRadius="16px"
+            _hover={{ bg: "#0075FF" }}
+            textAlign={"left"}
+            gap={3}
+            onClick={checkOutSession}
+          >
+            {"Check Your CheckOut Session"}
+          </Button>
+        </Center>
+      </BasicCard>
     </Flex>
   );
 }

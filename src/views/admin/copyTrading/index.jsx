@@ -100,7 +100,7 @@ export default function Settings() {
               gap={3}
             >
               Mes trades
-              <Center
+              {/* <Center
                 w="20px"
                 h="20px"
                 bg="green.300"
@@ -108,7 +108,7 @@ export default function Settings() {
                 borderRadius={10}
               >
                 3
-              </Center>
+              </Center> */}
             </Tab>
             <Tab
               _selected={{ color: "white", bg: "rgba(255, 255, 255, 0.08)" }}

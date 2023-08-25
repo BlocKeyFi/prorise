@@ -9,18 +9,22 @@ export const updateUser = createAction("user/updateUserDetail");
 
 export const userLogin = createAsyncThunk(
   "user/Login",
-  async (params, { rejectWithValue }) => {
+  async (params, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await apiInstance.post(`${PRO_RISE.login}`, params);
       toast.success("Successfully Login");
+      setAuthToken(data?.token);
+      dispatch(currentlyExchangeConnected({ user: data?.user?.email }));
+      const refralLink = await apiInstance.post(`${PRO_RISE.getRefralLink}`);
+      dispatch(getRefralLink(refralLink?.data?.link));
       return data;
     } catch (error) {
       toast.error(
         error?.response?.data?.message
           ? error?.response?.data?.message
           : error?.response?.data
-            ? error?.response?.data
-            : "Network Error"
+          ? error?.response?.data
+          : "Network Error"
       );
       return rejectWithValue(error?.response?.data);
     }
@@ -31,7 +35,6 @@ export const exchange = createAsyncThunk(
   "exchange/exchangeConnection",
   async (params, { rejectWithValue }) => {
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.exchangeConection}`,
         params
@@ -49,7 +52,6 @@ export const getOpenPositions = createAsyncThunk(
   "exchange/getOpenPositions",
   async (params, { rejectWithValue }) => {
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.getOpenPositions}`,
         params
@@ -70,7 +72,6 @@ export const currentlyExchangeConnected = createAsyncThunk(
   "exchange/currentlyConnected",
   async (params, { rejectWithValue }) => {
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.currentlyConnected}`,
         params
@@ -87,7 +88,6 @@ export const disconnetExchange = createAsyncThunk(
   "exchange/currentlyConnected",
   async (params, { rejectWithValue }) => {
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.disconnetExchange}`,
         params
@@ -107,7 +107,6 @@ export const getLeaderboardsData = createAsyncThunk(
     // const { user } = getState();
     // dispatch(currentlyExchangeConnected({ user: user?.login?.user?.email }));
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.getLeaderboardsData}`,
         params
@@ -126,7 +125,6 @@ export const getTraderPositions = createAsyncThunk(
   "leader/getTraderPositions",
   async (params, { rejectWithValue }) => {
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.getTraderPositions}`,
         params
@@ -148,7 +146,6 @@ export const subscribeToPackage = createAsyncThunk(
   "leader/subscribeToPackage",
   async (params, { rejectWithValue }) => {
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(
         `${PRO_RISE.subscribeToPackage}`,
         params
@@ -166,7 +163,6 @@ export const getClosedTrades = createAsyncThunk(
   "leader/getClosedTrades",
   async ({ rejectWithValue }) => {
     try {
-      setAuthToken(localStorage.getItem("jwt"));
       const { data } = await apiInstance.post(`${PRO_RISE.getClosedTrades}`);
       return data?.tradeHistory;
     } catch (error) {

@@ -119,7 +119,8 @@ export function SidebarLinks(props) {
                           : "normal"
                       }
                     >
-                      {route.name === "Copy trading" ? bagde() : route.name}
+                      {/* {route.name === "Copy trading" ? bagde() : route.name} */}
+                      {route.name}
                     </Text>
                   </Flex>
                 </HStack>

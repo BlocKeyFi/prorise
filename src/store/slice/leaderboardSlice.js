@@ -7,6 +7,7 @@ import { getLeaderboardsData } from "store/actions";
 const initialState = {
   data: [],
   traderPositions: [],
+  traderHistory: [],
   isLoading: false,
   isSuccess: false,
   errorMessage: "",
@@ -37,6 +38,7 @@ const leaderboardSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       state.traderPositions = payload?.result?.perpetual;
+      state.traderHistory = payload?.result?.history;
     },
     [getTraderPositions.rejected]: (state, { payload }) => {
       state.isLoading = false;

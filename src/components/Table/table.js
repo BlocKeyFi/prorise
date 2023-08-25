@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Center,
+  Divider,
   Flex,
   Icon,
   Image,
@@ -33,13 +34,15 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 import copy from "../../assets/img/dashboards/svgIcon/copy-fill.svg";
+import {
+  MdOutlineArrowBackIos,
+  MdOutlineArrowForwardIos,
+} from "react-icons/md";
 
 export default function GlobalTable(props) {
   const { columnsData, tableData, p, isLoading, onCopy } = props;
 
-  const { exchangeConnection } = useSelector(
-    (state) => state?.exchange
-  );
+  const { exchangeConnection } = useSelector((state) => state?.exchange);
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -61,10 +64,23 @@ export default function GlobalTable(props) {
     page,
     prepareRow,
     initialState,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    gotoPage,
+    nextPage,
+    previousPage,
+    state: { pageIndex, pageSize },
   } = tableInstance;
-  initialState.pageSize = 15;
+  initialState.pageSize = 10;
+  initialState.pageIndex = 0;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
+
+  let iconColor = useColorModeValue("secondaryGray.900", "white");
+  let activeTextColor = useColorModeValue("secondaryGray.900", "white");
+  let activebgColor = useColorModeValue("secondaryGray.900", "#0c0d22");
+  let activeIconColor = useColorModeValue("secondaryGray.900", "#0c0d22");
 
   if (isLoading) {
     return (
@@ -371,6 +387,57 @@ export default function GlobalTable(props) {
           )}
         </Center>
       )}
+
+      {/* <Divider /> */}
+      {page.length > pageSize ? (
+        <Box py={5}>
+          <Flex alignItems={"center"} justifyContent={"center"} gap={2}>
+            <Button
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+              borderRadius={10}
+              px={0}
+              _hover={{ bg: activeIconColor }}
+            >
+              <Icon as={MdOutlineArrowBackIos} color={iconColor} />
+            </Button>
+            {pageOptions?.map((item, index) => (
+              <Button
+                onClick={() => gotoPage(index)}
+                px={0}
+                borderRadius={10}
+                color={index === pageIndex ? activeTextColor : iconColor}
+                _hover={{
+                  bg:
+                    index === pageIndex
+                      ? !activeTextColor
+                      : "rgba(87, 148, 250, 0.08)",
+                }}
+                bg={
+                  index === pageIndex
+                    ? activebgColor
+                    : "rgba(87, 148, 250, 0.08)"
+                }
+              >
+                {++item}
+              </Button>
+            ))}
+            <Button
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              px={0}
+              borderRadius={10}
+              _hover={{ bg: activeIconColor }}
+            >
+              <Icon
+                as={MdOutlineArrowForwardIos}
+                // fontSize={20}
+                color={iconColor}
+              />
+            </Button>
+          </Flex>
+        </Box>
+      ) : null}
     </Box>
   );
 }

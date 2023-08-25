@@ -1,11 +1,7 @@
 import React from "react";
 
 // ProRIse imports
-import {
-  Box,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 // Custom components
 
@@ -29,19 +25,27 @@ export default function Dashboard() {
   );
 
   const [balance, setBalance] = useState(0);
+  const [analytics, setAnalytics] = useState({});
 
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    setAuthToken(localStorage.getItem("jwt"));
     const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
       symbol: "USDT",
     });
     if (data?.success && data?.balance) {
       setBalance(parseFloat(data?.balance)?.toFixed(1));
-    }else{
-      setBalance(0)
+    } else {
+      setBalance(0);
     }
     dispatch(getClosedTrades("tradeHistory"));
+    await apiInstance
+      .post(`${PRO_RISE.getUserPerformanceAnalytics}`)
+      .then((resp) => {
+        delete resp?.data?.analytics?.data;
+        setAnalytics(resp?.data?.analytics);
+      });
   }, []);
 
   useEffect(async () => {
@@ -51,11 +55,10 @@ export default function Dashboard() {
           exchange: exchangeConnection,
         })
       );
-    }else{
-      setBalance(0)
+    } else {
+      setBalance(0);
     }
   }, [exchangeConnection]);
-
 
   return (
     <Box>
@@ -117,9 +120,7 @@ export default function Dashboard() {
           <TotalSpent
             heading="Portefeuille"
             design={1}
-            balance={
-              balance 
-            }
+            balance={exchangeConnection ? balance ?? 0 : 0}
           />
         </GridItem>
         <GridItem
@@ -141,6 +142,7 @@ export default function Dashboard() {
           <TotalSpent
             heading="Performances"
             design={2}
+            analytics={analytics}
             data={exchangeConnection ? closedPositions ?? [] : []}
           />
         </GridItem>
