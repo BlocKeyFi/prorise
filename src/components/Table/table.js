@@ -389,7 +389,7 @@ export default function GlobalTable(props) {
       )}
 
       {/* <Divider /> */}
-      {page.length > pageSize ? (
+      {data.length > pageSize ? (
         <Box py={5}>
           <Flex alignItems={"center"} justifyContent={"center"} gap={2}>
             <Button
