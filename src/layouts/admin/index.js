@@ -31,6 +31,9 @@ export default function Dashboard(props) {
     history.push("/");
   }
 
+  useEffect(() => {
+    setAuthToken(localStorage.getItem("jwt"));
+  }, []);
   // functions for changing the states from components
   const getRoute = () => {
     return window.location.pathname !== "/admin/full-screen-maps";
