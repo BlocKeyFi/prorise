@@ -30,6 +30,7 @@ import copyIcon from "../../../assets/img/dashboards/svgIcon/copy.svg";
 import { toast } from "react-hot-toast";
 import apiInstance from "constants/api";
 import { PRO_RISE } from "constants/apiConstants";
+import { setAuthToken } from "constants/api";
 
 export default function SponsorShip() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -40,6 +41,7 @@ export default function SponsorShip() {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    setAuthToken(localStorage.getItem("jwt"));
     apiInstance
       .post(`${PRO_RISE.getRefralHistory}`)
       .then((response) => console.log(response))

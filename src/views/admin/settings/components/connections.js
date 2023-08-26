@@ -68,7 +68,6 @@ export default function Connections() {
     );
   };
 
-  console.log(exchangeData);
 
   const randerConnected = () => {
     return connetions?.map((item, index) => {

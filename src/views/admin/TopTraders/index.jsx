@@ -27,6 +27,7 @@ import { CiSearch } from "react-icons/ci";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { selectTimeDuration } from "constants/constants";
 import "./style.css";
+import { setAuthToken } from "constants/api";
 
 export default function Marketplace() {
   const { data, isLoading } = useSelector((state) => state?.leaderBoard);
@@ -38,6 +39,7 @@ export default function Marketplace() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setAuthToken(localStorage.getItem("jwt"));
     dispatch(resetTraderPositions());
     dispatch(
       getLeaderboardsData({

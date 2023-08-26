@@ -29,26 +29,23 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    setAuthToken(localStorage.getItem("jwt"));
-    const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
-      symbol: "USDT",
-    });
-    if (data?.success && data?.balance) {
-      setBalance(parseFloat(data?.balance)?.toFixed(1));
-    } else {
-      setBalance(0);
-    }
-    dispatch(getClosedTrades("tradeHistory"));
-    await apiInstance
-      .post(`${PRO_RISE.getUserPerformanceAnalytics}`)
-      .then((resp) => {
-        delete resp?.data?.analytics?.data;
-        setAnalytics(resp?.data?.analytics);
-      });
-  }, []);
-
-  useEffect(async () => {
     if (exchangeConnection) {
+      setAuthToken(localStorage.getItem("jwt"));
+      const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
+        symbol: "USDT",
+      });
+      if (data?.success && data?.balance) {
+        setBalance(parseFloat(data?.balance)?.toFixed(1));
+      } else {
+        setBalance(0);
+      }
+      dispatch(getClosedTrades("tradeHistory"));
+      await apiInstance
+        .post(`${PRO_RISE.getUserPerformanceAnalytics}`)
+        .then((resp) => {
+          delete resp?.data?.analytics?.data;
+          setAnalytics(resp?.data?.analytics);
+        });
       await dispatch(
         getOpenPositions({
           exchange: exchangeConnection,

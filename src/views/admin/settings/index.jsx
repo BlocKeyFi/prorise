@@ -11,9 +11,15 @@ import Profile from "./components/profile";
 import Connections from "./components/connections";
 import Notifications from "./components/notification";
 import Payments from "./components/payments";
+import { useEffect } from "react";
+import { setAuthToken } from "constants/api";
 
 export default function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    setAuthToken(localStorage.getItem("jwt"));
+  }, []);
 
   return (
     <Box>

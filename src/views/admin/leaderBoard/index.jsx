@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 // ProRIse imports
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, useDisclosure } from "@chakra-ui/react";
 
 // proRise Imports
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  columnsLeaderBoard,
-} from "../copyTrading/variables/columnsData";
+import { columnsLeaderBoard } from "../copyTrading/variables/columnsData";
 import BasicCard from "components/card/BasicCard";
 import Dialog from "components/dialog/Dialog";
 import apiInstance from "constants/api";
@@ -56,6 +48,7 @@ export default function LeaderBoard() {
   };
 
   useEffect(() => {
+    setAuthToken(localStorage.getItem("jwt"));
     dispatch(
       getLeaderboardsData({
         searchCriteria: {
@@ -95,11 +88,10 @@ export default function LeaderBoard() {
   const getCapital = async () => {
     const { data } = await apiInstance.post(`${PRO_RISE.getCapitalPercent}`);
     setCapitalPercent(data?.defaultCapitalPercent);
-  }
-
+  };
 
   const onCopy = async (e) => {
-    getCapital()
+    getCapital();
     setFilterData(data?.filter((item) => item?.encryptedUid === e));
     onOpen();
     setId(e);

@@ -139,6 +139,22 @@ export default function TradersCard(props) {
              formattedData
             /> */}
 
+            <LineAreaChart
+              chartData={[
+                {
+                  name: "",
+                  data: props?.textvalue2?.includes("-")
+                    ? [0, 0]
+                    : [props?.textvalue1, props?.textvalue2],
+                  color: props?.textvalue2?.includes("-")
+                    ? textColorCountNegative
+                    : "#28bce0",
+                },
+              ]}
+              chartOptions={lineChartOptionsCard}
+              height={props?.textvalue2?.includes("-") ? "40%" : "50%"}
+            />
+            {/* 
             <ReactApexChart
               options={lineChartOptionsCard} // Aapke options object
               series={[
@@ -154,7 +170,7 @@ export default function TradersCard(props) {
               ]}
               type="line"
               height={props?.textvalue2?.includes("-") ? "40%" : "50%"}
-            />
+            /> */}
           </Flex>
         </Flex>
       </Flex>

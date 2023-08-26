@@ -89,15 +89,6 @@ export default function DailyTraffic(props) {
               Préférence 30 jours
             </Text>
           </Flex>
-          {!currentPositions?.length ? (
-            <Center h={200}>
-              <Text fontSize={20}>
-                No data Found
-                <br />
-                <br />
-              </Text>
-            </Center>
-          ) : null}
           {!exchangeConnection && !traderDetail && (
             <Center h={200}>
               <Text fontSize={20}>

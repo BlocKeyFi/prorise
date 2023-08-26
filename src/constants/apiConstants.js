@@ -27,6 +27,6 @@ export const PRO_RISE = {
   forgotPasswordRequest: "user/forgotPasswordRequest",
   resetPassword: "user/resetPassword",
   getUserPerformanceAnalytics: "user/getUserPerformanceAnalytics",
-  getRefralHistory: "getRefralHistory",
+  getRefralHistory: "user/getRefralHistory",
   portalSession: "payment/create-portal-session",
 };

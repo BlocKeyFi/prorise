@@ -282,14 +282,16 @@ function Login() {
                   onClick={index === 0 ? googleLogin : appleLogin}
                   cursor={"pointer"}
                 >
-                  {item.icon ? (
-                    <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
+                  <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
+
+                  {/* {item.icon ? (
+                  <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
                   ) : (
                     <img
                       src={require(`assets/img/svg/${item.title}.svg`)}
                       alt="title"
                     />
-                  )}
+                  )} */}
                 </Center>
               </Flex>
             ))}

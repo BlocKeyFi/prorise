@@ -295,11 +295,13 @@ function Register() {
                     lineHeight="100%"
                     borderRadius="16px"
                   >
+                    <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
+                    {/* 
                     {item.icon ? (
                       <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
                     ) : (
                       <img src={require(`assets/img/svg/${item.title}.svg`)} />
-                    )}
+                    )} */}
                   </Center>
                 </Flex>
               ))}
@@ -340,7 +342,7 @@ function Register() {
             mb={{ base: "20px", md: "auto" }}
             alignItems="center"
           >
-            {plans?.slice(0,3)?.map((item, index) => (
+            {plans?.slice(0, 3)?.map((item, index) => (
               <PriceCard
                 id={++index}
                 heading={item?.name}

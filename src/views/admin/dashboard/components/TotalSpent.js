@@ -285,7 +285,7 @@ export default function TotalSpent(props) {
               {"Valeur 30 jours"}
             </Text>
           </Flex>
-          <ReactApexChart
+          {/* <ReactApexChart
             options={lineChartOptionsTotalSpent} // Aapke options object
             series={[
               {
@@ -296,6 +296,15 @@ export default function TotalSpent(props) {
             type="line"
             width="100%"
             height="100%"
+          /> */}
+          <LineAreaChart
+            chartData={[
+              {
+                name: "Closed",
+                data: finalData,
+              },
+            ]}
+            chartOptions={lineChartOptionsTotalSpent}
           />
         </Box>
       </Flex>

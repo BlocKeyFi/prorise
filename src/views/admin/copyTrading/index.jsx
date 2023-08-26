@@ -49,6 +49,7 @@ export default function Settings() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    setAuthToken(localStorage.getItem("jwt"));
     if (exchangeConnection) {
       dispatch(
         getOpenPositions({
