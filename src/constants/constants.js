@@ -138,10 +138,10 @@ export const authButtons = [
   //   title: "facbook",
   //   icon: "",
   // },
-  {
-    title: "apple",
-    icon: "",
-  },
+  // {
+  //   title: "apple",
+  //   icon: "",
+  // },
 ];
 
 export const connetions = [

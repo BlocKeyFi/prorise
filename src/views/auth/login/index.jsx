@@ -32,7 +32,6 @@ import { useEffect } from "react";
 import { PRO_RISE } from "constants/apiConstants";
 import apiInstance from "constants/api";
 
-
 function Login() {
   // ProRIse color mode
   const textColor = useColorModeValue("white", "white");
@@ -58,8 +57,8 @@ function Login() {
   };
 
   const onGoogleLogin = async (token) => {
-    console.log(" google auth response --->> ", token)
-    token = token?.access_token
+    console.log(" google auth response --->> ", token);
+    token = token?.access_token;
     const response = await dispatch(
       userLogin({
         google_access_token: token ?? "",
@@ -105,12 +104,15 @@ function Login() {
 
   const onSubmit = async (e) => {
     try {
-      const { data } = await apiInstance.post(`${PRO_RISE.forgotPasswordRequest}`, { email: forgotEmail });
+      const { data } = await apiInstance.post(
+        `${PRO_RISE.forgotPasswordRequest}`,
+        { email: forgotEmail }
+      );
       setSuccess(data?.success);
     } catch (error) {
       toast.error(error);
     }
-   
+
     setForgotEmail("");
   };
 
@@ -278,11 +280,15 @@ function Login() {
                   lineHeight="100%"
                   borderRadius="16px"
                   onClick={index === 0 ? googleLogin : appleLogin}
+                  cursor={"pointer"}
                 >
                   {item.icon ? (
                     <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
                   ) : (
-                    <img src={require(`assets/img/svg/${item.title}.svg`)} alt="title" />
+                    <img
+                      src={require(`assets/img/svg/${item.title}.svg`)}
+                      alt="title"
+                    />
                   )}
                 </Center>
               </Flex>
