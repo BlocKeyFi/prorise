@@ -20,9 +20,8 @@ import { useState } from "react";
 import { getClosedTrades } from "store/actions";
 
 export default function Dashboard() {
-  const { currentPositions, exchangeConnection, closedPositions } = useSelector(
-    (state) => state?.exchange
-  );
+  const { currentPositions, exchangeConnection, closedPositions, isLoading } =
+    useSelector((state) => state?.exchange);
 
   const [balance, setBalance] = useState(0);
   const [analytics, setAnalytics] = useState({});
@@ -136,6 +135,7 @@ export default function Dashboard() {
             pieHeight={"80%"}
             currentPositions={currentPositions}
             exchangeConnection={exchangeConnection}
+            isLoading={isLoading}
           />
         </GridItem>
         <GridItem colSpan={4}>

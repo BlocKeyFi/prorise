@@ -22,6 +22,7 @@ export default function DailyTraffic(props) {
     currentPositions,
     traderDetail,
     exchangeConnection,
+    isLoading,
     ...rest
   } = props;
 
@@ -71,150 +72,149 @@ export default function DailyTraffic(props) {
           </Flex>
         </Flex>
       </Flex>
-      <Box h="290px" mt="8">
-        <Flex w="100%" gap={2}>
-          <img src={present} />
-          <Text
-            textAlign={"left"}
-            color="gray.200"
-            fontSize="sm"
-            fontWeight="500"
-          >
-            Préférence 30 jours
-          </Text>
-        </Flex>
-        {traderDetail && !currentPositions?.length && (
-          <Center h={200}>
-            <Text fontSize={20}>
-              No data Found
-              <br />
-              <br />
+      {isLoading ? (
+        <Center height={"286px"} mt="8">
+          <Spinner size="xl" />
+        </Center>
+      ) : (
+        <Box h="286px" mt="8">
+          <Flex w="100%" gap={2}>
+            <img src={present} />
+            <Text
+              textAlign={"left"}
+              color="gray.200"
+              fontSize="sm"
+              fontWeight="500"
+            >
+              Préférence 30 jours
             </Text>
-          </Center>
-        )}
-        {!exchangeConnection && !traderDetail && (
-          <Center h={200}>
-            <Text fontSize={20}>
-              No Connection Found
-              <br />
-              <br />
-              <Link to="/admin/setting" style={{ width: "100%" }}>
-                <Button
-                  fontSize="16px"
-                  variant="brand"
-                  fontWeight="500"
-                  w={"100%"}
-                  h="35px"
-                  bg="#0075FF"
-                  borderRadius="10px"
-                  _hover={{ bg: "#0075FF" }}
-                  textAlign={"center"}
-                  gap={2}
-                >
-                  {"Build Connection"}
-                </Button>
-              </Link>
-            </Text>
-          </Center>
-        )}
-        {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
+          </Flex>
+          {!currentPositions?.length ? (
+            <Center h={200}>
+              <Text fontSize={20}>
+                No data Found
+                <br />
+                <br />
+              </Text>
+            </Center>
+          ) : null}
+          {!exchangeConnection && !traderDetail && (
+            <Center h={200}>
+              <Text fontSize={20}>
+                No Connection Found
+                <br />
+                <br />
+                <Link to="/admin/setting" style={{ width: "100%" }}>
+                  <Button
+                    fontSize="16px"
+                    variant="brand"
+                    fontWeight="500"
+                    w={"100%"}
+                    h="35px"
+                    bg="#0075FF"
+                    borderRadius="10px"
+                    _hover={{ bg: "#0075FF" }}
+                    textAlign={"center"}
+                    gap={2}
+                  >
+                    {"Build Connection"}
+                  </Button>
+                </Link>
+              </Text>
+            </Center>
+          )}
+          {currentPositions && (
+            <>
+              {exchangeConnection && (
+                <ReactApexChart
+                  series={finalPercentages ?? []}
+                  options={options ?? {}}
+                  height={"95%"}
+                  type="donut"
+                />
+              )}
+              {traderDetail && (
+                // <Flex>
+                //   <svg viewBox="0 0 400 400">
+                //     <VictoryPie
+                //       padAngle={({ datum }) => 1}
+                //       cornerRadius={({ datum }) => 45}
+                //       // colorScale={["gray", "gray", "gray", "gray", "gray"]}
+                //       standalone={false}
+                //       width={200}
+                //       height={200}
+                //       data={mergedArray}
+                //       radius={100}
+                //       innerRadius={85}
+                //       // labelRadius={88}
+                //       style={{
+                //         data: {
+                //           // fillOpacity: 0.9, stroke: "#2cd9ff", strokeWidth: 3
+                //         },
+                //       }}
+                //       events={[
+                //         {
+                //           target: "data",
+                //           eventHandlers: {
+                //             onMouseOver: (event, props) => {
+                //               console.log(props);
+                //               return [
+                //                 {
+                //                   target: "data",
+                //                   mutation: ({ style }) => {
+                //                     return style.fill === "#2cd9ff"
+                //                       ? null
+                //                       : { style: { fill: "#2cd9ff" } };
+                //                   },
+                //                 },
+                //               ];
+                //             },
+                //             onMouseOut: () => {
+                //               return [
+                //                 {
+                //                   target: "data",
+                //                   mutation: ({ style }) => {
+                //                     return null;
+                //                   },
+                //                 },
+                //               ];
+                //             },
+                //           },
+                //         },
+                //       ]}
+                //     />
+                //     <VictoryLabel
+                //       textAnchor="middle"
+                //       style={{ fontSize: 20 }}
+                //       x={100}
+                //       y={100}
+                //       text="text here"
+                //     />
+                //   </svg>
+                //   dasdasd
+                // </Flex>
 
-        {currentPositions && (
-          <>
-            {exchangeConnection && (
-              <ReactApexChart
-                series={finalPercentages ?? []}
-                options={options ?? {}}
-                height={"95%"}
-                type="donut"
-              />
-            )}
-            {traderDetail && (
-              // <Flex>
-              //   <svg viewBox="0 0 400 400">
-              //     <VictoryPie
-              //       padAngle={({ datum }) => 1}
-              //       cornerRadius={({ datum }) => 45}
-              //       // colorScale={["gray", "gray", "gray", "gray", "gray"]}
-              //       standalone={false}
-              //       width={200}
-              //       height={200}
-              //       data={mergedArray}
-              //       radius={100}
-              //       innerRadius={85}
-              //       // labelRadius={88}
-              //       style={{
-              //         data: {
-              //           // fillOpacity: 0.9, stroke: "#2cd9ff", strokeWidth: 3
-              //         },
-              //       }}
-              //       events={[
-              //         {
-              //           target: "data",
-              //           eventHandlers: {
-              //             onMouseOver: (event, props) => {
-              //               console.log(props);
-              //               return [
-              //                 {
-              //                   target: "data",
-              //                   mutation: ({ style }) => {
-              //                     return style.fill === "#2cd9ff"
-              //                       ? null
-              //                       : { style: { fill: "#2cd9ff" } };
-              //                   },
-              //                 },
-              //               ];
-              //             },
-              //             onMouseOut: () => {
-              //               return [
-              //                 {
-              //                   target: "data",
-              //                   mutation: ({ style }) => {
-              //                     return null;
-              //                   },
-              //                 },
-              //               ];
-              //             },
-              //           },
-              //         },
-              //       ]}
-              //     />
-              //     <VictoryLabel
-              //       textAnchor="middle"
-              //       style={{ fontSize: 20 }}
-              //       x={100}
-              //       y={100}
-              //       text="text here"
-              //     />
-              //   </svg>
-              //   dasdasd
-              // </Flex>
-
-              // <VictoryPie
-              //   cornerRadius={({ datum }) => datum.y * 50}
-              //   data={[
-              //     { x: 1, y: 2, label: "one" },
-              //     { x: 2, y: 3, label: "two" },
-              //     { x: 3, y: 5, label: "three" },
-              //   ]}
-              //   padAngle={({ datum }) => datum.y}
-              //   innerRadius={120}
-              // />
-              <ReactApexChart
-                series={finalPercentages ?? []}
-                options={options ?? {}}
-                height={"95%"}
-                type="donut"
-              />
-            )}
-          </>
-        )}
-        {/* // ) : (
-        //   <Center height={200}>
-        //     <Spinner size="xl" />
-        //   </Center>
-        // )} */}
-      </Box>
+                // <VictoryPie
+                //   cornerRadius={({ datum }) => datum.y * 50}
+                //   data={[
+                //     { x: 1, y: 2, label: "one" },
+                //     { x: 2, y: 3, label: "two" },
+                //     { x: 3, y: 5, label: "three" },
+                //   ]}
+                //   padAngle={({ datum }) => datum.y}
+                //   innerRadius={120}
+                // />
+                <ReactApexChart
+                  series={finalPercentages ?? []}
+                  options={options ?? {}}
+                  height={"95%"}
+                  type="donut"
+                />
+              )}
+            </>
+          )}
+        </Box>
+      )}
     </Card>
   );
 }

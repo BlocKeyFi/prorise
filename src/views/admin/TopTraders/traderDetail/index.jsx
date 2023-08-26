@@ -37,6 +37,7 @@ export default function TraderDetails() {
 
   const [capitalPercent, setCapitalPercent] = useState(null);
   const [balance, setBalance] = useState(0);
+  const [traderFollow, setTraderFollow] = useState("Copier");
 
   const { id } = useParams();
 
@@ -47,6 +48,14 @@ export default function TraderDetails() {
         encryptedUid: id,
       })
     );
+
+    apiInstance
+      .post(`${PRO_RISE.isTraderFollowedByUser}`, {
+        encryptedUid: id,
+      })
+      .then((res) => {
+        setTraderFollow(res?.data?.traderFollow ? "unFolllow" : "Copier");
+      });
   }, [id]);
 
   const refresh = () => {
@@ -71,35 +80,15 @@ export default function TraderDetails() {
   const updatedButtonArray = useMemo(() => {
     const newButtonArray = [...buttonArray]; // Create a copy of the original buttonArray
 
-    const fetchData = async () => {
-      try {
-        const { data } = await apiInstance.post(
-          `${PRO_RISE.isTraderFollowedByUser}`,
-          {
-            encryptedUid: id,
-          }
-        );
+    buttonArray[2].title = traderFollow;
 
-        if (data.traderFollow) {
-          newButtonArray[2].title = "unFolllow";
-        } else {
-          newButtonArray[2].title = "Copier";
-        }
-        // toast.success("Successfully Follow This Trades List");
-      } catch (error) {
-        toast.error(error.message);
-      }
-    };
-
-    fetchData();
-
-    if (filterData[0]?.favorite) {
+    if (filterData[0]?.favourite) {
       newButtonArray[1].title = "Supprimer des favoris";
     } else {
       newButtonArray[1].title = "Ajouter aux favoris";
     }
     return newButtonArray; // Return the updated buttonArray
-  }, [filterData]);
+  }, [filterData, traderFollow]);
 
   const onSubmit = async () => {
     const params = {
@@ -110,6 +99,7 @@ export default function TraderDetails() {
     try {
       await apiInstance.post(`${PRO_RISE.followTrader}`, params);
       toast.success("Successfully Follow This Trades List");
+      setTraderFollow("unFolllow");
       onClose();
       dispatch(
         getLeaderboardsData({
@@ -175,6 +165,7 @@ export default function TraderDetails() {
           encryptedUid: id,
         });
         toast.success(` Successfully unFolllow Trade`);
+        setTraderFollow("Copier");
         dispatch(
           getLeaderboardsData({
             searchCriteria: {
