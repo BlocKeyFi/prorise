@@ -44,10 +44,10 @@ export default function DailyTraffic(props) {
     parseFloat(value?.toFixed(6))
   );
 
-  const mergedArray = symbolsArray.map((symbol, index) => ({
-    x: percentages[index],
-    y: percentages[index],
-  }));
+  // const mergedArray = symbolsArray.map((symbol, index) => ({
+  //   x: percentages[index],
+  //   y: percentages[index],
+  // }));
 
   return (
     <Card
@@ -119,7 +119,7 @@ export default function DailyTraffic(props) {
         )}
         {/* <Box border={"1px solid black"}>{renderSteps()}</Box> */}
 
-        {currentPositions ? (
+        {currentPositions && (
           <>
             {exchangeConnection && (
               <ReactApexChart
@@ -208,11 +208,12 @@ export default function DailyTraffic(props) {
               />
             )}
           </>
-        ) : (
-          <Center height={200}>
-            <Spinner size="xl" />
-          </Center>
         )}
+        {/* // ) : (
+        //   <Center height={200}>
+        //     <Spinner size="xl" />
+        //   </Center>
+        // )} */}
       </Box>
     </Card>
   );
