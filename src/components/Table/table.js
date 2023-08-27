@@ -38,6 +38,7 @@ import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
+import { FiExternalLink } from "react-icons/fi";
 
 export default function GlobalTable(props) {
   const { columnsData, tableData, p, isLoading, onCopy } = props;
@@ -189,11 +190,15 @@ export default function GlobalTable(props) {
                       } else if (cell.column.Header === "ROI") {
                         data = (
                           <Text
-                            color={cell?.value < 0 ? "red" : "green.300"}
+                            color={
+                              cell?.value <= 0 || !cell.value
+                                ? "red"
+                                : "green.300"
+                            }
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {cell.value ? cell.value + " " + "%" : "-"}
                           </Text>
                         );
                       } else if (cell.column.Header === "LEVIER") {
@@ -244,32 +249,24 @@ export default function GlobalTable(props) {
                         data = (
                           <Text
                             color={
+                              cell?.row?.original?.roe ||
                               cell?.row?.original?.avgPrice ||
-                              cell?.row?.original?.closedPnl
-                                ? cell?.row?.original?.avgPrice?.includes(
-                                    "-"
-                                  ) ||
-                                  cell?.row?.original?.closedPnl?.includes("-")
-                                  ? "red"
-                                  : "green.300"
-                                : cell?.row?.original?.roe
-                                    ?.toString()
-                                    ?.includes("-")
+                              (cell?.row?.original?.closedPnl &&
+                                cell?.row?.original?.roe <= 0) ||
+                              cell?.row?.original?.avgPrice <= 0 ||
+                              cell?.row?.original?.closedPnl <= 0
                                 ? "red"
                                 : "green.300"
                             }
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell?.row?.original?.avgPrice ||
-                            cell?.row?.original?.closedPnl
-                              ? cell?.row?.original?.avgPrice?.includes("-") ||
-                                cell?.row?.original?.closedPnl?.includes("-")
-                                ? "Loss"
-                                : "Profit"
-                              : cell?.row?.original?.roe
-                                  ?.toString()
-                                  .includes("-")
+                            {cell?.row?.original?.roe ||
+                            cell?.row?.original?.avgPrice ||
+                            (cell?.row?.original?.closedPnl &&
+                              cell?.row?.original?.roe <= 0) ||
+                            cell?.row?.original?.avgPrice <= 0 ||
+                            cell?.row?.original?.closedPnl <= 0
                               ? "Loss"
                               : "Profit"}
                           </Text>
@@ -338,6 +335,41 @@ export default function GlobalTable(props) {
                             />
                             {"Copier"}
                           </Button>
+                        );
+                      } else if (cell.column.Header === "REDIRECT") {
+                        data = (
+                          <Link to={`/admin/trader-detail/${cell?.value}`}>
+                            <Button
+                              fontSize={{
+                                "2xl": "16px",
+                                xl: "12px",
+                                lg: "12px",
+                                md: "12px",
+                                sm: "10px",
+                              }}
+                              variant="brand"
+                              fontWeight="600"
+                              w={"auto"}
+                              h="35px"
+                              display="flex"
+                              bg={"#0075FF"}
+                              borderRadius="6px"
+                              textAlign={"left"}
+                              gap={2}
+                              disabled={!cell?.value}
+                            >
+                              <Icon
+                                as={FiExternalLink}
+                                fontSize={{
+                                  "2xl": "20px",
+                                  xl: "16px",
+                                  lg: "16px",
+                                  md: "16px",
+                                  sm: "10px",
+                                }}
+                              />
+                            </Button>
+                          </Link>
                         );
                       }
                       return (

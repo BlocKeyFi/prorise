@@ -20,9 +20,11 @@ import present from "../../../../assets/img/dashboards/svgIcon/presentation-char
 import { generateDayWiseTimeSeries } from "utils/utils";
 import { formatDate } from "utils/utils";
 import ReactApexChart from "react-apexcharts";
+import moment from "moment/moment";
 
 export default function TotalSpent(props) {
-  const { balance, data, analytics, traderDetail, ...rest } = props;
+  const { balance, data, analytics, traderDetail, walletHistory, ...rest } =
+    props;
   const analyticsKeyValueArray = Object.entries(analytics ?? {});
 
   // ProRIse Color Mode
@@ -71,10 +73,10 @@ export default function TotalSpent(props) {
       curve: "smooth",
     },
     xaxis: {
-      type: "string",
+      type: walletHistory ? "datetime" : "string",
       labels: {
         formatter: function (value) {
-          return formatDate(value);
+          return moment(value).format("MMM DD");
         },
         style: {
           colors: "#A3AED0",
@@ -109,33 +111,16 @@ export default function TotalSpent(props) {
     },
   };
 
-  // const closedPnlValues = data?.map((data) => parseFloat(data?.closedPnl));
-  // const time = data?.map((data) => parseFloat(data?.createdTime));
-
-  // console.log(closedPnlValues);
-
-  // const minClosedPnl = closedPnlValues?.length && Math.min(...closedPnlValues);
-  // const maxClosedPnl = closedPnlValues?.length && Math.max(...closedPnlValues);
-
-  // console.log("Minimum closedPnl:", minClosedPnl);
-  // console.log("Maximum closedPnl:", maxClosedPnl);
-
-  // console.log(generateData);
-
-  // const finalData = generateData?.map((point) => ({
-  //   x: formatDate(point.x),
-  //   y: point.y,
-  // }));
-  // const generateData = generateDayWiseTimeSeries(time, data?.length, {
-  //   min: minClosedPnl,
-  //   max: maxClosedPnl,
-  // });
-
   const finalData = data?.map((item) => ({
     x: new Date(
       parseInt(traderDetail ? item?.updateTimeStamp : item?.createdTime)
     ),
     y: parseFloat(traderDetail ? item?.pnl : item?.closedPnl).toFixed(0),
+  }));
+
+  const walletHistoryData = walletHistory?.map((item) => ({
+    x: new Date(parseInt(item?.time)),
+    y: parseFloat(item?.walletBalance).toFixed(0),
   }));
 
   return (
@@ -301,7 +286,7 @@ export default function TotalSpent(props) {
             chartData={[
               {
                 name: "Closed",
-                data: finalData,
+                data: walletHistory ? walletHistoryData : finalData,
               },
             ]}
             chartOptions={lineChartOptionsTotalSpent}

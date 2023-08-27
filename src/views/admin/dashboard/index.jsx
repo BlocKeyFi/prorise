@@ -25,6 +25,7 @@ export default function Dashboard() {
 
   const [balance, setBalance] = useState(0);
   const [analytics, setAnalytics] = useState({});
+  const [walletHistory, setWalletHistory] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -51,6 +52,10 @@ export default function Dashboard() {
           exchange: exchangeConnection,
         })
       );
+
+      await apiInstance.post(`${PRO_RISE.getWalletHistory}`).then((resp) => {
+        setWalletHistory(resp?.data?.history);
+      });
     } else {
       setBalance(0);
     }
@@ -117,6 +122,7 @@ export default function Dashboard() {
             heading="Portefeuille"
             design={1}
             balance={exchangeConnection ? balance ?? 0 : 0}
+            walletHistory={walletHistory}
           />
         </GridItem>
         <GridItem

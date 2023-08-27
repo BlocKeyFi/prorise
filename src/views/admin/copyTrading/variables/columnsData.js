@@ -27,6 +27,10 @@ export const columnsDataActiveTrades = [
     Header: "STATUS",
     accessor: "short",
   },
+  {
+    Header: "REDIRECT",
+    accessor: "encryptedUid",
+  },
 ];
 
 export const columnsCopyTrade = [
