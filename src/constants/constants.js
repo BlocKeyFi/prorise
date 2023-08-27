@@ -33,10 +33,10 @@ export const TradersCardData = Array.from({ length: 5 }, () => ({
 }));
 
 export const buttonArray = [
-  {
-    title: "Partager",
-    icon: IoShareSharp,
-  },
+  // {
+  //   title: "Partager",
+  //   icon: IoShareSharp,
+  // },
   {
     title: "Ajouter aux favoris",
     icon: MdStar,

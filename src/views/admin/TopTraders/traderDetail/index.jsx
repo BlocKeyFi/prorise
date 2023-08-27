@@ -80,12 +80,12 @@ export default function TraderDetails() {
   const updatedButtonArray = useMemo(() => {
     const newButtonArray = [...buttonArray]; // Create a copy of the original buttonArray
 
-    buttonArray[2].title = traderFollow;
+    buttonArray[1].title = traderFollow;
 
     if (filterData[0]?.favourite) {
-      newButtonArray[1].title = "Supprimer des favoris";
+      newButtonArray[0].title = "Supprimer des favoris";
     } else {
-      newButtonArray[1].title = "Ajouter aux favoris";
+      newButtonArray[0].title = "Ajouter aux favoris";
     }
     return newButtonArray; // Return the updated buttonArray
   }, [filterData, traderFollow]);
