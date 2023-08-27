@@ -102,6 +102,10 @@ export const columnsDataTradeHistory = [
     Header: "DATE DE SORTIE",
     accessor: "updatedTime",
   },
+  {
+    Header: "REDIRECT",
+    accessor: "encryptedUid",
+  },
 ];
 
 export const columnsDataSponsorship = [

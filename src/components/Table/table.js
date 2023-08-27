@@ -249,24 +249,24 @@ export default function GlobalTable(props) {
                         data = (
                           <Text
                             color={
-                              cell?.row?.original?.roe ||
-                              cell?.row?.original?.avgPrice ||
-                              (cell?.row?.original?.closedPnl &&
-                                cell?.row?.original?.roe <= 0) ||
-                              cell?.row?.original?.avgPrice <= 0 ||
-                              cell?.row?.original?.closedPnl <= 0
+                              (cell?.row?.original?.roe ||
+                                cell?.row?.original?.avgPrice ||
+                                cell?.row?.original?.closedPnl) &&
+                              (cell?.row?.original?.roe <= 0 ||
+                                cell?.row?.original?.avgPrice <= 0 ||
+                                cell?.row?.original?.closedPnl <= 0)
                                 ? "red"
                                 : "green.300"
                             }
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell?.row?.original?.roe ||
-                            cell?.row?.original?.avgPrice ||
-                            (cell?.row?.original?.closedPnl &&
-                              cell?.row?.original?.roe <= 0) ||
-                            cell?.row?.original?.avgPrice <= 0 ||
-                            cell?.row?.original?.closedPnl <= 0
+                            {(cell?.row?.original?.roe ||
+                              cell?.row?.original?.avgPrice ||
+                              cell?.row?.original?.closedPnl) &&
+                            (cell?.row?.original?.roe <= 0 ||
+                              cell?.row?.original?.avgPrice <= 0 ||
+                              cell?.row?.original?.closedPnl <= 0)
                               ? "Loss"
                               : "Profit"}
                           </Text>
