@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 // ProRIse imports
 import {
+  Avatar,
   Box,
   Flex,
   Grid,
@@ -30,13 +31,16 @@ export default function Profile() {
   const textColorSecondary = useColorModeValue("gray.200", "gray.200");
   const { login } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
 
   const [userDetail, setUserDetail] = useState({ ...login?.user });
   const [password, setPassword] = useState({
     password: "",
     newPassword: "",
   });
+
+  const [userImage, setUserImage] = useState(user);
 
   const updateData = async () => {
     const requiredFields = ["firstName", "lastName", "phoneNumber", "email"];
@@ -55,7 +59,6 @@ export default function Profile() {
           }
         }
       }
-
     } else {
       const extractedData = {
         firstName: userDetail?.firstName,
@@ -67,14 +70,13 @@ export default function Profile() {
         `${PRO_RISE.updateUserInfo}`,
         extractedData
       );
-      dispatch(updateUser(data?.data))
+      dispatch(updateUser(data?.data));
       toast.success(data?.message);
     }
   };
 
   const onChangePassword = async () => {
     if (password.password && password.newPassword) {
-
       const { data } = await apiInstance.post(
         `${PRO_RISE.changePassword}`,
         password
@@ -84,11 +86,34 @@ export default function Profile() {
         setPassword({
           password: "",
           newPassword: "",
-        })
-      }else{
+        });
+      } else {
         toast.error(data?.msg);
       }
     }
+  };
+
+  const uploadImage = (e) => {
+    const selectedImage = e.target.files[0];
+    if (selectedImage && selectedImage.size <= 5242880) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Image = reader.result;
+        setUserImage(base64Image);
+        apiInstance
+          .post(`${PRO_RISE.uploadProfilePicture}`, {
+            picBase64: base64Image,
+            ext: e.target.files[0].type,
+          })
+          .then((res) => res)
+          .catch((error) => toast.error(error.message));
+      };
+      reader.readAsDataURL(selectedImage);
+    }
+  };
+
+  const handleClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -106,7 +131,14 @@ export default function Profile() {
             textAlign={"left"}
             gap={5}
           >
-            <img src={user} />
+            <Avatar src={userImage} onClick={handleClick} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={uploadImage}
+              ref={fileInputRef}
+              style={{ display: "none" }}
+            />
             <Heading color={textColor} fontSize="20px">
               {"Photo de profil"}
               <Text

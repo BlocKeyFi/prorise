@@ -30,4 +30,5 @@ export const PRO_RISE = {
   getRefralHistory: "user/getRefralHistory",
   portalSession: "payment/create-portal-session",
   getWalletHistory: "user/getWalletHistory",
+  uploadProfilePicture: "user/uploadProfilePicture",
 };
