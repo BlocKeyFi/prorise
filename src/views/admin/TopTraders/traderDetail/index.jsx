@@ -37,7 +37,6 @@ export default function TraderDetails() {
 
   const [capitalPercent, setCapitalPercent] = useState(null);
   const [balance, setBalance] = useState(0);
-  const [traderFollow, setTraderFollow] = useState("Copier");
 
   const { id } = useParams();
 
@@ -81,7 +80,7 @@ export default function TraderDetails() {
     const newButtonArray = [...buttonArray]; // Create a copy of the original buttonArray
 
     if (filterData[0]?.isfollowed) {
-      newButtonArray[1].title = "unFolllow";
+      newButtonArray[1].title = "unFollow";
     } else {
       newButtonArray[1].title = "Copier";
     }
@@ -92,7 +91,7 @@ export default function TraderDetails() {
       newButtonArray[0].title = "Ajouter aux favoris";
     }
     return newButtonArray; // Return the updated buttonArray
-  }, [filterData, traderFollow]);
+  }, [filterData]);
 
   const onSubmit = async () => {
     const params = {
@@ -103,7 +102,6 @@ export default function TraderDetails() {
     try {
       await apiInstance.post(`${PRO_RISE.followTrader}`, params);
       toast.success("Successfully Follow This Trades List");
-      setTraderFollow("unFolllow");
       onClose();
       dispatch(
         getLeaderboardsData({
@@ -163,7 +161,7 @@ export default function TraderDetails() {
         );
     }
 
-    if (e === "unFolllow") {
+    if (e === "unFollow") {
       try {
         await apiInstance.post(`${PRO_RISE.unfollowTrader}`, {
           encryptedUid: id,
