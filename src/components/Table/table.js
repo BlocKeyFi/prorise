@@ -39,6 +39,7 @@ import {
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
+import { AiOutlineCheck } from "react-icons/ai";
 
 export default function GlobalTable(props) {
   const { columnsData, tableData, p, isLoading, onCopy } = props;
@@ -198,7 +199,7 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value ? cell.value + " " + "%" : "-"}
+                            {cell.value ? `${cell?.value} %` : "-"}
                           </Text>
                         );
                       } else if (cell.column.Header === "LEVIER") {
@@ -300,7 +301,17 @@ export default function GlobalTable(props) {
                           </Flex>
                         );
                       } else if (cell.column.Header === "ACTION") {
-                        data = (
+                        data = cell?.row?.original?.isfollowed ? (
+                          <Flex
+                            display={"flex"}
+                            gap={2}
+                            alignItems={"center"}
+                            px={4}
+                          >
+                            <Icon as={AiOutlineCheck} />
+                            {"Copie"}
+                          </Flex>
+                        ) : (
                           <Button
                             fontSize={{
                               "2xl": "16px",

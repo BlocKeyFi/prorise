@@ -49,13 +49,13 @@ export default function TraderDetails() {
       })
     );
 
-    apiInstance
-      .post(`${PRO_RISE.isTraderFollowedByUser}`, {
-        encryptedUid: id,
-      })
-      .then((res) => {
-        setTraderFollow(res?.data?.traderFollow ? "unFolllow" : "Copier");
-      });
+    // apiInstance
+    //   .post(`${PRO_RISE.isTraderFollowedByUser}`, {
+    //     encryptedUid: id,
+    //   })
+    //   .then((res) => {
+    //     setTraderFollow(res?.data?.traderFollow ? "unFolllow" : "Copier");
+    //   });
   }, [id]);
 
   const refresh = () => {
@@ -80,7 +80,11 @@ export default function TraderDetails() {
   const updatedButtonArray = useMemo(() => {
     const newButtonArray = [...buttonArray]; // Create a copy of the original buttonArray
 
-    buttonArray[1].title = traderFollow;
+    if (filterData[0]?.isfollowed) {
+      newButtonArray[1].title = "unFolllow";
+    } else {
+      newButtonArray[1].title = "Copier";
+    }
 
     if (filterData[0]?.favourite) {
       newButtonArray[0].title = "Supprimer des favoris";
@@ -165,7 +169,6 @@ export default function TraderDetails() {
           encryptedUid: id,
         });
         toast.success(` Successfully unFolllow Trade`);
-        setTraderFollow("Copier");
         dispatch(
           getLeaderboardsData({
             searchCriteria: {
