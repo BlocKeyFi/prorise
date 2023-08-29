@@ -31,7 +31,7 @@ import {
 import { timeConverter } from "utils/utils";
 import { CLOSE } from "constants/constants";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import copy from "../../assets/img/dashboards/svgIcon/copy-fill.svg";
 import {
@@ -48,6 +48,8 @@ export default function GlobalTable(props) {
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
+
+  const history = useHistory();
 
   const tableInstance = useTable(
     {
@@ -349,38 +351,41 @@ export default function GlobalTable(props) {
                         );
                       } else if (cell.column.Header === "REDIRECT") {
                         data = (
-                          <Link to={`/admin/trader-detail/${cell?.value}`}>
-                            <Button
+                          <Button
+                            fontSize={{
+                              "2xl": "16px",
+                              xl: "12px",
+                              lg: "12px",
+                              md: "12px",
+                              sm: "10px",
+                            }}
+                            variant="brand"
+                            fontWeight="600"
+                            w={"auto"}
+                            h="35px"
+                            display="flex"
+                            bg={"#0075FF"}
+                            borderRadius="6px"
+                            textAlign={"left"}
+                            gap={2}
+                            disabled={!cell?.value}
+                            onClick={() =>
+                              history.push(
+                                `/admin/trader-detail/${cell?.value}`
+                              )
+                            }
+                          >
+                            <Icon
+                              as={FiExternalLink}
                               fontSize={{
-                                "2xl": "16px",
-                                xl: "12px",
-                                lg: "12px",
-                                md: "12px",
+                                "2xl": "20px",
+                                xl: "16px",
+                                lg: "16px",
+                                md: "16px",
                                 sm: "10px",
                               }}
-                              variant="brand"
-                              fontWeight="600"
-                              w={"auto"}
-                              h="35px"
-                              display="flex"
-                              bg={"#0075FF"}
-                              borderRadius="6px"
-                              textAlign={"left"}
-                              gap={2}
-                              disabled={!cell?.value}
-                            >
-                              <Icon
-                                as={FiExternalLink}
-                                fontSize={{
-                                  "2xl": "20px",
-                                  xl: "16px",
-                                  lg: "16px",
-                                  md: "16px",
-                                  sm: "10px",
-                                }}
-                              />
-                            </Button>
-                          </Link>
+                            />
+                          </Button>
                         );
                       }
                       return (

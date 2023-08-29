@@ -29,7 +29,7 @@ export const columnsDataActiveTrades = [
   },
   {
     Header: "REDIRECT",
-    accessor: "encryptedUid",
+    accessor: "trader",
   },
 ];
 
@@ -104,7 +104,7 @@ export const columnsDataTradeHistory = [
   },
   {
     Header: "REDIRECT",
-    accessor: "encryptedUid",
+    accessor: "trader",
   },
 ];
 
