@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // ProRIse imports
 import { Box, Button, Center, Flex, Spinner, Text } from "@chakra-ui/react";
@@ -15,6 +15,7 @@ import PieChart from "components/charts/PieChart";
 import { pieChartOptions } from "variables/charts";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import ReactApexChart from "react-apexcharts";
+import "./style.css";
 
 export default function DailyTraffic(props) {
   const {
@@ -26,14 +27,12 @@ export default function DailyTraffic(props) {
     ...rest
   } = props;
 
-  const symbolsArray = currentPositions
-    ?.slice(0, 7)
-    ?.map((item) => item?.symbol);
+  const symbolsArray = currentPositions?.map((item) => item?.symbol);
   const options = pieChartOptions(symbolsArray);
 
-  const sizesArray = currentPositions
-    ?.slice(0, 7)
-    ?.map((item) => (traderDetail ? item?.roe : item?.size));
+  const sizesArray = currentPositions?.map((item) =>
+    traderDetail ? item?.roe : item?.size
+  );
   const numericValues = sizesArray?.map((value) => parseFloat(value));
 
   // Calculate total sum of values
@@ -42,13 +41,36 @@ export default function DailyTraffic(props) {
   // Calculate percentages
   const percentages = numericValues?.map((value) => (value / totalSum) * 100);
   const finalPercentages = percentages?.map((value) =>
-    parseFloat(value?.toFixed(6))
+    parseFloat(value?.toFixed(2))
   );
 
-  // const mergedArray = symbolsArray.map((symbol, index) => ({
-  //   x: percentages[index],
-  //   y: percentages[index],
-  // }));
+  const allmergedArray = symbolsArray?.map((symbol, index) => ({
+    x: finalPercentages[index],
+    y: symbolsArray[index],
+  }));
+
+  const mergedObject = allmergedArray
+    ?.reduce(
+      (result, current) => {
+        const existingIndex = result.findIndex((item) => item.y === current.y);
+
+        if (existingIndex !== -1) {
+          result[existingIndex].x += parseFloat(current.x);
+        } else {
+          result.push({ y: current.y, x: parseFloat(current.x) });
+        }
+
+        return result;
+      },
+      [allmergedArray]
+    )
+    .map((item) => ({ ...item, x: parseFloat(item?.x?.toFixed(2)) }));
+
+  const [middleText, setMiddleText] = useState(
+    allmergedArray[0].y + " " + allmergedArray[0].x + "%"
+  );
+
+  const mergedArray = mergedObject?.slice(1);
 
   return (
     <Card
@@ -117,90 +139,207 @@ export default function DailyTraffic(props) {
           {currentPositions && (
             <>
               {exchangeConnection && (
-                <ReactApexChart
-                  series={finalPercentages ?? []}
-                  options={options ?? {}}
-                  height={"95%"}
-                  type="donut"
-                />
+                <>
+                  <Flex
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                    mt={5}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="240"
+                      height="240"
+                      viewBox="0 0 207 208"
+                      fill="none"
+                    >
+                      <circle
+                        cx="100"
+                        cy="100"
+                        r="100"
+                        fill="black"
+                        fill-opacity="0.4"
+                      />
+                      <VictoryPie
+                        padAngle={({ datum }) => 1}
+                        cornerRadius={({ datum }) => 45}
+                        colorScale={["#A0AEC0"]}
+                        standalone={false}
+                        width={200}
+                        height={200}
+                        data={mergedArray}
+                        radius={90}
+                        innerRadius={75}
+                        labelComponent={<></>}
+                        events={[
+                          {
+                            target: "data",
+                            eventHandlers: {
+                              onClick: (event, props) => {
+                                const updatedData = mergedArray?.filter(
+                                  (datum, index) => index === props.index
+                                );
+                                setMiddleText(
+                                  updatedData[0].y +
+                                    " " +
+                                    updatedData[0].x +
+                                    "%"
+                                );
+                              },
+                            },
+                          },
+                        ]}
+                      />
+
+                      <VictoryLabel
+                        textAnchor="middle"
+                        style={{
+                          fontSize: 16,
+                          fill: "white",
+                        }}
+                        x={100}
+                        y={100}
+                        text={middleText}
+                      />
+                    </svg>
+
+                    <Box h={200} w={200} className="overflow">
+                      <Flex direction={"column"} textAlign={"left"} gap={4}>
+                        {mergedArray?.map((item) => {
+                          return (
+                            <Flex gap={4}>
+                              <Text
+                                fontSize={18}
+                                fontWeight={700}
+                                color={
+                                  middleText.includes(item.y)
+                                    ? "aqua"
+                                    : "#A0AEC0"
+                                }
+                                cursor={"pointer"}
+                                onClick={() =>
+                                  setMiddleText(item.y + " " + item.x + "%")
+                                }
+                              >
+                                {item?.y}
+                              </Text>
+                              <Text
+                                fontSize={18}
+                                fontWeight={700}
+                                color={"white"}
+                              >
+                                {item.x.toFixed(2) + "%"}
+                              </Text>
+                            </Flex>
+                          );
+                        })}
+                      </Flex>
+                    </Box>
+                  </Flex>
+                </>
+                // <ReactApexChart
+                //   series={finalPercentages ?? []}
+                //   options={options ?? {}}
+                //   height={"95%"}
+                //   type="donut"
+                // />
               )}
               {traderDetail && (
-                // <Flex>
-                //   <svg viewBox="0 0 400 400">
-                //     <VictoryPie
-                //       padAngle={({ datum }) => 1}
-                //       cornerRadius={({ datum }) => 45}
-                //       // colorScale={["gray", "gray", "gray", "gray", "gray"]}
-                //       standalone={false}
-                //       width={200}
-                //       height={200}
-                //       data={mergedArray}
-                //       radius={100}
-                //       innerRadius={85}
-                //       // labelRadius={88}
-                //       style={{
-                //         data: {
-                //           // fillOpacity: 0.9, stroke: "#2cd9ff", strokeWidth: 3
-                //         },
-                //       }}
-                //       events={[
-                //         {
-                //           target: "data",
-                //           eventHandlers: {
-                //             onMouseOver: (event, props) => {
-                //               console.log(props);
-                //               return [
-                //                 {
-                //                   target: "data",
-                //                   mutation: ({ style }) => {
-                //                     return style.fill === "#2cd9ff"
-                //                       ? null
-                //                       : { style: { fill: "#2cd9ff" } };
-                //                   },
-                //                 },
-                //               ];
-                //             },
-                //             onMouseOut: () => {
-                //               return [
-                //                 {
-                //                   target: "data",
-                //                   mutation: ({ style }) => {
-                //                     return null;
-                //                   },
-                //                 },
-                //               ];
-                //             },
-                //           },
-                //         },
-                //       ]}
-                //     />
-                //     <VictoryLabel
-                //       textAnchor="middle"
-                //       style={{ fontSize: 20 }}
-                //       x={100}
-                //       y={100}
-                //       text="text here"
-                //     />
-                //   </svg>
-                //   dasdasd
-                // </Flex>
-
-                // <VictoryPie
-                //   cornerRadius={({ datum }) => datum.y * 50}
-                //   data={[
-                //     { x: 1, y: 2, label: "one" },
-                //     { x: 2, y: 3, label: "two" },
-                //     { x: 3, y: 5, label: "three" },
-                //   ]}
-                //   padAngle={({ datum }) => datum.y}
-                //   innerRadius={120}
+                // <ReactApexChart
+                //   series={finalPercentages ?? []}
+                //   options={options ?? {}}
+                //   height={"95%"}
+                //   type="donut"
                 // />
-                <ReactApexChart
-                  series={finalPercentages ?? []}
-                  options={options ?? {}}
-                  height={"95%"}
-                  type="donut"
-                />
+                <Flex
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                  mt={5}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="240"
+                    height="240"
+                    viewBox="0 0 207 208"
+                    fill="none"
+                  >
+                    <circle
+                      cx="100"
+                      cy="100"
+                      r="100"
+                      fill="black"
+                      fill-opacity="0.4"
+                    />
+                    <VictoryPie
+                      padAngle={({ datum }) => 1}
+                      cornerRadius={({ datum }) => 45}
+                      colorScale={["#A0AEC0"]}
+                      standalone={false}
+                      width={200}
+                      height={200}
+                      data={mergedArray}
+                      radius={90}
+                      innerRadius={75}
+                      labelComponent={<></>}
+                      events={[
+                        {
+                          target: "data",
+                          eventHandlers: {
+                            onClick: (event, props) => {
+                              const updatedData = mergedArray.filter(
+                                (datum, index) => index === props.index
+                              );
+                              setMiddleText(
+                                updatedData[0].y + " " + updatedData[0].x + "%"
+                              );
+                            },
+                          },
+                        },
+                      ]}
+                    />
+
+                    <VictoryLabel
+                      textAnchor="middle"
+                      style={{
+                        fontSize: 16,
+                        fill: "white",
+                      }}
+                      x={100}
+                      y={100}
+                      text={middleText}
+                    />
+                  </svg>
+
+                  <Box h={200} w={200} className="overflow">
+                    <Flex direction={"column"} textAlign={"left"} gap={4}>
+                      {mergedArray?.map((item) => {
+                        return (
+                          <Flex gap={4}>
+                            <Text
+                              fontSize={18}
+                              fontWeight={700}
+                              color={
+                                middleText.includes(item.y) ? "aqua" : "#A0AEC0"
+                              }
+                              cursor={"pointer"}
+                              onClick={() =>
+                                setMiddleText(item.y + " " + item.x + "%")
+                              }
+                            >
+                              {item.y}
+                            </Text>
+                            <Text
+                              fontSize={18}
+                              fontWeight={700}
+                              color={"white"}
+                            >
+                              {item.x + "%"}
+                            </Text>
+                          </Flex>
+                        );
+                      })}
+                    </Flex>
+                  </Box>
+                </Flex>
               )}
             </>
           )}

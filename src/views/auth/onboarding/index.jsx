@@ -22,7 +22,7 @@ import playIcon from "../../../assets/img/onboarding/Vector.png";
 
 import PriceCard from "./components/priceCard";
 import InputFeild from "components/fields/InputField";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -40,12 +40,16 @@ import {
 } from "constants/constants";
 import { setAuthToken } from "constants/api";
 import { authButtons } from "constants/constants";
+import { useGoogleLogin } from "@react-oauth/google";
+import { userLogin } from "store/actions";
 
 function Register() {
   // ProRIse color mode
   const textColor = useColorModeValue("white", "white");
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("#A0AEC0", "gray.200");
+
+  const dispatch = useDispatch();
 
   const { login } = useSelector((state) => state.user);
 
@@ -120,6 +124,24 @@ function Register() {
           toast.error(ALREADY_UESR);
         }
       }
+    }
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse),
+  });
+
+  const onGoogleLogin = async (token) => {
+    token = token?.access_token;
+    const response = await dispatch(
+      userLogin({
+        google_access_token: token ?? "",
+      })
+    ).unwrap();
+    if (response?.user?.currentSubscription) {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/auth/onboarding");
     }
   };
 
@@ -294,6 +316,7 @@ function Register() {
                     h="64px"
                     lineHeight="100%"
                     borderRadius="16px"
+                    onClick={googleLogin}
                   >
                     <Icon as={item.icon} w="35px" h="auto" color="gray.400" />
                     {/* 

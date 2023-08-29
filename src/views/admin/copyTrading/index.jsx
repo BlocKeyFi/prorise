@@ -101,15 +101,17 @@ export default function Settings() {
               gap={3}
             >
               Mes trades
-              {/* <Center
-                w="20px"
-                h="20px"
+              <Center
+                w="23px"
+                h="23px"
                 bg="green.300"
                 color="black"
-                borderRadius={10}
+                borderRadius={50}
+                fontSize={14}
+                fontWeight={800}
               >
-                3
-              </Center> */}
+                {currentPositions?.length}
+              </Center>
             </Tab>
             <Tab
               _selected={{ color: "white", bg: "rgba(255, 255, 255, 0.08)" }}

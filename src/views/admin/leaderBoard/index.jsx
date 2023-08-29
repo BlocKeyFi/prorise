@@ -24,7 +24,7 @@ export default function LeaderBoard() {
   const [capitalPercent, setCapitalPercent] = useState(null);
   const [id, setId] = useState(null);
   const [filterData, setFilterData] = useState([]);
-
+  const [balance, setBalance] = useState(0);
   const [itemOffset, setItemOffset] = useState(1);
 
   const [search, setSearch] = useState("");
@@ -88,6 +88,15 @@ export default function LeaderBoard() {
   const getCapital = async () => {
     const { data } = await apiInstance.post(`${PRO_RISE.getCapitalPercent}`);
     setCapitalPercent(data?.defaultCapitalPercent);
+    apiInstance
+      .post(`${PRO_RISE.getWalletBalance}`, {
+        symbol: "USDT",
+      })
+      .then((res) =>
+        setBalance(
+          res?.data?.balance ? parseFloat(res?.data?.balance)?.toFixed(1) : 0
+        )
+      );
   };
 
   const onCopy = async (e) => {
@@ -192,6 +201,7 @@ export default function LeaderBoard() {
         connection={false}
         filterData={filterData[0] ?? {}}
         btnText={"Copier"}
+        balance={balance}
       />
     </Box>
   );
