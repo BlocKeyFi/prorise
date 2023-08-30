@@ -122,7 +122,7 @@ export default function Dashboard() {
             heading="Portefeuille"
             design={1}
             balance={exchangeConnection ? balance ?? 0 : 0}
-            walletHistory={walletHistory}
+            walletHistory={walletHistory ?? []}
           />
         </GridItem>
         <GridItem

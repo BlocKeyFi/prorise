@@ -6,6 +6,7 @@ import {
   Flex,
   Image,
   SimpleGrid,
+  Spinner,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -282,6 +283,7 @@ export default function TotalSpent(props) {
             width="100%"
             height="100%"
           /> */}
+
           <LineAreaChart
             chartData={[
               {
