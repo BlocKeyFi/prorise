@@ -12,6 +12,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Text,
 } from "@chakra-ui/react";
 
 // Custom components
@@ -214,7 +215,7 @@ export default function SponsorShip() {
                     />
                   </InputGroup>
                 </Center>
-                Copiez votre lien
+                <Text onClick={copyValue}>Copiez votre lien</Text>
               </Flex>
             </Flex>
           </BasicCard>

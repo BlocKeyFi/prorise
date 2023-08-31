@@ -202,13 +202,23 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {console.log(cell?.row?.original?.closedPnl)}
                             {(cell?.row?.original?.roi &&
                               cell?.row?.original?.roi) ||
                               (cell?.row?.original?.unrealisedPnl &&
-                                `${cell?.row?.original?.unrealisedPnl} %`) ||
+                                `${
+                                  Math.round(
+                                    parseFloat(
+                                      cell?.row?.original?.unrealisedPnl
+                                    ) * 100
+                                  ) / 100
+                                } %`) ||
                               (cell?.row?.original?.closedPnl &&
-                                `${cell?.row?.original?.closedPnl} %`) ||
+                                `${
+                                  Math.round(
+                                    parseFloat(cell?.row?.original?.closedPnl) *
+                                      100
+                                  ) / 100
+                                } %`) ||
                               (cell?.row?.original?.roe &&
                                 cell?.row?.original?.roe)}
                           </Text>
@@ -360,41 +370,43 @@ export default function GlobalTable(props) {
                             {"Copier"}
                           </Button>
                         );
-                      } else if (cell.column.Header === "REDIRECT") {
+                      } else if (cell.column.Header === "VOIR LE TRADER") {
                         data = (
-                          <Button
-                            fontSize={{
-                              "2xl": "16px",
-                              xl: "12px",
-                              lg: "12px",
-                              md: "12px",
-                              sm: "10px",
-                            }}
-                            variant="brand"
-                            fontWeight="600"
-                            w={"auto"}
-                            h="35px"
-                            bg={"#0075FF"}
-                            borderRadius="6px"
-                            gap={2}
-                            disabled={!cell?.value}
-                            onClick={() =>
-                              history.push(
-                                `/admin/trader-detail/${cell?.value}`
-                              )
-                            }
-                          >
-                            <Icon
-                              as={FiExternalLink}
+                          <Center>
+                            <Button
                               fontSize={{
-                                "2xl": "20px",
-                                xl: "16px",
-                                lg: "16px",
-                                md: "16px",
+                                "2xl": "16px",
+                                xl: "12px",
+                                lg: "12px",
+                                md: "12px",
                                 sm: "10px",
                               }}
-                            />
-                          </Button>
+                              variant="brand"
+                              fontWeight="600"
+                              w={"auto"}
+                              h="35px"
+                              bg={"#0075FF"}
+                              borderRadius="6px"
+                              gap={2}
+                              disabled={!cell?.value}
+                              onClick={() =>
+                                history.push(
+                                  `/admin/trader-detail/${cell?.value}`
+                                )
+                              }
+                            >
+                              <Icon
+                                as={FiExternalLink}
+                                fontSize={{
+                                  "2xl": "20px",
+                                  xl: "16px",
+                                  lg: "16px",
+                                  md: "16px",
+                                  sm: "10px",
+                                }}
+                              />
+                            </Button>
+                          </Center>
                         );
                       }
                       return (

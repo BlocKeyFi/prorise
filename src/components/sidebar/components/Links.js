@@ -9,6 +9,7 @@ import {
   HStack,
   Text,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
@@ -20,7 +21,7 @@ export function SidebarLinks(props) {
   let activeIcon = useColorModeValue("brand.500", "white");
   let textColor = useColorModeValue("gary.200", "#A0AEC0");
 
-  const { routes } = props;
+  const { routes, onClose } = props;
 
   const { login } = useSelector((state) => state.user);
 
@@ -80,7 +81,7 @@ export function SidebarLinks(props) {
         return (
           <NavLink key={index} to={route.layout + route.path}>
             {route.icon ? (
-              <Box>
+              <Box onClick={onClose}>
                 <HStack
                   spacing={
                     activeRoute(route.path.toLowerCase()) ? "22px" : "26px"

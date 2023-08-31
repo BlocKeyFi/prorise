@@ -205,7 +205,13 @@ export default function DailyTraffic(props) {
                         return (
                           <Flex gap={4}>
                             <Text
-                              fontSize={18}
+                              fontSize={{
+                                "2xl": 18,
+                                xl: 14,
+                                lg: 12,
+                                md: 18,
+                                sm: 18,
+                              }}
                               fontWeight={700}
                               color={
                                 middleText.includes(item.y) ? "aqua" : "#A0AEC0"
@@ -218,7 +224,13 @@ export default function DailyTraffic(props) {
                               {item?.y}
                             </Text>
                             <Text
-                              fontSize={18}
+                              fontSize={{
+                                "2xl": 18,
+                                xl: 14,
+                                lg: 12,
+                                md: 18,
+                                sm: 18,
+                              }}
                               fontWeight={700}
                               color={"white"}
                             >
@@ -298,11 +310,11 @@ export default function DailyTraffic(props) {
                       return (
                         <Flex gap={4}>
                           <Text
-                            fontSize={18}
-                            fontWeight={700}
+                            fontSize={"12px"}
+                            // fontWeight={700}
                             color={
                               middleText.includes(item.y)
-                                ? "linear-gradient(180deg, #29C5EE 0%, rgba(41, 197, 238, 0.40) 100%);"
+                                ? "linear-gradient(180deg, #29C5EE 0%, rgba(41, 197, 238, 0.40) 100%)"
                                 : "#A0AEC0"
                             }
                             cursor={"pointer"}
@@ -312,7 +324,11 @@ export default function DailyTraffic(props) {
                           >
                             {item.y}
                           </Text>
-                          <Text fontSize={18} fontWeight={700} color={"white"}>
+                          <Text
+                            fontSize={"12px"}
+                            // fontWeight={700}
+                            color={"white"}
+                          >
                             {item.x + "%"}
                           </Text>
                         </Flex>

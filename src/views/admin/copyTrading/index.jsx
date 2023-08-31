@@ -148,7 +148,7 @@ export default function Settings() {
       </Flex>
       {tabIndex === 0 && !isLoading && (
         <SimpleGrid
-          columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 4 }}
+          columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 5 }}
           gap="20px"
           mb="20px"
         >
@@ -222,7 +222,7 @@ export default function Settings() {
 
       {tabIndex === 3 && (
         <SimpleGrid
-          columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 4 }}
+          columns={{ base: 2, md: 2, lg: 3, xl: 3, sm: 1, "2xl": 5 }}
           gap="20px"
           mb="20px"
         >

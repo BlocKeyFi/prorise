@@ -28,7 +28,7 @@ export const columnsDataActiveTrades = [
     accessor: "short",
   },
   {
-    Header: "REDIRECT",
+    Header: "VOIR LE TRADER",
     accessor: "trader",
   },
 ];
@@ -103,7 +103,7 @@ export const columnsDataTradeHistory = [
     accessor: "updatedTime",
   },
   {
-    Header: "REDIRECT",
+    Header: "VOIR LE TRADER",
     accessor: "trader",
   },
 ];

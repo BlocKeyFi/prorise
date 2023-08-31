@@ -106,27 +106,29 @@ export default function AdminNavbar(props) {
               : brandText}
           </Text>
         </Box>
-        <Box ms="auto" w={{ sm: "10%", md: "unset" }}>
+
+        <Flex alignItems={"center"} ms="auto">
+          <NavLink to="/admin/setting">
+            <Center
+              bg={
+                window.location.pathname === "/admin/setting" &&
+                "rgba(160, 174, 192, 0.04)"
+              }
+              _hover={"rgba(160, 174, 192, 0.04)"}
+              w="64px"
+              h="64px"
+              lineHeight="100%"
+              borderRadius="16px"
+            >
+              <img
+                src={require(`assets/img/dashboards/svgIcon/Frame 427319644.png`)}
+              />
+            </Center>
+          </NavLink>
           <SidebarResponsive routes={routes} />
-        </Box>
+        </Flex>
       </Flex>
-      <NavLink to="/admin/setting">
-        <Center
-          bg={
-            window.location.pathname === "/admin/setting" &&
-            "rgba(160, 174, 192, 0.04)"
-          }
-          _hover={"rgba(160, 174, 192, 0.04)"}
-          w="64px"
-          h="64px"
-          lineHeight="100%"
-          borderRadius="16px"
-        >
-          <img
-            src={require(`assets/img/dashboards/svgIcon/Frame 427319644.png`)}
-          />
-        </Center>
-      </NavLink>
+
       {/* {secondary ? (
         <Text color="white">{message}</Text>
       ) : (

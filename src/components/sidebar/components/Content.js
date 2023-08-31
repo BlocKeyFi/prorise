@@ -15,7 +15,7 @@ import { store } from "store/store";
 
 function SidebarContent(props) {
   const dispatch = useDispatch();
-  const { routes } = props;
+  const { routes, onClose } = props;
 
   const handleLogout = () => {
     dispatch(logout());
@@ -28,7 +28,7 @@ function SidebarContent(props) {
       <Brand />
       <Stack direction="column" mb="auto" mt="2px">
         <Box ps="20px" pe={{ md: "16px", "2xl": "1px" }}>
-          <Links routes={routes} />
+          <Links routes={routes} onClose={onClose} />
           <Box cursor={"pointer"} onClick={handleLogout}>
             <HStack py="15px" ps="10px" borderRadius={"12px"}>
               <Flex w="100%" alignItems="center" justifyContent="center">
@@ -38,8 +38,8 @@ function SidebarContent(props) {
                     sx={{ fontSize: 23, cursor: "pointer" }}
                   />
                 </Box>
-                <Text me="auto" textTransform={"capitalize"}>
-                  {"Logout"}
+                <Text me="auto" textTransform={"capitalize"} color={"#A0AEC0"}>
+                  {"Déconnexion"}
                 </Text>
               </Flex>
             </HStack>

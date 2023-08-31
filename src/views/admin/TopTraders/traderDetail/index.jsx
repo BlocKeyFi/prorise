@@ -1,7 +1,14 @@
 import React, { useMemo, useState } from "react";
 
 // ProRIse imports
-import { Box, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Grid,
+  GridItem,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import BasicCard from "components/card/BasicCard";
 import { buttonArray } from "constants/constants";
@@ -213,25 +220,33 @@ export default function TraderDetails() {
         exchangeConnection={exchangeConnection}
       >
         {tabIndex === 2 && (
-          <Grid
-            templateRows="repeat(1, 1fr)"
-            templateColumns="repeat(3, 1fr)"
-            gap={2}
-          >
-            <GridItem colSpan={2}>
-              <TotalSpent
-                design={2}
-                data={traderHistory ?? []}
-                traderDetail={true}
-              />
-            </GridItem>
-            <GridItem colSpan={1}>
-              <DailyTraffic
-                currentPositions={traderHistory ?? []}
-                traderDetail={true}
-              />
-            </GridItem>
-          </Grid>
+          <>
+            {traderHistory.length ? (
+              <Grid
+                templateRows="repeat(1, 1fr)"
+                templateColumns="repeat(3, 1fr)"
+                gap={2}
+              >
+                <GridItem colSpan={2}>
+                  <TotalSpent
+                    design={2}
+                    data={traderHistory ?? []}
+                    traderDetail={true}
+                  />
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <DailyTraffic
+                    currentPositions={traderHistory ?? []}
+                    traderDetail={true}
+                  />
+                </GridItem>
+              </Grid>
+            ) : (
+              <Center>
+                <Text fontSize={30}>{"No Data Found"}</Text>
+              </Center>
+            )}
+          </>
         )}
       </BasicCard>
       <Dialog
