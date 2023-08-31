@@ -48,11 +48,11 @@ export default function TotalSpent(props) {
         show: false,
       },
     },
-    colors: ["#2CD9FF", "#2CD9FF"],
+    colors: ["#29C5EE", "#29C5EE"],
     markers: {
       size: 0,
       colors: "white",
-      strokeColors: "#2CD9FF",
+      strokeColors: "#29C5EE",
       strokeWidth: 3,
       strokeOpacity: 20,
       strokeDashArray: 0,

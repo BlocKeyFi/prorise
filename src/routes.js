@@ -25,6 +25,7 @@ import SendVerification from "views/auth/verification/sendVerification";
 import Leaderboard from "./assets/img/dashboards/svgIcon/presentation-chart-1.svg";
 import LeaderBoard from "views/admin/leaderBoard";
 import ForgotPassword from "views/auth/forgotPassword";
+import Support from "views/admin/support";
 
 const routes = [
   {
@@ -92,7 +93,7 @@ const routes = [
     layout: "/admin",
     path: "/support",
     icon: <img src={support} />,
-    component: MainDashboard,
+    component: Support,
     primary: true,
   },
   {

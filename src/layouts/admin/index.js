@@ -11,10 +11,7 @@ import routes from "routes.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
-import { getRefralLink } from "store/actions";
-import apiInstance from "constants/api";
-import { PRO_RISE } from "constants/apiConstants";
-import { currentlyExchangeConnected } from "store/actions";
+
 import { setAuthToken } from "constants/api";
 
 // Custom Chakra theme
@@ -24,7 +21,6 @@ export default function Dashboard(props) {
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const { auth } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const history = useHistory();
 
   if (!auth) {

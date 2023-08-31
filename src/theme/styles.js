@@ -1,4 +1,5 @@
 import { mode } from "@chakra-ui/theme-tools";
+import background from "assets/img/Background.png";
 export const globalStyles = {
   colors: {
     brand: {
@@ -81,21 +82,27 @@ export const globalStyles = {
     },
     purpul: {
       100: "rgba(255, 255, 255, 0.08)",
-      200: "rgba(0, 0, 0, 0.4);",
+      200: "rgba(0, 0, 0, 0.4)",
     },
   },
   styles: {
     global: (props) => ({
       body: {
         overflowX: "hidden",
-        bg: mode(
-          "radial-gradient(circle at 65% 100%, rgba(17, 74, 172, 1) 0%, rgba(39, 34, 115, 1) 43%, rgba(18, 18, 47, 1) 100%)",
-          "radial-gradient(circle at 65% 100%, rgba(17, 74, 172, 1) 0%, rgba(39, 34, 115, 1) 43%, rgba(18, 18, 47, 1) 100%)"
-        )(props),
+        // bg: mode(
+        //   "radial-gradient(circle at 55% 100%, rgba(17, 74, 172, 1) 50%, rgba(39, 34, 115, 1) 43%, rgba(18, 18, 47, 1) 100%)",
+        //   "radial-gradient(circle at 55% 100%, rgba(17, 74, 172, 1) 50%, rgba(39, 34, 115, 1) 43%, rgba(18, 18, 47, 1) 100%)"
+        // )(props),
+
+        backgroundImage: `url(${background})`,
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
         fontFamily: "Urbanist",
         letterSpacing: "-0.5px",
       },
-      
+
       input: {
         color: "gray.700",
       },
@@ -108,7 +115,6 @@ export const globalStyles = {
       table: {
         fontFamily: "Urbanist",
       },
-    
     }),
   },
 };

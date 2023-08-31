@@ -17,7 +17,7 @@ export const columnsDataActiveTrades = [
   },
   {
     Header: "ROI",
-    accessor: "liqPrice",
+    accessor: "unrealisedPnl",
   },
   {
     Header: "LEVIER",

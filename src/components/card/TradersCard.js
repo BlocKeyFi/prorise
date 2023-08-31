@@ -38,123 +38,123 @@ export default function TradersCard(props) {
   });
 
   return (
-    <Card
-      justifyContent="center"
-      align="center"
-      direction="column"
-      w="100%"
-      mb="0px"
-      {...rest}
-      // p="10"
-    >
-      <Flex justify="space-between" direction={"column"} textAlign={"left"}>
-        <Flex align="center">
-          <Flex justifyContent="center" alignItems="center" gap={5}>
-            <Avatar
-              h={{ base: "48px", xl: "36px", "2xl": "48px" }}
-              w={{ base: "48px", xl: "36px", "2xl": "48px" }}
-              src={props?.image}
-            />
-            <Flex direction="column" align="start">
-              <Text
-                color={textColor}
-                fontSize={{ base: "md", xl: "sm", "3xl": "md" }}
-                fontWeight="700"
-              >
-                {props?.heading}
-              </Text>
-              <Text
-                color="secondaryGray.600"
-                textAlign="left"
-                fontSize={{ base: "sm", xl: "xs", "3xl": "sm" }}
-                fontWeight="400"
-              >
-                {daysAgo}
-              </Text>
+    <Link to={`/admin/trader-detail/${props?.id}`}>
+      <Card
+        justifyContent="center"
+        align="center"
+        direction="column"
+        w="100%"
+        mb="0px"
+        {...rest}
+      >
+        <Flex justify="space-between" direction={"column"} textAlign={"left"}>
+          <Flex align="center">
+            <Flex justifyContent="center" alignItems="center" gap={5}>
+              <Avatar
+                h={{ base: "48px", xl: "36px", "2xl": "48px" }}
+                w={{ base: "48px", xl: "36px", "2xl": "48px" }}
+                src={props?.image}
+              />
+              <Flex direction="column" align="start">
+                <Text
+                  color={textColor}
+                  fontSize={{ base: "md", xl: "sm", "3xl": "md" }}
+                  fontWeight="700"
+                >
+                  {props?.heading?.replaceAll("Anonymous", "")}
+                </Text>
+                <Text
+                  color="secondaryGray.600"
+                  textAlign="left"
+                  fontSize={{ base: "sm", xl: "xs", "3xl": "sm" }}
+                  fontWeight="400"
+                >
+                  {daysAgo}
+                </Text>
+              </Flex>
+              {props?.icon && <img src={star} />}
             </Flex>
-            {props?.icon && <img src={star} />}
           </Flex>
         </Flex>
-      </Flex>
-      <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
-        <Flex direction={"row"} w="100%" mt="28px" justify="space-between">
-          <Flex direction={"column"} w="100%" gap={1}>
-            <Flex direction={"row"} w="100%" gap={1}>
-              <img src={present} />
+        <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
+          <Flex direction={"row"} w="100%" mt="28px" justify="space-between">
+            <Flex direction={"column"} w="100%" gap={1}>
+              <Flex direction={"row"} w="100%" gap={1}>
+                <img src={present} />
+                <Text
+                  color={textColorSecondary}
+                  fontSize={{
+                    "2xl": "13px",
+                    xl: "11px",
+                    lg: "12px",
+                    md: "14px",
+                    sm: "12px",
+                  }}
+                  textAlign="start"
+                  lineHeight="100%"
+                  fontWeight="600"
+                >
+                  {props?.text1}
+                </Text>
+              </Flex>
               <Text
-                color={textColorSecondary}
-                fontSize={{
-                  "2xl": "13px",
-                  xl: "11px",
-                  lg: "12px",
-                  md: "14px",
-                  sm: "12px",
-                }}
+                color={
+                  props?.textvalue1?.includes("-")
+                    ? textColorCountNegative
+                    : textColorCount
+                }
+                fontSize={{ xl: "26px", lg: "26px", md: "26px", sm: "20px" }}
                 textAlign="start"
-                lineHeight="100%"
                 fontWeight="600"
+                py={"5"}
               >
-                {props?.text1}
-              </Text>
-            </Flex>
-            <Text
-              color={
-                props?.textvalue1?.includes("-")
-                  ? textColorCountNegative
-                  : textColorCount
-              }
-              fontSize={{ xl: "26px", lg: "26px", md: "26px", sm: "20px" }}
-              textAlign="start"
-              fontWeight="600"
-              py={"5"}
-            >
-              {props?.textvalue1}
-            </Text>
-          </Flex>
-
-          <Flex direction={"column"} w="100%">
-            <Flex direction={"row"} w="100%" gap={1} justifyContent={"end"}>
-              <img src={present} />
-              <Text
-                color={textColorSecondary}
-                fontSize={{
-                  "2xl": "13px",
-                  xl: "11px",
-                  lg: "12px",
-                  md: "14px",
-                  sm: "12px",
-                }}
-                textAlign="end"
-                lineHeight="100%"
-                fontWeight="600"
-              >
-                {props?.text2}
+                {props?.textvalue1}
               </Text>
             </Flex>
 
-            {/* {props?.textvalue2} */}
-            {/* <LineAreaChart
+            <Flex direction={"column"} w="100%">
+              <Flex direction={"row"} w="100%" gap={1} justifyContent={"end"}>
+                <img src={present} />
+                <Text
+                  color={textColorSecondary}
+                  fontSize={{
+                    "2xl": "13px",
+                    xl: "11px",
+                    lg: "12px",
+                    md: "14px",
+                    sm: "12px",
+                  }}
+                  textAlign="end"
+                  lineHeight="100%"
+                  fontWeight="600"
+                >
+                  {props?.text2}
+                </Text>
+              </Flex>
+
+              {/* {props?.textvalue2} */}
+              {/* <LineAreaChart
               chartData={lineChartDataCard}
               chartOptions={lineChartOptionsCard}
              formattedData
             /> */}
 
-            <LineAreaChart
-              chartData={[
-                {
-                  name: "",
-                  data: props?.textvalue2?.includes("-")
-                    ? [0, 0]
-                    : [props?.textvalue1, props?.textvalue2],
-                  color: props?.textvalue2?.includes("-")
-                    ? textColorCountNegative
-                    : "#28bce0",
-                },
-              ]}
-              chartOptions={lineChartOptionsCard}
-              height={props?.textvalue2?.includes("-") ? "40%" : "50%"}
-            />
-            {/* 
+              <LineAreaChart
+                chartData={[
+                  {
+                    name: "",
+                    data: props?.textvalue2?.includes("-")
+                      ? [0, 0]
+                      : [props?.textvalue1, props?.textvalue2],
+                    color: props?.textvalue2?.includes("-")
+                      ? textColorCountNegative
+                      : "#28bce0",
+                  },
+                ]}
+                chartOptions={lineChartOptionsCard}
+                height={props?.textvalue2?.includes("-") ? "40%" : "50%"}
+              />
+              {/* 
             <ReactApexChart
               options={lineChartOptionsCard} // Aapke options object
               series={[
@@ -171,48 +171,49 @@ export default function TradersCard(props) {
               type="line"
               height={props?.textvalue2?.includes("-") ? "40%" : "50%"}
             /> */}
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
-      <Flex direction={"row"} justify="space-between">
-        <Flex direction={"column"} w="100%" gap={1}>
-          <Text
-            color={textColor}
-            fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "14px" }}
-            textAlign="start"
-            lineHeight="100%"
-            fontWeight="600"
-          >
-            {props?.copyCount + " " + "personnes"}
-          </Text>
-          <Text
-            color={textColorSecondary}
-            fontSize={{ xl: "12px", lg: "12px", md: "12px", sm: "10px" }}
-            textAlign="start"
-            lineHeight="100%"
-            fontWeight="400"
-          >
-            {"ont copié ce trade"}
-          </Text>
+        <Flex direction={"row"} justify="space-between">
+          <Flex direction={"column"} w="100%" gap={1}>
+            <Text
+              color={textColor}
+              fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "14px" }}
+              textAlign="start"
+              lineHeight="100%"
+              fontWeight="600"
+            >
+              {props?.copyCount + " " + "personnes"}
+            </Text>
+            <Text
+              color={textColorSecondary}
+              fontSize={{ xl: "12px", lg: "12px", md: "12px", sm: "10px" }}
+              textAlign="start"
+              lineHeight="100%"
+              fontWeight="400"
+            >
+              {"ont copié ce trade"}
+            </Text>
+          </Flex>
+          <Link to={`/admin/trader-detail/${props?.id}`}>
+            <Button
+              fontSize="16px"
+              variant="brand"
+              fontWeight="500"
+              w={"100%"}
+              h="35px"
+              bg={props?.isCopy ? "none" : "#0075FF"}
+              borderRadius="10px"
+              _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
+              textAlign={"left"}
+              gap={2}
+            >
+              <img src={props?.isCopy ? check : copy} width={15} height={15} />
+              {props?.isCopy ? "Copié" : props?.btnText}
+            </Button>
+          </Link>
         </Flex>
-        <Link to={`/admin/trader-detail/${props?.id}`}>
-          <Button
-            fontSize="16px"
-            variant="brand"
-            fontWeight="500"
-            w={"100%"}
-            h="35px"
-            bg={props?.isCopy ? "none" : "#0075FF"}
-            borderRadius="10px"
-            _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
-            textAlign={"left"}
-            gap={2}
-          >
-            <img src={props?.isCopy ? check : copy} width={15} height={15} />
-            {props?.isCopy ? "Copié" : props?.btnText}
-          </Button>
-        </Link>
-      </Flex>
-    </Card>
+      </Card>
+    </Link>
   );
 }

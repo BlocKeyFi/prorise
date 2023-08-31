@@ -120,6 +120,7 @@ export default function GlobalTable(props) {
                         md: "12px",
                         sm: "10px",
                       }}
+                      font-weight={400}
                       border={"none"}
                     >
                       {column.render("Header")}
@@ -201,7 +202,15 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value ? `${cell?.value} %` : "-"}
+                            {console.log(cell?.row?.original?.closedPnl)}
+                            {(cell?.row?.original?.roi &&
+                              cell?.row?.original?.roi) ||
+                              (cell?.row?.original?.unrealisedPnl &&
+                                `${cell?.row?.original?.unrealisedPnl} %`) ||
+                              (cell?.row?.original?.closedPnl &&
+                                `${cell?.row?.original?.closedPnl} %`) ||
+                              (cell?.row?.original?.roe &&
+                                cell?.row?.original?.roe)}
                           </Text>
                         );
                       } else if (cell.column.Header === "LEVIER") {
@@ -211,7 +220,7 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {cell.value + "X"}
                           </Text>
                         );
                       } else if (
@@ -254,10 +263,12 @@ export default function GlobalTable(props) {
                             color={
                               (cell?.row?.original?.roe ||
                                 cell?.row?.original?.avgPrice ||
-                                cell?.row?.original?.closedPnl) &&
+                                cell?.row?.original?.closedPnl ||
+                                cell?.row?.original?.unrealisedPnl) &&
                               (cell?.row?.original?.roe <= 0 ||
                                 cell?.row?.original?.avgPrice <= 0 ||
-                                cell?.row?.original?.closedPnl <= 0)
+                                cell?.row?.original?.closedPnl <= 0 ||
+                                cell?.row?.original?.unrealisedPnl <= 0)
                                 ? "red"
                                 : "green.300"
                             }
@@ -266,10 +277,12 @@ export default function GlobalTable(props) {
                           >
                             {(cell?.row?.original?.roe ||
                               cell?.row?.original?.avgPrice ||
-                              cell?.row?.original?.closedPnl) &&
+                              cell?.row?.original?.closedPnl ||
+                              cell?.row?.original?.unrealisedPnl) &&
                             (cell?.row?.original?.roe <= 0 ||
                               cell?.row?.original?.avgPrice <= 0 ||
-                              cell?.row?.original?.closedPnl <= 0)
+                              cell?.row?.original?.closedPnl <= 0 ||
+                              cell?.row?.original?.unrealisedPnl <= 0)
                               ? "Loss"
                               : "Profit"}
                           </Text>
@@ -326,10 +339,8 @@ export default function GlobalTable(props) {
                             fontWeight="600"
                             w={"auto"}
                             h="35px"
-                            display="flex"
                             bg={"#0075FF"}
                             borderRadius="6px"
-                            textAlign={"left"}
                             gap={2}
                             onClick={() =>
                               onCopy(cell?.row?.original?.encryptedUid)
@@ -363,10 +374,8 @@ export default function GlobalTable(props) {
                             fontWeight="600"
                             w={"auto"}
                             h="35px"
-                            display="flex"
                             bg={"#0075FF"}
                             borderRadius="6px"
-                            textAlign={"left"}
                             gap={2}
                             disabled={!cell?.value}
                             onClick={() =>

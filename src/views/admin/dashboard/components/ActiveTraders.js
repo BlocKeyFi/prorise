@@ -11,10 +11,10 @@ import Card from "components/card/Card.js";
 // Assets
 
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
-import PieChart from "components/charts/PieChart";
+
 import { pieChartOptions } from "variables/charts";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import ReactApexChart from "react-apexcharts";
+
 import "./style.css";
 
 export default function DailyTraffic(props) {
@@ -30,7 +30,7 @@ export default function DailyTraffic(props) {
   const [middleText, setMiddleText] = useState("");
 
   const symbolsArray = currentPositions?.map((item) => item?.symbol);
-  const options = pieChartOptions(symbolsArray);
+  // const options = pieChartOptions(symbolsArray);
 
   const sizesArray = currentPositions?.map((item) =>
     traderDetail ? item?.roe : item?.size
@@ -231,20 +231,8 @@ export default function DailyTraffic(props) {
                   </Box>
                 </Flex>
               </>
-              // <ReactApexChart
-              //   series={finalPercentages ?? []}
-              //   options={options ?? {}}
-              //   height={"95%"}
-              //   type="donut"
-              // />
             )}
             {traderDetail && (
-              // <ReactApexChart
-              //   series={finalPercentages ?? []}
-              //   options={options ?? {}}
-              //   height={"95%"}
-              //   type="donut"
-              // />
               <Flex
                 justifyContent={"space-between"}
                 alignItems={"center"}
@@ -313,7 +301,9 @@ export default function DailyTraffic(props) {
                             fontSize={18}
                             fontWeight={700}
                             color={
-                              middleText.includes(item.y) ? "aqua" : "#A0AEC0"
+                              middleText.includes(item.y)
+                                ? "linear-gradient(180deg, #29C5EE 0%, rgba(41, 197, 238, 0.40) 100%);"
+                                : "#A0AEC0"
                             }
                             cursor={"pointer"}
                             onClick={() =>

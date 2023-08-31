@@ -10,8 +10,8 @@ const Card = {
     minWidth: "0px",
     wordWrap: "break-word",
     bg: mode(
-      "linear-gradient(126deg, rgba(18, 18, 47, 1) 28.26%, rgba(10, 14, 35, 0.53) 91.2%)",
-      "linear-gradient(126deg, rgba(18, 18, 47, 1) 28.26%, rgba(10, 14, 35, 0.53) 91.2%)"
+      "linear-gradient(175deg, rgba(6, 11, 40, 0.67) 0%, rgba(10, 14, 35, 0.64) 100%);",
+      "linear-gradient(175deg, rgba(6, 11, 40, 0.67) 0%, rgba(10, 14, 35, 0.64) 100%);"
     )(props),
     backgroundClip: "border-box",
   }),

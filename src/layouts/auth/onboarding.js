@@ -3,6 +3,8 @@ import { Flex } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import background from "assets/img/Background.png";
+
 function AuthIllustration(props) {
   const { children } = props;
   // ProRIse color mode
@@ -21,7 +23,11 @@ function AuthIllustration(props) {
         // px={{ lg: "30px", xl: "0px" }}
         // ps={{ xl: "70px" }}
         justifyContent="center"
-        bg="radial-gradient(circle at 65% 100%, rgba(17, 74, 172, 1) 0%, rgba(39, 34, 115, 1) 43%, rgba(18, 18, 47, 1) 100%)"
+        backgroundImage={`url(${background})`}
+        // backgroundPosition= "center"
+        backgroundAttachment="fixed"
+        backgroundSize="cover"
+        backgroundRepeat="no-repeat"
         alignItems="center"
         direction="column"
       >

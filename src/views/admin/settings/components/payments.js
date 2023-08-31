@@ -92,56 +92,7 @@ export default function Payments() {
           )}
         </Flex>
       </BasicCard>
-      {/* <BasicCard heading="Mode de paiement">
-        <Grid
-          templateRows="repeat(1, 1fr)"
-          templateColumns="repeat(3, 1fr)"
-          gap={10}
-        >
-          <GridItem
-            colSpan={{
-              "2xl": 1,
-              xl: 1,
-              lg: 1,
-              md: 4,
-              sm: 4,
-            }}
-          >
-            <InputFeild
-              label="Numéro de carte de crédit"
-              type="password"
-              icon={RiVisaLine}
-              placeholder={"**** **** **** 9010"}
-            />
-          </GridItem>
-          <GridItem
-            colSpan={{
-              "2xl": 1,
-              xl: 1,
-              lg: 1,
-              md: 4,
-              sm: 4,
-            }}
-          >
-            <InputFeild
-              label="Date d’expiration"
-              type="number"
-              placeholder={"11/2023"}
-            />
-          </GridItem>
-          <GridItem
-            colSpan={{
-              "2xl": 1,
-              xl: 1,
-              lg: 1,
-              md: 4,
-              sm: 4,
-            }}
-          >
-            <InputFeild label="CVV" type="password" placeholder={"***"} />
-          </GridItem>
-        </Grid>
-      </BasicCard> */}
+     
       <BasicCard
         heading="Historique des paiements"
         table={false}

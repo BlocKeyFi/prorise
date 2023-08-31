@@ -18,7 +18,7 @@ import React from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine, RiVisaLine } from "react-icons/ri";
 
-export default function Default(props) {
+export default function InputFeild(props) {
   const {
     id,
     label,
