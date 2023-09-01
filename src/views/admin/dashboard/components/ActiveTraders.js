@@ -99,7 +99,7 @@ export default function DailyTraffic(props) {
         </Flex>
       </Flex>
 
-      <Box h="286px" mt="8">
+      <Box h={traderDetail ? "auto" : "390px"} mt="8">
         <Flex w="100%" gap={2}>
           <img src={present} />
           <Text
@@ -143,7 +143,7 @@ export default function DailyTraffic(props) {
                 <Flex
                   justifyContent={"space-between"}
                   alignItems={"center"}
-                  mt={5}
+                  py={20}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +199,7 @@ export default function DailyTraffic(props) {
                     />
                   </svg>
 
-                  <Box h={200} w={200} className="overflow">
+                  <Box h={260} w={200} className="overflow">
                     <Flex direction={"column"} textAlign={"left"} gap={4}>
                       {mergedArray?.map((item) => {
                         return (
@@ -214,11 +214,13 @@ export default function DailyTraffic(props) {
                               }}
                               fontWeight={700}
                               color={
-                                middleText.includes(item.y) ? "aqua" : "#A0AEC0"
+                                middleText.includes(item?.y)
+                                  ? "aqua"
+                                  : "#A0AEC0"
                               }
                               cursor={"pointer"}
                               onClick={() =>
-                                setMiddleText(item.y + " " + item.x + "%")
+                                setMiddleText(item?.y + " " + item?.x + "%")
                               }
                             >
                               {item?.y}
@@ -234,7 +236,7 @@ export default function DailyTraffic(props) {
                               fontWeight={700}
                               color={"white"}
                             >
-                              {item.x.toFixed(2) + "%"}
+                              {item?.x?.toFixed(2) + "%"}
                             </Text>
                           </Flex>
                         );
@@ -281,7 +283,7 @@ export default function DailyTraffic(props) {
                         eventHandlers: {
                           onClick: (event, props) => {
                             const updatedData = mergedArray.filter(
-                              (datum, index) => index === props.index
+                              (datum, index) => index === props?.index
                             );
                             setMiddleText(
                               updatedData[0].y + " " + updatedData[0].x + "%"
@@ -310,26 +312,36 @@ export default function DailyTraffic(props) {
                       return (
                         <Flex gap={4}>
                           <Text
-                            fontSize={"12px"}
+                            fontSize={{
+                              "2xl": 18,
+                              xl: 14,
+                              lg: 12,
+                              md: 18,
+                              sm: 18,
+                            }}
                             // fontWeight={700}
                             color={
-                              middleText.includes(item.y)
-                                ? "linear-gradient(180deg, #29C5EE 0%, rgba(41, 197, 238, 0.40) 100%)"
-                                : "#A0AEC0"
+                              middleText.includes(item?.y) ? "aqua" : "#A0AEC0"
                             }
                             cursor={"pointer"}
                             onClick={() =>
-                              setMiddleText(item.y + " " + item.x + "%")
+                              setMiddleText(item?.y + " " + item?.x + "%")
                             }
                           >
-                            {item.y}
+                            {item?.y}
                           </Text>
                           <Text
-                            fontSize={"12px"}
+                            fontSize={{
+                              "2xl": 18,
+                              xl: 14,
+                              lg: 12,
+                              md: 18,
+                              sm: 18,
+                            }}
                             // fontWeight={700}
                             color={"white"}
                           >
-                            {item.x + "%"}
+                            {item?.x + "%"}
                           </Text>
                         </Flex>
                       );

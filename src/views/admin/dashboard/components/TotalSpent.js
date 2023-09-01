@@ -196,7 +196,7 @@ export default function TotalSpent(props) {
                 <Text
                   color={textColor}
                   fontSize={{
-                    "2xl": "xl",
+                    "2xl": "24px",
                     xl: "16px",
                     lg: "xl",
                     md: "16px",
@@ -258,7 +258,7 @@ export default function TotalSpent(props) {
         )}
       </Box>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
-        <Box minH="276px" minW="100%" mt="20px">
+        <Box minW="100%" mt="20px">
           <Flex direction={"row"} w="100%" gap={1} justifyContent={"start"}>
             <img src={present} />
             <Text
@@ -276,7 +276,7 @@ export default function TotalSpent(props) {
             series={[
               {
                 name: "Closed",
-                data: finalData,
+                data: walletHistory ? walletHistoryData : finalData,
               },
             ]}
             type="line"
@@ -292,6 +292,7 @@ export default function TotalSpent(props) {
               },
             ]}
             chartOptions={lineChartOptionsTotalSpent}
+            height={"365px"}
           />
         </Box>
       </Flex>
