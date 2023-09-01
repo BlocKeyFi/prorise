@@ -50,18 +50,19 @@ export default function TraderDetails() {
   useEffect(() => {
     setAuthToken(localStorage.getItem("jwt"));
     dispatch(
+      getLeaderboardsData({
+        searchCriteria: {
+          currentPage: 1,
+          encryptedUid: id,
+        },
+      })
+    );
+
+    dispatch(
       getTraderPositions({
         encryptedUid: id,
       })
     );
-
-    // apiInstance
-    //   .post(`${PRO_RISE.isTraderFollowedByUser}`, {
-    //     encryptedUid: id,
-    //   })
-    //   .then((res) => {
-    //     setTraderFollow(res?.data?.traderFollow ? "unFolllow" : "Copier");
-    //   });
   }, [id]);
 
   const refresh = () => {
@@ -74,13 +75,12 @@ export default function TraderDetails() {
     dispatch(
       getLeaderboardsData({
         searchCriteria: {
-          period: "WEEKLY",
           currentPage: 1,
+          encryptedUid: id,
         },
       })
     );
   };
-
   const filterData = data.filter((item) => item.encryptedUid === id);
 
   const updatedButtonArray = useMemo(() => {
@@ -113,8 +113,8 @@ export default function TraderDetails() {
       dispatch(
         getLeaderboardsData({
           searchCriteria: {
-            period: "WEEKLY",
             currentPage: 1,
+            encryptedUid: id,
           },
         })
       );
@@ -144,8 +144,8 @@ export default function TraderDetails() {
         dispatch(
           getLeaderboardsData({
             searchCriteria: {
-              period: "WEEKLY",
               currentPage: 1,
+              encryptedUid: id,
             },
           })
         );
@@ -177,8 +177,8 @@ export default function TraderDetails() {
         dispatch(
           getLeaderboardsData({
             searchCriteria: {
-              period: "WEEKLY",
               currentPage: 1,
+              encryptedUid: id,
             },
           })
         );
