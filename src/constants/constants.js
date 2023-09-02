@@ -166,3 +166,20 @@ export const settingsTab = [
   { name: "Facturation et abonnement" },
   ,
 ];
+
+export const selectValue = (name) => {
+  return [
+    {
+      title: `${name} : 7 jours`,
+      value: "WEEKLY",
+    },
+    {
+      title: `${name} : 15 jours`,
+      value: "MONTHLY",
+    },
+    {
+      title: `${name} : 30 jours`,
+      value: "MONTHLY",
+    },
+  ];
+};

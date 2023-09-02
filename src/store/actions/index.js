@@ -164,7 +164,11 @@ export const getClosedTrades = createAsyncThunk(
   async ({ rejectWithValue }) => {
     try {
       const { data } = await apiInstance.post(`${PRO_RISE.getClosedTrades}`);
-      return data?.tradeHistory;
+      if (data.success) {
+        return data?.tradeHistory;
+      } else {
+        return [];
+      }
     } catch (error) {
       toast.error(error.msg);
       return rejectWithValue(error.msg);

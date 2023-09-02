@@ -16,6 +16,7 @@ import { pieChartOptions } from "variables/charts";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 import "./style.css";
+import SelectFeild from "components/fields/selectFeild";
 
 export default function DailyTraffic(props) {
   const {
@@ -84,33 +85,20 @@ export default function DailyTraffic(props) {
       w="100%"
       {...rest}
     >
-      <Flex justify="space-between" align="start" px="10px" pt="5px">
-        <Flex flexDirection="column" align="start" me="20px">
-          <Flex w="100%">
-            <Text
-              me="auto"
-              color="white"
-              fontSize={{ xl: "34px", lg: "34px", md: "34px", sm: "16px" }}
-              fontWeight="700"
-            >
-              Symboles
-            </Text>
-          </Flex>
-        </Flex>
+      <Flex w="100%">
+        <Text
+          me="auto"
+          color="white"
+          fontSize={{ xl: "34px", lg: "34px", md: "34px", sm: "16px" }}
+          fontWeight="700"
+        >
+          Symboles
+        </Text>
       </Flex>
 
-      <Box h={traderDetail ? "auto" : "390px"} mt="8">
-        <Flex w="100%" gap={2}>
-          <img src={present} />
-          <Text
-            textAlign={"left"}
-            color="gray.200"
-            fontSize="sm"
-            fontWeight="500"
-          >
-            Préférence 30 jours
-          </Text>
-        </Flex>
+      <Box h={traderDetail ? "auto" : "420px"} mt="8">
+        <SelectFeild name={"Préférence"} w={"36%"} />
+
         {!exchangeConnection && !traderDetail && (
           <Center h={200}>
             <Text fontSize={20}>
@@ -136,7 +124,7 @@ export default function DailyTraffic(props) {
             </Text>
           </Center>
         )}
-        {currentPositions && (
+        {currentPositions?.length ? (
           <>
             {exchangeConnection && (
               <>
@@ -351,6 +339,10 @@ export default function DailyTraffic(props) {
               </Flex>
             )}
           </>
+        ) : (
+          <Center h={300}>
+            <Text fontSize={30}>{"No Data Found"}</Text>
+          </Center>
         )}
       </Box>
     </Card>

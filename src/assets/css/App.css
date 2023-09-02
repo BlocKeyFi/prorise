@@ -40,3 +40,10 @@ body::-webkit-scrollbar-thumb {
   /* outline: 1px solid 0075FFy; */
   border-radius: 10px;
 }
+
+.my-select option {
+  background-color: #f0f0f0 !important; /* Background color */
+  font-size: 14px; /* Font size */
+  border: 1px solid transparent ;
+}
+

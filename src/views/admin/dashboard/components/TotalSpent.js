@@ -23,6 +23,7 @@ import { formatDate } from "utils/utils";
 import ReactApexChart from "react-apexcharts";
 import moment from "moment/moment";
 import { groupAndAggregateData } from "utils/utils";
+import SelectFeild from "components/fields/selectFeild";
 
 export default function TotalSpent(props) {
   const { balance, data, analytics, traderDetail, walletHistory, ...rest } =
@@ -243,18 +244,7 @@ export default function TotalSpent(props) {
                 <>
                   <Flex direction={"column"} w="100%" align={"start"} pt={3}>
                     <Center>
-                      <Flex direction={"row"} gap={1}>
-                        <img src={present} />
-                        <Text
-                          color={"gray.200"}
-                          fontSize="14px"
-                          lineHeight="100%"
-                          fontWeight="600"
-                          textTransform={"capitalize"}
-                        >
-                          {`${key} 30 jours`}
-                        </Text>
-                      </Flex>
+                      <SelectFeild name={key} w={"100%"} fontWeight="600" />
                     </Center>
                     <Text
                       color={
@@ -279,18 +269,7 @@ export default function TotalSpent(props) {
       </Box>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
         <Box minW="100%" mt="20px">
-          <Flex direction={"row"} w="100%" gap={1} justifyContent={"start"}>
-            <img src={present} />
-            <Text
-              color={textColorSecondary}
-              fontSize="14px"
-              textAlign="end"
-              lineHeight="100%"
-              fontWeight="600"
-            >
-              {"Valeur 30 jours"}
-            </Text>
-          </Flex>
+          <SelectFeild name={"Valeur"} w={"15%"} />
           {/* <ReactApexChart
             options={lineChartOptionsTotalSpent} // Aapke options object
             series={[
