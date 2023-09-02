@@ -71,3 +71,21 @@ export const generateRandomString = (length) => {
 
   return result;
 };
+
+export const groupAndAggregateData = (data) => {
+  const groupedData = {};
+
+  // Group the data by "x" values and aggregate the "y" values
+  data?.forEach((item) => {
+    const { x, y } = item;
+
+    if (groupedData[x]) {
+      groupedData[x] += parseInt(y, 10); // You can choose the aggregation method you need
+    } else {
+      groupedData[x] = parseInt(y, 10);
+    }
+  });
+
+  // Set the grouped data in the state
+  return groupedData;
+};

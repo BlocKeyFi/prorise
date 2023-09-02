@@ -22,6 +22,7 @@ import { generateDayWiseTimeSeries } from "utils/utils";
 import { formatDate } from "utils/utils";
 import ReactApexChart from "react-apexcharts";
 import moment from "moment/moment";
+import { groupAndAggregateData } from "utils/utils";
 
 export default function TotalSpent(props) {
   const { balance, data, analytics, traderDetail, walletHistory, ...rest } =
@@ -122,6 +123,25 @@ export default function TotalSpent(props) {
   const walletHistoryData = walletHistory?.map((item) => ({
     x: new Date(parseInt(item?.time)),
     y: parseFloat(item?.walletBalance).toFixed(0),
+  }));
+
+  const groupedData = finalData?.reduce((accumulator, item) => {
+    const date = item.x.toDateString(); // Group by date only, ignoring time
+    accumulator[date] = (accumulator[date] || 0) + parseFloat(item.y);
+    return accumulator;
+  }, {});
+
+  const groupedDataWallet = walletHistoryData?.reduce((accumulator, item) => {
+    const date = item.x.toDateString(); // Group by date only, ignoring time
+    accumulator[date] = (accumulator[date] || 0) + parseFloat(item.y);
+    return accumulator;
+  }, {});
+
+  const chartData = Object?.entries(
+    walletHistory ? groupedDataWallet ?? {} : groupedData ?? {}
+  )?.map(([date, totalY]) => ({
+    x: new Date(date),
+    y: totalY?.toFixed(0),
   }));
 
   return (
@@ -288,7 +308,7 @@ export default function TotalSpent(props) {
             chartData={[
               {
                 name: "Closed",
-                data: walletHistory ? walletHistoryData : finalData,
+                data: chartData && chartData,
               },
             ]}
             chartOptions={lineChartOptionsTotalSpent}
