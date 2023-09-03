@@ -136,7 +136,10 @@ export default function GlobalTable(props) {
                   <Tr {...row.getRowProps()} key={index}>
                     {row?.cells?.map((cell, index) => {
                       let data = "";
-                      if (cell.column.Header === "DATE D’ENTREE") {
+                      if (
+                        cell.column.Header === "DATE D’ENTREE" ||
+                        cell.column.Header === "DATE"
+                      ) {
                         const date = timeConverter(cell.value);
                         data = (
                           <Text
@@ -231,6 +234,26 @@ export default function GlobalTable(props) {
                             fontWeight="400"
                           >
                             {cell.value + "X"}
+                          </Text>
+                        );
+                      } else if (cell.column.Header === "UTILISATEUR") {
+                        data = (
+                          <Text
+                            color={textColor}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {cell.value}
+                          </Text>
+                        );
+                      } else if (cell.column.Header === "RECOMPENSE") {
+                        data = (
+                          <Text
+                            color={"green.300"}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {" € " + cell.value + ".00"}
                           </Text>
                         );
                       } else if (

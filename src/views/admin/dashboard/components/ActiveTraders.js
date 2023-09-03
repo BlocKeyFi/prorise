@@ -29,6 +29,8 @@ export default function DailyTraffic(props) {
   } = props;
 
   const [middleText, setMiddleText] = useState("");
+  const [selectedSlice, setSelectedSlice] = useState(0);
+  const colors = ["aqua"]; // Define your desired colors
 
   const symbolsArray = currentPositions?.map((item) => item?.symbol);
   // const options = pieChartOptions(symbolsArray);
@@ -56,6 +58,7 @@ export default function DailyTraffic(props) {
     if (allmergedArray[0]) {
       setMiddleText(allmergedArray[0].y + " " + allmergedArray[0].x + "%");
     }
+    getColorScale();
   }, [currentPositions]);
 
   const mergedObject = allmergedArray
@@ -76,9 +79,6 @@ export default function DailyTraffic(props) {
     .map((item) => ({ ...item, x: parseFloat(item?.x?.toFixed(2)) }));
 
   const mergedArray = mergedObject?.slice(1);
-
-  const [selectedSlice, setSelectedSlice] = useState(null);
-  const colors = ["aqua"]; // Define your desired colors
 
   const getColorScale = () => {
     return mergedArray?.map((_, index) =>
@@ -267,7 +267,7 @@ export default function DailyTraffic(props) {
                   <VictoryPie
                     padAngle={({ datum }) => 1}
                     cornerRadius={({ datum }) => 45}
-                    colorScale={["#A0AEC0"]}
+                    colorScale={getColorScale()}
                     standalone={false}
                     width={200}
                     height={200}
@@ -283,6 +283,7 @@ export default function DailyTraffic(props) {
                             const updatedData = mergedArray.filter(
                               (datum, index) => index === props?.index
                             );
+                            setSelectedSlice(props.index);
                             setMiddleText(
                               updatedData[0].y + " " + updatedData[0].x + "%"
                             );

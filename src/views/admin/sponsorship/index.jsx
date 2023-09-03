@@ -45,7 +45,7 @@ export default function SponsorShip() {
     setAuthToken(localStorage.getItem("jwt"));
     apiInstance
       .post(`${PRO_RISE.getRefralHistory}`)
-      .then((response) => console.log(response))
+      .then((response) => setRefralHistory(response?.data?.refrals))
       .catch((e) => toast.error(`${PRO_RISE.getRefralHistory} failed`));
   }, []);
 
@@ -56,6 +56,8 @@ export default function SponsorShip() {
       toast.success("RefralLink Copy Successfully");
     }
   };
+
+  console.log(refralHistory);
 
   return (
     <Box>
@@ -229,7 +231,7 @@ export default function SponsorShip() {
             columnsData={
               tabIndex === 0 ? columnsDataSponsorship : columnsDataSponsorship2
             }
-            tableData={TradersCardData}
+            tableData={tabIndex === 0 ? refralHistory : []}
           />
         </GridItem>
       </Grid>

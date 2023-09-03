@@ -247,7 +247,7 @@ export default function BasicCard(props) {
                   fontWeight="500"
                 >
                   {button
-                    ? !tabIndex
+                    ? tabIndex
                       ? "Réclamez votre récompense dès maintenant!"
                       : `Solde : ${price}`
                     : null}
@@ -273,7 +273,7 @@ export default function BasicCard(props) {
             gap={2}
           >
             <img src={money} style={{ marginTop: "-2px" }} />
-            {tabIndex ? btnText : btnText + price}
+            {!tabIndex ? btnText : btnText + price}
           </Button>
         )}
 

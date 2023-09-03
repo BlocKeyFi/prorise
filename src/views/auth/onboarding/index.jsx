@@ -108,6 +108,8 @@ function Register() {
         phoneNumber: "",
         username: fisrtName + "-" + lastName,
         refralCode,
+        fisrtName,
+        lastName,
       };
       try {
         await apiInstance.post(`${PRO_RISE.register}`, userFinalobj);

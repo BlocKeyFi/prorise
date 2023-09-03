@@ -40,7 +40,7 @@ export default function Profile() {
     newPassword: "",
   });
 
-  const [userImage, setUserImage] = useState(user);
+  const [userImage, setUserImage] = useState(userDetail?.profilePicURL ?? user);
 
   const updateData = async () => {
     const requiredFields = ["firstName", "lastName", "phoneNumber", "email"];
@@ -65,6 +65,7 @@ export default function Profile() {
         lastName: userDetail?.lastName,
         phoneNumber: userDetail?.phoneNumber,
         email: userDetail?.email,
+        profilePicURL: userImage,
       };
       const { data } = await apiInstance.post(
         `${PRO_RISE.updateUserInfo}`,
@@ -103,12 +104,14 @@ export default function Profile() {
         apiInstance
           .post(`${PRO_RISE.uploadProfilePicture}`, {
             picBase64: base64Image,
-            ext: e.target.files[0].type,
+            ext: e.target.files[0].type?.replaceAll("image/", ""),
           })
-          .then((res) => res)
+          .then((res) => setUserImage(res?.data?.url))
           .catch((error) => toast.error(error.message));
       };
       reader.readAsDataURL(selectedImage);
+    } else {
+      toast.error("image too large please uplod new");
     }
   };
 

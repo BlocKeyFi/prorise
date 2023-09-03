@@ -55,9 +55,15 @@ export default function Dashboard() {
         })
       );
 
-      await apiInstance.post(`${PRO_RISE.getWalletHistory}`).then((resp) => {
-        setWalletHistory(resp?.data?.history);
-      });
+      await apiInstance
+        .post(`${PRO_RISE.getWalletHistory}`, {
+          searchCriteria: {
+            period: "7",
+          },
+        })
+        .then((resp) => {
+          setWalletHistory(resp?.data?.history);
+        });
     } else {
       setBalance(0);
     }

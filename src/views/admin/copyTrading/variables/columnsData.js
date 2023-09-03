@@ -111,15 +111,15 @@ export const columnsDataTradeHistory = [
 export const columnsDataSponsorship = [
   {
     Header: "UTILISATEUR",
-    accessor: "name",
+    accessor: "username",
   },
   {
     Header: "DATE",
-    accessor: "subheading",
+    accessor: "created_at",
   },
   {
     Header: "RECOMPENSE",
-    accessor: "textvalue2",
+    accessor: "id",
   },
 ];
 
