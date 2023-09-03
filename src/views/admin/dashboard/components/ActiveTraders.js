@@ -77,6 +77,15 @@ export default function DailyTraffic(props) {
 
   const mergedArray = mergedObject?.slice(1);
 
+  const [selectedSlice, setSelectedSlice] = useState(null);
+  const colors = ["aqua"]; // Define your desired colors
+
+  const getColorScale = () => {
+    return mergedArray?.map((_, index) =>
+      index === selectedSlice ? colors[index % colors.length] : "#A0AEC0"
+    );
+  };
+
   return (
     <Card
       bg={traderDetail && "transparent"}
@@ -150,7 +159,7 @@ export default function DailyTraffic(props) {
                     <VictoryPie
                       padAngle={({ datum }) => 1}
                       cornerRadius={({ datum }) => 45}
-                      colorScale={["#A0AEC0"]}
+                      colorScale={getColorScale()}
                       standalone={false}
                       width={200}
                       height={200}
@@ -164,8 +173,9 @@ export default function DailyTraffic(props) {
                           eventHandlers: {
                             onClick: (event, props) => {
                               const updatedData = mergedArray?.filter(
-                                (datum, index) => index === props.index
+                                (datum, index) => index === props?.index
                               );
+                              setSelectedSlice(props.index);
                               setMiddleText(
                                 updatedData[0].y + " " + updatedData[0].x + "%"
                               );
