@@ -45,6 +45,8 @@ export default function Dashboard() {
         .post(`${PRO_RISE.getUserPerformanceAnalytics}`)
         .then((resp) => {
           delete resp?.data?.analytics?.data;
+          delete resp?.data?.analytics?.mdd;
+          delete resp?.data?.analytics?.winrate;
           setAnalytics(resp?.data?.analytics);
         });
       await dispatch(

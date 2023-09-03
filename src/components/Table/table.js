@@ -42,7 +42,7 @@ import { FiExternalLink } from "react-icons/fi";
 import { AiOutlineCheck } from "react-icons/ai";
 
 export default function GlobalTable(props) {
-  const { columnsData, tableData, p, isLoading, onCopy } = props;
+  const { columnsData, tableData, p, isLoading, onCopy, leaderBoard } = props;
 
   const { exchangeConnection } = useSelector((state) => state?.exchange);
 
@@ -416,6 +416,13 @@ export default function GlobalTable(props) {
                           fontSize={{ sm: "14px", xl: "16px" }}
                           minW={{ sm: "150px", md: "200px", lg: "auto" }}
                           borderColor="transparent"
+                          cursor={leaderBoard && "pointer"}
+                          onClick={() =>
+                            leaderBoard &&
+                            history.push(
+                              `/admin/trader-detail/${cell?.row?.original?.encryptedUid}`
+                            )
+                          }
                         >
                           {data}
                         </Td>

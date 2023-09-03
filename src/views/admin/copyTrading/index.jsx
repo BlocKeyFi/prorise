@@ -138,13 +138,13 @@ export default function Settings() {
             </Tab>
           </TabList>
         </Tabs>
-        <Select
+        {/* <Select
           bg="rgba(255, 255, 255, 0.08)"
           border="none"
           color="white"
           placeholder="Trier par : ROI 7 jours"
           w={{ "2xl": "15%", xl: "20%", lg: "25%", md: "35%", sm: "100%" }}
-        />
+        /> */}
       </Flex>
       {tabIndex === 0 && !isLoading && (
         <SimpleGrid

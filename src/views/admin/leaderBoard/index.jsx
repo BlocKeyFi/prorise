@@ -127,6 +127,7 @@ export default function LeaderBoard() {
         isLoading={isLoading}
         p={4}
         onCopy={onCopy}
+        leaderBoard={true}
       >
         <Flex justifyContent={"space-between"}>
           <InputFeild

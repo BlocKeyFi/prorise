@@ -56,7 +56,7 @@ export default function DailyTraffic(props) {
     if (allmergedArray[0]) {
       setMiddleText(allmergedArray[0].y + " " + allmergedArray[0].x + "%");
     }
-  }, []);
+  }, [currentPositions]);
 
   const mergedObject = allmergedArray
     ?.reduce(

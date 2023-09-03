@@ -101,6 +101,9 @@ export default function TotalSpent(props) {
         show: true,
       },
       labels: {
+        formatter: function (value) {
+          return `${walletHistory ? "€" : ""} ${value}`;
+        },
         style: {
           colors: "#A3AED0",
           fontSize: "16px",
@@ -235,8 +238,7 @@ export default function TotalSpent(props) {
         </Flex>
         {props?.design === 2 && (
           <SimpleGrid
-            columns={{ base: 2, md: 5, lg: 5, xl: 5, sm: 2 }}
-            gap="20px"
+            columns={{ base: 2, md: 6, lg: 6, xl: 6, sm: 2 }}
             marginTop={props?.heading ? 8 : 0}
           >
             {analyticsKeyValueArray?.map(([key, value], index) => {
@@ -247,18 +249,14 @@ export default function TotalSpent(props) {
                       <SelectFeild name={key} w={"100%"} fontWeight="600" />
                     </Center>
                     <Text
-                      color={
-                        index === 0 || index === 1 || index === 2
-                          ? "green.300"
-                          : "white"
-                      }
+                      color={index === 0 || index === 1 ? "green.300" : "white"}
                       fontSize="28px"
                       lineHeight="100%"
                       fontWeight="600"
                       pt={"2"}
-                      px={index === 0 ? 0 : 4}
+                      // px={index === 0 ? 0 : 4}
                     >
-                      {`${value?.toFixed(0)} %`}
+                      {`${value?.toFixed(2)} %`}
                     </Text>
                   </Flex>
                 </>

@@ -52,6 +52,7 @@ export default function BasicCard(props) {
     refralLink,
     inputRef,
     exchangeConnection,
+    leaderBoard,
     ...rest
   } = props;
 
@@ -287,6 +288,7 @@ export default function BasicCard(props) {
             copyTrade={true}
             isLoading={isLoading}
             onCopy={onCopy}
+            leaderBoard={leaderBoard}
           />
         )}
       </Flex>
