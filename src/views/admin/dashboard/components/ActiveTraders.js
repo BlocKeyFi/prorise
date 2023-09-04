@@ -114,32 +114,7 @@ export default function DailyTraffic(props) {
           disabled={!mergedArray?.length}
         />
 
-        {!exchangeConnection && !traderDetail && (
-          <Center h={200}>
-            <Text fontSize={20}>
-              No Connection Found
-              <br />
-              <br />
-              <Link to="/admin/setting" style={{ width: "100%" }}>
-                <Button
-                  fontSize="16px"
-                  variant="brand"
-                  fontWeight="500"
-                  w={"100%"}
-                  h="35px"
-                  bg="#0075FF"
-                  borderRadius="10px"
-                  _hover={{ bg: "#0075FF" }}
-                  textAlign={"center"}
-                  gap={2}
-                >
-                  {"Build Connection"}
-                </Button>
-              </Link>
-            </Text>
-          </Center>
-        )}
-        {currentPositions?.length ? (
+        {mergedArray?.length ? (
           <>
             {exchangeConnection && (
               <>
@@ -357,9 +332,37 @@ export default function DailyTraffic(props) {
             )}
           </>
         ) : (
-          <Center h={300}>
-            <Text fontSize={30}>{"No Data Found"}</Text>
-          </Center>
+          <>
+            {!exchangeConnection || !traderDetail ? (
+              <Center h={300}>
+                <Text fontSize={20}>
+                  No Connection Found
+                  <br />
+                  <br />
+                  <Link to="/admin/setting" style={{ width: "100%" }}>
+                    <Button
+                      fontSize="16px"
+                      variant="brand"
+                      fontWeight="500"
+                      w={"100%"}
+                      h="35px"
+                      bg="#0075FF"
+                      borderRadius="10px"
+                      _hover={{ bg: "#0075FF" }}
+                      textAlign={"center"}
+                      gap={2}
+                    >
+                      {"Build Connection"}
+                    </Button>
+                  </Link>
+                </Text>
+              </Center>
+            ) : (
+              <Center h={300}>
+                <Text fontSize={30}>{"No Data Found"}</Text>
+              </Center>
+            )}
+          </>
         )}
       </Box>
     </Card>
