@@ -136,7 +136,7 @@ export default function Marketplace() {
       </Flex>
       {isLoading ? (
         <Center h="60vh">
-          <Spinner size="xl" />
+          <Spinner size="xl" thickness="4px" speed="0.65s" />
         </Center>
       ) : data.length ? (
         <SimpleGrid

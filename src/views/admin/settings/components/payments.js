@@ -87,12 +87,12 @@ export default function Payments() {
             ))
           ) : (
             <Center width={"100%"}>
-              <Spinner size="xl" />
+              <Spinner size="xl" thickness="4px" speed="0.65s" />
             </Center>
           )}
         </Flex>
       </BasicCard>
-     
+
       <BasicCard
         heading="Historique des paiements"
         table={false}

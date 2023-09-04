@@ -52,6 +52,9 @@ export default function Dashboard() {
       await dispatch(
         getOpenPositions({
           exchange: exchangeConnection,
+          searchCriteria: {
+            period: "7",
+          },
         })
       );
 
@@ -68,6 +71,30 @@ export default function Dashboard() {
       setBalance(0);
     }
   }, [exchangeConnection]);
+
+  const onFilterChange = async (period, from) => {
+    if (from === "Symboles") {
+      await dispatch(
+        getOpenPositions({
+          exchange: exchangeConnection,
+          searchCriteria: {
+            period: period,
+          },
+        })
+      );
+    } else {
+      setWalletHistory([]);
+      await apiInstance
+        .post(`${PRO_RISE.getWalletHistory}`, {
+          searchCriteria: {
+            period: period,
+          },
+        })
+        .then((resp) => {
+          setWalletHistory(resp?.data?.history);
+        });
+    }
+  };
 
   return (
     <Box>
@@ -126,11 +153,13 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
+          {}
           <TotalSpent
             heading="Portefeuille"
             design={1}
             balance={exchangeConnection ? balance ?? 0 : 0}
             walletHistory={walletHistory ?? []}
+            onChange={onFilterChange}
           />
         </GridItem>
         <GridItem
@@ -147,6 +176,7 @@ export default function Dashboard() {
             currentPositions={currentPositions}
             exchangeConnection={exchangeConnection}
             isLoading={isLoading}
+            onChange={onFilterChange}
           />
         </GridItem>
         <GridItem colSpan={4}>

@@ -1,14 +1,5 @@
-import React from "react";
+import React, { lazy } from "react";
 
-// Admin Imports
-import MainDashboard from "views/admin/dashboard";
-import TopTraders from "views/admin/TopTraders";
-import SponsorShip from "views/admin/sponsorship";
-import Analytics from "views/admin/analytics";
-import CopyTrading from "views/admin/copyTrading";
-
-// Onboarding Imports
-import OnboardingCentered from "views/auth/onboarding";
 import profile from "./assets/img/dashboards/svgIcon/Frame 427319644.png";
 import dashboard from "./assets/img/dashboards/svgIcon/grid.svg";
 import topTrand from "./assets/img/dashboards/svgIcon/users.svg";
@@ -17,15 +8,26 @@ import Analytiques from "./assets/img/dashboards/svgIcon/circle-chart-1.svg";
 import shear from "./assets/img/dashboards/svgIcon/share.svg";
 import setting from "./assets/img/dashboards/svgIcon/Settings.svg";
 import support from "./assets/img/dashboards/svgIcon/World.svg";
-import Settings from "views/admin/settings";
-import TraderDetails from "views/admin/TopTraders/traderDetail";
-import Login from "views/auth/login";
-import Verification from "views/auth/verification/verification";
-import SendVerification from "views/auth/verification/sendVerification";
 import Leaderboard from "./assets/img/dashboards/svgIcon/presentation-chart-1.svg";
-import LeaderBoard from "views/admin/leaderBoard";
-import ForgotPassword from "views/auth/forgotPassword";
-import Support from "views/admin/support";
+
+// Admin Imports
+const MainDashboard = lazy(() => import("views/admin/dashboard"));
+const TopTraders = lazy(() => import("views/admin/TopTraders"));
+const SponsorShip = lazy(() => import("views/admin/sponsorship"));
+const CopyTrading = lazy(() => import("views/admin/copyTrading"));
+const LeaderBoard = lazy(() => import("views/admin/leaderBoard"));
+const ForgotPassword = lazy(() => import("views/auth/forgotPassword"));
+const Support = lazy(() => import("views/admin/support"));
+const Login = lazy(() => import("views/auth/login"));
+const OnboardingCentered = lazy(() => import("views/auth/onboarding"));
+const Settings = lazy(() => import("views/admin/settings"));
+const TraderDetails = lazy(() => import("views/admin/TopTraders/traderDetail"));
+const Verification = lazy(() => import("views/auth/verification/verification"));
+const SendVerification = lazy(() =>
+  import("views/auth/verification/sendVerification")
+);
+
+// Onboarding Imports
 
 const routes = [
   {

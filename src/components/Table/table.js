@@ -89,7 +89,7 @@ export default function GlobalTable(props) {
   if (isLoading) {
     return (
       <Center>
-        <Spinner size="xl" />
+        <Spinner size="xl" thickness="4px" speed="0.65s" />
       </Center>
     );
   }

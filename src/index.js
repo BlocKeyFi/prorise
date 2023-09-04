@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "assets/css/App.css";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -11,9 +11,11 @@ import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import { PersistGate } from "redux-persist/integration/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Loader from "components/fixedPlugin/spinner";
 
-//my Key
-//265695510821-8m6gdkv15ufr3fk0envbgi22f5lilukc.apps.googleusercontent.com
+// Wrap the lazy-loaded components with React.lazy
+const LazyAuthLayout = React.lazy(() => import("layouts/auth"));
+const LazyAdminLayout = React.lazy(() => import("layouts/admin"));
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,11 +24,14 @@ ReactDOM.render(
         <GoogleOAuthProvider clientId="589699786468-pgervv2cd4bk71hkj5h4j9f58an4j6gi.apps.googleusercontent.com">
           <React.StrictMode>
             <BrowserRouter>
-              <Switch>
-                <Route path={`/auth`} component={AuthLayout} />
-                <Route path={`/admin`} component={AdminLayout} />
-                <Redirect from="/" to="/auth" />
-              </Switch>
+              <Suspense fallback={<Loader />}>
+                <Switch>
+                  {/* Use the lazy-loaded components */}
+                  <Route path={`/auth`} component={LazyAuthLayout} />
+                  <Route path={`/admin`} component={LazyAdminLayout} />
+                  <Redirect from="/" to="/auth" />
+                </Switch>
+              </Suspense>
             </BrowserRouter>
           </React.StrictMode>
         </GoogleOAuthProvider>

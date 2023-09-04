@@ -171,15 +171,15 @@ export const selectValue = (name) => {
   return [
     {
       title: `${name} : 7 jours`,
-      value: "WEEKLY",
+      value: "7",
     },
     {
       title: `${name} : 15 jours`,
-      value: "MONTHLY",
+      value: "15",
     },
     {
       title: `${name} : 30 jours`,
-      value: "MONTHLY",
+      value: "30",
     },
   ];
 };

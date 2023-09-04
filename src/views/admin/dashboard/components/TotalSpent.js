@@ -26,8 +26,15 @@ import { groupAndAggregateData } from "utils/utils";
 import SelectFeild from "components/fields/selectFeild";
 
 export default function TotalSpent(props) {
-  const { balance, data, analytics, traderDetail, walletHistory, ...rest } =
-    props;
+  const {
+    balance,
+    data,
+    analytics,
+    traderDetail,
+    walletHistory,
+    onChange,
+    ...rest
+  } = props;
   const analyticsKeyValueArray = Object.entries(analytics ?? {});
 
   // ProRIse Color Mode
@@ -141,12 +148,14 @@ export default function TotalSpent(props) {
     return accumulator;
   }, {});
 
-  const chartData = Object?.entries(
-    walletHistory ? groupedDataWallet ?? {} : groupedData ?? {}
-  )?.map(([date, totalY]) => ({
-    x: new Date(date),
-    y: totalY?.toFixed(0),
-  }));
+  const groupFinal = Object?.entries(groupedData ?? {})?.map(
+    ([date, totalY]) => ({
+      x: new Date(date),
+      y: totalY?.toFixed(0),
+    })
+  );
+
+  const chartData = walletHistory ? walletHistoryData ?? [] : groupFinal ?? [];
 
   return (
     <Card
@@ -267,7 +276,12 @@ export default function TotalSpent(props) {
       </Box>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
         <Box minW="100%" mt="20px">
-          <SelectFeild name={"Valeur"} w={"15%"} />
+          <SelectFeild
+            name={"Valeur"}
+            w={"15%"}
+            onChange={(e) => onChange(e.target.value)}
+            disabled={!walletHistory?.length}
+          />
           {/* <ReactApexChart
             options={lineChartOptionsTotalSpent} // Aapke options object
             series={[
@@ -280,17 +294,24 @@ export default function TotalSpent(props) {
             width="100%"
             height="100%"
           /> */}
-
-          <LineAreaChart
-            chartData={[
-              {
-                name: "Closed",
-                data: chartData && chartData,
-              },
-            ]}
-            chartOptions={lineChartOptionsTotalSpent}
-            height={"365px"}
-          />
+          {chartData?.length ? (
+            <LineAreaChart
+              chartData={[
+                {
+                  name: "Closed",
+                  data: chartData && chartData,
+                },
+              ]}
+              chartOptions={lineChartOptionsTotalSpent}
+              height={"365px"}
+            />
+          ) : (
+            <Center height={"380px"}>
+              <Box>
+                <Spinner size="xl" thickness="4px" speed="0.65s" />
+              </Box>
+            </Center>
+          )}
         </Box>
       </Flex>
     </Card>

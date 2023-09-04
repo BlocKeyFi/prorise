@@ -234,7 +234,7 @@ function Login() {
           >
             {isLoading ? (
               <Center>
-                <Spinner size="md" />
+                <Spinner size="md" thickness="4px" speed="0.65s" />
               </Center>
             ) : (
               "Se connecter"

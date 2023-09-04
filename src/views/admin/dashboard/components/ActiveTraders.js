@@ -25,6 +25,7 @@ export default function DailyTraffic(props) {
     traderDetail,
     exchangeConnection,
     isLoading,
+    onChange,
     ...rest
   } = props;
 
@@ -106,7 +107,12 @@ export default function DailyTraffic(props) {
       </Flex>
 
       <Box h={traderDetail ? "auto" : "420px"} mt="8">
-        <SelectFeild name={"Préférence"} w={"36%"} />
+        <SelectFeild
+          name={"Préférence"}
+          w={"36%"}
+          onChange={(e) => onChange(e.target.value, "Symboles")}
+          disabled={!mergedArray?.length}
+        />
 
         {!exchangeConnection && !traderDetail && (
           <Center h={200}>
