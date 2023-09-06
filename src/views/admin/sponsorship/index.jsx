@@ -57,8 +57,6 @@ export default function SponsorShip() {
     }
   };
 
-  console.log(refralHistory);
-
   return (
     <Box>
       <Grid

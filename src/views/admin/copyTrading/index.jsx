@@ -242,6 +242,7 @@ export default function Settings() {
                   isCopy={item?.isCopy}
                   copyCount={item?.followerCount}
                   icon={item?.favorite}
+                  isfollowed={true}
                 />
               );
             })

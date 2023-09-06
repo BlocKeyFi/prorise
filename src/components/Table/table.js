@@ -181,7 +181,7 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {parseFloat(cell.value).toFixed(2)}
                           </Text>
                         );
                       } else if (cell.column.Header === "PRIX DE SORTIE") {
@@ -191,7 +191,7 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {parseFloat(cell.value).toFixed(2)}
                           </Text>
                         );
                       } else if (cell.column.Header === "ROI") {
@@ -268,7 +268,7 @@ export default function GlobalTable(props) {
                             {cell.value}
                           </Text>
                         );
-                      } else if (cell.column.Header === "TRADE PAR JOUR") {
+                      } else if (cell.column.Header === "WIN RATE") {
                         data = (
                           <Text
                             color={textColor}
@@ -288,6 +288,16 @@ export default function GlobalTable(props) {
                             fontWeight="400"
                           >
                             {cell.value}
+                          </Text>
+                        );
+                      } else if (cell.column.Header === "PNL AMOUNT") {
+                        data = (
+                          <Text
+                            color={textColor}
+                            fontSize="sm"
+                            fontWeight="400"
+                          >
+                            {parseFloat(cell.value).toFixed(2)}
                           </Text>
                         );
                       } else if (cell.column.Header === "STATUS") {
@@ -357,7 +367,7 @@ export default function GlobalTable(props) {
                             px={4}
                           >
                             <Icon as={AiOutlineCheck} />
-                            {"Copie"}
+                            {"Copié"}
                           </Flex>
                         ) : (
                           <Button
@@ -375,9 +385,13 @@ export default function GlobalTable(props) {
                             bg={"#0075FF"}
                             borderRadius="6px"
                             gap={2}
-                            onClick={() =>
-                              onCopy(cell?.row?.original?.encryptedUid)
-                            }
+                            onClick={(e) => {
+                              // Prevent row click event from bubbling up to the parent
+                              e.stopPropagation();
+
+                              // Handle the click event for the button here
+                              onCopy(cell?.row?.original?.encryptedUid);
+                            }}
                             disabled={!exchangeConnection}
                           >
                             <Image

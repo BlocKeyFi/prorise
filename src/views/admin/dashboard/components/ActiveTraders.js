@@ -108,8 +108,8 @@ export default function DailyTraffic(props) {
 
       <Box h={traderDetail ? "auto" : "420px"} mt="8">
         <SelectFeild
-          name={"Préférence"}
-          w={"36%"}
+          name={"Valeur"}
+          w={"32%"}
           onChange={(e) => onChange(e.target.value, "Symboles")}
           disabled={!mergedArray?.length}
         />

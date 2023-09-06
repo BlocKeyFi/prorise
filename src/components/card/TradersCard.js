@@ -4,6 +4,7 @@ import {
   Avatar,
   Button,
   Flex,
+  Icon,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -22,6 +23,7 @@ import { lineChartDataCard } from "variables/charts";
 import { lineChartOptionsCard } from "variables/charts";
 import { formattedData } from "utils/utils";
 import ReactApexChart from "react-apexcharts";
+import { AiOutlineCheck } from "react-icons/ai";
 
 export default function TradersCard(props) {
   const { ...rest } = props;
@@ -108,7 +110,9 @@ export default function TradersCard(props) {
                 fontWeight="600"
                 py={"5"}
               >
-                {props?.textvalue1}
+                {props?.textvalue1 === "-" || props?.textvalue1 === null
+                  ? props?.textvalue1
+                  : parseFloat(props?.textvalue1).toFixed(2) + "%"}
               </Text>
             </Flex>
 
@@ -145,7 +149,7 @@ export default function TradersCard(props) {
                     name: "",
                     data: props?.textvalue2?.includes("-")
                       ? [0, 0]
-                      : [props?.textvalue1, props?.textvalue2],
+                      : [parseFloat(props?.textvalue1), parseFloat(props?.textvalue2)],
                     color: props?.textvalue2?.includes("-")
                       ? textColorCountNegative
                       : "#28bce0",
@@ -195,23 +199,36 @@ export default function TradersCard(props) {
               {"ont copié ce trade"}
             </Text>
           </Flex>
-          <Link to={`/admin/trader-detail/${props?.id}`}>
-            <Button
-              fontSize="16px"
-              variant="brand"
-              fontWeight="500"
-              w={"100%"}
-              h="35px"
-              bg={props?.isCopy ? "none" : "#0075FF"}
-              borderRadius="10px"
-              _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
-              textAlign={"left"}
+          {props?.isfollowed ? (
+            <Flex
+              display={"flex"}
               gap={2}
+              alignItems={"center"}
+              px={4}
+              color={textColorSecondary}
             >
-              <img src={props?.isCopy ? check : copy} width={15} height={15} />
-              {props?.isCopy ? "Copié" : props?.btnText}
-            </Button>
-          </Link>
+              <Icon as={AiOutlineCheck} />
+              {"Copié"}
+            </Flex>
+          ) : (
+            <Link to={`/admin/trader-detail/${props?.id}`}>
+              <Button
+                fontSize="16px"
+                variant="brand"
+                fontWeight="500"
+                w={"100%"}
+                h="35px"
+                bg={props?.isCopy ? "none" : "#0075FF"}
+                borderRadius="10px"
+                _hover={{ bg: props?.isCopy ? "none" : "#0075FF" }}
+                textAlign={"left"}
+                gap={2}
+              >
+                <img src={copy} width={15} height={15} />
+                {props?.btnText}
+              </Button>
+            </Link>
+          )}
         </Flex>
       </Card>
     </Link>

@@ -24,8 +24,8 @@ export const columnsDataActiveTrades = [
     accessor: "leverage",
   },
   {
-    Header: "STATUS",
-    accessor: "short",
+    Header: "PNL AMOUNT",
+    accessor: "cumRealisedPnl",
   },
   {
     Header: "VOIR LE TRADER",
@@ -152,7 +152,7 @@ export const columnsLeaderBoard = [
     accessor: "roi",
   },
   {
-    Header: "TRADE PAR JOUR",
+    Header: "WIN RATE",
     accessor: "winrate",
   },
   {
