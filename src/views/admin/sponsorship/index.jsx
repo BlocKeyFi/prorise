@@ -64,28 +64,30 @@ export default function SponsorShip() {
         templateColumns="repeat(4, 1fr)"
         gap={4}
       >
+        {refralHistory?.length ? (
+          <GridItem
+            colSpan={{
+              "2xl": 2,
+              xl: 2,
+              lg: 4,
+              md: 4,
+              sm: 4,
+            }}
+          >
+            <BasicCard
+              heading="Félicitations! 🎉"
+              paragraph="Vous avez parrainé 14 nouvelles personnes depuis le 3 janvier 2023."
+              price=" € 70 "
+              btnText="Réclamer"
+              button={true}
+              tabIndex={tabIndex}
+            />
+          </GridItem>
+        ) : null}
         <GridItem
           colSpan={{
-            "2xl": 2,
-            xl: 2,
-            lg: 4,
-            md: 4,
-            sm: 4,
-          }}
-        >
-          <BasicCard
-            heading="Félicitations! 🎉"
-            paragraph="Vous avez parrainé 14 nouvelles personnes depuis le 3 janvier 2023."
-            price=" € 70 "
-            btnText="Réclamer"
-            button={true}
-            tabIndex={tabIndex}
-          />
-        </GridItem>
-        <GridItem
-          colSpan={{
-            "2xl": 2,
-            xl: 2,
+            "2xl": refralHistory?.length ? 2 : 4,
+            xl: refralHistory?.length ? 2 : 4,
             lg: 4,
             md: 4,
             sm: 4,
