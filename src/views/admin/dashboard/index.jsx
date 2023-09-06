@@ -153,7 +153,6 @@ export default function Dashboard() {
             sm: 4,
           }}
         >
-          {}
           <TotalSpent
             heading="Portefeuille"
             design={1}
@@ -185,6 +184,7 @@ export default function Dashboard() {
             design={2}
             analytics={analytics}
             data={exchangeConnection ? closedPositions ?? [] : []}
+            exchangeConnection={exchangeConnection}
           />
         </GridItem>
         <GridItem colSpan={4}>

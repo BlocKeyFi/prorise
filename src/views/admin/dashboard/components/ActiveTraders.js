@@ -114,122 +114,13 @@ export default function DailyTraffic(props) {
           disabled={!mergedArray?.length}
         />
 
-        {mergedArray?.length ? (
-          <>
-            {exchangeConnection && (
-              <>
-                <Flex
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                  py={20}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="240"
-                    height="240"
-                    viewBox="0 0 207 208"
-                    fill="none"
-                  >
-                    <circle
-                      cx="100"
-                      cy="100"
-                      r="100"
-                      fill="black"
-                      fill-opacity="0.4"
-                    />
-                    <VictoryPie
-                      padAngle={({ datum }) => 1}
-                      cornerRadius={({ datum }) => 45}
-                      colorScale={getColorScale()}
-                      standalone={false}
-                      width={200}
-                      height={200}
-                      data={mergedArray}
-                      radius={90}
-                      innerRadius={75}
-                      labelComponent={<></>}
-                      events={[
-                        {
-                          target: "data",
-                          eventHandlers: {
-                            onClick: (event, props) => {
-                              const updatedData = mergedArray?.filter(
-                                (datum, index) => index === props?.index
-                              );
-                              setSelectedSlice(props.index);
-                              setMiddleText(
-                                updatedData[0].y + " " + updatedData[0].x + "%"
-                              );
-                            },
-                          },
-                        },
-                      ]}
-                    />
-
-                    <VictoryLabel
-                      textAnchor="middle"
-                      style={{
-                        fontSize: 16,
-                        fill: "white",
-                      }}
-                      x={100}
-                      y={100}
-                      text={middleText}
-                    />
-                  </svg>
-
-                  <Box h={260} w={200} className="overflow">
-                    <Flex direction={"column"} textAlign={"left"} gap={4}>
-                      {mergedArray?.map((item) => {
-                        return (
-                          <Flex gap={4}>
-                            <Text
-                              fontSize={{
-                                "2xl": 18,
-                                xl: 14,
-                                lg: 12,
-                                md: 18,
-                                sm: 18,
-                              }}
-                              fontWeight={700}
-                              color={
-                                middleText.includes(item?.y)
-                                  ? "aqua"
-                                  : "#A0AEC0"
-                              }
-                              cursor={"pointer"}
-                              onClick={() =>
-                                setMiddleText(item?.y + " " + item?.x + "%")
-                              }
-                            >
-                              {item?.y}
-                            </Text>
-                            <Text
-                              fontSize={{
-                                "2xl": 18,
-                                xl: 14,
-                                lg: 12,
-                                md: 18,
-                                sm: 18,
-                              }}
-                              fontWeight={700}
-                              color={"white"}
-                            >
-                              {item?.x?.toFixed(2) + "%"}
-                            </Text>
-                          </Flex>
-                        );
-                      })}
-                    </Flex>
-                  </Box>
-                </Flex>
-              </>
-            )}
-            {traderDetail && (
+        {exchangeConnection || traderDetail ? (
+          mergedArray && mergedArray.length > 0 ? (
+            <>
               <Flex
                 justifyContent={"space-between"}
                 alignItems={"center"}
-                mt={5}
+                py={20}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -261,7 +152,7 @@ export default function DailyTraffic(props) {
                         target: "data",
                         eventHandlers: {
                           onClick: (event, props) => {
-                            const updatedData = mergedArray.filter(
+                            const updatedData = mergedArray?.filter(
                               (datum, index) => index === props?.index
                             );
                             setSelectedSlice(props.index);
@@ -286,7 +177,7 @@ export default function DailyTraffic(props) {
                   />
                 </svg>
 
-                <Box h={200} w={200} className="overflow">
+                <Box h={260} w={200} className="overflow">
                   <Flex direction={"column"} textAlign={"left"} gap={4}>
                     {mergedArray?.map((item) => {
                       return (
@@ -299,7 +190,7 @@ export default function DailyTraffic(props) {
                               md: 18,
                               sm: 18,
                             }}
-                            // fontWeight={700}
+                            fontWeight={700}
                             color={
                               middleText.includes(item?.y) ? "aqua" : "#A0AEC0"
                             }
@@ -318,10 +209,10 @@ export default function DailyTraffic(props) {
                               md: 18,
                               sm: 18,
                             }}
-                            // fontWeight={700}
+                            fontWeight={700}
                             color={"white"}
                           >
-                            {item?.x + "%"}
+                            {item?.x?.toFixed(2) + "%"}
                           </Text>
                         </Flex>
                       );
@@ -329,41 +220,280 @@ export default function DailyTraffic(props) {
                   </Flex>
                 </Box>
               </Flex>
-            )}
-          </>
+            </>
+          ) : mergedArray.length < 0 ? (
+            <Center h={300}>
+              <Text fontSize={30}>{"No Data Found"}</Text>
+            </Center>
+          ) : (
+            <Center h={300}>
+              <Spinner size="xl" thickness="4px" speed="0.65s" />
+            </Center>
+          )
         ) : (
+          <Center h={300}>
+            <Text fontSize={20}>
+              No Connection Found
+              <br />
+              <br />
+              <Link to="/admin/setting" style={{ width: "100%" }}>
+                <Button
+                  fontSize="16px"
+                  variant="brand"
+                  fontWeight="500"
+                  w={"100%"}
+                  h="35px"
+                  bg="#0075FF"
+                  borderRadius="10px"
+                  _hover={{ bg: "#0075FF" }}
+                  textAlign={"center"}
+                  gap={2}
+                >
+                  {"Build Connection"}
+                </Button>
+              </Link>
+            </Text>
+          </Center>
+        )}
+
+        {/* {exchangeConnection && (
           <>
-            {!exchangeConnection || !traderDetail ? (
-              <Center h={300}>
-                <Text fontSize={20}>
-                  No Connection Found
-                  <br />
-                  <br />
-                  <Link to="/admin/setting" style={{ width: "100%" }}>
-                    <Button
-                      fontSize="16px"
-                      variant="brand"
-                      fontWeight="500"
-                      w={"100%"}
-                      h="35px"
-                      bg="#0075FF"
-                      borderRadius="10px"
-                      _hover={{ bg: "#0075FF" }}
-                      textAlign={"center"}
-                      gap={2}
-                    >
-                      {"Build Connection"}
-                    </Button>
-                  </Link>
-                </Text>
-              </Center>
-            ) : (
-              <Center h={300}>
-                <Text fontSize={30}>{"No Data Found"}</Text>
-              </Center>
-            )}
+            <Flex
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              py={20}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="240"
+                height="240"
+                viewBox="0 0 207 208"
+                fill="none"
+              >
+                <circle
+                  cx="100"
+                  cy="100"
+                  r="100"
+                  fill="black"
+                  fill-opacity="0.4"
+                />
+                <VictoryPie
+                  padAngle={({ datum }) => 1}
+                  cornerRadius={({ datum }) => 45}
+                  colorScale={getColorScale()}
+                  standalone={false}
+                  width={200}
+                  height={200}
+                  data={mergedArray}
+                  radius={90}
+                  innerRadius={75}
+                  labelComponent={<></>}
+                  events={[
+                    {
+                      target: "data",
+                      eventHandlers: {
+                        onClick: (event, props) => {
+                          const updatedData = mergedArray?.filter(
+                            (datum, index) => index === props?.index
+                          );
+                          setSelectedSlice(props.index);
+                          setMiddleText(
+                            updatedData[0].y + " " + updatedData[0].x + "%"
+                          );
+                        },
+                      },
+                    },
+                  ]}
+                />
+
+                <VictoryLabel
+                  textAnchor="middle"
+                  style={{
+                    fontSize: 16,
+                    fill: "white",
+                  }}
+                  x={100}
+                  y={100}
+                  text={middleText}
+                />
+              </svg>
+
+              <Box h={260} w={200} className="overflow">
+                <Flex direction={"column"} textAlign={"left"} gap={4}>
+                  {mergedArray?.map((item) => {
+                    return (
+                      <Flex gap={4}>
+                        <Text
+                          fontSize={{
+                            "2xl": 18,
+                            xl: 14,
+                            lg: 12,
+                            md: 18,
+                            sm: 18,
+                          }}
+                          fontWeight={700}
+                          color={
+                            middleText.includes(item?.y) ? "aqua" : "#A0AEC0"
+                          }
+                          cursor={"pointer"}
+                          onClick={() =>
+                            setMiddleText(item?.y + " " + item?.x + "%")
+                          }
+                        >
+                          {item?.y}
+                        </Text>
+                        <Text
+                          fontSize={{
+                            "2xl": 18,
+                            xl: 14,
+                            lg: 12,
+                            md: 18,
+                            sm: 18,
+                          }}
+                          fontWeight={700}
+                          color={"white"}
+                        >
+                          {item?.x?.toFixed(2) + "%"}
+                        </Text>
+                      </Flex>
+                    );
+                  })}
+                </Flex>
+              </Box>
+            </Flex>
           </>
         )}
+        {traderDetail && (
+          <Flex justifyContent={"space-between"} alignItems={"center"} mt={5}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="240"
+              height="240"
+              viewBox="0 0 207 208"
+              fill="none"
+            >
+              <circle
+                cx="100"
+                cy="100"
+                r="100"
+                fill="black"
+                fill-opacity="0.4"
+              />
+              <VictoryPie
+                padAngle={({ datum }) => 1}
+                cornerRadius={({ datum }) => 45}
+                colorScale={getColorScale()}
+                standalone={false}
+                width={200}
+                height={200}
+                data={mergedArray}
+                radius={90}
+                innerRadius={75}
+                labelComponent={<></>}
+                events={[
+                  {
+                    target: "data",
+                    eventHandlers: {
+                      onClick: (event, props) => {
+                        const updatedData = mergedArray.filter(
+                          (datum, index) => index === props?.index
+                        );
+                        setSelectedSlice(props.index);
+                        setMiddleText(
+                          updatedData[0].y + " " + updatedData[0].x + "%"
+                        );
+                      },
+                    },
+                  },
+                ]}
+              />
+
+              <VictoryLabel
+                textAnchor="middle"
+                style={{
+                  fontSize: 16,
+                  fill: "white",
+                }}
+                x={100}
+                y={100}
+                text={middleText}
+              />
+            </svg>
+
+            <Box h={200} w={200} className="overflow">
+              <Flex direction={"column"} textAlign={"left"} gap={4}>
+                {mergedArray?.map((item) => {
+                  return (
+                    <Flex gap={4}>
+                      <Text
+                        fontSize={{
+                          "2xl": 18,
+                          xl: 14,
+                          lg: 12,
+                          md: 18,
+                          sm: 18,
+                        }}
+                        // fontWeight={700}
+                        color={
+                          middleText.includes(item?.y) ? "aqua" : "#A0AEC0"
+                        }
+                        cursor={"pointer"}
+                        onClick={() =>
+                          setMiddleText(item?.y + " " + item?.x + "%")
+                        }
+                      >
+                        {item?.y}
+                      </Text>
+                      <Text
+                        fontSize={{
+                          "2xl": 18,
+                          xl: 14,
+                          lg: 12,
+                          md: 18,
+                          sm: 18,
+                        }}
+                        // fontWeight={700}
+                        color={"white"}
+                      >
+                        {item?.x + "%"}
+                      </Text>
+                    </Flex>
+                  );
+                })}
+              </Flex>
+            </Box>
+          </Flex>
+        )}
+
+        {!exchangeConnection || !traderDetail ? (
+          <Center h={300}>
+            <Text fontSize={20}>
+              No Connection Found
+              <br />
+              <br />
+              <Link to="/admin/setting" style={{ width: "100%" }}>
+                <Button
+                  fontSize="16px"
+                  variant="brand"
+                  fontWeight="500"
+                  w={"100%"}
+                  h="35px"
+                  bg="#0075FF"
+                  borderRadius="10px"
+                  _hover={{ bg: "#0075FF" }}
+                  textAlign={"center"}
+                  gap={2}
+                >
+                  {"Build Connection"}
+                </Button>
+              </Link>
+            </Text>
+          </Center>
+        ) : (
+          <Center h={300}>
+            <Text fontSize={30}>{"No Data Found"}</Text>
+          </Center>
+        )} */}
       </Box>
     </Card>
   );

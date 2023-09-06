@@ -5,6 +5,7 @@ import {
   Center,
   Flex,
   Image,
+  Link,
   SimpleGrid,
   Spinner,
   Text,
@@ -33,6 +34,7 @@ export default function TotalSpent(props) {
     traderDetail,
     walletHistory,
     onChange,
+    exchangeConnection,
     ...rest
   } = props;
   const analyticsKeyValueArray = Object.entries(analytics ?? {});
@@ -294,7 +296,54 @@ export default function TotalSpent(props) {
             width="100%"
             height="100%"
           /> */}
-          {chartData?.length ? (
+
+          {exchangeConnection || traderDetail || walletHistory ? (
+            chartData && chartData?.length > 0 ? (
+              <LineAreaChart
+                chartData={[
+                  {
+                    name: "Closed",
+                    data: chartData,
+                  },
+                ]}
+                chartOptions={lineChartOptionsTotalSpent}
+                height={"365px"}
+              />
+            ) : chartData?.length < 0 ? (
+              <Center h={378}>
+                <Text fontSize={30}>{"No Data Found"}</Text>
+              </Center>
+            ) : (
+              <Center h={378}>
+                <Spinner size="xl" thickness="4px" speed="0.65s" />
+              </Center>
+            )
+          ) : (
+            <Center h={378}>
+              <Text fontSize={20}>
+                No Connection Found
+                <br />
+                <br />
+                <Link to="/admin/setting" style={{ width: "100%" }}>
+                  <Button
+                    fontSize="16px"
+                    variant="brand"
+                    fontWeight="500"
+                    w={"100%"}
+                    h="35px"
+                    bg="#0075FF"
+                    borderRadius="10px"
+                    _hover={{ bg: "#0075FF" }}
+                    textAlign={"center"}
+                    gap={2}
+                  >
+                    {"Build Connection"}
+                  </Button>
+                </Link>
+              </Text>
+            </Center>
+          )}
+          {/* {chartData?.length > 0 ? (
             <LineAreaChart
               chartData={[
                 {
@@ -311,7 +360,7 @@ export default function TotalSpent(props) {
                 <Spinner size="xl" thickness="4px" speed="0.65s" />
               </Box>
             </Center>
-          )}
+          )} */}
         </Box>
       </Flex>
     </Card>
