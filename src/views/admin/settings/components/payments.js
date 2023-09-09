@@ -66,25 +66,23 @@ export default function Payments() {
           alignItems="center"
         >
           {plans.length ? (
-            plans?.slice(0, 3)?.map((item, index) => (
-              <PriceCard
-                id={++index}
-                heading={item?.name}
-                paragraph={item?.description}
-                price={`€ ${item?.price}/mois`}
-                btnText={
-                  index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
-                }
-                onClick={() =>
-                  onCheckOut({
-                    priceId: item?.stripePrice,
-                  })
-                }
-                setting={true}
-                userId={login?.user?.id}
-                currentPlan={login?.user?.currentPlan}
-              />
-            ))
+            plans
+              ?.slice(0, 3)
+              ?.map((item, index) => (
+                <PriceCard
+                  id={++index}
+                  heading={item?.name}
+                  paragraph={item?.description}
+                  price={`€ ${item?.price}/mois`}
+                  btnText={
+                    index === 1 ? "Essai gratuit de 7 jours" : "Sélectionner"
+                  }
+                  onClick={checkOutSession}
+                  setting={true}
+                  userId={login?.user?.id}
+                  currentPlan={login?.user?.currentPlan}
+                />
+              ))
           ) : (
             <Center width={"100%"}>
               <Spinner size="xl" thickness="4px" speed="0.65s" />

@@ -278,12 +278,14 @@ export default function TotalSpent(props) {
       </Box>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
         <Box minW="100%" mt="20px">
-          <SelectFeild
-            name={"Valeur"}
-            w={"15%"}
-            onChange={(e) => onChange(e.target.value)}
-            disabled={!walletHistory?.length}
-          />
+          {!traderDetail && (
+            <SelectFeild
+              name={"Valeur"}
+              w={"15%"}
+              onChange={(e) => onChange(e.target.value)}
+              disabled={!walletHistory?.length}
+            />
+          )}
           {/* <ReactApexChart
             options={lineChartOptionsTotalSpent} // Aapke options object
             series={[

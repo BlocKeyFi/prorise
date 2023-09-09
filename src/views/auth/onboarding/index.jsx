@@ -126,8 +126,6 @@ function Register() {
         await apiInstance.post(`${PRO_RISE.register}`, userFinalobj);
         toast.success(SUCCESS_REGISTER);
         history.push("/auth/send-verification");
-        // setOnbordTwo(false);
-        // setOnbordThree(true);
       } catch (error) {
         if (error?.response?.data?.meta?.target[TARGET_ZERO] === EMAIL) {
           toast.error(ALREADY_EMAIL);
@@ -137,6 +135,8 @@ function Register() {
           toast.error(ALREADY_UESR);
         }
       }
+    }else{
+      toast.error( score === 4 ? "Password is not Strong" : "FILL ALL THE FEILDS");
     }
   };
 
@@ -319,6 +319,7 @@ function Register() {
               borderRadius="16px"
               _hover={{ bg: "#0075FF" }}
               onClick={checkUser}
+              isDisabled={score === 4 ? false : true}
             >
               Créer mon compte
             </Button>

@@ -43,7 +43,7 @@ export default function Connections() {
     secretKey: "",
     apiKey: "",
     exchange: "",
-    passphrase: "",
+    passPhrase: "",
     connectionName: generateRandomString(8),
   });
 

@@ -107,12 +107,14 @@ export default function DailyTraffic(props) {
       </Flex>
 
       <Box h={traderDetail ? "auto" : "420px"} mt="8">
-        <SelectFeild
-          name={"Valeur"}
-          w={"32%"}
-          onChange={(e) => onChange(e.target.value, "Symboles")}
-          disabled={!mergedArray?.length}
-        />
+        {!traderDetail && (
+          <SelectFeild
+            name={"Valeur"}
+            w={"32%"}
+            onChange={(e) => onChange(e.target.value, "Symboles")}
+            disabled={!mergedArray?.length}
+          />
+        )}
 
         {exchangeConnection || traderDetail ? (
           mergedArray && mergedArray.length > 0 ? (

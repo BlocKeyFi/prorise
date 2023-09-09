@@ -29,9 +29,18 @@ export default function Dashboard() {
 
   const dispatch = useDispatch();
 
-  useEffect(async () => {
+  const fetchData = async () => {
     if (exchangeConnection) {
       setAuthToken(localStorage.getItem("jwt"));
+      await apiInstance
+        .post(`${PRO_RISE.getWalletHistory}`, {
+          searchCriteria: {
+            period: "7",
+          },
+        })
+        .then((resp) => {
+          setWalletHistory(resp?.data?.history);
+        });
       const { data } = await apiInstance.post(`${PRO_RISE.getWalletBalance}`, {
         symbol: "USDT",
       });
@@ -48,8 +57,9 @@ export default function Dashboard() {
           delete resp?.data?.analytics?.mdd;
           delete resp?.data?.analytics?.winrate;
           setAnalytics(resp?.data?.analytics);
-        });
-      await dispatch(
+        })
+        .catch((error) => console.log(error));
+      dispatch(
         getOpenPositions({
           exchange: exchangeConnection,
           searchCriteria: {
@@ -57,19 +67,13 @@ export default function Dashboard() {
           },
         })
       );
-
-      await apiInstance
-        .post(`${PRO_RISE.getWalletHistory}`, {
-          searchCriteria: {
-            period: "7",
-          },
-        })
-        .then((resp) => {
-          setWalletHistory(resp?.data?.history);
-        });
     } else {
       setBalance(0);
     }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [exchangeConnection]);
 
   const onFilterChange = async (period, from) => {
