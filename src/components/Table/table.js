@@ -86,6 +86,85 @@ export default function GlobalTable(props) {
   let activebgColor = useColorModeValue("secondaryGray.900", "#0c0d22");
   let activeIconColor = useColorModeValue("secondaryGray.900", "#0c0d22");
 
+  const maxPageButtons = 5; // You can adjust this number
+
+  const renderPageButtons = () => {
+    const totalPages = pageOptions.length;
+
+    // Calculate the start and end index for the displayed page buttons
+    let start = Math.max(0, pageIndex - Math.floor(maxPageButtons / 2));
+    let end = Math.min(totalPages, start + maxPageButtons);
+
+    // If the start index is 0, adjust the end index to show a consistent number of buttons
+    if (start === 0) {
+      end = Math.min(maxPageButtons, totalPages);
+    }
+
+    const pageButtons = [];
+
+    if (start > 0) {
+      // Add a "First Page" button if not on the first page
+      pageButtons.push(
+        <Button
+          key="first"
+          onClick={() => gotoPage(0)}
+          px={0}
+          borderRadius={10}
+        >
+          1
+        </Button>
+      );
+
+      // Add ellipsis (...) to indicate more pages before current pages
+      pageButtons.push(
+        <Button key="ellipsis1" disabled px={0} borderRadius={10}>
+          ...
+        </Button>
+      );
+    }
+
+    for (let i = start; i < end; i++) {
+      pageButtons.push(
+        <Button
+          key={i}
+          onClick={() => gotoPage(i)}
+          px={0}
+          borderRadius={10}
+          color={i === pageIndex ? activeTextColor : iconColor}
+          _hover={{
+            bg: i === pageIndex ? !activeTextColor : "rgba(87, 148, 250, 0.08)",
+          }}
+          bg={i === pageIndex ? activebgColor : "rgba(87, 148, 250, 0.08)"}
+        >
+          {i + 1}
+        </Button>
+      );
+    }
+
+    if (end < totalPages) {
+      // Add ellipsis (...) to indicate more pages after current pages
+      pageButtons?.push(
+        <Button key="ellipsis2" disabled px={0} borderRadius={10}>
+          ...
+        </Button>
+      );
+
+      // Add a "Last Page" button if not on the last page
+      pageButtons.push(
+        <Button
+          key="last"
+          onClick={() => gotoPage(totalPages - 1)}
+          px={0}
+          borderRadius={10}
+        >
+          {totalPages}
+        </Button>
+      );
+    }
+
+    return pageButtons;
+  };
+
   if (isLoading) {
     return (
       <Center>
@@ -514,27 +593,8 @@ export default function GlobalTable(props) {
             >
               <Icon as={MdOutlineArrowBackIos} color={iconColor} />
             </Button>
-            {pageOptions?.map((item, index) => (
-              <Button
-                onClick={() => gotoPage(index)}
-                px={0}
-                borderRadius={10}
-                color={index === pageIndex ? activeTextColor : iconColor}
-                _hover={{
-                  bg:
-                    index === pageIndex
-                      ? !activeTextColor
-                      : "rgba(87, 148, 250, 0.08)",
-                }}
-                bg={
-                  index === pageIndex
-                    ? activebgColor
-                    : "rgba(87, 148, 250, 0.08)"
-                }
-              >
-                {++item}
-              </Button>
-            ))}
+            {renderPageButtons()}
+
             <Button
               onClick={() => nextPage()}
               disabled={!canNextPage}
