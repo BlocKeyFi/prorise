@@ -1,6 +1,7 @@
 // ProRIse imports
 import { CheckIcon, PhoneIcon } from "@chakra-ui/icons";
 import {
+  Box,
   Center,
   Flex,
   FormLabel,
@@ -31,6 +32,7 @@ export default function InputFeild(props) {
     disabled,
     iconPlacement,
     onClick,
+    progress,
     ...rest
   } = props;
   // ProRIse Color Mode
@@ -55,6 +57,7 @@ export default function InputFeild(props) {
           {extra}
         </Text>
       </FormLabel>
+
       <InputGroup>
         {icon && !iconPlacement && (
           <InputLeftElement pointerEvents="none" mt={2}>
@@ -100,6 +103,9 @@ export default function InputFeild(props) {
           </InputRightElement>
         )}
       </InputGroup>
+      <Box py={2} px={2}>
+        {progress}
+      </Box>
     </Flex>
   );
 }

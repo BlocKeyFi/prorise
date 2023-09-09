@@ -9,6 +9,9 @@ import {
   Heading,
   Icon,
   Image,
+  List,
+  ListItem,
+  Progress,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -42,6 +45,7 @@ import { setAuthToken } from "constants/api";
 import { authButtons } from "constants/constants";
 import { useGoogleLogin } from "@react-oauth/google";
 import { userLogin } from "store/actions";
+import zxcvbn from "zxcvbn";
 
 function Register() {
   // ProRIse color mode
@@ -65,6 +69,8 @@ function Register() {
     lastName: "",
   });
 
+  const [score, setScore] = useState(0);
+
   useEffect(async () => {
     if (login?.user?.currentSubscription === null) {
       setOnbordTwo(false);
@@ -85,6 +91,11 @@ function Register() {
 
   const { email, password, fisrtName, lastName } = userData;
 
+  useEffect(() => {
+    const result = zxcvbn(password);
+    setScore(result.score);
+  }, [password]);
+
   const history = useHistory();
 
   const onCheckOut = async (param) => {
@@ -101,7 +112,7 @@ function Register() {
   const refralCode = encodedString.replace("?ref=", "");
 
   const checkUser = async () => {
-    if (email && password && fisrtName && lastName) {
+    if (email && password && fisrtName && lastName && score === 4) {
       let userFinalobj = {
         email,
         password,
@@ -274,6 +285,7 @@ function Register() {
                   setUserData({ ...userData, email: e.target.value })
                 }
               />
+
               <InputFeild
                 label="Mot de passe"
                 type="password"
@@ -281,7 +293,20 @@ function Register() {
                 onChange={(e) =>
                   setUserData({ ...userData, password: e.target.value })
                 }
+                progress={
+                  <Progress
+                    value={score * 25} // We multiply by 25 to convert the score (0-4) to a percentage (0-100)
+                    size="sm"
+                    colorScheme={
+                      score === 4 ? "green" : score >= 2 ? "orange" : "red"
+                    } // Color the progress bar based on the score
+                    isAnimated // Animate the progress bar
+                    borderRadius={10}
+                    display={score === 0 && "none"}
+                  />
+                }
               />
+              {/* <p>Password Strength: {score}/4</p> */}
             </FormControl>
             <Button
               fontSize={{ xl: "24px", lg: "24px", md: "24px", sm: "20px" }}
