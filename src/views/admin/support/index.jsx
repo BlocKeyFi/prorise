@@ -20,10 +20,31 @@ import React from "react";
 import BasicCard from "components/card/BasicCard";
 
 import InputFeild from "components/fields/InputField";
+import { useSelector } from "react-redux";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Support() {
   const textColor = useColorModeValue("white", "white");
   const textColorSecondary = useColorModeValue("gray.200", "gray.200");
+  const [issueText, setIssueText] = useState("");
+
+  const { login } = useSelector((state) => state.user);
+  const { user } = login;
+
+  const onSubmit = async () => {
+    const { data } = await apiInstance.post(`${PRO_RISE.createTicket}`, {
+      issue: issueText,
+    });
+    if (data?.success) {
+      toast.success(data?.msg);
+    } else {
+      toast.error(data?.message);
+    }
+  };
+
   return (
     <Box>
       <BasicCard heading="Assistance 7/7 - Contactez-nous">
@@ -56,6 +77,8 @@ export default function Support() {
                 label="Nom et prénom"
                 type="text"
                 placeholder={"Cole"}
+                value={user?.firstName + " " + user?.lastName}
+                isDisabled
               />
             </GridItem>
             <GridItem colSpan={2}>
@@ -63,6 +86,8 @@ export default function Support() {
                 label="Adresse e-mail"
                 type="text"
                 placeholder={"Caufield"}
+                value={user?.email}
+                isDisabled
               />
             </GridItem>
             <GridItem colSpan={4}>
@@ -79,7 +104,9 @@ export default function Support() {
                 type="text"
                 placeholder={"Je n’arrive pas à trouver ma clé API..."}
                 fontSize={"16px"}
+                value={issueText}
                 border="0.8px solid rgba(255, 255, 255, 0.3) !important"
+                onChange={(e) => setIssueText(e.target.value)}
               />
             </GridItem>
           </Grid>
@@ -135,6 +162,8 @@ export default function Support() {
         borderRadius="10px"
         textAlign={"left"}
         gap={2}
+        isDisabled={!issueText}
+        onClick={onSubmit}
       >
         {"Envoyer"}
       </Button>

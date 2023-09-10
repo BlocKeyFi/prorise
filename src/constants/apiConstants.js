@@ -31,4 +31,5 @@ export const PRO_RISE = {
   portalSession: "payment/create-portal-session",
   getWalletHistory: "user/getWalletHistory",
   uploadProfilePicture: "user/uploadProfilePicture",
+  createTicket: "user/createTicket",
 };
