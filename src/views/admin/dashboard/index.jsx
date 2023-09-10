@@ -20,12 +20,14 @@ import { useState } from "react";
 import { getClosedTrades } from "store/actions";
 
 export default function Dashboard() {
-  const { currentPositions, exchangeConnection, closedPositions, isLoading } =
-    useSelector((state) => state?.exchange);
+  const { currentPositions, exchangeConnection, isLoading } = useSelector(
+    (state) => state?.exchange
+  );
 
   const [balance, setBalance] = useState(0);
   const [analytics, setAnalytics] = useState({});
   const [walletHistory, setWalletHistory] = useState([]);
+  const [performances, setPerformances] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -49,16 +51,6 @@ export default function Dashboard() {
       } else {
         setBalance(0);
       }
-      dispatch(getClosedTrades("tradeHistory"));
-      await apiInstance
-        .post(`${PRO_RISE.getUserPerformanceAnalytics}`)
-        .then((resp) => {
-          delete resp?.data?.analytics?.data;
-          delete resp?.data?.analytics?.mdd;
-          delete resp?.data?.analytics?.winrate;
-          setAnalytics(resp?.data?.analytics);
-        })
-        .catch((error) => console.log(error));
       dispatch(
         getOpenPositions({
           exchange: exchangeConnection,
@@ -67,6 +59,20 @@ export default function Dashboard() {
           },
         })
       );
+      apiInstance
+        .post(`${PRO_RISE.getUserPerformanceAnalytics}`, {
+          searchCriteria: {
+            period: "7",
+          },
+        })
+        .then((resp) => {
+          setPerformances(resp?.data?.analytics?.data);
+          delete resp?.data?.analytics?.data;
+          delete resp?.data?.analytics?.mdd;
+          delete resp?.data?.analytics?.winrate;
+          setAnalytics(resp?.data?.analytics);
+        })
+        .catch((error) => console.log(error));
     } else {
       setBalance(0);
     }
@@ -86,6 +92,21 @@ export default function Dashboard() {
           },
         })
       );
+    } else if (from === "performence") {
+      apiInstance
+        .post(`${PRO_RISE.getUserPerformanceAnalytics}`, {
+          searchCriteria: {
+            period: period,
+          },
+        })
+        .then((resp) => {
+          setPerformances(resp?.data?.analytics?.data);
+          delete resp?.data?.analytics?.data;
+          delete resp?.data?.analytics?.mdd;
+          delete resp?.data?.analytics?.winrate;
+          setAnalytics(resp?.data?.analytics);
+        })
+        .catch((error) => console.log(error));
     } else {
       setWalletHistory([]);
       await apiInstance
@@ -187,8 +208,9 @@ export default function Dashboard() {
             heading="Performances"
             design={2}
             analytics={analytics}
-            data={exchangeConnection ? closedPositions ?? [] : []}
+            data={performances ?? []}
             exchangeConnection={exchangeConnection}
+            onChange={onFilterChange}
           />
         </GridItem>
         <GridItem colSpan={4}>

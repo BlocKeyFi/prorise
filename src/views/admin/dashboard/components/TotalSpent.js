@@ -127,10 +127,8 @@ export default function TotalSpent(props) {
   };
 
   const finalData = data?.map((item) => ({
-    x: new Date(
-      parseInt(traderDetail ? item?.updateTimeStamp : item?.createdTime)
-    ),
-    y: parseFloat(traderDetail ? item?.pnl : item?.closedPnl).toFixed(0),
+    x: new Date(parseInt(traderDetail ? item?.updateTimeStamp : item?.date)),
+    y: parseFloat(traderDetail ? item?.pnl : item?.value).toFixed(0),
   }));
 
   const walletHistoryData = walletHistory?.map((item) => ({
@@ -247,6 +245,16 @@ export default function TotalSpent(props) {
             </Flex>
           )}
         </Flex>
+        {!traderDetail && (
+          <SelectFeild
+            name={"Valeur"}
+            w={"15%"}
+            onChange={(e) =>
+              onChange(e.target.value, !walletHistory && "performence")
+            }
+            disabled={!chartData?.length}
+          />
+        )}
         {props?.design === 2 && (
           <SimpleGrid
             columns={{ base: 2, md: 6, lg: 6, xl: 6, sm: 2 }}
@@ -257,7 +265,18 @@ export default function TotalSpent(props) {
                 <>
                   <Flex direction={"column"} w="100%" align={"start"} pt={3}>
                     <Center>
-                      <SelectFeild name={key} w={"100%"} fontWeight="600" />
+                      <Flex direction={"row"} gap={2}>
+                        <img src={present} />
+                        <Text
+                          color={"gray.200"}
+                          fontSize="14px"
+                          lineHeight="100%"
+                          // fontWeight="600"
+                          textTransform={"capitalize"}
+                        >
+                          {`${key}`}
+                        </Text>
+                      </Flex>
                     </Center>
                     <Text
                       color={index === 0 || index === 1 ? "green.300" : "white"}
@@ -278,14 +297,6 @@ export default function TotalSpent(props) {
       </Box>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
         <Box minW="100%" mt="20px">
-          {!traderDetail && (
-            <SelectFeild
-              name={"Valeur"}
-              w={"15%"}
-              onChange={(e) => onChange(e.target.value)}
-              disabled={!walletHistory?.length}
-            />
-          )}
           {/* <ReactApexChart
             options={lineChartOptionsTotalSpent} // Aapke options object
             series={[
@@ -299,7 +310,7 @@ export default function TotalSpent(props) {
             height="100%"
           /> */}
 
-          {exchangeConnection || traderDetail || walletHistory ? (
+          {exchangeConnection || traderDetail || walletHistory || data ? (
             chartData && chartData?.length > 0 ? (
               <LineAreaChart
                 chartData={[
