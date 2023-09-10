@@ -2,6 +2,7 @@ import React from "react";
 // ProRIse imports
 import {
   Avatar,
+  Badge,
   Button,
   Flex,
   Icon,
@@ -26,7 +27,7 @@ import ReactApexChart from "react-apexcharts";
 import { AiOutlineCheck } from "react-icons/ai";
 
 export default function TradersCard(props) {
-  const { ...rest } = props;
+  const { index, itemOffset, ...rest } = props;
 
   // ProRIse Color Mode
 
@@ -49,6 +50,24 @@ export default function TradersCard(props) {
         mb="0px"
         {...rest}
       >
+        {itemOffset === 1 &&
+        (index === 0 ||
+          index === 1 ||
+          index === 2 ||
+          index === 3 ||
+          index === 4 ||
+          index === 5) ? (
+          <Badge
+            ml="1"
+            color={"white"}
+            fontWeight={600}
+            position={"absolute"}
+            top={2}
+            right={2}
+          >
+            {index + 1}
+          </Badge>
+        ) : null}
         <Flex justify="space-between" direction={"column"} textAlign={"left"}>
           <Flex align="center">
             <Flex justifyContent="center" alignItems="center" gap={5}>
@@ -149,7 +168,10 @@ export default function TradersCard(props) {
                     name: "",
                     data: props?.textvalue2?.includes("-")
                       ? [0, 0]
-                      : [parseFloat(props?.textvalue1), parseFloat(props?.textvalue2)],
+                      : [
+                          parseFloat(props?.textvalue1),
+                          parseFloat(props?.textvalue2),
+                        ],
                     color: props?.textvalue2?.includes("-")
                       ? textColorCountNegative
                       : "#28bce0",

@@ -74,7 +74,7 @@ export function SidebarResponsive(props) {
         <Icon
           as={IoMenuOutline}
           color={menuColor}
-          my="auto"
+          my="1"
           w="40px"
           h="40px"
           me="10px"

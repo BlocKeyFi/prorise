@@ -64,30 +64,36 @@ export default function SponsorShip() {
         templateColumns="repeat(4, 1fr)"
         gap={4}
       >
-        {refralHistory?.length ? (
-          <GridItem
-            colSpan={{
-              "2xl": 2,
-              xl: 2,
-              lg: 4,
-              md: 4,
-              sm: 4,
-            }}
-          >
-            <BasicCard
-              heading="Félicitations! 🎉"
-              paragraph="Vous avez parrainé 14 nouvelles personnes depuis le 3 janvier 2023."
-              price=" € 70 "
-              btnText="Réclamer"
-              button={true}
-              tabIndex={tabIndex}
-            />
-          </GridItem>
-        ) : null}
         <GridItem
           colSpan={{
-            "2xl": refralHistory?.length ? 2 : 4,
-            xl: refralHistory?.length ? 2 : 4,
+            "2xl": 2,
+            xl: 2,
+            lg: 4,
+            md: 4,
+            sm: 4,
+          }}
+        >
+          <BasicCard
+            heading={refralHistory?.length ? "Félicitations! 🎉" : null}
+            paragraph={
+              refralHistory?.length
+                ? "Vous avez parrainé 14 nouvelles personnes depuis le 3 janvier 2023."
+                : `Devenez un partenaire affilié et maximisez vos revenus ! En parrainant de nouveaux
+            membres sur notre plateforme, vous bénéficierez d&#39;une commission de 25% sur
+          chaque abonnement souscrit. Ne manquez pas cette opportunité de gagner tout en
+            aidant d&#39;autres à découvrir nos services`
+            }
+            price=" € 70 "
+            btnText="Réclamer"
+            button={refralHistory?.length ? true : false}
+            tabIndex={tabIndex}
+          />
+        </GridItem>
+
+        <GridItem
+          colSpan={{
+            "2xl": 2,
+            xl: 2,
             lg: 4,
             md: 4,
             sm: 4,

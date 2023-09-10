@@ -80,6 +80,7 @@ export default function AdminNavbar(props) {
         justifyContent={{ xl: "space-between" }}
         mb={gap}
       >
+        <SidebarResponsive routes={routes} />
         <Box mb={{ sm: "8px", md: "0px" }}>
           {/* Here we create navbar brand, based on route name */}
           <Text
@@ -110,7 +111,7 @@ export default function AdminNavbar(props) {
           </Text>
         </Box>
 
-        <Flex alignItems={"center"} ms="auto">
+        <Flex ms="auto">
           <NavLink to="/admin/setting">
             <Center
               bg={
@@ -128,7 +129,6 @@ export default function AdminNavbar(props) {
               </Avatar>
             </Center>
           </NavLink>
-          <SidebarResponsive routes={routes} />
         </Flex>
       </Flex>
 

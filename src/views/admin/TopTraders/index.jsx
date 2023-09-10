@@ -159,7 +159,7 @@ export default function Marketplace() {
           gap="20px"
           mb="20px"
         >
-          {data?.map((item) => {
+          {data?.map((item, index) => {
             return (
               <TradersCard
                 id={item?.encryptedUid}
@@ -174,6 +174,8 @@ export default function Marketplace() {
                 isCopy={item?.isCopy}
                 copyCount={item?.followerCount}
                 icon={item?.favorite}
+                index={index}
+                itemOffset={itemOffset}
               />
             );
           })}
