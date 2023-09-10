@@ -81,6 +81,10 @@ export default function DailyTraffic(props) {
 
   const mergedArray = mergedObject?.slice(1);
 
+  useEffect(() => {
+    console.log(getColorScale());
+  }, [selectedSlice]);
+
   const getColorScale = () => {
     return mergedArray?.map((_, index) =>
       index === selectedSlice ? colors[index % colors.length] : "#A0AEC0"
@@ -181,7 +185,7 @@ export default function DailyTraffic(props) {
 
                 <Box h={260} w={200} className="overflow">
                   <Flex direction={"column"} textAlign={"left"} gap={4}>
-                    {mergedArray?.map((item) => {
+                    {mergedArray?.map((item, index) => {
                       return (
                         <Flex gap={4}>
                           <Text
@@ -197,9 +201,10 @@ export default function DailyTraffic(props) {
                               middleText.includes(item?.y) ? "aqua" : "#A0AEC0"
                             }
                             cursor={"pointer"}
-                            onClick={() =>
-                              setMiddleText(item?.y + " " + item?.x + "%")
-                            }
+                            onClick={() => {
+                              setSelectedSlice(index);
+                              setMiddleText(item?.y + " " + item?.x + "%");
+                            }}
                           >
                             {item?.y}
                           </Text>
