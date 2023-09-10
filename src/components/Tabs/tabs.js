@@ -24,6 +24,7 @@ export default function GlobalTabs(props) {
                   color={"gray.200"}
                   borderRadius={8}
                   value={index}
+                  fontSize={{ xl: "16px", lg: "16px", md: "16px", sm: "12px" }}
                   onClick={() => tabIndex(index)}
                 >
                   {item.name}
