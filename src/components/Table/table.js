@@ -302,7 +302,7 @@ export default function GlobalTable(props) {
                                   ) / 100
                                 } %`) ||
                               (cell?.row?.original?.roe &&
-                                cell?.row?.original?.roe)}
+                                cell?.row?.original?.roe + " %")}
                           </Text>
                         );
                       } else if (cell.column.Header === "LEVIER") {

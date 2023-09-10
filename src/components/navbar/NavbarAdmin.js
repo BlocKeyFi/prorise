@@ -1,6 +1,8 @@
 // ProRIse Imports
 import React from "react";
 import {
+  Avatar,
+  AvatarBadge,
   Box,
   Button,
   Center,
@@ -99,11 +101,11 @@ export default function AdminNavbar(props) {
             textTransform={"capitalize"}
           >
             {brandText === "Tableau de bord"
-              ? `${username[0] ? username[0] : user?.username} 👋`
+              ? `${user && user.firstName + user.lastName} 👋`
               : brandText === "Default Brand Text"
               ? "Top Traders"
               : brandText === "userName"
-              ? `${username[0] ? username[0] : user?.username} 👋`
+              ? `${user && user.firstName + user.lastName} 👋`
               : brandText}
           </Text>
         </Box>
@@ -121,9 +123,9 @@ export default function AdminNavbar(props) {
               lineHeight="100%"
               borderRadius="16px"
             >
-              <img
-                src={require(`assets/img/dashboards/svgIcon/Frame 427319644.png`)}
-              />
+              <Avatar src={user && user?.profilePicURL}>
+                <AvatarBadge boxSize="1em" bg="green.500" />
+              </Avatar>
             </Center>
           </NavLink>
           <SidebarResponsive routes={routes} />
