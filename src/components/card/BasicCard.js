@@ -82,7 +82,7 @@ export default function BasicCard(props) {
             xl: "row",
             lg: "row",
             md: "row",
-            sm: `${tabsArray ? "column" : "row"}`,
+            sm: `${tabsArray || tabs ? "column" : "row"}`,
           }}
           justify="space-between"
           alignItems={"center"}
@@ -141,15 +141,30 @@ export default function BasicCard(props) {
             </Tabs>
           )}
           {buttonArray && (
-            <Box display={"flex"} gap={5}>
-              {buttonArray?.map((item , index) => {
-                const isTableData = index === 2 && tableData.length === 0
-                  ? true
-                  : false
+            <Box
+              display={"flex"}
+              gap={5}
+              justifyContent={{
+                "2xl": "space-between",
+                xl: "space-between",
+                lg: "space-between",
+                md: "space-between",
+                sm: "center",
+              }}
+              flexDirection={{
+                "2xl": "row",
+                xl: "row",
+                lg: "row",
+                md: "row",
+                sm: "column",
+              }}
+            >
+              {buttonArray?.map((item, index) => {
+                const isTableData =
+                  index === 2 && tableData.length === 0 ? true : false;
 
-                  const isExchangeConnection = index === 2 && !exchangeConnection
-                  ? true
-                  : false
+                const isExchangeConnection =
+                  index === 2 && !exchangeConnection ? true : false;
                 return (
                   <Button
                     isLoading={item.title === "Refresh" && isLoading}
@@ -165,7 +180,7 @@ export default function BasicCard(props) {
                     gap={2}
                     onClick={() => onButtonAction(item.title)}
                     disabled={
-                      !exchangeConnection ?  isExchangeConnection : isTableData
+                      !exchangeConnection ? isExchangeConnection : isTableData
                     }
                   >
                     <Icon as={item.icon} />
@@ -209,6 +224,12 @@ export default function BasicCard(props) {
                     color={"gray.200"}
                     borderRadius={8}
                     value={index}
+                    fontSize={{
+                      xl: "16px",
+                      lg: "16px",
+                      md: "16px",
+                      sm: "11px",
+                    }}
                     onClick={(e) => handleClick(e)}
                   >
                     {item.title}

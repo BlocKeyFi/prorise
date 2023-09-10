@@ -18,16 +18,25 @@ export default function Footer() {
   return (
     <Flex
       zIndex="3"
-      flexDirection={{
-        base: "column",
-        xl: "row",
-      }}
       alignItems={{
         base: "center",
         xl: "start",
       }}
-      justifyContent="space-between"
-      px={{ base: "30px", md: "10px" }}
+      justifyContent={{
+        "2xl": "space-between",
+        xl: "space-between",
+        lg: "space-between",
+        md: "space-between",
+        sm: "center",
+      }}
+      direction={{
+        "2xl": "row",
+        xl: "row",
+        lg: "row",
+        md: "row",
+        sm: "column",
+      }}
+      // px={{ base: "30px", md: "10px" }}
       pt="30px"
     >
       <Text
@@ -36,11 +45,10 @@ export default function Footer() {
           base: "center",
           xl: "start",
         }}
-        mb={{ base: "20px", xl: "0px" }}
+        // mb={{ base: "20px", xl: "0px" }}
       >
-        <Text as="span" fontWeight="500" ms="4px" display={'flex'} gap={3}>
-
-          Données importées à partir de <img src={binn}/>
+        <Text as="span" fontWeight="500" ms="4px" display={"flex"} gap={3}>
+          Données importées à partir de <img src={binn} />
         </Text>
       </Text>
       <List display="flex">

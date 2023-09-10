@@ -59,6 +59,7 @@ export default function AdminNavbar(props) {
       right={{ base: "12px", md: "30px", lg: "30px", xl: "26px" }}
       // pt="20px"
       top={{ base: "12px", md: "16px", xl: "28px" }}
+      px={{ xl: "0px", lg: "0px", md: "0px", sm: "15px" }}
       w={{
         base: "calc(100vw - 6%)",
         md: "calc(100vw - 8%)",
@@ -73,7 +74,7 @@ export default function AdminNavbar(props) {
           md: "row",
           lg: "row",
         }}
-        alignItems={{ xl: "center" }}
+        alignItems={"center"}
         justifyContent={{ xl: "space-between" }}
         mb={gap}
       >
@@ -85,7 +86,7 @@ export default function AdminNavbar(props) {
             bg="inherit"
             borderRadius="inherit"
             fontWeight="bold"
-            fontSize="36px"
+            fontSize={{ xl: "36px", lg: "36px", md: "36px", sm: "22px" }}
             _hover={{ color: { mainText } }}
             _active={{
               bg: "inherit",

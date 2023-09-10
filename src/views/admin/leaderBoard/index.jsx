@@ -129,7 +129,22 @@ export default function LeaderBoard() {
         onCopy={onCopy}
         leaderBoard={true}
       >
-        <Flex justifyContent={"space-between"}>
+        <Flex
+          justifyContent={{
+            "2xl": "space-between",
+            xl: "space-between",
+            lg: "space-between",
+            md: "space-between",
+            sm: "center",
+          }}
+          direction={{
+            "2xl": "row",
+            xl: "row",
+            lg: "row",
+            md: "row",
+            sm: "column",
+          }}
+        >
           <InputFeild
             w={{ xl: "268px", lg: "268px", md: "100%", sm: "100%" }}
             icon={CiSearch}
