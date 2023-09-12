@@ -286,7 +286,7 @@ export default function TotalSpent(props) {
                       pt={"2"}
                       // px={index === 0 ? 0 : 4}
                     >
-                      {`${value?.toFixed(2)} %`}
+                      {`${value?.toFixed(2)} ${index === 0 ? "%" : ''}`}
                     </Text>
                   </Flex>
                 </>

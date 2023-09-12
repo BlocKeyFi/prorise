@@ -95,8 +95,8 @@ export const columnsDataTradeHistory = [
     accessor: "leverage",
   },
   {
-    Header: "STATUS",
-    accessor: "Status",
+    Header: "PNL AMOUNT",
+    accessor: "cumEntryValue",
   },
   {
     Header: "DATE DE SORTIE",

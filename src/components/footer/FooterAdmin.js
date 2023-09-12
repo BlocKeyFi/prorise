@@ -58,13 +58,13 @@ export default function Footer() {
             md: "44px",
           }}
         >
-          <Link
+          {/* <Link
             fontWeight="500"
             color={textColor}
             href="mailto:hello@simmmple.com"
           >
             Dernière mise à jour : Il y a 10 minutes
-          </Link>
+          </Link> */}
         </ListItem>
       </List>
     </Flex>

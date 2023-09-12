@@ -82,7 +82,7 @@ export default function DailyTraffic(props) {
   const mergedArray = mergedObject?.slice(1);
 
   useEffect(() => {
-    console.log(getColorScale());
+    getColorScale();
   }, [selectedSlice]);
 
   const getColorScale = () => {
