@@ -192,7 +192,7 @@ export const userTradeHistory = [
     accessor: "leverage",
   },
   {
-    Header: "STATUS",
-    accessor: "Status",
+    Header: "PNL AMOUNT",
+    accessor: "pnl",
   },
 ];
