@@ -263,16 +263,24 @@ export default function TotalSpent(props) {
             {analyticsKeyValueArray?.map(([key, value], index) => {
               return (
                 <>
-                  <Flex direction={"column"} w="100%" align={"start"} pt={3}>
+                  <Flex
+                    direction={"column"}
+                    w="100%"
+                    align={"start"}
+                    pt={3}
+                    gap={4}
+                  >
                     <Center>
-                      <Flex direction={"row"} gap={2}>
-                        <img src={present} />
+                      <Flex direction={"row"} gap={2} alignItems={"center"}>
+                        <img src={present} width={20} />
                         <Text
                           color={"gray.200"}
-                          fontSize="14px"
+                          fontSize="16px"
                           lineHeight="100%"
                           // fontWeight="600"
-                          textTransform={"capitalize"}
+                          textTransform={
+                            index === 0 ? "uppercase" : "capitalize"
+                          }
                         >
                           {`${key}`}
                         </Text>
@@ -284,9 +292,12 @@ export default function TotalSpent(props) {
                       lineHeight="100%"
                       fontWeight="600"
                       pt={"2"}
+
                       // px={index === 0 ? 0 : 4}
                     >
-                      {`${value?.toFixed(2)} ${index === 0 ? "%" : ''}`}
+                      {`${value ? value?.toFixed(2) : 0.00} ${
+                        index === 0 ? "%" : ""
+                      }`}
                     </Text>
                   </Flex>
                 </>

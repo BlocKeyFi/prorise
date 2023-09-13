@@ -378,7 +378,7 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {parseFloat(cell.value).toFixed(2)}
+                            {"$ " + parseFloat(cell.value ?? 0).toFixed(2)}
                           </Text>
                         );
                       } else if (cell.column.Header === "STATUS") {

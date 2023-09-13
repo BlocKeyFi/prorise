@@ -52,7 +52,7 @@ export default function LeaderBoard() {
     dispatch(
       getLeaderboardsData({
         searchCriteria: {
-          period: "WEEKLY",
+          pageSize: 10,
           currentPage: itemOffset,
         },
       })
@@ -75,8 +75,8 @@ export default function LeaderBoard() {
       dispatch(
         getLeaderboardsData({
           searchCriteria: {
-            period: "WEEKLY",
             currentPage: 1,
+            pageSize: 10,
           },
         })
       );
@@ -154,7 +154,7 @@ export default function LeaderBoard() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          {data?.length === 20 && (
+          {data?.length === 10 && (
             <Flex direction={"row"} justifyContent={"right"} gap={2} py={2}>
               <Button
                 loadingText="Loading"
