@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 // ProRIse imports
 import {
+  Box,
   Button,
   Center,
   Flex,
@@ -46,6 +47,7 @@ import { authButtons } from "constants/constants";
 import { useGoogleLogin } from "@react-oauth/google";
 import { userLogin } from "store/actions";
 import zxcvbn from "zxcvbn";
+import { DashboardLogo } from "components/icons/Icons";
 
 function Register() {
   // ProRIse color mode
@@ -65,7 +67,7 @@ function Register() {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
-    fisrtName: "",
+    firstName: "",
     lastName: "",
   });
 
@@ -89,7 +91,7 @@ function Register() {
     }
   }, [login]);
 
-  const { email, password, fisrtName, lastName } = userData;
+  const { email, password, firstName, lastName } = userData;
 
   useEffect(() => {
     const result = zxcvbn(password);
@@ -112,14 +114,14 @@ function Register() {
   const refralCode = encodedString.replace("?ref=", "");
 
   const checkUser = async () => {
-    if (email && password && fisrtName && lastName && score === 4) {
+    if (email && password && firstName && lastName && score === 4) {
       let userFinalobj = {
         email,
         password,
         phoneNumber: "",
-        username: fisrtName + "-" + lastName,
+        username: firstName + "-" + lastName,
         refralCode,
-        fisrtName,
+        firstName,
         lastName,
       };
       try {
@@ -135,8 +137,10 @@ function Register() {
           toast.error(ALREADY_UESR);
         }
       }
-    }else{
-      toast.error( score === 4 ? "Password is not Strong" : "FILL ALL THE FEILDS");
+    } else {
+      toast.error(
+        score === 4 ? "Password is not Strong" : "FILL ALL THE FEILDS"
+      );
     }
   };
 
@@ -160,6 +164,9 @@ function Register() {
 
   return (
     <OnboardingAuth>
+      <Box position={"absolute"} top={2}>
+        <DashboardLogo h="60px" w="100%" />
+      </Box>
       <Flex
         maxW={{ base: "100%", md: "max-content" }}
         w="100%"
@@ -261,9 +268,9 @@ function Register() {
                 <InputFeild
                   label="Prénom"
                   w={{ xl: "260px", lg: "260px", md: "100%", sm: "100%" }}
-                  value={fisrtName}
+                  value={firstName}
                   onChange={(e) =>
-                    setUserData({ ...userData, fisrtName: e.target.value })
+                    setUserData({ ...userData, firstName: e.target.value })
                   }
                   required
                 />

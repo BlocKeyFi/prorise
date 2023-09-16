@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // ProRIse imports
-import { Box, Button, Flex, Icon, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react";
 
 // proRise Imports
 
@@ -52,8 +52,8 @@ export default function LeaderBoard() {
     dispatch(
       getLeaderboardsData({
         searchCriteria: {
-          pageSize: 10,
           currentPage: itemOffset,
+          pageSize: 20,
         },
       })
     );
@@ -75,8 +75,8 @@ export default function LeaderBoard() {
       dispatch(
         getLeaderboardsData({
           searchCriteria: {
-            currentPage: 1,
-            pageSize: 10,
+            currentPage: itemOffset,
+            pageSize: 20,
           },
         })
       );
@@ -154,7 +154,7 @@ export default function LeaderBoard() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          {data?.length === 10 && (
+          {itemOffset > 0 && (
             <Flex direction={"row"} justifyContent={"right"} gap={2} py={2}>
               <Button
                 loadingText="Loading"

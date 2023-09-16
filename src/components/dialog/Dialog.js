@@ -34,6 +34,7 @@ export default function Dialog({
   auth,
   btnText,
   success,
+  disconnect,
   balance,
 }) {
   const cancelRef = React.useRef();
@@ -134,7 +135,7 @@ export default function Dialog({
               w={"100%"}
               alignItems={"center"}
             >
-              {!connection && !auth && (
+              {!connection && !auth && !disconnect && (
                 <Flex direction={"column"} w="100%" gap={1}>
                   <Text
                     fontSize={{
@@ -180,7 +181,7 @@ export default function Dialog({
                 onClick={onSubmit}
                 disabled={success ? success : false}
               >
-                {!connection && !auth && <Icon as={BiCopy} />}
+                {!connection && !auth && !disconnect && <Icon as={BiCopy} />}
 
                 {btnText}
               </Button>

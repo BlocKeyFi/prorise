@@ -17,7 +17,7 @@ export const columnsDataActiveTrades = [
   },
   {
     Header: "ROI",
-    accessor: "unrealisedPnl",
+    accessor: "roi",
   },
   {
     Header: "LEVIER",
@@ -25,7 +25,7 @@ export const columnsDataActiveTrades = [
   },
   {
     Header: "PNL AMOUNT",
-    accessor: "cumRealisedPnl",
+    accessor: "unrealisedPnl",
   },
   {
     Header: "VOIR LE TRADER",
@@ -88,7 +88,7 @@ export const columnsDataTradeHistory = [
   },
   {
     Header: "ROI",
-    accessor: "closedPnl",
+    accessor: "roi",
   },
   {
     Header: "LEVIER",
@@ -96,7 +96,7 @@ export const columnsDataTradeHistory = [
   },
   {
     Header: "PNL AMOUNT",
-    accessor: "cumEntryValue",
+    accessor: "closedPnl",
   },
   {
     Header: "DATE DE SORTIE",
@@ -150,6 +150,10 @@ export const columnsLeaderBoard = [
   {
     Header: "ROI",
     accessor: "roi",
+  },
+  {
+    Header: "PNL",
+    accessor: "pnl",
   },
   {
     Header: "WIN RATE",

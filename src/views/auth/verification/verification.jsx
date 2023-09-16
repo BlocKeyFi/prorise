@@ -46,7 +46,7 @@ export default function Verification() {
           <img src={require("assets/img/ProRise.png")} width={200} />
         </Flex>
         <Text fontSize={"26px"} py={5} fontWeight="600">
-          Your Account is Verified
+          Votre compte est vérifié
         </Text>
 
         <Flex justifyContent={"center"}>

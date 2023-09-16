@@ -5,6 +5,9 @@ import { PRO_RISE } from "constants/apiConstants";
 import { toast } from "react-hot-toast";
 
 export const resetTraderPositions = createAction("leader/resetTraderPositions");
+export const resetLeaderboardsData = createAction(
+  "leader/resetLeaderboardsData"
+);
 export const updateUser = createAction("user/updateUserDetail");
 
 export const userLogin = createAsyncThunk(
@@ -103,10 +106,9 @@ export const disconnetExchange = createAsyncThunk(
 
 export const getLeaderboardsData = createAsyncThunk(
   "leader/getLeaderboardsData",
-  async (params, { rejectWithValue, dispatch, getState }) => {
-    // const { user } = getState();
-    // dispatch(currentlyExchangeConnected({ user: user?.login?.user?.email }));
+  async (params, { rejectWithValue, dispatch }) => {
     try {
+      dispatch(resetLeaderboardsData('resetLeaderboardsData'));
       const { data } = await apiInstance.post(
         `${PRO_RISE.getLeaderboardsData}`,
         params

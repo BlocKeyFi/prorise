@@ -161,10 +161,10 @@ export default function BasicCard(props) {
             >
               {buttonArray?.map((item, index) => {
                 const isTableData =
-                  index === 2 && tableData.length === 0 ? true : false;
+                  index === 1 && tableData.length === 0 ? true : false;
 
                 const isExchangeConnection =
-                  index === 2 && !exchangeConnection ? true : false;
+                  index === 1 && !exchangeConnection ? true : false;
                 return (
                   <Button
                     isLoading={item.title === "Refresh" && isLoading}

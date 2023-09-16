@@ -75,6 +75,7 @@ export default function SponsorShip() {
         >
           <BasicCard
             heading={refralHistory?.length ? "Félicitations! 🎉" : null}
+            h={260}
             paragraph={
               refralHistory?.length
                 ? "Vous avez parrainé 14 nouvelles personnes depuis le 3 janvier 2023."

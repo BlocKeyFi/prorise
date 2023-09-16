@@ -101,15 +101,13 @@ export default function AdminNavbar(props) {
             }}
             textTransform={"capitalize"}
           >
-            {user?.firstName || user?.lastName
-              ? brandText === "Tableau de bord"
-                ? `${user?.firstName + user?.lastName} 👋`
-                : brandText === "Default Brand Text"
-                ? "Top Traders"
-                : brandText === "userName"
-                ? `${user?.firstName + user?.lastName} 👋`
-                : brandText
-              : `${brandText} 👋`}
+            {brandText === "Tableau de bord"
+              ? `${user?.firstName ?? "" + " " + user?.lastName ?? ""} 👋`
+              : brandText === "Default Brand Text"
+              ? "Top Traders"
+              : brandText === "userName"
+              ? `${user?.firstName + " " + user?.lastName} 👋`
+              : brandText}
           </Text>
         </Box>
 

@@ -287,7 +287,7 @@ export default function TotalSpent(props) {
                       </Flex>
                     </Center>
                     <Text
-                      color={index === 0 || index === 1 ? "green.300" : "white"}
+                      color={index === 0 ? "green.300" : "white"}
                       fontSize="28px"
                       lineHeight="100%"
                       fontWeight="600"
@@ -295,7 +295,7 @@ export default function TotalSpent(props) {
 
                       // px={index === 0 ? 0 : 4}
                     >
-                      {`${value ? value?.toFixed(2) : 0.00} ${
+                      {`${value ? value?.toFixed(2) : 0.0} ${
                         index === 0 ? "%" : ""
                       }`}
                     </Text>

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { resetTraderPositions } from "store/actions";
-import { clearState } from "store/actions";
+import { resetLeaderboardsData } from "store/actions";
 import { getTraderPositions } from "store/actions";
 import { getLeaderboardsData } from "store/actions";
 
@@ -47,6 +47,9 @@ const leaderboardSlice = createSlice({
     },
     [resetTraderPositions]: (state) => {
       state.traderPositions = initialState.traderPositions;
+    },
+    [resetLeaderboardsData]: (state) => {
+      state.data = [];
     },
   },
 });

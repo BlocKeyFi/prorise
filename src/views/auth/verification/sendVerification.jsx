@@ -18,16 +18,25 @@ export default function SendVerification() {
   const textColorSecondary = "gray.400";
   return (
     <OnboardingAuth>
-      <Card w={500} py={10} textAlign={"center"}>
+      <Card
+        w={{
+          sm: "100%",
+          md: 500,
+          lg: 500,
+          xl: 500,
+        }}
+        py={10}
+        textAlign={"center"}
+      >
         <Flex justifyContent={"center"}>
           <img src={require("assets/img/ProRise.png")} width={200} />
         </Flex>
         <Text fontSize={"26px"} py={5} fontWeight="600">
-          Verify your Acount
+          Vérifiez votre compte
         </Text>
         <Text fontSize={"16px"} color={textColorSecondary}>
-          Account activation link has been sent to Your E-mail address you
-          provided
+          Le lien d'activation du compte a été envoyé à votre adresse e-mail que
+          vous avez fournie
         </Text>
         <Flex justifyContent={"center"}>
           <img src={require("assets/img/email-send.png")} width={200} />

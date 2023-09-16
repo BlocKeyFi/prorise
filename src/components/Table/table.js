@@ -76,7 +76,7 @@ export default function GlobalTable(props) {
     previousPage,
     state: { pageIndex, pageSize },
   } = tableInstance;
-  initialState.pageSize = 10;
+  initialState.pageSize = leaderBoard ? 20 : 10;
   initialState.pageIndex = 0;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
@@ -277,14 +277,13 @@ export default function GlobalTable(props) {
                         data = (
                           <Text
                             color={
-                              cell?.value <= 0 || !cell.value
-                                ? "red"
-                                : "green.300"
+                              parseFloat(cell.value) <= 0 ? "red" : "green.300"
                             }
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {(cell?.row?.original?.roi &&
+                            {parseFloat(cell.value ?? 0).toFixed(2) + "%"}
+                            {/* {(cell?.row?.original?.roi &&
                               cell?.row?.original?.roi) ||
                               (cell?.row?.original?.unrealisedPnl &&
                                 `${
@@ -304,7 +303,7 @@ export default function GlobalTable(props) {
                               (cell?.row?.original?.roe &&
                                 parseFloat(cell?.row?.original?.roe).toFixed(
                                   2
-                                ) + " %")}
+                                ) + " %")} */}
                           </Text>
                         );
                       } else if (cell.column.Header === "LEVIER") {
@@ -371,7 +370,10 @@ export default function GlobalTable(props) {
                             {cell.value}
                           </Text>
                         );
-                      } else if (cell.column.Header === "PNL AMOUNT") {
+                      } else if (
+                        cell.column.Header === "PNL AMOUNT" ||
+                        cell.column.Header === "PNL"
+                      ) {
                         data = (
                           <Text
                             color={textColor}
@@ -490,8 +492,31 @@ export default function GlobalTable(props) {
                         );
                       } else if (cell.column.Header === "VOIR LE TRADER") {
                         data = (
-                          <Center>
-                            <Button
+                          <Flex
+                            gap={2}
+                            alignItems={"center"}
+                            color={textColor}
+                            cursor={"pointer"}
+                          >
+                            {cell?.row?.original?.nickName ?? "nick-Name"}
+                            {cell?.value && (
+                              <Icon
+                                as={FiExternalLink}
+                                fontSize={{
+                                  "2xl": "20px",
+                                  xl: "16px",
+                                  lg: "16px",
+                                  md: "16px",
+                                  sm: "10px",
+                                }}
+                                onClick={() =>
+                                  history.push(
+                                    `/admin/trader-detail/${cell?.value}`
+                                  )
+                                }
+                              />
+                            )}
+                            {/* <Button
                               fontSize={{
                                 "2xl": "16px",
                                 xl: "12px",
@@ -523,8 +548,8 @@ export default function GlobalTable(props) {
                                   sm: "10px",
                                 }}
                               />
-                            </Button>
-                          </Center>
+                            </Button> */}
+                          </Flex>
                         );
                       }
                       return (

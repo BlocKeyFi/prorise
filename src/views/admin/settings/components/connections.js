@@ -37,6 +37,8 @@ export default function Connections() {
   const { login } = useSelector((state) => state.user);
   const { exchangeConnection } = useSelector((state) => state.exchange);
 
+  const [disconnect, setDisconnect] = useState("");
+
   const dispatch = useDispatch();
 
   const [exchangeData, setExchangeData] = useState({
@@ -48,6 +50,7 @@ export default function Connections() {
   });
 
   const updateExchnageData = (e) => {
+    setDisconnect("");
     onOpen();
     setExchangeData({ ...exchangeData, exchange: e.toLowerCase() });
   };
@@ -60,14 +63,18 @@ export default function Connections() {
     }, 2000);
   };
 
-  const disConnectConnection = async (e) => {
+  const openConnection = (e) => {
+    onOpen();
+    setDisconnect(e);
+  };
+  const disConnectConnection = async () => {
     dispatch(
       disconnetExchange({
-        exchange: e,
+        exchange: disconnect,
       })
     );
+    onClose();
   };
-
 
   const randerConnected = () => {
     return connetions?.map((item, index) => {
@@ -118,7 +125,7 @@ export default function Connections() {
                 }
                 onClick={() =>
                   item.title.toLowerCase() === exchangeConnection
-                    ? disConnectConnection(exchangeConnection)
+                    ? openConnection(exchangeConnection)
                     : updateExchnageData(item.title.toLowerCase())
                 }
               >
@@ -144,7 +151,7 @@ export default function Connections() {
           textAlign={"left"}
           gap={5}
         >
-          <Heading color={textColor} fontSize="16px">
+          <Heading color={textColor} fontSize="20px">
             {"Félicitations! 🎉"}
             <Text
               color={textColorSecondary}
@@ -162,14 +169,29 @@ export default function Connections() {
         <Dialog
           isOpen={isOpen}
           onClose={onClose}
-          onSubmit={onSubmit}
-          heading={`Make Connection`}
+          onSubmit={!disconnect ? onSubmit : disConnectConnection}
+          heading={disconnect ? "Disclaimer" : `Make Connection`}
           exchangeData={exchangeData}
           setExchangeData={setExchangeData}
-          connection={true}
-          btnText={"Connect"}
-        />
+          connection={!disconnect}
+          disconnect={disconnect}
+          btnText={disconnect ? "Disconnect" : "Connect"}
+        >
+          {disconnect && (
+            <Text color={"yellow"}>
+              Si vous déconnectez votre plateforme d'échange alors que les
+              transactions sont actives, vous risquez de perdre toutes vos
+              données de trading.
+            </Text>
+          )}
+        </Dialog>
       </BasicCard>
+      <Text fontSize="24px">Disclaimer</Text>
+      <Text color={"yellow"}>
+        Si vous déconnectez votre plateforme d'échange alors que les
+        transactions sont actives, vous risquez de perdre toutes vos
+        données de trading.
+      </Text>
     </Box>
   );
 }

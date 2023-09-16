@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 // ProRIse imports
 import {
+  Box,
   Button,
   Center,
   Flex,
@@ -31,6 +32,7 @@ import Dialog from "components/dialog/Dialog";
 import { useEffect } from "react";
 import { PRO_RISE } from "constants/apiConstants";
 import apiInstance from "constants/api";
+import { DashboardLogo } from "components/icons/Icons";
 
 function Login() {
   // ProRIse color mode
@@ -151,6 +153,9 @@ function Login() {
           </Flex>
         )}
       </Dialog>
+      <Box position={"absolute"} top={2}>
+        <DashboardLogo h="60px" w="100%" />
+      </Box>
       <Flex
         maxW={{ base: "100%", md: "max-content", xs: "max-content" }}
         w="100%"

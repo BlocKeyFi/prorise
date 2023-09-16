@@ -11,12 +11,7 @@ function AuthIllustration(props) {
   return (
     <Flex position="relative" h="max-content">
       <Flex
-        h={{
-          sm: "unset",
-          md: "unset",
-          lg: "100vh",
-          xl: "100vh",
-        }}
+        h={"100vh"}
         w="100%"
         // mx="auto"
         pt={{ sm: "50px", md: "0px" }}

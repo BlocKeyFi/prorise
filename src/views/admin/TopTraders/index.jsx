@@ -40,7 +40,7 @@ export default function Marketplace() {
 
   useEffect(() => {
     setAuthToken(localStorage.getItem("jwt"));
-    dispatch(resetTraderPositions());
+    dispatch(resetTraderPositions("resetTraderPositions"));
     dispatch(
       getLeaderboardsData({
         searchCriteria: {
@@ -201,7 +201,7 @@ export default function Marketplace() {
           </Text>
         </Flex>
       )}
-      {!isLoading && data?.length === 20 && (
+      {!isLoading && itemOffset > 0 && (
         <Flex direction={"row"} justifyContent={"space-between"}>
           <Button
             loadingText="Loading"
