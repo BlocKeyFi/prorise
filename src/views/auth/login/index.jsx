@@ -153,9 +153,7 @@ function Login() {
           </Flex>
         )}
       </Dialog>
-      <Box position={"absolute"} top={2}>
-        <DashboardLogo h="60px" w="100%" />
-      </Box>
+
       <Flex
         maxW={{ base: "100%", md: "max-content", xs: "max-content" }}
         w="100%"
@@ -169,6 +167,7 @@ function Login() {
         mt={{ base: "0px", md: "14vh" }}
         flexDirection="column"
       >
+        <img src={require("assets/img/ProRise.png")} />
         <Heading
           color={textColor}
           fontSize={{ xl: "36px", lg: "36px", md: "36px", sm: "26px" }}

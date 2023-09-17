@@ -11,7 +11,18 @@ function AuthIllustration(props) {
   return (
     <Flex position="relative" h="max-content">
       <Flex
-        h={"100vh"}
+        h={{
+          sm: "unset",
+          md: window.location.pathname.includes("onboarding")
+            ? "unset"
+            : "100vh",
+          lg: window.location.pathname.includes("onboarding")
+            ? "unset"
+            : "100vh",
+          xl: window.location.pathname.includes("onboarding")
+            ? "unset"
+            : "100vh",
+        }}
         w="100%"
         // mx="auto"
         pt={{ sm: "50px", md: "0px" }}

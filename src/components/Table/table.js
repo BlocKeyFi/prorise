@@ -355,7 +355,7 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {parseFloat(cell.value ?? 0).toFixed(2) + "%"}
                           </Text>
                         );
                       } else if (
@@ -493,12 +493,15 @@ export default function GlobalTable(props) {
                       } else if (cell.column.Header === "VOIR LE TRADER") {
                         data = (
                           <Flex
-                            gap={2}
+                            // gap={2}
                             alignItems={"center"}
                             color={textColor}
                             cursor={"pointer"}
+                            justifyContent={"space-between"}
                           >
-                            {cell?.row?.original?.nickName ?? "nick-Name"}
+                            {cell?.row?.original?.traderNickName
+                              ? cell?.row?.original?.traderNickName
+                              : "-"}
                             {cell?.value && (
                               <Icon
                                 as={FiExternalLink}
