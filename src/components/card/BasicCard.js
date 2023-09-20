@@ -161,7 +161,7 @@ export default function BasicCard(props) {
             >
               {buttonArray?.map((item, index) => {
                 const isTableData =
-                  index === 1 && tableData.length === 0 ? true : false;
+                  index === 1 && tableData.length === 0 && item.title !== "unFollow" ? true : false;
 
                 const isExchangeConnection =
                   index === 1 && !exchangeConnection ? true : false;

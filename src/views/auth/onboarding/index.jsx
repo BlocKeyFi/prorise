@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Center,
+  Checkbox,
   Flex,
   FormControl,
   Heading,
@@ -13,6 +14,7 @@ import {
   List,
   ListItem,
   Progress,
+  Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -63,6 +65,7 @@ function Register() {
   const [onbordTwo, setOnbordTwo] = useState(true);
   const [onbordThree, setOnbordThree] = useState(false);
   const [plans, setPlans] = useState([]);
+  const [checked, setChecked] = useState(false);
 
   const [userData, setUserData] = useState({
     email: "",
@@ -114,7 +117,7 @@ function Register() {
   const refralCode = encodedString.replace("?ref=", "");
 
   const checkUser = async () => {
-    if (email && password && firstName && lastName && score === 4) {
+    if (email && password && firstName && lastName && score === 4 && checked) {
       let userFinalobj = {
         email,
         password,
@@ -138,9 +141,13 @@ function Register() {
         }
       }
     } else {
-      toast.error(
-        score === 4 ? "Password is not Strong" : "FILL ALL THE FEILDS"
-      );
+      if (!email || !password || !firstName || !lastName || !checked) {
+        toast.error("Please fill in all required fields.");
+      } else if (score !== 4) {
+        toast.error("Password is not strong enough.");
+      } else {
+        toast.error("Unknown error occurred.");
+      }
     }
   };
 
@@ -164,7 +171,6 @@ function Register() {
 
   return (
     <OnboardingAuth>
-      
       <Flex
         maxW={{ base: "100%", md: "max-content" }}
         w="100%"
@@ -258,6 +264,7 @@ function Register() {
             me="auto"
             mb={{ base: "20px", md: "auto" }}
             textAlign={"center"}
+            gap={2}
           >
             <FormControl mb={{ base: "30px", sm: "0px" }} isRequired>
               <Flex
@@ -280,6 +287,7 @@ function Register() {
                   onChange={(e) =>
                     setUserData({ ...userData, lastName: e.target.value })
                   }
+                  required
                 />
               </Flex>
               <InputFeild
@@ -291,7 +299,16 @@ function Register() {
                   setUserData({ ...userData, email: e.target.value })
                 }
               />
-
+              <Text
+                position={"absolute"}
+                right={2}
+                fontWeight={600}
+                color={
+                  score === 4 ? "green.200" : score >= 2 ? "orange" : "red"
+                }
+              >
+                {score === 4 ? "Strong" : score >= 2 ? "Week" : null}
+              </Text>
               <InputFeild
                 label="Mot de passe"
                 type="password"
@@ -312,7 +329,16 @@ function Register() {
                   />
                 }
               />
-              {/* <p>Password Strength: {score}/4</p> */}
+              <Checkbox
+                colorScheme="gray"
+                color={textColorSecondary}
+                defaultValue={checked}
+                onChange={() => setChecked(!checked)}
+                py={2}
+                isInvalid={!checked}
+              >
+                Veuillez accepter les conditions générales pour utiliser ProRise
+              </Checkbox>
             </FormControl>
             <Button
               fontSize={{ xl: "24px", lg: "24px", md: "24px", sm: "20px" }}

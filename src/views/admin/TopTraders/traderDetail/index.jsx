@@ -72,14 +72,14 @@ export default function TraderDetails() {
       })
     );
 
-    dispatch(
-      getLeaderboardsData({
-        searchCriteria: {
-          currentPage: 1,
-          encryptedUid: id,
-        },
-      })
-    );
+    // dispatch(
+    //   getLeaderboardsData({
+    //     searchCriteria: {
+    //       currentPage: 1,
+    //       encryptedUid: id,
+    //     },
+    //   })
+    // );
   };
   const filterData = data.filter((item) => item.encryptedUid === id);
 
@@ -204,7 +204,7 @@ export default function TraderDetails() {
           tabIndex === 0
             ? traderPositions ?? []
             : tabIndex === 1
-            ? traderHistory
+            ? traderHistory ?? []
             : []
         }
         onButtonAction={onButtonAction}
@@ -221,7 +221,7 @@ export default function TraderDetails() {
       >
         {tabIndex === 2 && (
           <>
-            {traderHistory.length ? (
+            {traderHistory?.length ? (
               <Grid
                 templateRows="repeat(1, 1fr)"
                 templateColumns="repeat(3, 1fr)"
