@@ -32,4 +32,5 @@ export const PRO_RISE = {
   getWalletHistory: "user/getWalletHistory",
   uploadProfilePicture: "user/uploadProfilePicture",
   createTicket: "user/createTicket",
+  getUser: "user/getUser",
 };

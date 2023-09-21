@@ -13,6 +13,9 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 
 import { setAuthToken } from "constants/api";
+import { updateUser } from "store/actions";
+import apiInstance from "constants/api";
+import { PRO_RISE } from "constants/apiConstants";
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -23,12 +26,17 @@ export default function Dashboard(props) {
   const { auth } = useSelector((state) => state.user);
   const history = useHistory();
 
+  const dispatch = useDispatch();
+
   if (!auth) {
     history.push("/");
   }
 
   useEffect(() => {
     setAuthToken(localStorage.getItem("jwt"));
+    apiInstance.post(`${PRO_RISE.getUser}`).then((res) => {
+      dispatch(updateUser(res?.data?.user));
+    });
   }, []);
   // functions for changing the states from components
   const getRoute = () => {
