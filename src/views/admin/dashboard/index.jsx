@@ -30,7 +30,6 @@ export default function Dashboard() {
   const [performances, setPerformances] = useState([]);
 
   const dispatch = useDispatch();
-
   const fetchData = async () => {
     if (exchangeConnection) {
       setAuthToken(localStorage.getItem("jwt"));
@@ -184,6 +183,7 @@ export default function Dashboard() {
             balance={exchangeConnection ? balance ?? 0 : 0}
             walletHistory={walletHistory ?? []}
             onChange={onFilterChange}
+            exchangeConnection={exchangeConnection}
           />
         </GridItem>
         <GridItem
@@ -197,7 +197,7 @@ export default function Dashboard() {
         >
           <DailyTraffic
             pieHeight={"80%"}
-            currentPositions={currentPositions}
+            currentPositions={currentPositions ?? []}
             exchangeConnection={exchangeConnection}
             isLoading={isLoading}
             onChange={onFilterChange}

@@ -15,7 +15,7 @@ import {
 import Card from "components/card/Card.js";
 import LineChart from "components/charts/LineChart";
 import LineAreaChart from "components/charts/LineAreaChart";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import wallet from "../../../../assets/img/dashboards/svgIcon/wallet.svg";
 import present from "../../../../assets/img/dashboards/svgIcon/presentation-chart.svg";
@@ -156,6 +156,41 @@ export default function TotalSpent(props) {
   );
 
   const chartData = walletHistory ? walletHistoryData ?? [] : groupFinal ?? [];
+  const [showAnotherScreen, setShowAnotherScreen] = useState(false);
+
+  useEffect(() => {
+    if (chartData.length === 0) {
+      const timer = setTimeout(() => {
+        setShowAnotherScreen(true);
+      }, 15000);
+
+      // Clean up timer on component unmount or if conditions change
+      return () => clearTimeout(timer);
+    }
+  }, [chartData]);
+
+  const renderChart = () => {
+    if (chartData.length > 0) {
+      return (
+        <LineAreaChart
+          chartData={[
+            {
+              name: "Closed",
+              data: chartData,
+            },
+          ]}
+          chartOptions={lineChartOptionsTotalSpent}
+          height={"365px"}
+        />
+      );
+    } else if (chartData && chartData.length === 0) {
+      return (
+        <Center h={378}>
+          <Spinner size="xl" thickness="4px" speed="0.65s" />
+        </Center>
+      );
+    }
+  };
 
   return (
     <Card
@@ -321,26 +356,13 @@ export default function TotalSpent(props) {
             height="100%"
           /> */}
 
-          {exchangeConnection || traderDetail || walletHistory || data ? (
-            chartData && chartData?.length > 0 ? (
-              <LineAreaChart
-                chartData={[
-                  {
-                    name: "Closed",
-                    data: chartData,
-                  },
-                ]}
-                chartOptions={lineChartOptionsTotalSpent}
-                height={"365px"}
-              />
-            ) : chartData?.length < 0 ? (
+          {exchangeConnection ? (
+            showAnotherScreen ? (
               <Center h={378}>
                 <Text fontSize={30}>{"No Data Found"}</Text>
               </Center>
             ) : (
-              <Center h={378}>
-                <Spinner size="xl" thickness="4px" speed="0.65s" />
-              </Center>
+              renderChart()
             )
           ) : (
             <Center h={378}>
