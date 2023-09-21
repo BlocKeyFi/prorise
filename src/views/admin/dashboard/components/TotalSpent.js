@@ -356,7 +356,7 @@ export default function TotalSpent(props) {
             height="100%"
           /> */}
 
-          {exchangeConnection ? (
+          {exchangeConnection || traderDetail ? (
             showAnotherScreen ? (
               <Center h={378}>
                 <Text fontSize={30}>{"No Data Found"}</Text>
