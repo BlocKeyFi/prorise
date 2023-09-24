@@ -42,6 +42,7 @@ export default function LeaderBoard() {
           currentPage: itemOffset,
           nickName: !isAllUpperCase && search,
           encryptedUid: isAllUpperCase && search,
+          isSelected: true,
         },
       })
     );
@@ -53,6 +54,7 @@ export default function LeaderBoard() {
       getLeaderboardsData({
         searchCriteria: {
           currentPage: itemOffset,
+          isSelected: true,
           pageSize: 20,
         },
       })
@@ -76,6 +78,7 @@ export default function LeaderBoard() {
         getLeaderboardsData({
           searchCriteria: {
             currentPage: itemOffset,
+            isSelected: true,
             pageSize: 20,
           },
         })
@@ -112,6 +115,7 @@ export default function LeaderBoard() {
         searchCriteria: {
           period: "WEEKLY",
           currentPage: itemOffset,
+          isSelected: true,
         },
       })
     );

@@ -27,7 +27,7 @@ import ReactApexChart from "react-apexcharts";
 import { AiOutlineCheck } from "react-icons/ai";
 
 export default function TradersCard(props) {
-  const { index, itemOffset, ...rest } = props;
+  const { index, itemOffset, history, ...rest } = props;
 
   // ProRIse Color Mode
 
@@ -39,6 +39,24 @@ export default function TradersCard(props) {
   const daysAgo = formatDistanceToNow(new Date(props?.paragraph), {
     addSuffix: true,
   });
+
+  const finalData = history?.map((item) => ({
+    x: new Date(parseInt(item?.updateTimeStamp)),
+    y: parseFloat(item?.pnl).toFixed(0),
+  }));
+
+  const groupedData = finalData?.reduce((accumulator, item) => {
+    const date = item.x.toDateString(); // Group by date only, ignoring time
+    accumulator[date] = (accumulator[date] || 0) + parseFloat(item.y);
+    return accumulator;
+  }, {});
+
+  const groupFinal = Object?.entries(groupedData ?? {})?.map(
+    ([date, totalY]) => ({
+      x: new Date(date),
+      y: totalY?.toFixed(0),
+    })
+  );
 
   return (
     <Link to={`/admin/trader-detail/${props?.id}`}>
@@ -166,13 +184,8 @@ export default function TradersCard(props) {
                 chartData={[
                   {
                     name: "",
-                    data: props?.textvalue2?.includes("-")
-                      ? [0, 0]
-                      : [
-                          parseFloat(props?.textvalue1),
-                          parseFloat(props?.textvalue2),
-                        ],
-                    color: props?.textvalue2?.includes("-")
+                    data: finalData?.length ? finalData : [0, 0],
+                    color: props?.textvalue1?.includes("-")
                       ? textColorCountNegative
                       : "#28bce0",
                   },

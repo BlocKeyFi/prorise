@@ -114,8 +114,9 @@ export default function Dialog({
                   />
                   <InputFeild
                     label="Gestion du risque"
-                    type="number"
-                    value={capitalPercent === 0 ? "" : capitalPercent} // Value 0 ko empty string mein convert karein
+                    type="text"
+                    disabled
+                    value={capitalPercent === 0 ? "" : capitalPercent + "%"} // Value 0 ko empty string mein convert karein
                     onChange={(e) => {
                       const newValue = Number(e.target.value);
                       setCapitalPercent(isNaN(newValue) ? "" : newValue); // NaN ko empty string mein convert karein

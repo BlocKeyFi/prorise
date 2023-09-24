@@ -46,6 +46,7 @@ export default function Marketplace() {
         searchCriteria: {
           period: "WEEKLY",
           currentPage: itemOffset,
+          isSelected: true,
         },
       })
     );
@@ -57,6 +58,7 @@ export default function Marketplace() {
         searchCriteria: {
           period: "WEEKLY",
           currentPage: itemOffset,
+          isSelected: true,
         },
       })
     );
@@ -74,6 +76,7 @@ export default function Marketplace() {
           currentPage: itemOffset,
           nickName: !isAllUpperCase && search,
           encryptedUid: isAllUpperCase && search,
+          isSelected: true,
         },
       })
     );
@@ -85,6 +88,7 @@ export default function Marketplace() {
         searchCriteria: {
           currentPage: itemOffset,
           period: e,
+          isSelected: true,
         },
       })
     );
@@ -176,6 +180,7 @@ export default function Marketplace() {
                 icon={item?.favorite}
                 index={index}
                 itemOffset={itemOffset}
+                history={item?.history ?? []}
               />
             );
           })}
