@@ -27,7 +27,9 @@ export default function DevelopmentTable(props) {
   const { columnsData, tableData, tableHeading, p, bg } = props;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
-  const { exchangeConnection } = useSelector((state) => state.exchange);
+  const { exchangeConnection, isLoading } = useSelector(
+    (state) => state.exchange
+  );
 
   return (
     <Card
@@ -54,6 +56,7 @@ export default function DevelopmentTable(props) {
         tableHeading={tableHeading}
         p={p}
         copyTrade={exchangeConnection}
+        isLoading={isLoading}
         // onAction={onAction}
       />
     </Card>
