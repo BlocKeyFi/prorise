@@ -165,7 +165,7 @@ export default function GlobalTable(props) {
     return pageButtons;
   };
 
-  if (isLoading) {
+  if (!tableData.length) {
     return (
       <Center>
         <Spinner size="xl" thickness="4px" speed="0.65s" />
@@ -175,7 +175,7 @@ export default function GlobalTable(props) {
 
   return (
     <Box p={p ? p : 0}>
-      {page.length ? (
+      {page?.length ? (
         <TableContainer>
           <Table {...getTableProps()} variant="simple" color="gray.500">
             <Thead>
@@ -282,7 +282,10 @@ export default function GlobalTable(props) {
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {parseFloat(cell.value ?? 0).toFixed(2) + "%"}
+                            {cell?.row?.original?.roi
+                              ? cell?.row?.original?.roi
+                              : parseFloat(cell.value * 100 ?? 0).toFixed(2) +
+                                "%"}
                             {/* {(cell?.row?.original?.roi &&
                               cell?.row?.original?.roi) ||
                               (cell?.row?.original?.unrealisedPnl &&
@@ -361,13 +364,23 @@ export default function GlobalTable(props) {
                       } else if (
                         cell.column.Header === "EFFET DE LEVIER MOYEN"
                       ) {
+                        let totalLeverage = 0;
+
+                        cell?.value.forEach((obj) => {
+                          totalLeverage += obj.leverage;
+                        });
+
+                        const value = cell?.value?.length
+                          ? totalLeverage / cell?.value?.length
+                          : 0;
+
                         data = (
                           <Text
                             color={textColor}
                             fontSize="sm"
                             fontWeight="400"
                           >
-                            {cell.value}
+                            {value?.toFixed(2)}
                           </Text>
                         );
                       } else if (

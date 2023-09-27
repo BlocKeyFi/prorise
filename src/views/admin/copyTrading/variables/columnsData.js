@@ -141,7 +141,7 @@ export const columnsLeaderBoard = [
   },
   {
     Header: "EFFET DE LEVIER MOYEN",
-    accessor: "rank",
+    accessor: "history",
   },
   {
     Header: "DRAWDOWN (PERTE MAX)",
