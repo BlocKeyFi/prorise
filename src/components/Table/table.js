@@ -165,7 +165,7 @@ export default function GlobalTable(props) {
     return pageButtons;
   };
 
-  if (!tableData.length) {
+  if (isLoading) {
     return (
       <Center>
         <Spinner size="xl" thickness="4px" speed="0.65s" />
