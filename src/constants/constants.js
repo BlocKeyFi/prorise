@@ -17,7 +17,7 @@ export const USERNAME = "username";
 export const TARGET_ZERO = 0;
 export const TOKEN = "token";
 
-export const BASE_URL = "https://api.prorise.io/api/";
+export const BASE_URL = "https://stage-api.prorise.io/api/";
 
 export const TradersCardData = Array.from({ length: 5 }, () => ({
   name: "lucky14",
